@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="BCom2Mqtt.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="BrokerAddres" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">192.168.0.140</Value>
+    </Setting>
+    <Setting Name="CommPort" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">COM13</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

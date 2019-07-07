@@ -1,0 +1,16 @@
+C:\Users\matij\source\Workspaces\Utilities\Code\Libraries\Behrens\BCom2Mqtt\obj\Debug\BCom2Mqtt.csprojAssemblyReference.cache
+C:\Users\matij\source\Workspaces\Utilities\Code\Libraries\Behrens\BCom2Mqtt\obj\Debug\BCom2Mqtt.csproj.CoreCompileInputs.cache
+C:\Users\matij\source\Workspaces\Utilities\Code\Libraries\Behrens\BCom2Mqtt\bin\Debug\BCom2Mqtt.exe.config
+C:\Users\matij\source\Workspaces\Utilities\Code\Libraries\Behrens\BCom2Mqtt\bin\Debug\BCom2Mqtt.exe
+C:\Users\matij\source\Workspaces\Utilities\Code\Libraries\Behrens\BCom2Mqtt\bin\Debug\BCom2Mqtt.pdb
+C:\Users\matij\source\Workspaces\Utilities\Code\Libraries\Behrens\BCom2Mqtt\bin\Debug\Behrens.dll
+C:\Users\matij\source\Workspaces\Utilities\Code\Libraries\Behrens\BCom2Mqtt\bin\Debug\Toolkits.dll
+C:\Users\matij\source\Workspaces\Utilities\Code\Libraries\Behrens\BCom2Mqtt\bin\Debug\DevDefined.OAuth.dll
+C:\Users\matij\source\Workspaces\Utilities\Code\Libraries\Behrens\BCom2Mqtt\bin\Debug\Newtonsoft.Json.dll
+C:\Users\matij\source\Workspaces\Utilities\Code\Libraries\Behrens\BCom2Mqtt\bin\Debug\Behrens.pdb
+C:\Users\matij\source\Workspaces\Utilities\Code\Libraries\Behrens\BCom2Mqtt\bin\Debug\Toolkits.pdb
+C:\Users\matij\source\Workspaces\Utilities\Code\Libraries\Behrens\BCom2Mqtt\bin\Debug\DevDefined.OAuth.pdb
+C:\Users\matij\source\Workspaces\Utilities\Code\Libraries\Behrens\BCom2Mqtt\bin\Debug\Newtonsoft.Json.xml
+C:\Users\matij\source\Workspaces\Utilities\Code\Libraries\Behrens\BCom2Mqtt\obj\Debug\BCom2Mqtt.csproj.CopyComplete
+C:\Users\matij\source\Workspaces\Utilities\Code\Libraries\Behrens\BCom2Mqtt\obj\Debug\BCom2Mqtt.exe
+C:\Users\matij\source\Workspaces\Utilities\Code\Libraries\Behrens\BCom2Mqtt\obj\Debug\BCom2Mqtt.pdb

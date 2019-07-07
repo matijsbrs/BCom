@@ -1,0 +1,1017 @@
+ARM GAS  C:\Users\matij\AppData\Local\Temp\cchKZVmv.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"BCom_1_CRC16.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.crc_16,"ax",%progbits
+  20              		.align	1
+  21              		.global	crc_16
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	crc_16, %function
+  25              	crc_16:
+  26              	.LFB0:
+  27              		.file 1 "Generated_Source\\PSoC5\\BCom_1_CRC16.c"
+   1:Generated_Source\PSoC5/BCom_1_CRC16.c **** /*
+   2:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * Library: libcrc
+   3:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * File:    src/crc16.c
+   4:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * Author:  Lammert Bies
+   5:Generated_Source\PSoC5/BCom_1_CRC16.c ****  *
+   6:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * This file is licensed under the MIT License as stated below
+   7:Generated_Source\PSoC5/BCom_1_CRC16.c ****  *
+   8:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * Copyright (c) 1999-2016 Lammert Bies
+   9:Generated_Source\PSoC5/BCom_1_CRC16.c ****  *
+  10:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * Permission is hereby granted, free of charge, to any person obtaining a copy
+  11:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * of this software and associated documentation files (the "Software"), to deal
+  12:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * in the Software without restriction, including without limitation the rights
+  13:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  14:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * copies of the Software, and to permit persons to whom the Software is
+  15:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * furnished to do so, subject to the following conditions:
+  16:Generated_Source\PSoC5/BCom_1_CRC16.c ****  *
+  17:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * The above copyright notice and this permission notice shall be included in all
+  18:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * copies or substantial portions of the Software.
+  19:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * 
+  20:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  21:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  22:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  23:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  24:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  25:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  26:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * SOFTWARE.
+  27:Generated_Source\PSoC5/BCom_1_CRC16.c ****  *
+  28:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * Description
+  29:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * -----------
+  30:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * The source file src/crc16.c contains routines which calculate the common
+ARM GAS  C:\Users\matij\AppData\Local\Temp\cchKZVmv.s 			page 2
+
+
+  31:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * CRC16 cyclic redundancy check values for an incomming byte string.
+  32:Generated_Source\PSoC5/BCom_1_CRC16.c ****  */
+  33:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+  34:Generated_Source\PSoC5/BCom_1_CRC16.c **** #include <stdbool.h>
+  35:Generated_Source\PSoC5/BCom_1_CRC16.c **** #include <stdlib.h>
+  36:Generated_Source\PSoC5/BCom_1_CRC16.c **** #include "BCom_1_checksum.h"
+  37:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+  38:Generated_Source\PSoC5/BCom_1_CRC16.c **** /*
+  39:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * uint16_t crc_16( const unsigned char *input_str, size_t num_bytes );
+  40:Generated_Source\PSoC5/BCom_1_CRC16.c ****  *
+  41:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * The function crc_16() calculates the 16 bits CRC16 in one pass for a byte
+  42:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * string of which the beginning has been passed to the function. The number of
+  43:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * bytes to check is also a parameter. The number of the bytes in the string is
+  44:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * limited by the constant SIZE_MAX.
+  45:Generated_Source\PSoC5/BCom_1_CRC16.c ****  */
+  46:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+  47:Generated_Source\PSoC5/BCom_1_CRC16.c **** uint16_t crc_16( const unsigned char *input_str, size_t num_bytes ) {
+  28              		.loc 1 47 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              	.LVL0:
+  33 0000 30B5     		push	{r4, r5, lr}
+  34              		.cfi_def_cfa_offset 12
+  35              		.cfi_offset 4, -12
+  36              		.cfi_offset 5, -8
+  37              		.cfi_offset 14, -4
+  48:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+  49:Generated_Source\PSoC5/BCom_1_CRC16.c **** 	uint16_t crc;
+  50:Generated_Source\PSoC5/BCom_1_CRC16.c **** 	const unsigned char *ptr;
+  51:Generated_Source\PSoC5/BCom_1_CRC16.c **** 	size_t a;
+  52:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+  53:Generated_Source\PSoC5/BCom_1_CRC16.c **** 	crc = CRC_START_16;
+  54:Generated_Source\PSoC5/BCom_1_CRC16.c **** 	ptr = input_str;
+  55:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+  56:Generated_Source\PSoC5/BCom_1_CRC16.c **** 	if ( ptr != NULL ) for (a=0; a<num_bytes; a++) {
+  38              		.loc 1 56 0
+  39 0002 70B1     		cbz	r0, .L5
+  57:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+  58:Generated_Source\PSoC5/BCom_1_CRC16.c **** 		crc = (crc >> 8) ^ crc_tab16[ (crc ^ (uint16_t) *ptr++) & 0x00FF ];
+  40              		.loc 1 58 0
+  41 0004 084A     		ldr	r2, .L7
+  42 0006 0144     		add	r1, r1, r0
+  43              	.LVL1:
+  56:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+  44              		.loc 1 56 0
+  45 0008 0023     		movs	r3, #0
+  46              	.LVL2:
+  47              	.L3:
+  56:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+  48              		.loc 1 56 0 is_stmt 0 discriminator 2
+  49 000a 8842     		cmp	r0, r1
+  50 000c 0AD0     		beq	.L2
+  51              		.loc 1 58 0 is_stmt 1 discriminator 4
+  52 000e 10F8015B 		ldrb	r5, [r0], #1	@ zero_extendqisi2
+  53              	.LVL3:
+  54 0012 C3F30F24 		ubfx	r4, r3, #8, #16
+ARM GAS  C:\Users\matij\AppData\Local\Temp\cchKZVmv.s 			page 3
+
+
+  55              	.LVL4:
+  56 0016 6B40     		eors	r3, r3, r5
+  57              	.LVL5:
+  58 0018 DBB2     		uxtb	r3, r3
+  59 001a 32F81330 		ldrh	r3, [r2, r3, lsl #1]
+  60 001e 6340     		eors	r3, r3, r4
+  61              	.LVL6:
+  62 0020 F3E7     		b	.L3
+  63              	.LVL7:
+  64              	.L5:
+  53:Generated_Source\PSoC5/BCom_1_CRC16.c **** 	ptr = input_str;
+  65              		.loc 1 53 0
+  66 0022 0346     		mov	r3, r0
+  67              	.LVL8:
+  68              	.L2:
+  59:Generated_Source\PSoC5/BCom_1_CRC16.c **** 	}
+  60:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+  61:Generated_Source\PSoC5/BCom_1_CRC16.c **** 	return crc;
+  62:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+  63:Generated_Source\PSoC5/BCom_1_CRC16.c **** }  /* crc_16 */
+  69              		.loc 1 63 0
+  70 0024 1846     		mov	r0, r3
+  71              	.LVL9:
+  72 0026 30BD     		pop	{r4, r5, pc}
+  73              	.L8:
+  74              		.align	2
+  75              	.L7:
+  76 0028 00000000 		.word	.LANCHOR0
+  77              		.cfi_endproc
+  78              	.LFE0:
+  79              		.size	crc_16, .-crc_16
+  80              		.section	.rodata
+  81              		.align	1
+  82              		.set	.LANCHOR0,. + 0
+  83              		.type	crc_tab16, %object
+  84              		.size	crc_tab16, 512
+  85              	crc_tab16:
+  86 0000 0000     		.short	0
+  87 0002 C1C0     		.short	-16191
+  88 0004 81C1     		.short	-15999
+  89 0006 4001     		.short	320
+  90 0008 01C3     		.short	-15615
+  91 000a C003     		.short	960
+  92 000c 8002     		.short	640
+  93 000e 41C2     		.short	-15807
+  94 0010 01C6     		.short	-14847
+  95 0012 C006     		.short	1728
+  96 0014 8007     		.short	1920
+  97 0016 41C7     		.short	-14527
+  98 0018 0005     		.short	1280
+  99 001a C1C5     		.short	-14911
+ 100 001c 81C4     		.short	-15231
+ 101 001e 4004     		.short	1088
+ 102 0020 01CC     		.short	-13311
+ 103 0022 C00C     		.short	3264
+ 104 0024 800D     		.short	3456
+ 105 0026 41CD     		.short	-12991
+ARM GAS  C:\Users\matij\AppData\Local\Temp\cchKZVmv.s 			page 4
+
+
+ 106 0028 000F     		.short	3840
+ 107 002a C1CF     		.short	-12351
+ 108 002c 81CE     		.short	-12671
+ 109 002e 400E     		.short	3648
+ 110 0030 000A     		.short	2560
+ 111 0032 C1CA     		.short	-13631
+ 112 0034 81CB     		.short	-13439
+ 113 0036 400B     		.short	2880
+ 114 0038 01C9     		.short	-14079
+ 115 003a C009     		.short	2496
+ 116 003c 8008     		.short	2176
+ 117 003e 41C8     		.short	-14271
+ 118 0040 01D8     		.short	-10239
+ 119 0042 C018     		.short	6336
+ 120 0044 8019     		.short	6528
+ 121 0046 41D9     		.short	-9919
+ 122 0048 001B     		.short	6912
+ 123 004a C1DB     		.short	-9279
+ 124 004c 81DA     		.short	-9599
+ 125 004e 401A     		.short	6720
+ 126 0050 001E     		.short	7680
+ 127 0052 C1DE     		.short	-8511
+ 128 0054 81DF     		.short	-8319
+ 129 0056 401F     		.short	8000
+ 130 0058 01DD     		.short	-8959
+ 131 005a C01D     		.short	7616
+ 132 005c 801C     		.short	7296
+ 133 005e 41DC     		.short	-9151
+ 134 0060 0014     		.short	5120
+ 135 0062 C1D4     		.short	-11071
+ 136 0064 81D5     		.short	-10879
+ 137 0066 4015     		.short	5440
+ 138 0068 01D7     		.short	-10495
+ 139 006a C017     		.short	6080
+ 140 006c 8016     		.short	5760
+ 141 006e 41D6     		.short	-10687
+ 142 0070 01D2     		.short	-11775
+ 143 0072 C012     		.short	4800
+ 144 0074 8013     		.short	4992
+ 145 0076 41D3     		.short	-11455
+ 146 0078 0011     		.short	4352
+ 147 007a C1D1     		.short	-11839
+ 148 007c 81D0     		.short	-12159
+ 149 007e 4010     		.short	4160
+ 150 0080 01F0     		.short	-4095
+ 151 0082 C030     		.short	12480
+ 152 0084 8031     		.short	12672
+ 153 0086 41F1     		.short	-3775
+ 154 0088 0033     		.short	13056
+ 155 008a C1F3     		.short	-3135
+ 156 008c 81F2     		.short	-3455
+ 157 008e 4032     		.short	12864
+ 158 0090 0036     		.short	13824
+ 159 0092 C1F6     		.short	-2367
+ 160 0094 81F7     		.short	-2175
+ 161 0096 4037     		.short	14144
+ 162 0098 01F5     		.short	-2815
+ARM GAS  C:\Users\matij\AppData\Local\Temp\cchKZVmv.s 			page 5
+
+
+ 163 009a C035     		.short	13760
+ 164 009c 8034     		.short	13440
+ 165 009e 41F4     		.short	-3007
+ 166 00a0 003C     		.short	15360
+ 167 00a2 C1FC     		.short	-831
+ 168 00a4 81FD     		.short	-639
+ 169 00a6 403D     		.short	15680
+ 170 00a8 01FF     		.short	-255
+ 171 00aa C03F     		.short	16320
+ 172 00ac 803E     		.short	16000
+ 173 00ae 41FE     		.short	-447
+ 174 00b0 01FA     		.short	-1535
+ 175 00b2 C03A     		.short	15040
+ 176 00b4 803B     		.short	15232
+ 177 00b6 41FB     		.short	-1215
+ 178 00b8 0039     		.short	14592
+ 179 00ba C1F9     		.short	-1599
+ 180 00bc 81F8     		.short	-1919
+ 181 00be 4038     		.short	14400
+ 182 00c0 0028     		.short	10240
+ 183 00c2 C1E8     		.short	-5951
+ 184 00c4 81E9     		.short	-5759
+ 185 00c6 4029     		.short	10560
+ 186 00c8 01EB     		.short	-5375
+ 187 00ca C02B     		.short	11200
+ 188 00cc 802A     		.short	10880
+ 189 00ce 41EA     		.short	-5567
+ 190 00d0 01EE     		.short	-4607
+ 191 00d2 C02E     		.short	11968
+ 192 00d4 802F     		.short	12160
+ 193 00d6 41EF     		.short	-4287
+ 194 00d8 002D     		.short	11520
+ 195 00da C1ED     		.short	-4671
+ 196 00dc 81EC     		.short	-4991
+ 197 00de 402C     		.short	11328
+ 198 00e0 01E4     		.short	-7167
+ 199 00e2 C024     		.short	9408
+ 200 00e4 8025     		.short	9600
+ 201 00e6 41E5     		.short	-6847
+ 202 00e8 0027     		.short	9984
+ 203 00ea C1E7     		.short	-6207
+ 204 00ec 81E6     		.short	-6527
+ 205 00ee 4026     		.short	9792
+ 206 00f0 0022     		.short	8704
+ 207 00f2 C1E2     		.short	-7487
+ 208 00f4 81E3     		.short	-7295
+ 209 00f6 4023     		.short	9024
+ 210 00f8 01E1     		.short	-7935
+ 211 00fa C021     		.short	8640
+ 212 00fc 8020     		.short	8320
+ 213 00fe 41E0     		.short	-8127
+ 214 0100 01A0     		.short	-24575
+ 215 0102 C060     		.short	24768
+ 216 0104 8061     		.short	24960
+ 217 0106 41A1     		.short	-24255
+ 218 0108 0063     		.short	25344
+ 219 010a C1A3     		.short	-23615
+ARM GAS  C:\Users\matij\AppData\Local\Temp\cchKZVmv.s 			page 6
+
+
+ 220 010c 81A2     		.short	-23935
+ 221 010e 4062     		.short	25152
+ 222 0110 0066     		.short	26112
+ 223 0112 C1A6     		.short	-22847
+ 224 0114 81A7     		.short	-22655
+ 225 0116 4067     		.short	26432
+ 226 0118 01A5     		.short	-23295
+ 227 011a C065     		.short	26048
+ 228 011c 8064     		.short	25728
+ 229 011e 41A4     		.short	-23487
+ 230 0120 006C     		.short	27648
+ 231 0122 C1AC     		.short	-21311
+ 232 0124 81AD     		.short	-21119
+ 233 0126 406D     		.short	27968
+ 234 0128 01AF     		.short	-20735
+ 235 012a C06F     		.short	28608
+ 236 012c 806E     		.short	28288
+ 237 012e 41AE     		.short	-20927
+ 238 0130 01AA     		.short	-22015
+ 239 0132 C06A     		.short	27328
+ 240 0134 806B     		.short	27520
+ 241 0136 41AB     		.short	-21695
+ 242 0138 0069     		.short	26880
+ 243 013a C1A9     		.short	-22079
+ 244 013c 81A8     		.short	-22399
+ 245 013e 4068     		.short	26688
+ 246 0140 0078     		.short	30720
+ 247 0142 C1B8     		.short	-18239
+ 248 0144 81B9     		.short	-18047
+ 249 0146 4079     		.short	31040
+ 250 0148 01BB     		.short	-17663
+ 251 014a C07B     		.short	31680
+ 252 014c 807A     		.short	31360
+ 253 014e 41BA     		.short	-17855
+ 254 0150 01BE     		.short	-16895
+ 255 0152 C07E     		.short	32448
+ 256 0154 807F     		.short	32640
+ 257 0156 41BF     		.short	-16575
+ 258 0158 007D     		.short	32000
+ 259 015a C1BD     		.short	-16959
+ 260 015c 81BC     		.short	-17279
+ 261 015e 407C     		.short	31808
+ 262 0160 01B4     		.short	-19455
+ 263 0162 C074     		.short	29888
+ 264 0164 8075     		.short	30080
+ 265 0166 41B5     		.short	-19135
+ 266 0168 0077     		.short	30464
+ 267 016a C1B7     		.short	-18495
+ 268 016c 81B6     		.short	-18815
+ 269 016e 4076     		.short	30272
+ 270 0170 0072     		.short	29184
+ 271 0172 C1B2     		.short	-19775
+ 272 0174 81B3     		.short	-19583
+ 273 0176 4073     		.short	29504
+ 274 0178 01B1     		.short	-20223
+ 275 017a C071     		.short	29120
+ 276 017c 8070     		.short	28800
+ARM GAS  C:\Users\matij\AppData\Local\Temp\cchKZVmv.s 			page 7
+
+
+ 277 017e 41B0     		.short	-20415
+ 278 0180 0050     		.short	20480
+ 279 0182 C190     		.short	-28479
+ 280 0184 8191     		.short	-28287
+ 281 0186 4051     		.short	20800
+ 282 0188 0193     		.short	-27903
+ 283 018a C053     		.short	21440
+ 284 018c 8052     		.short	21120
+ 285 018e 4192     		.short	-28095
+ 286 0190 0196     		.short	-27135
+ 287 0192 C056     		.short	22208
+ 288 0194 8057     		.short	22400
+ 289 0196 4197     		.short	-26815
+ 290 0198 0055     		.short	21760
+ 291 019a C195     		.short	-27199
+ 292 019c 8194     		.short	-27519
+ 293 019e 4054     		.short	21568
+ 294 01a0 019C     		.short	-25599
+ 295 01a2 C05C     		.short	23744
+ 296 01a4 805D     		.short	23936
+ 297 01a6 419D     		.short	-25279
+ 298 01a8 005F     		.short	24320
+ 299 01aa C19F     		.short	-24639
+ 300 01ac 819E     		.short	-24959
+ 301 01ae 405E     		.short	24128
+ 302 01b0 005A     		.short	23040
+ 303 01b2 C19A     		.short	-25919
+ 304 01b4 819B     		.short	-25727
+ 305 01b6 405B     		.short	23360
+ 306 01b8 0199     		.short	-26367
+ 307 01ba C059     		.short	22976
+ 308 01bc 8058     		.short	22656
+ 309 01be 4198     		.short	-26559
+ 310 01c0 0188     		.short	-30719
+ 311 01c2 C048     		.short	18624
+ 312 01c4 8049     		.short	18816
+ 313 01c6 4189     		.short	-30399
+ 314 01c8 004B     		.short	19200
+ 315 01ca C18B     		.short	-29759
+ 316 01cc 818A     		.short	-30079
+ 317 01ce 404A     		.short	19008
+ 318 01d0 004E     		.short	19968
+ 319 01d2 C18E     		.short	-28991
+ 320 01d4 818F     		.short	-28799
+ 321 01d6 404F     		.short	20288
+ 322 01d8 018D     		.short	-29439
+ 323 01da C04D     		.short	19904
+ 324 01dc 804C     		.short	19584
+ 325 01de 418C     		.short	-29631
+ 326 01e0 0044     		.short	17408
+ 327 01e2 C184     		.short	-31551
+ 328 01e4 8185     		.short	-31359
+ 329 01e6 4045     		.short	17728
+ 330 01e8 0187     		.short	-30975
+ 331 01ea C047     		.short	18368
+ 332 01ec 8046     		.short	18048
+ 333 01ee 4186     		.short	-31167
+ARM GAS  C:\Users\matij\AppData\Local\Temp\cchKZVmv.s 			page 8
+
+
+ 334 01f0 0182     		.short	-32255
+ 335 01f2 C042     		.short	17088
+ 336 01f4 8043     		.short	17280
+ 337 01f6 4183     		.short	-31935
+ 338 01f8 0041     		.short	16640
+ 339 01fa C181     		.short	-32319
+ 340 01fc 8180     		.short	-32639
+ 341 01fe 4040     		.short	16448
+ 342              		.text
+ 343              	.Letext0:
+ 344              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 345              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 346              		.file 4 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 347              		.file 5 "Generated_Source\\PSoC5\\BCom_1_checksum.h"
+ 348              		.section	.debug_info,"",%progbits
+ 349              	.Ldebug_info0:
+ 350 0000 37010000 		.4byte	0x137
+ 351 0004 0400     		.2byte	0x4
+ 352 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 353 000a 04       		.byte	0x4
+ 354 000b 01       		.uleb128 0x1
+ 355 000c 0E010000 		.4byte	.LASF18
+ 356 0010 0C       		.byte	0xc
+ 357 0011 A6000000 		.4byte	.LASF19
+ 358 0015 15000000 		.4byte	.LASF20
+ 359 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 360 001d 00000000 		.4byte	0
+ 361 0021 00000000 		.4byte	.Ldebug_line0
+ 362 0025 02       		.uleb128 0x2
+ 363 0026 0E000000 		.4byte	.LASF6
+ 364 002a 02       		.byte	0x2
+ 365 002b D8       		.byte	0xd8
+ 366 002c 30000000 		.4byte	0x30
+ 367 0030 03       		.uleb128 0x3
+ 368 0031 04       		.byte	0x4
+ 369 0032 07       		.byte	0x7
+ 370 0033 D0010000 		.4byte	.LASF0
+ 371 0037 04       		.uleb128 0x4
+ 372 0038 04       		.byte	0x4
+ 373 0039 05       		.byte	0x5
+ 374 003a 696E7400 		.ascii	"int\000"
+ 375 003e 03       		.uleb128 0x3
+ 376 003f 08       		.byte	0x8
+ 377 0040 05       		.byte	0x5
+ 378 0041 00000000 		.4byte	.LASF1
+ 379 0045 03       		.uleb128 0x3
+ 380 0046 08       		.byte	0x8
+ 381 0047 04       		.byte	0x4
+ 382 0048 C4010000 		.4byte	.LASF2
+ 383 004c 03       		.uleb128 0x3
+ 384 004d 01       		.byte	0x1
+ 385 004e 06       		.byte	0x6
+ 386 004f AF010000 		.4byte	.LASF3
+ 387 0053 03       		.uleb128 0x3
+ 388 0054 01       		.byte	0x1
+ 389 0055 08       		.byte	0x8
+ 390 0056 E8000000 		.4byte	.LASF4
+ARM GAS  C:\Users\matij\AppData\Local\Temp\cchKZVmv.s 			page 9
+
+
+ 391 005a 03       		.uleb128 0x3
+ 392 005b 02       		.byte	0x2
+ 393 005c 05       		.byte	0x5
+ 394 005d 04010000 		.4byte	.LASF5
+ 395 0061 02       		.uleb128 0x2
+ 396 0062 DD000000 		.4byte	.LASF7
+ 397 0066 03       		.byte	0x3
+ 398 0067 2B       		.byte	0x2b
+ 399 0068 6C000000 		.4byte	0x6c
+ 400 006c 03       		.uleb128 0x3
+ 401 006d 02       		.byte	0x2
+ 402 006e 07       		.byte	0x7
+ 403 006f 9C010000 		.4byte	.LASF8
+ 404 0073 03       		.uleb128 0x3
+ 405 0074 04       		.byte	0x4
+ 406 0075 05       		.byte	0x5
+ 407 0076 FB000000 		.4byte	.LASF9
+ 408 007a 03       		.uleb128 0x3
+ 409 007b 04       		.byte	0x4
+ 410 007c 07       		.byte	0x7
+ 411 007d 73000000 		.4byte	.LASF10
+ 412 0081 03       		.uleb128 0x3
+ 413 0082 08       		.byte	0x8
+ 414 0083 07       		.byte	0x7
+ 415 0084 85000000 		.4byte	.LASF11
+ 416 0088 03       		.uleb128 0x3
+ 417 0089 04       		.byte	0x4
+ 418 008a 07       		.byte	0x7
+ 419 008b DD010000 		.4byte	.LASF12
+ 420 008f 03       		.uleb128 0x3
+ 421 0090 01       		.byte	0x1
+ 422 0091 08       		.byte	0x8
+ 423 0092 F6000000 		.4byte	.LASF13
+ 424 0096 02       		.uleb128 0x2
+ 425 0097 BB010000 		.4byte	.LASF14
+ 426 009b 04       		.byte	0x4
+ 427 009c 24       		.byte	0x24
+ 428 009d 61000000 		.4byte	0x61
+ 429 00a1 05       		.uleb128 0x5
+ 430 00a2 D6000000 		.4byte	.LASF21
+ 431 00a6 01       		.byte	0x1
+ 432 00a7 2F       		.byte	0x2f
+ 433 00a8 96000000 		.4byte	0x96
+ 434 00ac 00000000 		.4byte	.LFB0
+ 435 00b0 2C000000 		.4byte	.LFE0-.LFB0
+ 436 00b4 01       		.uleb128 0x1
+ 437 00b5 9C       		.byte	0x9c
+ 438 00b6 04010000 		.4byte	0x104
+ 439 00ba 06       		.uleb128 0x6
+ 440 00bb CC000000 		.4byte	.LASF15
+ 441 00bf 01       		.byte	0x1
+ 442 00c0 2F       		.byte	0x2f
+ 443 00c1 04010000 		.4byte	0x104
+ 444 00c5 00000000 		.4byte	.LLST0
+ 445 00c9 06       		.uleb128 0x6
+ 446 00ca 69000000 		.4byte	.LASF16
+ 447 00ce 01       		.byte	0x1
+ARM GAS  C:\Users\matij\AppData\Local\Temp\cchKZVmv.s 			page 10
+
+
+ 448 00cf 2F       		.byte	0x2f
+ 449 00d0 25000000 		.4byte	0x25
+ 450 00d4 3A000000 		.4byte	.LLST1
+ 451 00d8 07       		.uleb128 0x7
+ 452 00d9 63726300 		.ascii	"crc\000"
+ 453 00dd 01       		.byte	0x1
+ 454 00de 31       		.byte	0x31
+ 455 00df 96000000 		.4byte	0x96
+ 456 00e3 74000000 		.4byte	.LLST2
+ 457 00e7 07       		.uleb128 0x7
+ 458 00e8 70747200 		.ascii	"ptr\000"
+ 459 00ec 01       		.byte	0x1
+ 460 00ed 32       		.byte	0x32
+ 461 00ee 04010000 		.4byte	0x104
+ 462 00f2 B5000000 		.4byte	.LLST3
+ 463 00f6 07       		.uleb128 0x7
+ 464 00f7 6100     		.ascii	"a\000"
+ 465 00f9 01       		.byte	0x1
+ 466 00fa 33       		.byte	0x33
+ 467 00fb 25000000 		.4byte	0x25
+ 468 00ff E0000000 		.4byte	.LLST4
+ 469 0103 00       		.byte	0
+ 470 0104 08       		.uleb128 0x8
+ 471 0105 04       		.byte	0x4
+ 472 0106 0A010000 		.4byte	0x10a
+ 473 010a 09       		.uleb128 0x9
+ 474 010b 53000000 		.4byte	0x53
+ 475 010f 0A       		.uleb128 0xa
+ 476 0110 1F010000 		.4byte	0x11f
+ 477 0114 1F010000 		.4byte	0x11f
+ 478 0118 0B       		.uleb128 0xb
+ 479 0119 88000000 		.4byte	0x88
+ 480 011d FF       		.byte	0xff
+ 481 011e 00       		.byte	0
+ 482 011f 09       		.uleb128 0x9
+ 483 0120 96000000 		.4byte	0x96
+ 484 0124 0C       		.uleb128 0xc
+ 485 0125 9C000000 		.4byte	.LASF17
+ 486 0129 05       		.byte	0x5
+ 487 012a 6C       		.byte	0x6c
+ 488 012b 35010000 		.4byte	0x135
+ 489 012f 05       		.uleb128 0x5
+ 490 0130 03       		.byte	0x3
+ 491 0131 00000000 		.4byte	crc_tab16
+ 492 0135 09       		.uleb128 0x9
+ 493 0136 0F010000 		.4byte	0x10f
+ 494 013a 00       		.byte	0
+ 495              		.section	.debug_abbrev,"",%progbits
+ 496              	.Ldebug_abbrev0:
+ 497 0000 01       		.uleb128 0x1
+ 498 0001 11       		.uleb128 0x11
+ 499 0002 01       		.byte	0x1
+ 500 0003 25       		.uleb128 0x25
+ 501 0004 0E       		.uleb128 0xe
+ 502 0005 13       		.uleb128 0x13
+ 503 0006 0B       		.uleb128 0xb
+ 504 0007 03       		.uleb128 0x3
+ARM GAS  C:\Users\matij\AppData\Local\Temp\cchKZVmv.s 			page 11
+
+
+ 505 0008 0E       		.uleb128 0xe
+ 506 0009 1B       		.uleb128 0x1b
+ 507 000a 0E       		.uleb128 0xe
+ 508 000b 55       		.uleb128 0x55
+ 509 000c 17       		.uleb128 0x17
+ 510 000d 11       		.uleb128 0x11
+ 511 000e 01       		.uleb128 0x1
+ 512 000f 10       		.uleb128 0x10
+ 513 0010 17       		.uleb128 0x17
+ 514 0011 00       		.byte	0
+ 515 0012 00       		.byte	0
+ 516 0013 02       		.uleb128 0x2
+ 517 0014 16       		.uleb128 0x16
+ 518 0015 00       		.byte	0
+ 519 0016 03       		.uleb128 0x3
+ 520 0017 0E       		.uleb128 0xe
+ 521 0018 3A       		.uleb128 0x3a
+ 522 0019 0B       		.uleb128 0xb
+ 523 001a 3B       		.uleb128 0x3b
+ 524 001b 0B       		.uleb128 0xb
+ 525 001c 49       		.uleb128 0x49
+ 526 001d 13       		.uleb128 0x13
+ 527 001e 00       		.byte	0
+ 528 001f 00       		.byte	0
+ 529 0020 03       		.uleb128 0x3
+ 530 0021 24       		.uleb128 0x24
+ 531 0022 00       		.byte	0
+ 532 0023 0B       		.uleb128 0xb
+ 533 0024 0B       		.uleb128 0xb
+ 534 0025 3E       		.uleb128 0x3e
+ 535 0026 0B       		.uleb128 0xb
+ 536 0027 03       		.uleb128 0x3
+ 537 0028 0E       		.uleb128 0xe
+ 538 0029 00       		.byte	0
+ 539 002a 00       		.byte	0
+ 540 002b 04       		.uleb128 0x4
+ 541 002c 24       		.uleb128 0x24
+ 542 002d 00       		.byte	0
+ 543 002e 0B       		.uleb128 0xb
+ 544 002f 0B       		.uleb128 0xb
+ 545 0030 3E       		.uleb128 0x3e
+ 546 0031 0B       		.uleb128 0xb
+ 547 0032 03       		.uleb128 0x3
+ 548 0033 08       		.uleb128 0x8
+ 549 0034 00       		.byte	0
+ 550 0035 00       		.byte	0
+ 551 0036 05       		.uleb128 0x5
+ 552 0037 2E       		.uleb128 0x2e
+ 553 0038 01       		.byte	0x1
+ 554 0039 3F       		.uleb128 0x3f
+ 555 003a 19       		.uleb128 0x19
+ 556 003b 03       		.uleb128 0x3
+ 557 003c 0E       		.uleb128 0xe
+ 558 003d 3A       		.uleb128 0x3a
+ 559 003e 0B       		.uleb128 0xb
+ 560 003f 3B       		.uleb128 0x3b
+ 561 0040 0B       		.uleb128 0xb
+ARM GAS  C:\Users\matij\AppData\Local\Temp\cchKZVmv.s 			page 12
+
+
+ 562 0041 27       		.uleb128 0x27
+ 563 0042 19       		.uleb128 0x19
+ 564 0043 49       		.uleb128 0x49
+ 565 0044 13       		.uleb128 0x13
+ 566 0045 11       		.uleb128 0x11
+ 567 0046 01       		.uleb128 0x1
+ 568 0047 12       		.uleb128 0x12
+ 569 0048 06       		.uleb128 0x6
+ 570 0049 40       		.uleb128 0x40
+ 571 004a 18       		.uleb128 0x18
+ 572 004b 9742     		.uleb128 0x2117
+ 573 004d 19       		.uleb128 0x19
+ 574 004e 01       		.uleb128 0x1
+ 575 004f 13       		.uleb128 0x13
+ 576 0050 00       		.byte	0
+ 577 0051 00       		.byte	0
+ 578 0052 06       		.uleb128 0x6
+ 579 0053 05       		.uleb128 0x5
+ 580 0054 00       		.byte	0
+ 581 0055 03       		.uleb128 0x3
+ 582 0056 0E       		.uleb128 0xe
+ 583 0057 3A       		.uleb128 0x3a
+ 584 0058 0B       		.uleb128 0xb
+ 585 0059 3B       		.uleb128 0x3b
+ 586 005a 0B       		.uleb128 0xb
+ 587 005b 49       		.uleb128 0x49
+ 588 005c 13       		.uleb128 0x13
+ 589 005d 02       		.uleb128 0x2
+ 590 005e 17       		.uleb128 0x17
+ 591 005f 00       		.byte	0
+ 592 0060 00       		.byte	0
+ 593 0061 07       		.uleb128 0x7
+ 594 0062 34       		.uleb128 0x34
+ 595 0063 00       		.byte	0
+ 596 0064 03       		.uleb128 0x3
+ 597 0065 08       		.uleb128 0x8
+ 598 0066 3A       		.uleb128 0x3a
+ 599 0067 0B       		.uleb128 0xb
+ 600 0068 3B       		.uleb128 0x3b
+ 601 0069 0B       		.uleb128 0xb
+ 602 006a 49       		.uleb128 0x49
+ 603 006b 13       		.uleb128 0x13
+ 604 006c 02       		.uleb128 0x2
+ 605 006d 17       		.uleb128 0x17
+ 606 006e 00       		.byte	0
+ 607 006f 00       		.byte	0
+ 608 0070 08       		.uleb128 0x8
+ 609 0071 0F       		.uleb128 0xf
+ 610 0072 00       		.byte	0
+ 611 0073 0B       		.uleb128 0xb
+ 612 0074 0B       		.uleb128 0xb
+ 613 0075 49       		.uleb128 0x49
+ 614 0076 13       		.uleb128 0x13
+ 615 0077 00       		.byte	0
+ 616 0078 00       		.byte	0
+ 617 0079 09       		.uleb128 0x9
+ 618 007a 26       		.uleb128 0x26
+ARM GAS  C:\Users\matij\AppData\Local\Temp\cchKZVmv.s 			page 13
+
+
+ 619 007b 00       		.byte	0
+ 620 007c 49       		.uleb128 0x49
+ 621 007d 13       		.uleb128 0x13
+ 622 007e 00       		.byte	0
+ 623 007f 00       		.byte	0
+ 624 0080 0A       		.uleb128 0xa
+ 625 0081 01       		.uleb128 0x1
+ 626 0082 01       		.byte	0x1
+ 627 0083 49       		.uleb128 0x49
+ 628 0084 13       		.uleb128 0x13
+ 629 0085 01       		.uleb128 0x1
+ 630 0086 13       		.uleb128 0x13
+ 631 0087 00       		.byte	0
+ 632 0088 00       		.byte	0
+ 633 0089 0B       		.uleb128 0xb
+ 634 008a 21       		.uleb128 0x21
+ 635 008b 00       		.byte	0
+ 636 008c 49       		.uleb128 0x49
+ 637 008d 13       		.uleb128 0x13
+ 638 008e 2F       		.uleb128 0x2f
+ 639 008f 0B       		.uleb128 0xb
+ 640 0090 00       		.byte	0
+ 641 0091 00       		.byte	0
+ 642 0092 0C       		.uleb128 0xc
+ 643 0093 34       		.uleb128 0x34
+ 644 0094 00       		.byte	0
+ 645 0095 03       		.uleb128 0x3
+ 646 0096 0E       		.uleb128 0xe
+ 647 0097 3A       		.uleb128 0x3a
+ 648 0098 0B       		.uleb128 0xb
+ 649 0099 3B       		.uleb128 0x3b
+ 650 009a 0B       		.uleb128 0xb
+ 651 009b 49       		.uleb128 0x49
+ 652 009c 13       		.uleb128 0x13
+ 653 009d 02       		.uleb128 0x2
+ 654 009e 18       		.uleb128 0x18
+ 655 009f 00       		.byte	0
+ 656 00a0 00       		.byte	0
+ 657 00a1 00       		.byte	0
+ 658              		.section	.debug_loc,"",%progbits
+ 659              	.Ldebug_loc0:
+ 660              	.LLST0:
+ 661 0000 00000000 		.4byte	.LVL0
+ 662 0004 0A000000 		.4byte	.LVL2
+ 663 0008 0100     		.2byte	0x1
+ 664 000a 50       		.byte	0x50
+ 665 000b 0A000000 		.4byte	.LVL2
+ 666 000f 22000000 		.4byte	.LVL7
+ 667 0013 0400     		.2byte	0x4
+ 668 0015 F3       		.byte	0xf3
+ 669 0016 01       		.uleb128 0x1
+ 670 0017 50       		.byte	0x50
+ 671 0018 9F       		.byte	0x9f
+ 672 0019 22000000 		.4byte	.LVL7
+ 673 001d 24000000 		.4byte	.LVL8
+ 674 0021 0100     		.2byte	0x1
+ 675 0023 50       		.byte	0x50
+ARM GAS  C:\Users\matij\AppData\Local\Temp\cchKZVmv.s 			page 14
+
+
+ 676 0024 24000000 		.4byte	.LVL8
+ 677 0028 2C000000 		.4byte	.LFE0
+ 678 002c 0400     		.2byte	0x4
+ 679 002e F3       		.byte	0xf3
+ 680 002f 01       		.uleb128 0x1
+ 681 0030 50       		.byte	0x50
+ 682 0031 9F       		.byte	0x9f
+ 683 0032 00000000 		.4byte	0
+ 684 0036 00000000 		.4byte	0
+ 685              	.LLST1:
+ 686 003a 00000000 		.4byte	.LVL0
+ 687 003e 08000000 		.4byte	.LVL1
+ 688 0042 0100     		.2byte	0x1
+ 689 0044 51       		.byte	0x51
+ 690 0045 08000000 		.4byte	.LVL1
+ 691 0049 22000000 		.4byte	.LVL7
+ 692 004d 0400     		.2byte	0x4
+ 693 004f F3       		.byte	0xf3
+ 694 0050 01       		.uleb128 0x1
+ 695 0051 51       		.byte	0x51
+ 696 0052 9F       		.byte	0x9f
+ 697 0053 22000000 		.4byte	.LVL7
+ 698 0057 24000000 		.4byte	.LVL8
+ 699 005b 0100     		.2byte	0x1
+ 700 005d 51       		.byte	0x51
+ 701 005e 24000000 		.4byte	.LVL8
+ 702 0062 2C000000 		.4byte	.LFE0
+ 703 0066 0400     		.2byte	0x4
+ 704 0068 F3       		.byte	0xf3
+ 705 0069 01       		.uleb128 0x1
+ 706 006a 51       		.byte	0x51
+ 707 006b 9F       		.byte	0x9f
+ 708 006c 00000000 		.4byte	0
+ 709 0070 00000000 		.4byte	0
+ 710              	.LLST2:
+ 711 0074 00000000 		.4byte	.LVL0
+ 712 0078 0A000000 		.4byte	.LVL2
+ 713 007c 0200     		.2byte	0x2
+ 714 007e 30       		.byte	0x30
+ 715 007f 9F       		.byte	0x9f
+ 716 0080 0A000000 		.4byte	.LVL2
+ 717 0084 18000000 		.4byte	.LVL5
+ 718 0088 0100     		.2byte	0x1
+ 719 008a 53       		.byte	0x53
+ 720 008b 20000000 		.4byte	.LVL6
+ 721 008f 22000000 		.4byte	.LVL7
+ 722 0093 0100     		.2byte	0x1
+ 723 0095 53       		.byte	0x53
+ 724 0096 22000000 		.4byte	.LVL7
+ 725 009a 24000000 		.4byte	.LVL8
+ 726 009e 0200     		.2byte	0x2
+ 727 00a0 30       		.byte	0x30
+ 728 00a1 9F       		.byte	0x9f
+ 729 00a2 24000000 		.4byte	.LVL8
+ 730 00a6 2C000000 		.4byte	.LFE0
+ 731 00aa 0100     		.2byte	0x1
+ 732 00ac 53       		.byte	0x53
+ARM GAS  C:\Users\matij\AppData\Local\Temp\cchKZVmv.s 			page 15
+
+
+ 733 00ad 00000000 		.4byte	0
+ 734 00b1 00000000 		.4byte	0
+ 735              	.LLST3:
+ 736 00b5 00000000 		.4byte	.LVL0
+ 737 00b9 12000000 		.4byte	.LVL3
+ 738 00bd 0100     		.2byte	0x1
+ 739 00bf 50       		.byte	0x50
+ 740 00c0 12000000 		.4byte	.LVL3
+ 741 00c4 16000000 		.4byte	.LVL4
+ 742 00c8 0300     		.2byte	0x3
+ 743 00ca 70       		.byte	0x70
+ 744 00cb 7F       		.sleb128 -1
+ 745 00cc 9F       		.byte	0x9f
+ 746 00cd 22000000 		.4byte	.LVL7
+ 747 00d1 26000000 		.4byte	.LVL9
+ 748 00d5 0100     		.2byte	0x1
+ 749 00d7 50       		.byte	0x50
+ 750 00d8 00000000 		.4byte	0
+ 751 00dc 00000000 		.4byte	0
+ 752              	.LLST4:
+ 753 00e0 0A000000 		.4byte	.LVL2
+ 754 00e4 22000000 		.4byte	.LVL7
+ 755 00e8 0200     		.2byte	0x2
+ 756 00ea 30       		.byte	0x30
+ 757 00eb 9F       		.byte	0x9f
+ 758 00ec 00000000 		.4byte	0
+ 759 00f0 00000000 		.4byte	0
+ 760              		.section	.debug_aranges,"",%progbits
+ 761 0000 1C000000 		.4byte	0x1c
+ 762 0004 0200     		.2byte	0x2
+ 763 0006 00000000 		.4byte	.Ldebug_info0
+ 764 000a 04       		.byte	0x4
+ 765 000b 00       		.byte	0
+ 766 000c 0000     		.2byte	0
+ 767 000e 0000     		.2byte	0
+ 768 0010 00000000 		.4byte	.LFB0
+ 769 0014 2C000000 		.4byte	.LFE0-.LFB0
+ 770 0018 00000000 		.4byte	0
+ 771 001c 00000000 		.4byte	0
+ 772              		.section	.debug_ranges,"",%progbits
+ 773              	.Ldebug_ranges0:
+ 774 0000 00000000 		.4byte	.LFB0
+ 775 0004 2C000000 		.4byte	.LFE0
+ 776 0008 00000000 		.4byte	0
+ 777 000c 00000000 		.4byte	0
+ 778              		.section	.debug_line,"",%progbits
+ 779              	.Ldebug_line0:
+ 780 0000 FA010000 		.section	.debug_str,"MS",%progbits,1
+ 780      0200D001 
+ 780      00000201 
+ 780      FB0E0D00 
+ 780      01010101 
+ 781              	.LASF1:
+ 782 0000 6C6F6E67 		.ascii	"long long int\000"
+ 782      206C6F6E 
+ 782      6720696E 
+ 782      7400
+ARM GAS  C:\Users\matij\AppData\Local\Temp\cchKZVmv.s 			page 16
+
+
+ 783              	.LASF6:
+ 784 000e 73697A65 		.ascii	"size_t\000"
+ 784      5F7400
+ 785              	.LASF20:
+ 786 0015 433A5C55 		.ascii	"C:\\Users\\matij\\source\\Workspaces\\Embedded\\PSo"
+ 786      73657273 
+ 786      5C6D6174 
+ 786      696A5C73 
+ 786      6F757263 
+ 787 0042 435C4C69 		.ascii	"C\\Libraries\\Ontwikkeling\\BCom0.3.cydsn\000"
+ 787      62726172 
+ 787      6965735C 
+ 787      4F6E7477 
+ 787      696B6B65 
+ 788              	.LASF16:
+ 789 0069 6E756D5F 		.ascii	"num_bytes\000"
+ 789      62797465 
+ 789      7300
+ 790              	.LASF10:
+ 791 0073 6C6F6E67 		.ascii	"long unsigned int\000"
+ 791      20756E73 
+ 791      69676E65 
+ 791      6420696E 
+ 791      7400
+ 792              	.LASF11:
+ 793 0085 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 793      206C6F6E 
+ 793      6720756E 
+ 793      7369676E 
+ 793      65642069 
+ 794              	.LASF17:
+ 795 009c 6372635F 		.ascii	"crc_tab16\000"
+ 795      74616231 
+ 795      3600
+ 796              	.LASF19:
+ 797 00a6 47656E65 		.ascii	"Generated_Source\\PSoC5\\BCom_1_CRC16.c\000"
+ 797      72617465 
+ 797      645F536F 
+ 797      75726365 
+ 797      5C50536F 
+ 798              	.LASF15:
+ 799 00cc 696E7075 		.ascii	"input_str\000"
+ 799      745F7374 
+ 799      7200
+ 800              	.LASF21:
+ 801 00d6 6372635F 		.ascii	"crc_16\000"
+ 801      313600
+ 802              	.LASF7:
+ 803 00dd 5F5F7569 		.ascii	"__uint16_t\000"
+ 803      6E743136 
+ 803      5F7400
+ 804              	.LASF4:
+ 805 00e8 756E7369 		.ascii	"unsigned char\000"
+ 805      676E6564 
+ 805      20636861 
+ 805      7200
+ 806              	.LASF13:
+ARM GAS  C:\Users\matij\AppData\Local\Temp\cchKZVmv.s 			page 17
+
+
+ 807 00f6 63686172 		.ascii	"char\000"
+ 807      00
+ 808              	.LASF9:
+ 809 00fb 6C6F6E67 		.ascii	"long int\000"
+ 809      20696E74 
+ 809      00
+ 810              	.LASF5:
+ 811 0104 73686F72 		.ascii	"short int\000"
+ 811      7420696E 
+ 811      7400
+ 812              	.LASF18:
+ 813 010e 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 813      43313120 
+ 813      352E342E 
+ 813      31203230 
+ 813      31363036 
+ 814 0141 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 814      20726576 
+ 814      6973696F 
+ 814      6E203233 
+ 814      37373135 
+ 815 0174 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 815      66756E63 
+ 815      74696F6E 
+ 815      2D736563 
+ 815      74696F6E 
+ 816              	.LASF8:
+ 817 019c 73686F72 		.ascii	"short unsigned int\000"
+ 817      7420756E 
+ 817      7369676E 
+ 817      65642069 
+ 817      6E7400
+ 818              	.LASF3:
+ 819 01af 7369676E 		.ascii	"signed char\000"
+ 819      65642063 
+ 819      68617200 
+ 820              	.LASF14:
+ 821 01bb 75696E74 		.ascii	"uint16_t\000"
+ 821      31365F74 
+ 821      00
+ 822              	.LASF2:
+ 823 01c4 6C6F6E67 		.ascii	"long double\000"
+ 823      20646F75 
+ 823      626C6500 
+ 824              	.LASF0:
+ 825 01d0 756E7369 		.ascii	"unsigned int\000"
+ 825      676E6564 
+ 825      20696E74 
+ 825      00
+ 826              	.LASF12:
+ 827 01dd 73697A65 		.ascii	"sizetype\000"
+ 827      74797065 
+ 827      00
+ 828              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

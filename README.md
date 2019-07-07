@@ -12,3 +12,21 @@ Software is licenced under MIT license see : LICENSE file.
 I used software found on multiple sources.
 
 for now this is just a project for educational perposes. 
+
+The layout is simple:
+
+Microcontroller -> RS232/RS485 -> Tranciever -> USB -> RaspberryPi -> Mqtt Broker 
+^------+------^                                        ^-----------+------------^
+       | 											               |
+	   +- PSoC creator project							           +- BCom2Mqtt C# project
+		  PSoC 5 Devkit C project
+		  
+		  
+User interface -> Mqtt Broker
+^-----+------^
+      |
+	  +-> C# project`
+	  
+	  
+	  
+	  

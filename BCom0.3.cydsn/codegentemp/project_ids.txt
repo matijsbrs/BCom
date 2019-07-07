@@ -1,0 +1,43 @@
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Behrens.cylib\Behrens.cyprj|7f2e8650-ef76-4de2-bdbb-e04d3fd0fad6
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|b72c5a0e-c061-4c7c-b911-2cdc0bdc7be0
+C:\Users\matij\Documents\PSoC Creator\4.2\Downloads ( 4.2).cylib\Downloads ( 4.2).cyprj|e7ee00f4-593b-4e81-9eb6-ccb136bd5cd2
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|19a27aa2-3dc1-4a87-b9e3-d127b2dead0f
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|e6f2d133-ef6d-4332-b7d5-b9b11c16c164
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|7b916875-d42a-4385-98d5-5728f8b1efe5
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Examples\StripLights.cydsn\StripLights.cyprj|a5b96072-d545-416b-98c9-6f30356f81e5
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Examples\UART_Full_Duplex01.cydsn\UART_Full_Duplex01.cyprj|6aeec340-789a-46b4-a17d-633adc261263
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Ontwikkeling\TempSensor.cydsn\TempSensor.cyprj|d3002459-c148-4d7a-8df8-69432603458e
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Examples\SimpelPeripheralProtocol.cydsn\SimpelPeripheralProtocol.cyprj|9006be51-9098-4bb1-83d8-5750ff116c16
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Examples\PSoC5LP_SleepMode_RTC.cydsn\PSoC5LP_SleepMode_RTC.cyprj|7288df11-3333-4432-ab47-96ba7ef30f0b
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Examples\PSoC4_NVRAM_SPI\PSoC4_NVRAM_SPI.cydsn\PSoC4_NVRAM_SPI.cyprj|115c9324-cd64-432c-90e5-b21563d5b662
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\default\CyReferenceLibrary\CyReferenceLibrary.cylib\CyReferenceLibrary.cyprj|b4d2cc2b-6f9b-464a-bdfa-38ff14a94917
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Examples\PIR_Test.cydsn\PIR_Test.cyprj|33c35fce-2dc5-4196-8d37-b602b8f3e418
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Examples\IR_Receiver.cydsn\IR_Receiver.cyprj|bcf07aac-df49-4186-bd4a-102af0c7a785
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Examples\DevicePrintExample_v1.cydsn\DevicePrintExample_v1.cyprj|e5cc86b0-b33a-42e2-8f16-3dc1403a17a5
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Ontwikkeling\Smallest_Controller.cydsn\Smallest_Controller.cyprj|4da8c200-d67e-45a6-944c-fcf37702ce7d
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Producten\SmallLedControler.cydsn\SmallLedControler.cyprj|0f268d1e-208a-4e8e-b466-1efa957c2d46
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Ontwikkeling\BCom.cydsn\BCom.cyprj|b4f1f0b9-346f-4a76-aae3-e6a08e2c2e75
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Ontwikkeling\LCD_Keyboard_Interface.cydsn\LCD_Keyboard_Interface.cyprj|eed40913-2617-47f7-acb3-539b90c282dd
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Ontwikkeling\BCom0.2.cydsn\BCom0.2.cyprj|cbe844fe-0e79-40bd-93e5-c961c51bf771
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Examples\DaliMasterDemo.cydsn\DaliMasterDemo.cyprj|6d22d710-d7a2-47e9-8f64-f077160014a3
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Ontwikkeling\Kerstboom2015.cydsn\Kerstboom2015.cyprj|98cadcd6-47d9-4ac6-8955-12f6f59a121a
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Ontwikkeling\LedController.cydsn\LedController.cyprj|1e78b74f-f4c4-4266-8693-271834580929
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Ontwikkeling\Timers.cydsn\Timers.cyprj|377d82af-1d1d-4c0c-bcf0-6a5acc5dfbb7
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Ontwikkeling\USB_UART.cydsn\USB_UART.cyprj|3017597b-3681-4fe7-896d-073614ae3f5b
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Ontwikkeling\WDT_DeepSleep_Test.cydsn\WDT_DeepSleep_Test.cyprj|35d4aee9-5f5f-4e2f-bf5d-80371db5005b
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Ontwikkeling\ComProtocol_v1.cydsn\ComProtocol_v1.cyprj|e5affcc7-884c-4959-91a9-f105201d7199
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Ontwikkeling\ServoController.cydsn\ServoController.cyprj|05ac61d9-0c1b-4836-bdc9-daa4330f5f1d
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Ontwikkeling\LM35_Scanner.cydsn\LM35_Scanner.cyprj|56079272-dc46-474d-8225-b6c81a8241e6
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Producten\LightController 2018.cydsn\LightController 2018.cyprj|bd16d29f-82e4-4e6a-b607-8a4e2b48bdf3
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Producten\E-CV.cydsn\E-CV.cyprj|5e25b9e0-acb4-4dd8-9209-91480a887f4b
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Ontwikkeling\BCom0.3.cydsn\BCom0.3.cyprj|6d05c580-ec9f-43d3-824d-b44fc3bb8656
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Ontwikkeling\SysteemKastController.cydsn\SysteemKastController.cyprj|105a0ccd-a545-40dd-aeb2-c2dd91a553f5
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Producten\Kerstboom 2018.cydsn\Kerstboom 2018.cyprj|a262609a-c386-4caa-a1fb-d637bdfd5bf7
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Examples\Apendorp.cydsn\Apendorp.cyprj|ff108853-4508-4f94-9748-9279d3aa55bc
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Ontwikkeling\Schedular\Schedular\Schedular_ARM_M3_V1.cydsn\Schedular_ARM_M3_V1.cyprj|f2101d0a-bca6-486a-a6d0-599838ffebc8
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Ontwikkeling\Schedular\Schedular\Schedular_ARM_M3_V2.cydsn\Schedular_ARM_M3_V2.cyprj|593b4263-ec85-4295-8062-875e61025beb
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Ontwikkeling\Schedular\Schedular\Yeti400 Controller.cydsn\Yeti400 Controller.cyprj|56ee3f0e-4e92-47dc-aa28-f852cd460c6f
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Ontwikkeling\Schedular\Schedular\Schedular_ARM_M3_V2.1.cydsn\Schedular_ARM_M3_V2.1.cyprj|5880b508-18f9-4596-ba09-81db9a569395
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Schuur\ThermostaatKlikExtender.cydsn\ThermostaatKlikExtender.cyprj|9c114a65-58b9-4c6b-b518-9dcec021c745
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Producten\HVAC_Controller_v1.cydsn\HVAC_Controller_v1.cyprj|8eb4beae-fd11-41a6-bcc1-7d3c12ed8176
+C:\Users\matij\source\Workspaces\Embedded\PSoC\Libraries\Ontwikkeling\BCom_PSoC4_0.1.cydsn\BCom_PSoC4_0.1.cyprj|4d414ac2-344a-4406-afe4-34f2c78c32db

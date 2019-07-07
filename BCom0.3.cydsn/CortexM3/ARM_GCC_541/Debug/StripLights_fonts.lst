@@ -1,0 +1,3249 @@
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"StripLights_fonts.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.StripLights_SetFont,"ax",%progbits
+  20              		.align	2
+  21              		.global	StripLights_SetFont
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	StripLights_SetFont, %function
+  25              	StripLights_SetFont:
+  26              	.LFB64:
+  27              		.file 1 "Generated_Source\\PSoC5\\StripLights_fonts.c"
+   1:Generated_Source\PSoC5/StripLights_fonts.c **** /* ========================================
+   2:Generated_Source\PSoC5/StripLights_fonts.c ****  *
+   3:Generated_Source\PSoC5/StripLights_fonts.c ****  * Copyright YOUR COMPANY, THE YEAR
+   4:Generated_Source\PSoC5/StripLights_fonts.c ****  * All Rights Reserved
+   5:Generated_Source\PSoC5/StripLights_fonts.c ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:Generated_Source\PSoC5/StripLights_fonts.c ****  *
+   7:Generated_Source\PSoC5/StripLights_fonts.c ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:Generated_Source\PSoC5/StripLights_fonts.c ****  * WHICH IS THE PROPERTY OF your company.
+   9:Generated_Source\PSoC5/StripLights_fonts.c ****  *
+  10:Generated_Source\PSoC5/StripLights_fonts.c ****  * ========================================
+  11:Generated_Source\PSoC5/StripLights_fonts.c **** */
+  12:Generated_Source\PSoC5/StripLights_fonts.c **** #include <project.h>
+  13:Generated_Source\PSoC5/StripLights_fonts.c **** #include "cytypes.h"
+  14:Generated_Source\PSoC5/StripLights_fonts.c **** #include "stdlib.h"
+  15:Generated_Source\PSoC5/StripLights_fonts.c **** #include "cyfitter.h"
+  16:Generated_Source\PSoC5/StripLights_fonts.c **** #include "StripLights.h"
+  17:Generated_Source\PSoC5/StripLights_fonts.c **** #include "StripLights_fonts.h"
+  18:Generated_Source\PSoC5/StripLights_fonts.c **** 
+  19:Generated_Source\PSoC5/StripLights_fonts.c **** uint8 const * StripLights_fontPtr;
+  20:Generated_Source\PSoC5/StripLights_fonts.c **** int32 StripLights_fontX;
+  21:Generated_Source\PSoC5/StripLights_fonts.c **** int32 StripLights_fontY;
+  22:Generated_Source\PSoC5/StripLights_fonts.c **** int32 StripLights_fontOffset;
+  23:Generated_Source\PSoC5/StripLights_fonts.c **** 
+  24:Generated_Source\PSoC5/StripLights_fonts.c **** 
+  25:Generated_Source\PSoC5/StripLights_fonts.c **** // standard ascii 5x7 font
+  26:Generated_Source\PSoC5/StripLights_fonts.c **** // defines ascii characters 0x20-0x7F (32-127)
+  27:Generated_Source\PSoC5/StripLights_fonts.c **** const uint8 StripLights_Font5x7[] = {
+  28:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x00, 0x00, 0x00, 0x00, 0x00,// (space)
+  29:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x00, 0x00, 0x5F, 0x00, 0x00,// !
+  30:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x00, 0x07, 0x00, 0x07, 0x00,// "
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 2
+
+
+  31:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x14, 0x7F, 0x14, 0x7F, 0x14,// #
+  32:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x24, 0x2A, 0x7F, 0x2A, 0x12,// $
+  33:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x23, 0x13, 0x08, 0x64, 0x62,// %
+  34:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x36, 0x49, 0x55, 0x22, 0x50,// &
+  35:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x00, 0x05, 0x03, 0x00, 0x00,// '
+  36:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x00, 0x1C, 0x22, 0x41, 0x00,// (
+  37:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x00, 0x41, 0x22, 0x1C, 0x00,// )
+  38:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x08, 0x2A, 0x1C, 0x2A, 0x08,// *
+  39:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x08, 0x08, 0x3E, 0x08, 0x08,// +
+  40:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x00, 0x50, 0x30, 0x00, 0x00,// ,
+  41:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x08, 0x08, 0x08, 0x08, 0x08,// -
+  42:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x00, 0x60, 0x60, 0x00, 0x00,// .
+  43:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x20, 0x10, 0x08, 0x04, 0x02,// /
+  44:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x3E, 0x51, 0x49, 0x45, 0x3E,// 0
+  45:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x00, 0x42, 0x7F, 0x40, 0x00,// 1
+  46:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x42, 0x61, 0x51, 0x49, 0x46,// 2
+  47:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x21, 0x41, 0x45, 0x4B, 0x31,// 3
+  48:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x18, 0x14, 0x12, 0x7F, 0x10,// 4
+  49:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x27, 0x45, 0x45, 0x45, 0x39,// 5
+  50:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x3C, 0x4A, 0x49, 0x49, 0x30,// 6
+  51:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x01, 0x71, 0x09, 0x05, 0x03,// 7
+  52:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x36, 0x49, 0x49, 0x49, 0x36,// 8
+  53:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x06, 0x49, 0x49, 0x29, 0x1E,// 9
+  54:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x00, 0x36, 0x36, 0x00, 0x00,// :
+  55:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x00, 0x56, 0x36, 0x00, 0x00,// ;
+  56:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x00, 0x08, 0x14, 0x22, 0x41,// <
+  57:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x14, 0x14, 0x14, 0x14, 0x14,// =
+  58:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x41, 0x22, 0x14, 0x08, 0x00,// >
+  59:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x02, 0x01, 0x51, 0x09, 0x06,// ?
+  60:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x32, 0x49, 0x79, 0x41, 0x3E,// @
+  61:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x7E, 0x11, 0x11, 0x11, 0x7E,// A
+  62:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x7F, 0x49, 0x49, 0x49, 0x36,// B
+  63:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x3E, 0x41, 0x41, 0x41, 0x22,// C
+  64:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x7F, 0x41, 0x41, 0x22, 0x1C,// D
+  65:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x7F, 0x49, 0x49, 0x49, 0x41,// E
+  66:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x7F, 0x09, 0x09, 0x01, 0x01,// F
+  67:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x3E, 0x41, 0x41, 0x51, 0x32,// G
+  68:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x7F, 0x08, 0x08, 0x08, 0x7F,// H
+  69:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x00, 0x41, 0x7F, 0x41, 0x00,// I
+  70:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x20, 0x40, 0x41, 0x3F, 0x01,// J
+  71:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x7F, 0x08, 0x14, 0x22, 0x41,// K
+  72:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x7F, 0x40, 0x40, 0x40, 0x40,// L
+  73:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x7F, 0x02, 0x04, 0x02, 0x7F,// M
+  74:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x7F, 0x04, 0x08, 0x10, 0x7F,// N
+  75:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x3E, 0x41, 0x41, 0x41, 0x3E,// O
+  76:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x7F, 0x09, 0x09, 0x09, 0x06,// P
+  77:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x3E, 0x41, 0x51, 0x21, 0x5E,// Q
+  78:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x7F, 0x09, 0x19, 0x29, 0x46,// R
+  79:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x46, 0x49, 0x49, 0x49, 0x31,// S
+  80:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x01, 0x01, 0x7F, 0x01, 0x01,// T
+  81:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x3F, 0x40, 0x40, 0x40, 0x3F,// U
+  82:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x1F, 0x20, 0x40, 0x20, 0x1F,// V
+  83:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x7F, 0x20, 0x18, 0x20, 0x7F,// W
+  84:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x63, 0x14, 0x08, 0x14, 0x63,// X
+  85:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x03, 0x04, 0x78, 0x04, 0x03,// Y
+  86:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x61, 0x51, 0x49, 0x45, 0x43,// Z
+  87:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x00, 0x00, 0x7F, 0x41, 0x41,// [
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 3
+
+
+  88:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x02, 0x04, 0x08, 0x10, 0x20,// "\"
+  89:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x41, 0x41, 0x7F, 0x00, 0x00,// ]
+  90:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x04, 0x02, 0x01, 0x02, 0x04,// ^
+  91:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x40, 0x40, 0x40, 0x40, 0x40,// _
+  92:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x00, 0x01, 0x02, 0x04, 0x00,// `
+  93:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x20, 0x54, 0x54, 0x54, 0x78,// a
+  94:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x7F, 0x48, 0x44, 0x44, 0x38,// b
+  95:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x38, 0x44, 0x44, 0x44, 0x20,// c
+  96:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x38, 0x44, 0x44, 0x48, 0x7F,// d
+  97:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x38, 0x54, 0x54, 0x54, 0x18,// e
+  98:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x08, 0x7E, 0x09, 0x01, 0x02,// f
+  99:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x08, 0x14, 0x54, 0x54, 0x3C,// g
+ 100:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x7F, 0x08, 0x04, 0x04, 0x78,// h
+ 101:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x00, 0x44, 0x7D, 0x40, 0x00,// i
+ 102:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x20, 0x40, 0x44, 0x3D, 0x00,// j
+ 103:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x00, 0x7F, 0x10, 0x28, 0x44,// k
+ 104:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x00, 0x41, 0x7F, 0x40, 0x00,// l
+ 105:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x7C, 0x04, 0x18, 0x04, 0x78,// m
+ 106:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x7C, 0x08, 0x04, 0x04, 0x78,// n
+ 107:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x38, 0x44, 0x44, 0x44, 0x38,// o
+ 108:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x7C, 0x14, 0x14, 0x14, 0x08,// p
+ 109:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x08, 0x14, 0x14, 0x18, 0x7C,// q
+ 110:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x7C, 0x08, 0x04, 0x04, 0x08,// r
+ 111:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x48, 0x54, 0x54, 0x54, 0x20,// s
+ 112:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x04, 0x3F, 0x44, 0x40, 0x20,// t
+ 113:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x3C, 0x40, 0x40, 0x20, 0x7C,// u
+ 114:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x1C, 0x20, 0x40, 0x20, 0x1C,// v
+ 115:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x3C, 0x40, 0x30, 0x40, 0x3C,// w
+ 116:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x44, 0x28, 0x10, 0x28, 0x44,// x
+ 117:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x0C, 0x50, 0x50, 0x50, 0x3C,// y
+ 118:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x44, 0x64, 0x54, 0x4C, 0x44,// z
+ 119:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x00, 0x08, 0x36, 0x41, 0x00,// {
+ 120:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x00, 0x00, 0x7F, 0x00, 0x00,// |
+ 121:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x00, 0x41, 0x36, 0x08, 0x00,// }
+ 122:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x08, 0x08, 0x2A, 0x1C, 0x08,// ->
+ 123:Generated_Source\PSoC5/StripLights_fonts.c **** 	0x08, 0x1C, 0x2A, 0x08, 0x08 // <-
+ 124:Generated_Source\PSoC5/StripLights_fonts.c **** };
+ 125:Generated_Source\PSoC5/StripLights_fonts.c **** 
+ 126:Generated_Source\PSoC5/StripLights_fonts.c **** 
+ 127:Generated_Source\PSoC5/StripLights_fonts.c **** /*******************************************************************************
+ 128:Generated_Source\PSoC5/StripLights_fonts.c **** * Function Name: StripLights_SetFont
+ 129:Generated_Source\PSoC5/StripLights_fonts.c **** ********************************************************************************
+ 130:Generated_Source\PSoC5/StripLights_fonts.c **** * Summary:
+ 131:Generated_Source\PSoC5/StripLights_fonts.c **** *   Set the specific font.  (Only one font supported at this time.)
+ 132:Generated_Source\PSoC5/StripLights_fonts.c **** *
+ 133:Generated_Source\PSoC5/StripLights_fonts.c **** * Parameters:  
+ 134:Generated_Source\PSoC5/StripLights_fonts.c **** *  uint32 font: Font to be selected 
+ 135:Generated_Source\PSoC5/StripLights_fonts.c **** *
+ 136:Generated_Source\PSoC5/StripLights_fonts.c **** * Return: 
+ 137:Generated_Source\PSoC5/StripLights_fonts.c **** *  void
+ 138:Generated_Source\PSoC5/StripLights_fonts.c **** *
+ 139:Generated_Source\PSoC5/StripLights_fonts.c **** *******************************************************************************/
+ 140:Generated_Source\PSoC5/StripLights_fonts.c **** void StripLights_SetFont( uint32 font)
+ 141:Generated_Source\PSoC5/StripLights_fonts.c **** {
+  28              		.loc 1 141 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 4
+
+
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33              	.LVL0:
+ 142:Generated_Source\PSoC5/StripLights_fonts.c ****     switch(font)
+  34              		.loc 1 142 0
+  35 0000 60B9     		cbnz	r0, .L5
+ 143:Generated_Source\PSoC5/StripLights_fonts.c ****     {
+ 144:Generated_Source\PSoC5/StripLights_fonts.c ****        case StripLights_FONT_5X7:
+ 145:Generated_Source\PSoC5/StripLights_fonts.c ****            StripLights_fontPtr = StripLights_Font5x7;
+  36              		.loc 1 145 0
+  37 0002 0D4A     		ldr	r2, .L6
+  38 0004 0D4B     		ldr	r3, .L6+4
+  39 0006 1A60     		str	r2, [r3]
+ 146:Generated_Source\PSoC5/StripLights_fonts.c ****            StripLights_fontX = StripLights_Font5x7_XSIZE;
+  40              		.loc 1 146 0
+  41 0008 0522     		movs	r2, #5
+  42 000a 0D4B     		ldr	r3, .L6+8
+  43 000c 1A60     		str	r2, [r3]
+ 147:Generated_Source\PSoC5/StripLights_fonts.c ****            StripLights_fontY = StripLights_Font5x7_YSIZE;
+  44              		.loc 1 147 0
+  45 000e 0722     		movs	r2, #7
+  46 0010 0C4B     		ldr	r3, .L6+12
+  47 0012 1A60     		str	r2, [r3]
+ 148:Generated_Source\PSoC5/StripLights_fonts.c ****            StripLights_fontOffset = StripLights_Font5x7_OFFSET;
+  48              		.loc 1 148 0
+  49 0014 2022     		movs	r2, #32
+  50 0016 0C4B     		ldr	r3, .L6+16
+  51 0018 1A60     		str	r2, [r3]
+ 149:Generated_Source\PSoC5/StripLights_fonts.c ****            break;
+  52              		.loc 1 149 0
+  53 001a 7047     		bx	lr
+  54              	.L5:
+ 150:Generated_Source\PSoC5/StripLights_fonts.c ****            
+ 151:Generated_Source\PSoC5/StripLights_fonts.c ****        default:
+ 152:Generated_Source\PSoC5/StripLights_fonts.c ****            StripLights_fontPtr = StripLights_Font5x7;
+  55              		.loc 1 152 0
+  56 001c 064A     		ldr	r2, .L6
+  57 001e 074B     		ldr	r3, .L6+4
+  58 0020 1A60     		str	r2, [r3]
+ 153:Generated_Source\PSoC5/StripLights_fonts.c ****            StripLights_fontX = StripLights_Font5x7_XSIZE;
+  59              		.loc 1 153 0
+  60 0022 0522     		movs	r2, #5
+  61 0024 064B     		ldr	r3, .L6+8
+  62 0026 1A60     		str	r2, [r3]
+ 154:Generated_Source\PSoC5/StripLights_fonts.c ****            StripLights_fontY = StripLights_Font5x7_YSIZE;
+  63              		.loc 1 154 0
+  64 0028 0722     		movs	r2, #7
+  65 002a 064B     		ldr	r3, .L6+12
+  66 002c 1A60     		str	r2, [r3]
+ 155:Generated_Source\PSoC5/StripLights_fonts.c ****            StripLights_fontOffset = StripLights_Font5x7_OFFSET;
+  67              		.loc 1 155 0
+  68 002e 2022     		movs	r2, #32
+  69 0030 054B     		ldr	r3, .L6+16
+  70 0032 1A60     		str	r2, [r3]
+  71 0034 7047     		bx	lr
+  72              	.L7:
+  73 0036 00BF     		.align	2
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 5
+
+
+  74              	.L6:
+  75 0038 00000000 		.word	.LANCHOR0
+  76 003c 00000000 		.word	StripLights_fontPtr
+  77 0040 00000000 		.word	StripLights_fontX
+  78 0044 00000000 		.word	StripLights_fontY
+  79 0048 00000000 		.word	StripLights_fontOffset
+  80              		.cfi_endproc
+  81              	.LFE64:
+  82              		.size	StripLights_SetFont, .-StripLights_SetFont
+  83              		.section	.text.StripLights_PutChar,"ax",%progbits
+  84              		.align	2
+  85              		.global	StripLights_PutChar
+  86              		.thumb
+  87              		.thumb_func
+  88              		.type	StripLights_PutChar, %function
+  89              	StripLights_PutChar:
+  90              	.LFB66:
+ 156:Generated_Source\PSoC5/StripLights_fonts.c ****            break;
+ 157:Generated_Source\PSoC5/StripLights_fonts.c ****     }
+ 158:Generated_Source\PSoC5/StripLights_fonts.c **** }
+ 159:Generated_Source\PSoC5/StripLights_fonts.c **** 
+ 160:Generated_Source\PSoC5/StripLights_fonts.c **** 
+ 161:Generated_Source\PSoC5/StripLights_fonts.c **** /*******************************************************************************
+ 162:Generated_Source\PSoC5/StripLights_fonts.c **** * Function Name: StripLights_PrintString
+ 163:Generated_Source\PSoC5/StripLights_fonts.c **** ********************************************************************************
+ 164:Generated_Source\PSoC5/StripLights_fonts.c **** * Summary:
+ 165:Generated_Source\PSoC5/StripLights_fonts.c **** *   Print string at the given location.
+ 166:Generated_Source\PSoC5/StripLights_fonts.c **** *
+ 167:Generated_Source\PSoC5/StripLights_fonts.c **** * Parameters:  
+ 168:Generated_Source\PSoC5/StripLights_fonts.c **** *  uint32 xpos: X location at which to start string.
+ 169:Generated_Source\PSoC5/StripLights_fonts.c **** *  uint32 ypos: Upper Y location to place string.
+ 170:Generated_Source\PSoC5/StripLights_fonts.c **** *  char * theString:  The string to print.
+ 171:Generated_Source\PSoC5/StripLights_fonts.c **** *  uint32 fg: The forground fount color.
+ 172:Generated_Source\PSoC5/StripLights_fonts.c **** *  uint32 bg: Background color
+ 173:Generated_Source\PSoC5/StripLights_fonts.c **** *
+ 174:Generated_Source\PSoC5/StripLights_fonts.c **** * Return: 
+ 175:Generated_Source\PSoC5/StripLights_fonts.c **** *  void
+ 176:Generated_Source\PSoC5/StripLights_fonts.c **** *
+ 177:Generated_Source\PSoC5/StripLights_fonts.c **** *******************************************************************************/
+ 178:Generated_Source\PSoC5/StripLights_fonts.c **** void StripLights_PrintString(int32 xpos, int32 ypos, char * theString, uint32 fg, uint32 bg)
+ 179:Generated_Source\PSoC5/StripLights_fonts.c **** {
+ 180:Generated_Source\PSoC5/StripLights_fonts.c ****     uint32 strPos = 0;
+ 181:Generated_Source\PSoC5/StripLights_fonts.c ****     uint32 yStop;
+ 182:Generated_Source\PSoC5/StripLights_fonts.c ****     
+ 183:Generated_Source\PSoC5/StripLights_fonts.c ****     yStop = ypos + StripLights_fontY;
+ 184:Generated_Source\PSoC5/StripLights_fonts.c ****     if(yStop > StripLights_MAX_Y) yStop = StripLights_MAX_Y;
+ 185:Generated_Source\PSoC5/StripLights_fonts.c ****     
+ 186:Generated_Source\PSoC5/StripLights_fonts.c ****     while(theString[strPos] != 0)
+ 187:Generated_Source\PSoC5/StripLights_fonts.c ****     {
+ 188:Generated_Source\PSoC5/StripLights_fonts.c **** 		// Print character
+ 189:Generated_Source\PSoC5/StripLights_fonts.c ****         if(fg == StripLights_COLORWHEEL_FONT)
+ 190:Generated_Source\PSoC5/StripLights_fonts.c ****         {
+ 191:Generated_Source\PSoC5/StripLights_fonts.c ****             StripLights_PutChar(xpos, ypos, theString[strPos], StripLights_ColorInc(1), bg);
+ 192:Generated_Source\PSoC5/StripLights_fonts.c ****         }
+ 193:Generated_Source\PSoC5/StripLights_fonts.c ****         else
+ 194:Generated_Source\PSoC5/StripLights_fonts.c ****         {
+ 195:Generated_Source\PSoC5/StripLights_fonts.c ****             StripLights_PutChar(xpos, ypos, theString[strPos], fg, bg);
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 6
+
+
+ 196:Generated_Source\PSoC5/StripLights_fonts.c ****         }
+ 197:Generated_Source\PSoC5/StripLights_fonts.c ****         strPos++;   // Advance to next character
+ 198:Generated_Source\PSoC5/StripLights_fonts.c ****         xpos += StripLights_fontX;  // Advance to next x location for next character
+ 199:Generated_Source\PSoC5/StripLights_fonts.c **** 		
+ 200:Generated_Source\PSoC5/StripLights_fonts.c **** 		// If not last character clear out area between characters.
+ 201:Generated_Source\PSoC5/StripLights_fonts.c ****         if(theString[strPos] != 0)
+ 202:Generated_Source\PSoC5/StripLights_fonts.c ****         {
+ 203:Generated_Source\PSoC5/StripLights_fonts.c **** 			if(bg != StripLights_TRANS_BG)
+ 204:Generated_Source\PSoC5/StripLights_fonts.c **** 			{
+ 205:Generated_Source\PSoC5/StripLights_fonts.c **** 			     StripLights_DrawLine(xpos, ypos, xpos, ypos+StripLights_fontY, bg);
+ 206:Generated_Source\PSoC5/StripLights_fonts.c **** 			}
+ 207:Generated_Source\PSoC5/StripLights_fonts.c ****         }
+ 208:Generated_Source\PSoC5/StripLights_fonts.c ****         xpos++;
+ 209:Generated_Source\PSoC5/StripLights_fonts.c ****     }
+ 210:Generated_Source\PSoC5/StripLights_fonts.c **** 	if(bg != StripLights_TRANS_BG)
+ 211:Generated_Source\PSoC5/StripLights_fonts.c **** 	{
+ 212:Generated_Source\PSoC5/StripLights_fonts.c ****         StripLights_DrawLine(xpos-1, ypos, xpos-1, ypos+StripLights_fontY, bg);
+ 213:Generated_Source\PSoC5/StripLights_fonts.c **** 	}
+ 214:Generated_Source\PSoC5/StripLights_fonts.c **** }
+ 215:Generated_Source\PSoC5/StripLights_fonts.c **** 
+ 216:Generated_Source\PSoC5/StripLights_fonts.c **** /*******************************************************************************
+ 217:Generated_Source\PSoC5/StripLights_fonts.c **** * Function Name: StripLights_PutChar
+ 218:Generated_Source\PSoC5/StripLights_fonts.c **** ********************************************************************************
+ 219:Generated_Source\PSoC5/StripLights_fonts.c **** * Summary:
+ 220:Generated_Source\PSoC5/StripLights_fonts.c **** *   Print character at the given location.
+ 221:Generated_Source\PSoC5/StripLights_fonts.c **** *
+ 222:Generated_Source\PSoC5/StripLights_fonts.c **** * Parameters:  
+ 223:Generated_Source\PSoC5/StripLights_fonts.c **** *  uint32 xpos: X location at which to start string.
+ 224:Generated_Source\PSoC5/StripLights_fonts.c **** *  uint32 ypos: Upper Y location to place string.
+ 225:Generated_Source\PSoC5/StripLights_fonts.c **** *  char theChar:  The character to print.
+ 226:Generated_Source\PSoC5/StripLights_fonts.c **** *  uint32 fg: The forground fount color.
+ 227:Generated_Source\PSoC5/StripLights_fonts.c **** *  uint32 bg: Background color
+ 228:Generated_Source\PSoC5/StripLights_fonts.c **** *
+ 229:Generated_Source\PSoC5/StripLights_fonts.c **** * Return: 
+ 230:Generated_Source\PSoC5/StripLights_fonts.c **** *  void
+ 231:Generated_Source\PSoC5/StripLights_fonts.c **** *
+ 232:Generated_Source\PSoC5/StripLights_fonts.c **** *******************************************************************************/
+ 233:Generated_Source\PSoC5/StripLights_fonts.c **** void StripLights_PutChar(int32 xpos, int32 ypos, uint8 theChar, uint32 fg, uint32 bg)
+ 234:Generated_Source\PSoC5/StripLights_fonts.c **** {
+  91              		.loc 1 234 0
+  92              		.cfi_startproc
+  93              		@ args = 4, pretend = 0, frame = 8
+  94              		@ frame_needed = 0, uses_anonymous_args = 0
+  95              	.LVL1:
+  96 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+  97              		.cfi_def_cfa_offset 36
+  98              		.cfi_offset 4, -36
+  99              		.cfi_offset 5, -32
+ 100              		.cfi_offset 6, -28
+ 101              		.cfi_offset 7, -24
+ 102              		.cfi_offset 8, -20
+ 103              		.cfi_offset 9, -16
+ 104              		.cfi_offset 10, -12
+ 105              		.cfi_offset 11, -8
+ 106              		.cfi_offset 14, -4
+ 107 0004 83B0     		sub	sp, sp, #12
+ 108              		.cfi_def_cfa_offset 48
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 7
+
+
+ 109 0006 0646     		mov	r6, r0
+ 110 0008 8B46     		mov	fp, r1
+ 111 000a 0193     		str	r3, [sp, #4]
+ 112 000c DDF83090 		ldr	r9, [sp, #48]
+ 235:Generated_Source\PSoC5/StripLights_fonts.c ****     int32 x,y, fp;
+ 236:Generated_Source\PSoC5/StripLights_fonts.c ****     uint8 mask;
+ 237:Generated_Source\PSoC5/StripLights_fonts.c ****     int32 yStop, xStop;
+ 238:Generated_Source\PSoC5/StripLights_fonts.c ****    
+ 239:Generated_Source\PSoC5/StripLights_fonts.c ****     fp = (theChar - StripLights_fontOffset) * StripLights_fontX;
+ 113              		.loc 1 239 0
+ 114 0010 1E4B     		ldr	r3, .L20
+ 115              	.LVL2:
+ 116 0012 1B68     		ldr	r3, [r3]
+ 117 0014 D31A     		subs	r3, r2, r3
+ 118 0016 1E4A     		ldr	r2, .L20+4
+ 119              	.LVL3:
+ 120 0018 1268     		ldr	r2, [r2]
+ 121 001a 02FB03F8 		mul	r8, r2, r3
+ 122              	.LVL4:
+ 240:Generated_Source\PSoC5/StripLights_fonts.c ****    
+ 241:Generated_Source\PSoC5/StripLights_fonts.c ****     xStop = xpos + StripLights_fontX;
+ 123              		.loc 1 241 0
+ 124 001e 02EB000A 		add	r10, r2, r0
+ 125              	.LVL5:
+ 242:Generated_Source\PSoC5/StripLights_fonts.c ****     if(xStop > StripLights_MAX_X) xStop = StripLights_MAX_X;
+ 126              		.loc 1 242 0
+ 127 0022 BAF5967F 		cmp	r10, #300
+ 128 0026 01DB     		blt	.L9
+ 129 0028 40F22B1A 		movw	r10, #299
+ 130              	.LVL6:
+ 131              	.L9:
+ 243:Generated_Source\PSoC5/StripLights_fonts.c ****    
+ 244:Generated_Source\PSoC5/StripLights_fonts.c ****     yStop = ypos + StripLights_fontY;
+ 132              		.loc 1 244 0
+ 133 002c 194B     		ldr	r3, .L20+8
+ 134 002e 1F68     		ldr	r7, [r3]
+ 135 0030 5F44     		add	r7, r7, fp
+ 136              	.LVL7:
+ 245:Generated_Source\PSoC5/StripLights_fonts.c ****     if(yStop > StripLights_MAX_Y) yStop = StripLights_MAX_Y;
+ 137              		.loc 1 245 0
+ 138 0032 002F     		cmp	r7, #0
+ 139 0034 24DD     		ble	.L11
+ 140 0036 0027     		movs	r7, #0
+ 141              	.LVL8:
+ 246:Generated_Source\PSoC5/StripLights_fonts.c ****    
+ 247:Generated_Source\PSoC5/StripLights_fonts.c ****     for( x = xpos; x < xStop; x++)
+ 142              		.loc 1 247 0
+ 143 0038 22E0     		b	.L11
+ 144              	.LVL9:
+ 145              	.L14:
+ 248:Generated_Source\PSoC5/StripLights_fonts.c ****     {
+ 249:Generated_Source\PSoC5/StripLights_fonts.c ****         mask = 0x01;
+ 250:Generated_Source\PSoC5/StripLights_fonts.c ****         for(y = ypos; y <= yStop; y++)
+ 251:Generated_Source\PSoC5/StripLights_fonts.c ****         {
+ 252:Generated_Source\PSoC5/StripLights_fonts.c ****             if((y >= 0) && (x >= 0))
+ 146              		.loc 1 252 0
+ 147 003a 002D     		cmp	r5, #0
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 8
+
+
+ 148 003c 15DB     		blt	.L12
+ 149              		.loc 1 252 0 is_stmt 0 discriminator 1
+ 150 003e 002E     		cmp	r6, #0
+ 151 0040 13DB     		blt	.L12
+ 253:Generated_Source\PSoC5/StripLights_fonts.c ****             {
+ 254:Generated_Source\PSoC5/StripLights_fonts.c ****                 if(mask & StripLights_fontPtr[fp])
+ 152              		.loc 1 254 0 is_stmt 1
+ 153 0042 154B     		ldr	r3, .L20+12
+ 154 0044 1B68     		ldr	r3, [r3]
+ 155 0046 13F80830 		ldrb	r3, [r3, r8]	@ zero_extendqisi2
+ 156 004a 1C42     		tst	r4, r3
+ 157 004c 05D0     		beq	.L13
+ 255:Generated_Source\PSoC5/StripLights_fonts.c ****                 { 
+ 256:Generated_Source\PSoC5/StripLights_fonts.c **** 				     StripLights_Pixel( x, y, fg);
+ 158              		.loc 1 256 0
+ 159 004e 019A     		ldr	r2, [sp, #4]
+ 160 0050 2946     		mov	r1, r5
+ 161 0052 3046     		mov	r0, r6
+ 162 0054 FFF7FEFF 		bl	StripLights_Pixel
+ 163              	.LVL10:
+ 164 0058 07E0     		b	.L12
+ 165              	.L13:
+ 257:Generated_Source\PSoC5/StripLights_fonts.c ****                 }
+ 258:Generated_Source\PSoC5/StripLights_fonts.c ****                 else
+ 259:Generated_Source\PSoC5/StripLights_fonts.c ****                 {
+ 260:Generated_Source\PSoC5/StripLights_fonts.c **** 					if(bg != StripLights_TRANS_BG)
+ 166              		.loc 1 260 0
+ 167 005a B9F17F4F 		cmp	r9, #-16777216
+ 168 005e 04D0     		beq	.L12
+ 261:Generated_Source\PSoC5/StripLights_fonts.c **** 					{
+ 262:Generated_Source\PSoC5/StripLights_fonts.c **** 				        StripLights_Pixel( x, y, bg);
+ 169              		.loc 1 262 0
+ 170 0060 4A46     		mov	r2, r9
+ 171 0062 2946     		mov	r1, r5
+ 172 0064 3046     		mov	r0, r6
+ 173 0066 FFF7FEFF 		bl	StripLights_Pixel
+ 174              	.LVL11:
+ 175              	.L12:
+ 263:Generated_Source\PSoC5/StripLights_fonts.c **** 					}
+ 264:Generated_Source\PSoC5/StripLights_fonts.c ****                 }
+ 265:Generated_Source\PSoC5/StripLights_fonts.c ****             }
+ 266:Generated_Source\PSoC5/StripLights_fonts.c ****             mask = mask << 1;
+ 176              		.loc 1 266 0 discriminator 2
+ 177 006a 6400     		lsls	r4, r4, #1
+ 178              	.LVL12:
+ 179 006c E4B2     		uxtb	r4, r4
+ 180              	.LVL13:
+ 250:Generated_Source\PSoC5/StripLights_fonts.c ****         {
+ 181              		.loc 1 250 0 discriminator 2
+ 182 006e 0135     		adds	r5, r5, #1
+ 183              	.LVL14:
+ 184 0070 01E0     		b	.L15
+ 185              	.LVL15:
+ 186              	.L18:
+ 187 0072 5D46     		mov	r5, fp
+ 188 0074 0124     		movs	r4, #1
+ 189              	.L15:
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 9
+
+
+ 190              	.LVL16:
+ 250:Generated_Source\PSoC5/StripLights_fonts.c ****         {
+ 191              		.loc 1 250 0 is_stmt 0 discriminator 1
+ 192 0076 BD42     		cmp	r5, r7
+ 193 0078 DFDD     		ble	.L14
+ 267:Generated_Source\PSoC5/StripLights_fonts.c ****         }
+ 268:Generated_Source\PSoC5/StripLights_fonts.c ****         fp++;
+ 194              		.loc 1 268 0 is_stmt 1 discriminator 2
+ 195 007a 08F10108 		add	r8, r8, #1
+ 196              	.LVL17:
+ 247:Generated_Source\PSoC5/StripLights_fonts.c ****     {
+ 197              		.loc 1 247 0 discriminator 2
+ 198 007e 0136     		adds	r6, r6, #1
+ 199              	.LVL18:
+ 200              	.L11:
+ 247:Generated_Source\PSoC5/StripLights_fonts.c ****     {
+ 201              		.loc 1 247 0 is_stmt 0 discriminator 1
+ 202 0080 5645     		cmp	r6, r10
+ 203 0082 F6DB     		blt	.L18
+ 269:Generated_Source\PSoC5/StripLights_fonts.c ****     }
+ 270:Generated_Source\PSoC5/StripLights_fonts.c **** }
+ 204              		.loc 1 270 0 is_stmt 1
+ 205 0084 03B0     		add	sp, sp, #12
+ 206              		.cfi_def_cfa_offset 36
+ 207              		@ sp needed
+ 208 0086 BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 209              	.LVL19:
+ 210              	.L21:
+ 211 008a 00BF     		.align	2
+ 212              	.L20:
+ 213 008c 00000000 		.word	StripLights_fontOffset
+ 214 0090 00000000 		.word	StripLights_fontX
+ 215 0094 00000000 		.word	StripLights_fontY
+ 216 0098 00000000 		.word	StripLights_fontPtr
+ 217              		.cfi_endproc
+ 218              	.LFE66:
+ 219              		.size	StripLights_PutChar, .-StripLights_PutChar
+ 220              		.section	.text.StripLights_PrintString,"ax",%progbits
+ 221              		.align	2
+ 222              		.global	StripLights_PrintString
+ 223              		.thumb
+ 224              		.thumb_func
+ 225              		.type	StripLights_PrintString, %function
+ 226              	StripLights_PrintString:
+ 227              	.LFB65:
+ 179:Generated_Source\PSoC5/StripLights_fonts.c ****     uint32 strPos = 0;
+ 228              		.loc 1 179 0
+ 229              		.cfi_startproc
+ 230              		@ args = 4, pretend = 0, frame = 0
+ 231              		@ frame_needed = 0, uses_anonymous_args = 0
+ 232              	.LVL20:
+ 233 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
+ 234              		.cfi_def_cfa_offset 32
+ 235              		.cfi_offset 4, -32
+ 236              		.cfi_offset 5, -28
+ 237              		.cfi_offset 6, -24
+ 238              		.cfi_offset 7, -20
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 10
+
+
+ 239              		.cfi_offset 8, -16
+ 240              		.cfi_offset 9, -12
+ 241              		.cfi_offset 10, -8
+ 242              		.cfi_offset 14, -4
+ 243 0004 82B0     		sub	sp, sp, #8
+ 244              		.cfi_def_cfa_offset 40
+ 245 0006 0446     		mov	r4, r0
+ 246 0008 8946     		mov	r9, r1
+ 247 000a 1746     		mov	r7, r2
+ 248 000c 9A46     		mov	r10, r3
+ 249 000e DDF82880 		ldr	r8, [sp, #40]
+ 250              	.LVL21:
+ 180:Generated_Source\PSoC5/StripLights_fonts.c ****     uint32 yStop;
+ 251              		.loc 1 180 0
+ 252 0012 0025     		movs	r5, #0
+ 253 0014 2AE0     		b	.L23
+ 254              	.LVL22:
+ 255              	.L27:
+ 189:Generated_Source\PSoC5/StripLights_fonts.c ****         {
+ 256              		.loc 1 189 0
+ 257 0016 BAF1004F 		cmp	r10, #-2147483648
+ 258 001a 0BD1     		bne	.L24
+ 191:Generated_Source\PSoC5/StripLights_fonts.c ****         }
+ 259              		.loc 1 191 0
+ 260 001c 0120     		movs	r0, #1
+ 261 001e FFF7FEFF 		bl	StripLights_ColorInc
+ 262              	.LVL23:
+ 263 0022 CDF80080 		str	r8, [sp]
+ 264 0026 0346     		mov	r3, r0
+ 265 0028 3246     		mov	r2, r6
+ 266 002a 4946     		mov	r1, r9
+ 267 002c 2046     		mov	r0, r4
+ 268 002e FFF7FEFF 		bl	StripLights_PutChar
+ 269              	.LVL24:
+ 270 0032 07E0     		b	.L25
+ 271              	.L24:
+ 195:Generated_Source\PSoC5/StripLights_fonts.c ****         }
+ 272              		.loc 1 195 0
+ 273 0034 CDF80080 		str	r8, [sp]
+ 274 0038 5346     		mov	r3, r10
+ 275 003a 3246     		mov	r2, r6
+ 276 003c 4946     		mov	r1, r9
+ 277 003e 2046     		mov	r0, r4
+ 278 0040 FFF7FEFF 		bl	StripLights_PutChar
+ 279              	.LVL25:
+ 280              	.L25:
+ 197:Generated_Source\PSoC5/StripLights_fonts.c ****         xpos += StripLights_fontX;  // Advance to next x location for next character
+ 281              		.loc 1 197 0
+ 282 0044 0135     		adds	r5, r5, #1
+ 283              	.LVL26:
+ 198:Generated_Source\PSoC5/StripLights_fonts.c **** 		
+ 284              		.loc 1 198 0
+ 285 0046 134B     		ldr	r3, .L30
+ 286 0048 1868     		ldr	r0, [r3]
+ 287 004a 0444     		add	r4, r4, r0
+ 288              	.LVL27:
+ 201:Generated_Source\PSoC5/StripLights_fonts.c ****         {
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 11
+
+
+ 289              		.loc 1 201 0
+ 290 004c 7B5D     		ldrb	r3, [r7, r5]	@ zero_extendqisi2
+ 291 004e 63B1     		cbz	r3, .L26
+ 203:Generated_Source\PSoC5/StripLights_fonts.c **** 			{
+ 292              		.loc 1 203 0
+ 293 0050 B8F17F4F 		cmp	r8, #-16777216
+ 294 0054 09D0     		beq	.L26
+ 205:Generated_Source\PSoC5/StripLights_fonts.c **** 			}
+ 295              		.loc 1 205 0
+ 296 0056 104B     		ldr	r3, .L30+4
+ 297 0058 1B68     		ldr	r3, [r3]
+ 298 005a CDF80080 		str	r8, [sp]
+ 299 005e 4B44     		add	r3, r3, r9
+ 300 0060 2246     		mov	r2, r4
+ 301 0062 4946     		mov	r1, r9
+ 302 0064 2046     		mov	r0, r4
+ 303 0066 FFF7FEFF 		bl	StripLights_DrawLine
+ 304              	.LVL28:
+ 305              	.L26:
+ 208:Generated_Source\PSoC5/StripLights_fonts.c ****     }
+ 306              		.loc 1 208 0
+ 307 006a 0134     		adds	r4, r4, #1
+ 308              	.LVL29:
+ 309              	.L23:
+ 186:Generated_Source\PSoC5/StripLights_fonts.c ****     {
+ 310              		.loc 1 186 0
+ 311 006c 7E5D     		ldrb	r6, [r7, r5]	@ zero_extendqisi2
+ 312 006e 002E     		cmp	r6, #0
+ 313 0070 D1D1     		bne	.L27
+ 210:Generated_Source\PSoC5/StripLights_fonts.c **** 	{
+ 314              		.loc 1 210 0
+ 315 0072 B8F17F4F 		cmp	r8, #-16777216
+ 316 0076 09D0     		beq	.L22
+ 212:Generated_Source\PSoC5/StripLights_fonts.c **** 	}
+ 317              		.loc 1 212 0
+ 318 0078 601E     		subs	r0, r4, #1
+ 319 007a 074B     		ldr	r3, .L30+4
+ 320 007c 1B68     		ldr	r3, [r3]
+ 321 007e CDF80080 		str	r8, [sp]
+ 322 0082 4B44     		add	r3, r3, r9
+ 323 0084 0246     		mov	r2, r0
+ 324 0086 4946     		mov	r1, r9
+ 325 0088 FFF7FEFF 		bl	StripLights_DrawLine
+ 326              	.LVL30:
+ 327              	.L22:
+ 214:Generated_Source\PSoC5/StripLights_fonts.c **** 
+ 328              		.loc 1 214 0
+ 329 008c 02B0     		add	sp, sp, #8
+ 330              		.cfi_def_cfa_offset 32
+ 331              		@ sp needed
+ 332 008e BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 333              	.LVL31:
+ 334              	.L31:
+ 335 0092 00BF     		.align	2
+ 336              	.L30:
+ 337 0094 00000000 		.word	StripLights_fontX
+ 338 0098 00000000 		.word	StripLights_fontY
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 12
+
+
+ 339              		.cfi_endproc
+ 340              	.LFE65:
+ 341              		.size	StripLights_PrintString, .-StripLights_PrintString
+ 342              		.global	StripLights_Font5x7
+ 343              		.comm	StripLights_fontOffset,4,4
+ 344              		.comm	StripLights_fontY,4,4
+ 345              		.comm	StripLights_fontX,4,4
+ 346              		.comm	StripLights_fontPtr,4,4
+ 347              		.comm	Config,168,4
+ 348              		.comm	System_u,1,4
+ 349              		.comm	StripLights_UseGammaCorrection,1,1
+ 350              		.comm	StripLights_Done,4,4
+ 351              		.section	.rodata
+ 352              		.align	2
+ 353              		.set	.LANCHOR0,. + 0
+ 354              		.type	StripLights_Font5x7, %object
+ 355              		.size	StripLights_Font5x7, 480
+ 356              	StripLights_Font5x7:
+ 357 0000 00       		.byte	0
+ 358 0001 00       		.byte	0
+ 359 0002 00       		.byte	0
+ 360 0003 00       		.byte	0
+ 361 0004 00       		.byte	0
+ 362 0005 00       		.byte	0
+ 363 0006 00       		.byte	0
+ 364 0007 5F       		.byte	95
+ 365 0008 00       		.byte	0
+ 366 0009 00       		.byte	0
+ 367 000a 00       		.byte	0
+ 368 000b 07       		.byte	7
+ 369 000c 00       		.byte	0
+ 370 000d 07       		.byte	7
+ 371 000e 00       		.byte	0
+ 372 000f 14       		.byte	20
+ 373 0010 7F       		.byte	127
+ 374 0011 14       		.byte	20
+ 375 0012 7F       		.byte	127
+ 376 0013 14       		.byte	20
+ 377 0014 24       		.byte	36
+ 378 0015 2A       		.byte	42
+ 379 0016 7F       		.byte	127
+ 380 0017 2A       		.byte	42
+ 381 0018 12       		.byte	18
+ 382 0019 23       		.byte	35
+ 383 001a 13       		.byte	19
+ 384 001b 08       		.byte	8
+ 385 001c 64       		.byte	100
+ 386 001d 62       		.byte	98
+ 387 001e 36       		.byte	54
+ 388 001f 49       		.byte	73
+ 389 0020 55       		.byte	85
+ 390 0021 22       		.byte	34
+ 391 0022 50       		.byte	80
+ 392 0023 00       		.byte	0
+ 393 0024 05       		.byte	5
+ 394 0025 03       		.byte	3
+ 395 0026 00       		.byte	0
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 13
+
+
+ 396 0027 00       		.byte	0
+ 397 0028 00       		.byte	0
+ 398 0029 1C       		.byte	28
+ 399 002a 22       		.byte	34
+ 400 002b 41       		.byte	65
+ 401 002c 00       		.byte	0
+ 402 002d 00       		.byte	0
+ 403 002e 41       		.byte	65
+ 404 002f 22       		.byte	34
+ 405 0030 1C       		.byte	28
+ 406 0031 00       		.byte	0
+ 407 0032 08       		.byte	8
+ 408 0033 2A       		.byte	42
+ 409 0034 1C       		.byte	28
+ 410 0035 2A       		.byte	42
+ 411 0036 08       		.byte	8
+ 412 0037 08       		.byte	8
+ 413 0038 08       		.byte	8
+ 414 0039 3E       		.byte	62
+ 415 003a 08       		.byte	8
+ 416 003b 08       		.byte	8
+ 417 003c 00       		.byte	0
+ 418 003d 50       		.byte	80
+ 419 003e 30       		.byte	48
+ 420 003f 00       		.byte	0
+ 421 0040 00       		.byte	0
+ 422 0041 08       		.byte	8
+ 423 0042 08       		.byte	8
+ 424 0043 08       		.byte	8
+ 425 0044 08       		.byte	8
+ 426 0045 08       		.byte	8
+ 427 0046 00       		.byte	0
+ 428 0047 60       		.byte	96
+ 429 0048 60       		.byte	96
+ 430 0049 00       		.byte	0
+ 431 004a 00       		.byte	0
+ 432 004b 20       		.byte	32
+ 433 004c 10       		.byte	16
+ 434 004d 08       		.byte	8
+ 435 004e 04       		.byte	4
+ 436 004f 02       		.byte	2
+ 437 0050 3E       		.byte	62
+ 438 0051 51       		.byte	81
+ 439 0052 49       		.byte	73
+ 440 0053 45       		.byte	69
+ 441 0054 3E       		.byte	62
+ 442 0055 00       		.byte	0
+ 443 0056 42       		.byte	66
+ 444 0057 7F       		.byte	127
+ 445 0058 40       		.byte	64
+ 446 0059 00       		.byte	0
+ 447 005a 42       		.byte	66
+ 448 005b 61       		.byte	97
+ 449 005c 51       		.byte	81
+ 450 005d 49       		.byte	73
+ 451 005e 46       		.byte	70
+ 452 005f 21       		.byte	33
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 14
+
+
+ 453 0060 41       		.byte	65
+ 454 0061 45       		.byte	69
+ 455 0062 4B       		.byte	75
+ 456 0063 31       		.byte	49
+ 457 0064 18       		.byte	24
+ 458 0065 14       		.byte	20
+ 459 0066 12       		.byte	18
+ 460 0067 7F       		.byte	127
+ 461 0068 10       		.byte	16
+ 462 0069 27       		.byte	39
+ 463 006a 45       		.byte	69
+ 464 006b 45       		.byte	69
+ 465 006c 45       		.byte	69
+ 466 006d 39       		.byte	57
+ 467 006e 3C       		.byte	60
+ 468 006f 4A       		.byte	74
+ 469 0070 49       		.byte	73
+ 470 0071 49       		.byte	73
+ 471 0072 30       		.byte	48
+ 472 0073 01       		.byte	1
+ 473 0074 71       		.byte	113
+ 474 0075 09       		.byte	9
+ 475 0076 05       		.byte	5
+ 476 0077 03       		.byte	3
+ 477 0078 36       		.byte	54
+ 478 0079 49       		.byte	73
+ 479 007a 49       		.byte	73
+ 480 007b 49       		.byte	73
+ 481 007c 36       		.byte	54
+ 482 007d 06       		.byte	6
+ 483 007e 49       		.byte	73
+ 484 007f 49       		.byte	73
+ 485 0080 29       		.byte	41
+ 486 0081 1E       		.byte	30
+ 487 0082 00       		.byte	0
+ 488 0083 36       		.byte	54
+ 489 0084 36       		.byte	54
+ 490 0085 00       		.byte	0
+ 491 0086 00       		.byte	0
+ 492 0087 00       		.byte	0
+ 493 0088 56       		.byte	86
+ 494 0089 36       		.byte	54
+ 495 008a 00       		.byte	0
+ 496 008b 00       		.byte	0
+ 497 008c 00       		.byte	0
+ 498 008d 08       		.byte	8
+ 499 008e 14       		.byte	20
+ 500 008f 22       		.byte	34
+ 501 0090 41       		.byte	65
+ 502 0091 14       		.byte	20
+ 503 0092 14       		.byte	20
+ 504 0093 14       		.byte	20
+ 505 0094 14       		.byte	20
+ 506 0095 14       		.byte	20
+ 507 0096 41       		.byte	65
+ 508 0097 22       		.byte	34
+ 509 0098 14       		.byte	20
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 15
+
+
+ 510 0099 08       		.byte	8
+ 511 009a 00       		.byte	0
+ 512 009b 02       		.byte	2
+ 513 009c 01       		.byte	1
+ 514 009d 51       		.byte	81
+ 515 009e 09       		.byte	9
+ 516 009f 06       		.byte	6
+ 517 00a0 32       		.byte	50
+ 518 00a1 49       		.byte	73
+ 519 00a2 79       		.byte	121
+ 520 00a3 41       		.byte	65
+ 521 00a4 3E       		.byte	62
+ 522 00a5 7E       		.byte	126
+ 523 00a6 11       		.byte	17
+ 524 00a7 11       		.byte	17
+ 525 00a8 11       		.byte	17
+ 526 00a9 7E       		.byte	126
+ 527 00aa 7F       		.byte	127
+ 528 00ab 49       		.byte	73
+ 529 00ac 49       		.byte	73
+ 530 00ad 49       		.byte	73
+ 531 00ae 36       		.byte	54
+ 532 00af 3E       		.byte	62
+ 533 00b0 41       		.byte	65
+ 534 00b1 41       		.byte	65
+ 535 00b2 41       		.byte	65
+ 536 00b3 22       		.byte	34
+ 537 00b4 7F       		.byte	127
+ 538 00b5 41       		.byte	65
+ 539 00b6 41       		.byte	65
+ 540 00b7 22       		.byte	34
+ 541 00b8 1C       		.byte	28
+ 542 00b9 7F       		.byte	127
+ 543 00ba 49       		.byte	73
+ 544 00bb 49       		.byte	73
+ 545 00bc 49       		.byte	73
+ 546 00bd 41       		.byte	65
+ 547 00be 7F       		.byte	127
+ 548 00bf 09       		.byte	9
+ 549 00c0 09       		.byte	9
+ 550 00c1 01       		.byte	1
+ 551 00c2 01       		.byte	1
+ 552 00c3 3E       		.byte	62
+ 553 00c4 41       		.byte	65
+ 554 00c5 41       		.byte	65
+ 555 00c6 51       		.byte	81
+ 556 00c7 32       		.byte	50
+ 557 00c8 7F       		.byte	127
+ 558 00c9 08       		.byte	8
+ 559 00ca 08       		.byte	8
+ 560 00cb 08       		.byte	8
+ 561 00cc 7F       		.byte	127
+ 562 00cd 00       		.byte	0
+ 563 00ce 41       		.byte	65
+ 564 00cf 7F       		.byte	127
+ 565 00d0 41       		.byte	65
+ 566 00d1 00       		.byte	0
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 16
+
+
+ 567 00d2 20       		.byte	32
+ 568 00d3 40       		.byte	64
+ 569 00d4 41       		.byte	65
+ 570 00d5 3F       		.byte	63
+ 571 00d6 01       		.byte	1
+ 572 00d7 7F       		.byte	127
+ 573 00d8 08       		.byte	8
+ 574 00d9 14       		.byte	20
+ 575 00da 22       		.byte	34
+ 576 00db 41       		.byte	65
+ 577 00dc 7F       		.byte	127
+ 578 00dd 40       		.byte	64
+ 579 00de 40       		.byte	64
+ 580 00df 40       		.byte	64
+ 581 00e0 40       		.byte	64
+ 582 00e1 7F       		.byte	127
+ 583 00e2 02       		.byte	2
+ 584 00e3 04       		.byte	4
+ 585 00e4 02       		.byte	2
+ 586 00e5 7F       		.byte	127
+ 587 00e6 7F       		.byte	127
+ 588 00e7 04       		.byte	4
+ 589 00e8 08       		.byte	8
+ 590 00e9 10       		.byte	16
+ 591 00ea 7F       		.byte	127
+ 592 00eb 3E       		.byte	62
+ 593 00ec 41       		.byte	65
+ 594 00ed 41       		.byte	65
+ 595 00ee 41       		.byte	65
+ 596 00ef 3E       		.byte	62
+ 597 00f0 7F       		.byte	127
+ 598 00f1 09       		.byte	9
+ 599 00f2 09       		.byte	9
+ 600 00f3 09       		.byte	9
+ 601 00f4 06       		.byte	6
+ 602 00f5 3E       		.byte	62
+ 603 00f6 41       		.byte	65
+ 604 00f7 51       		.byte	81
+ 605 00f8 21       		.byte	33
+ 606 00f9 5E       		.byte	94
+ 607 00fa 7F       		.byte	127
+ 608 00fb 09       		.byte	9
+ 609 00fc 19       		.byte	25
+ 610 00fd 29       		.byte	41
+ 611 00fe 46       		.byte	70
+ 612 00ff 46       		.byte	70
+ 613 0100 49       		.byte	73
+ 614 0101 49       		.byte	73
+ 615 0102 49       		.byte	73
+ 616 0103 31       		.byte	49
+ 617 0104 01       		.byte	1
+ 618 0105 01       		.byte	1
+ 619 0106 7F       		.byte	127
+ 620 0107 01       		.byte	1
+ 621 0108 01       		.byte	1
+ 622 0109 3F       		.byte	63
+ 623 010a 40       		.byte	64
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 17
+
+
+ 624 010b 40       		.byte	64
+ 625 010c 40       		.byte	64
+ 626 010d 3F       		.byte	63
+ 627 010e 1F       		.byte	31
+ 628 010f 20       		.byte	32
+ 629 0110 40       		.byte	64
+ 630 0111 20       		.byte	32
+ 631 0112 1F       		.byte	31
+ 632 0113 7F       		.byte	127
+ 633 0114 20       		.byte	32
+ 634 0115 18       		.byte	24
+ 635 0116 20       		.byte	32
+ 636 0117 7F       		.byte	127
+ 637 0118 63       		.byte	99
+ 638 0119 14       		.byte	20
+ 639 011a 08       		.byte	8
+ 640 011b 14       		.byte	20
+ 641 011c 63       		.byte	99
+ 642 011d 03       		.byte	3
+ 643 011e 04       		.byte	4
+ 644 011f 78       		.byte	120
+ 645 0120 04       		.byte	4
+ 646 0121 03       		.byte	3
+ 647 0122 61       		.byte	97
+ 648 0123 51       		.byte	81
+ 649 0124 49       		.byte	73
+ 650 0125 45       		.byte	69
+ 651 0126 43       		.byte	67
+ 652 0127 00       		.byte	0
+ 653 0128 00       		.byte	0
+ 654 0129 7F       		.byte	127
+ 655 012a 41       		.byte	65
+ 656 012b 41       		.byte	65
+ 657 012c 02       		.byte	2
+ 658 012d 04       		.byte	4
+ 659 012e 08       		.byte	8
+ 660 012f 10       		.byte	16
+ 661 0130 20       		.byte	32
+ 662 0131 41       		.byte	65
+ 663 0132 41       		.byte	65
+ 664 0133 7F       		.byte	127
+ 665 0134 00       		.byte	0
+ 666 0135 00       		.byte	0
+ 667 0136 04       		.byte	4
+ 668 0137 02       		.byte	2
+ 669 0138 01       		.byte	1
+ 670 0139 02       		.byte	2
+ 671 013a 04       		.byte	4
+ 672 013b 40       		.byte	64
+ 673 013c 40       		.byte	64
+ 674 013d 40       		.byte	64
+ 675 013e 40       		.byte	64
+ 676 013f 40       		.byte	64
+ 677 0140 00       		.byte	0
+ 678 0141 01       		.byte	1
+ 679 0142 02       		.byte	2
+ 680 0143 04       		.byte	4
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 18
+
+
+ 681 0144 00       		.byte	0
+ 682 0145 20       		.byte	32
+ 683 0146 54       		.byte	84
+ 684 0147 54       		.byte	84
+ 685 0148 54       		.byte	84
+ 686 0149 78       		.byte	120
+ 687 014a 7F       		.byte	127
+ 688 014b 48       		.byte	72
+ 689 014c 44       		.byte	68
+ 690 014d 44       		.byte	68
+ 691 014e 38       		.byte	56
+ 692 014f 38       		.byte	56
+ 693 0150 44       		.byte	68
+ 694 0151 44       		.byte	68
+ 695 0152 44       		.byte	68
+ 696 0153 20       		.byte	32
+ 697 0154 38       		.byte	56
+ 698 0155 44       		.byte	68
+ 699 0156 44       		.byte	68
+ 700 0157 48       		.byte	72
+ 701 0158 7F       		.byte	127
+ 702 0159 38       		.byte	56
+ 703 015a 54       		.byte	84
+ 704 015b 54       		.byte	84
+ 705 015c 54       		.byte	84
+ 706 015d 18       		.byte	24
+ 707 015e 08       		.byte	8
+ 708 015f 7E       		.byte	126
+ 709 0160 09       		.byte	9
+ 710 0161 01       		.byte	1
+ 711 0162 02       		.byte	2
+ 712 0163 08       		.byte	8
+ 713 0164 14       		.byte	20
+ 714 0165 54       		.byte	84
+ 715 0166 54       		.byte	84
+ 716 0167 3C       		.byte	60
+ 717 0168 7F       		.byte	127
+ 718 0169 08       		.byte	8
+ 719 016a 04       		.byte	4
+ 720 016b 04       		.byte	4
+ 721 016c 78       		.byte	120
+ 722 016d 00       		.byte	0
+ 723 016e 44       		.byte	68
+ 724 016f 7D       		.byte	125
+ 725 0170 40       		.byte	64
+ 726 0171 00       		.byte	0
+ 727 0172 20       		.byte	32
+ 728 0173 40       		.byte	64
+ 729 0174 44       		.byte	68
+ 730 0175 3D       		.byte	61
+ 731 0176 00       		.byte	0
+ 732 0177 00       		.byte	0
+ 733 0178 7F       		.byte	127
+ 734 0179 10       		.byte	16
+ 735 017a 28       		.byte	40
+ 736 017b 44       		.byte	68
+ 737 017c 00       		.byte	0
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 19
+
+
+ 738 017d 41       		.byte	65
+ 739 017e 7F       		.byte	127
+ 740 017f 40       		.byte	64
+ 741 0180 00       		.byte	0
+ 742 0181 7C       		.byte	124
+ 743 0182 04       		.byte	4
+ 744 0183 18       		.byte	24
+ 745 0184 04       		.byte	4
+ 746 0185 78       		.byte	120
+ 747 0186 7C       		.byte	124
+ 748 0187 08       		.byte	8
+ 749 0188 04       		.byte	4
+ 750 0189 04       		.byte	4
+ 751 018a 78       		.byte	120
+ 752 018b 38       		.byte	56
+ 753 018c 44       		.byte	68
+ 754 018d 44       		.byte	68
+ 755 018e 44       		.byte	68
+ 756 018f 38       		.byte	56
+ 757 0190 7C       		.byte	124
+ 758 0191 14       		.byte	20
+ 759 0192 14       		.byte	20
+ 760 0193 14       		.byte	20
+ 761 0194 08       		.byte	8
+ 762 0195 08       		.byte	8
+ 763 0196 14       		.byte	20
+ 764 0197 14       		.byte	20
+ 765 0198 18       		.byte	24
+ 766 0199 7C       		.byte	124
+ 767 019a 7C       		.byte	124
+ 768 019b 08       		.byte	8
+ 769 019c 04       		.byte	4
+ 770 019d 04       		.byte	4
+ 771 019e 08       		.byte	8
+ 772 019f 48       		.byte	72
+ 773 01a0 54       		.byte	84
+ 774 01a1 54       		.byte	84
+ 775 01a2 54       		.byte	84
+ 776 01a3 20       		.byte	32
+ 777 01a4 04       		.byte	4
+ 778 01a5 3F       		.byte	63
+ 779 01a6 44       		.byte	68
+ 780 01a7 40       		.byte	64
+ 781 01a8 20       		.byte	32
+ 782 01a9 3C       		.byte	60
+ 783 01aa 40       		.byte	64
+ 784 01ab 40       		.byte	64
+ 785 01ac 20       		.byte	32
+ 786 01ad 7C       		.byte	124
+ 787 01ae 1C       		.byte	28
+ 788 01af 20       		.byte	32
+ 789 01b0 40       		.byte	64
+ 790 01b1 20       		.byte	32
+ 791 01b2 1C       		.byte	28
+ 792 01b3 3C       		.byte	60
+ 793 01b4 40       		.byte	64
+ 794 01b5 30       		.byte	48
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 20
+
+
+ 795 01b6 40       		.byte	64
+ 796 01b7 3C       		.byte	60
+ 797 01b8 44       		.byte	68
+ 798 01b9 28       		.byte	40
+ 799 01ba 10       		.byte	16
+ 800 01bb 28       		.byte	40
+ 801 01bc 44       		.byte	68
+ 802 01bd 0C       		.byte	12
+ 803 01be 50       		.byte	80
+ 804 01bf 50       		.byte	80
+ 805 01c0 50       		.byte	80
+ 806 01c1 3C       		.byte	60
+ 807 01c2 44       		.byte	68
+ 808 01c3 64       		.byte	100
+ 809 01c4 54       		.byte	84
+ 810 01c5 4C       		.byte	76
+ 811 01c6 44       		.byte	68
+ 812 01c7 00       		.byte	0
+ 813 01c8 08       		.byte	8
+ 814 01c9 36       		.byte	54
+ 815 01ca 41       		.byte	65
+ 816 01cb 00       		.byte	0
+ 817 01cc 00       		.byte	0
+ 818 01cd 00       		.byte	0
+ 819 01ce 7F       		.byte	127
+ 820 01cf 00       		.byte	0
+ 821 01d0 00       		.byte	0
+ 822 01d1 00       		.byte	0
+ 823 01d2 41       		.byte	65
+ 824 01d3 36       		.byte	54
+ 825 01d4 08       		.byte	8
+ 826 01d5 00       		.byte	0
+ 827 01d6 08       		.byte	8
+ 828 01d7 08       		.byte	8
+ 829 01d8 2A       		.byte	42
+ 830 01d9 1C       		.byte	28
+ 831 01da 08       		.byte	8
+ 832 01db 08       		.byte	8
+ 833 01dc 1C       		.byte	28
+ 834 01dd 2A       		.byte	42
+ 835 01de 08       		.byte	8
+ 836 01df 08       		.byte	8
+ 837              		.text
+ 838              	.Letext0:
+ 839              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 840              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 841              		.file 4 "Generated_Source\\PSoC5/cytypes.h"
+ 842              		.file 5 "Generated_Source\\PSoC5/StripLights.h"
+ 843              		.file 6 "Generated_Source\\PSoC5/BCom_1_BCom.h"
+ 844              		.file 7 "Generated_Source\\PSoC5/core_cm3.h"
+ 845              		.section	.debug_info,"",%progbits
+ 846              	.Ldebug_info0:
+ 847 0000 84060000 		.4byte	0x684
+ 848 0004 0400     		.2byte	0x4
+ 849 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 850 000a 04       		.byte	0x4
+ 851 000b 01       		.uleb128 0x1
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 21
+
+
+ 852 000c C3030000 		.4byte	.LASF81
+ 853 0010 0C       		.byte	0xc
+ 854 0011 94010000 		.4byte	.LASF82
+ 855 0015 37020000 		.4byte	.LASF83
+ 856 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 857 001d 00000000 		.4byte	0
+ 858 0021 00000000 		.4byte	.Ldebug_line0
+ 859 0025 02       		.uleb128 0x2
+ 860 0026 01       		.byte	0x1
+ 861 0027 06       		.byte	0x6
+ 862 0028 EC010000 		.4byte	.LASF0
+ 863 002c 03       		.uleb128 0x3
+ 864 002d 71040000 		.4byte	.LASF3
+ 865 0031 02       		.byte	0x2
+ 866 0032 1D       		.byte	0x1d
+ 867 0033 37000000 		.4byte	0x37
+ 868 0037 02       		.uleb128 0x2
+ 869 0038 01       		.byte	0x1
+ 870 0039 08       		.byte	0x8
+ 871 003a C9010000 		.4byte	.LASF1
+ 872 003e 02       		.uleb128 0x2
+ 873 003f 02       		.byte	0x2
+ 874 0040 05       		.byte	0x5
+ 875 0041 F8000000 		.4byte	.LASF2
+ 876 0045 03       		.uleb128 0x3
+ 877 0046 95000000 		.4byte	.LASF4
+ 878 004a 02       		.byte	0x2
+ 879 004b 2B       		.byte	0x2b
+ 880 004c 50000000 		.4byte	0x50
+ 881 0050 02       		.uleb128 0x2
+ 882 0051 02       		.byte	0x2
+ 883 0052 07       		.byte	0x7
+ 884 0053 BD020000 		.4byte	.LASF5
+ 885 0057 03       		.uleb128 0x3
+ 886 0058 87030000 		.4byte	.LASF6
+ 887 005c 02       		.byte	0x2
+ 888 005d 3F       		.byte	0x3f
+ 889 005e 62000000 		.4byte	0x62
+ 890 0062 02       		.uleb128 0x2
+ 891 0063 04       		.byte	0x4
+ 892 0064 05       		.byte	0x5
+ 893 0065 39010000 		.4byte	.LASF7
+ 894 0069 02       		.uleb128 0x2
+ 895 006a 04       		.byte	0x4
+ 896 006b 07       		.byte	0x7
+ 897 006c 4A030000 		.4byte	.LASF8
+ 898 0070 02       		.uleb128 0x2
+ 899 0071 08       		.byte	0x8
+ 900 0072 05       		.byte	0x5
+ 901 0073 0F010000 		.4byte	.LASF9
+ 902 0077 02       		.uleb128 0x2
+ 903 0078 08       		.byte	0x8
+ 904 0079 07       		.byte	0x7
+ 905 007a F8010000 		.4byte	.LASF10
+ 906 007e 04       		.uleb128 0x4
+ 907 007f 04       		.byte	0x4
+ 908 0080 05       		.byte	0x5
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 22
+
+
+ 909 0081 696E7400 		.ascii	"int\000"
+ 910 0085 02       		.uleb128 0x2
+ 911 0086 04       		.byte	0x4
+ 912 0087 07       		.byte	0x7
+ 913 0088 21020000 		.4byte	.LASF11
+ 914 008c 03       		.uleb128 0x3
+ 915 008d 91030000 		.4byte	.LASF12
+ 916 0091 03       		.byte	0x3
+ 917 0092 18       		.byte	0x18
+ 918 0093 2C000000 		.4byte	0x2c
+ 919 0097 03       		.uleb128 0x3
+ 920 0098 2E020000 		.4byte	.LASF13
+ 921 009c 03       		.byte	0x3
+ 922 009d 24       		.byte	0x24
+ 923 009e 45000000 		.4byte	0x45
+ 924 00a2 03       		.uleb128 0x3
+ 925 00a3 EE020000 		.4byte	.LASF14
+ 926 00a7 03       		.byte	0x3
+ 927 00a8 2C       		.byte	0x2c
+ 928 00a9 57000000 		.4byte	0x57
+ 929 00ad 05       		.uleb128 0x5
+ 930 00ae E1000000 		.4byte	.LASF15
+ 931 00b2 04       		.byte	0x4
+ 932 00b3 E401     		.2byte	0x1e4
+ 933 00b5 37000000 		.4byte	0x37
+ 934 00b9 05       		.uleb128 0x5
+ 935 00ba C4000000 		.4byte	.LASF16
+ 936 00be 04       		.byte	0x4
+ 937 00bf E501     		.2byte	0x1e5
+ 938 00c1 50000000 		.4byte	0x50
+ 939 00c5 05       		.uleb128 0x5
+ 940 00c6 43030000 		.4byte	.LASF17
+ 941 00ca 04       		.byte	0x4
+ 942 00cb E601     		.2byte	0x1e6
+ 943 00cd 69000000 		.4byte	0x69
+ 944 00d1 05       		.uleb128 0x5
+ 945 00d2 5C030000 		.4byte	.LASF18
+ 946 00d6 04       		.byte	0x4
+ 947 00d7 E901     		.2byte	0x1e9
+ 948 00d9 62000000 		.4byte	0x62
+ 949 00dd 02       		.uleb128 0x2
+ 950 00de 04       		.byte	0x4
+ 951 00df 04       		.byte	0x4
+ 952 00e0 09010000 		.4byte	.LASF19
+ 953 00e4 02       		.uleb128 0x2
+ 954 00e5 08       		.byte	0x8
+ 955 00e6 04       		.byte	0x4
+ 956 00e7 62030000 		.4byte	.LASF20
+ 957 00eb 02       		.uleb128 0x2
+ 958 00ec 01       		.byte	0x1
+ 959 00ed 08       		.byte	0x8
+ 960 00ee DF020000 		.4byte	.LASF21
+ 961 00f2 06       		.uleb128 0x6
+ 962 00f3 04       		.byte	0x4
+ 963 00f4 F8000000 		.4byte	0xf8
+ 964 00f8 07       		.uleb128 0x7
+ 965 00f9 02       		.uleb128 0x2
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 23
+
+
+ 966 00fa 08       		.byte	0x8
+ 967 00fb 04       		.byte	0x4
+ 968 00fc 83010000 		.4byte	.LASF22
+ 969 0100 02       		.uleb128 0x2
+ 970 0101 04       		.byte	0x4
+ 971 0102 07       		.byte	0x7
+ 972 0103 58000000 		.4byte	.LASF23
+ 973 0107 06       		.uleb128 0x6
+ 974 0108 04       		.byte	0x4
+ 975 0109 EB000000 		.4byte	0xeb
+ 976 010d 03       		.uleb128 0x3
+ 977 010e 07000000 		.4byte	.LASF24
+ 978 0112 05       		.byte	0x5
+ 979 0113 26       		.byte	0x26
+ 980 0114 F2000000 		.4byte	0xf2
+ 981 0118 08       		.uleb128 0x8
+ 982 0119 61000000 		.4byte	.LASF31
+ 983 011d 01       		.byte	0x1
+ 984 011e 06       		.byte	0x6
+ 985 011f 22       		.byte	0x22
+ 986 0120 7F010000 		.4byte	0x17f
+ 987 0124 09       		.uleb128 0x9
+ 988 0125 D7010000 		.4byte	.LASF25
+ 989 0129 06       		.byte	0x6
+ 990 012a 23       		.byte	0x23
+ 991 012b AD000000 		.4byte	0xad
+ 992 012f 01       		.byte	0x1
+ 993 0130 01       		.byte	0x1
+ 994 0131 07       		.byte	0x7
+ 995 0132 00       		.byte	0
+ 996 0133 0A       		.uleb128 0xa
+ 997 0134 41636B00 		.ascii	"Ack\000"
+ 998 0138 06       		.byte	0x6
+ 999 0139 24       		.byte	0x24
+ 1000 013a AD000000 		.4byte	0xad
+ 1001 013e 01       		.byte	0x1
+ 1002 013f 01       		.byte	0x1
+ 1003 0140 06       		.byte	0x6
+ 1004 0141 00       		.byte	0
+ 1005 0142 09       		.uleb128 0x9
+ 1006 0143 8F010000 		.4byte	.LASF26
+ 1007 0147 06       		.byte	0x6
+ 1008 0148 25       		.byte	0x25
+ 1009 0149 AD000000 		.4byte	0xad
+ 1010 014d 01       		.byte	0x1
+ 1011 014e 01       		.byte	0x1
+ 1012 014f 05       		.byte	0x5
+ 1013 0150 00       		.byte	0
+ 1014 0151 09       		.uleb128 0x9
+ 1015 0152 2D030000 		.4byte	.LASF27
+ 1016 0156 06       		.byte	0x6
+ 1017 0157 26       		.byte	0x26
+ 1018 0158 AD000000 		.4byte	0xad
+ 1019 015c 01       		.byte	0x1
+ 1020 015d 01       		.byte	0x1
+ 1021 015e 04       		.byte	0x4
+ 1022 015f 00       		.byte	0
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 24
+
+
+ 1023 0160 09       		.uleb128 0x9
+ 1024 0161 B1030000 		.4byte	.LASF28
+ 1025 0165 06       		.byte	0x6
+ 1026 0166 27       		.byte	0x27
+ 1027 0167 AD000000 		.4byte	0xad
+ 1028 016b 01       		.byte	0x1
+ 1029 016c 01       		.byte	0x1
+ 1030 016d 03       		.byte	0x3
+ 1031 016e 00       		.byte	0
+ 1032 016f 0A       		.uleb128 0xa
+ 1033 0170 52465500 		.ascii	"RFU\000"
+ 1034 0174 06       		.byte	0x6
+ 1035 0175 28       		.byte	0x28
+ 1036 0176 AD000000 		.4byte	0xad
+ 1037 017a 01       		.byte	0x1
+ 1038 017b 03       		.byte	0x3
+ 1039 017c 00       		.byte	0
+ 1040 017d 00       		.byte	0
+ 1041 017e 00       		.byte	0
+ 1042 017f 0B       		.uleb128 0xb
+ 1043 0180 BF010000 		.4byte	.LASF84
+ 1044 0184 01       		.byte	0x1
+ 1045 0185 06       		.byte	0x6
+ 1046 0186 21       		.byte	0x21
+ 1047 0187 A2010000 		.4byte	0x1a2
+ 1048 018b 0C       		.uleb128 0xc
+ 1049 018c 65040000 		.4byte	.LASF29
+ 1050 0190 06       		.byte	0x6
+ 1051 0191 29       		.byte	0x29
+ 1052 0192 18010000 		.4byte	0x118
+ 1053 0196 0C       		.uleb128 0xc
+ 1054 0197 21000000 		.4byte	.LASF30
+ 1055 019b 06       		.byte	0x6
+ 1056 019c 2A       		.byte	0x2a
+ 1057 019d AD000000 		.4byte	0xad
+ 1058 01a1 00       		.byte	0
+ 1059 01a2 08       		.uleb128 0x8
+ 1060 01a3 37030000 		.4byte	.LASF32
+ 1061 01a7 04       		.byte	0x4
+ 1062 01a8 06       		.byte	0x6
+ 1063 01a9 30       		.byte	0x30
+ 1064 01aa D3010000 		.4byte	0x1d3
+ 1065 01ae 0D       		.uleb128 0xd
+ 1066 01af 65040000 		.4byte	.LASF29
+ 1067 01b3 06       		.byte	0x6
+ 1068 01b4 31       		.byte	0x31
+ 1069 01b5 AD000000 		.4byte	0xad
+ 1070 01b9 00       		.byte	0
+ 1071 01ba 0D       		.uleb128 0xd
+ 1072 01bb 7E010000 		.4byte	.LASF33
+ 1073 01bf 06       		.byte	0x6
+ 1074 01c0 32       		.byte	0x32
+ 1075 01c1 AD000000 		.4byte	0xad
+ 1076 01c5 01       		.byte	0x1
+ 1077 01c6 0D       		.uleb128 0xd
+ 1078 01c7 19000000 		.4byte	.LASF34
+ 1079 01cb 06       		.byte	0x6
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 25
+
+
+ 1080 01cc 33       		.byte	0x33
+ 1081 01cd B9000000 		.4byte	0xb9
+ 1082 01d1 02       		.byte	0x2
+ 1083 01d2 00       		.byte	0
+ 1084 01d3 08       		.uleb128 0x8
+ 1085 01d4 DE010000 		.4byte	.LASF35
+ 1086 01d8 0C       		.byte	0xc
+ 1087 01d9 06       		.byte	0x6
+ 1088 01da 2D       		.byte	0x2d
+ 1089 01db 04020000 		.4byte	0x204
+ 1090 01df 0D       		.uleb128 0xd
+ 1091 01e0 02010000 		.4byte	.LASF36
+ 1092 01e4 06       		.byte	0x6
+ 1093 01e5 2E       		.byte	0x2e
+ 1094 01e6 C5000000 		.4byte	0xc5
+ 1095 01ea 00       		.byte	0
+ 1096 01eb 0D       		.uleb128 0xd
+ 1097 01ec D8020000 		.4byte	.LASF37
+ 1098 01f0 06       		.byte	0x6
+ 1099 01f1 2F       		.byte	0x2f
+ 1100 01f2 C5000000 		.4byte	0xc5
+ 1101 01f6 04       		.byte	0x4
+ 1102 01f7 0D       		.uleb128 0xd
+ 1103 01f8 59010000 		.4byte	.LASF38
+ 1104 01fc 06       		.byte	0x6
+ 1105 01fd 34       		.byte	0x34
+ 1106 01fe A2010000 		.4byte	0x1a2
+ 1107 0202 08       		.byte	0x8
+ 1108 0203 00       		.byte	0
+ 1109 0204 08       		.uleb128 0x8
+ 1110 0205 21030000 		.4byte	.LASF39
+ 1111 0209 0C       		.byte	0xc
+ 1112 020a 06       		.byte	0x6
+ 1113 020b 37       		.byte	0x37
+ 1114 020c 41020000 		.4byte	0x241
+ 1115 0210 0D       		.uleb128 0xd
+ 1116 0211 CB000000 		.4byte	.LASF40
+ 1117 0215 06       		.byte	0x6
+ 1118 0216 38       		.byte	0x38
+ 1119 0217 41020000 		.4byte	0x241
+ 1120 021b 00       		.byte	0
+ 1121 021c 0E       		.uleb128 0xe
+ 1122 021d 43524300 		.ascii	"CRC\000"
+ 1123 0221 06       		.byte	0x6
+ 1124 0222 39       		.byte	0x39
+ 1125 0223 97000000 		.4byte	0x97
+ 1126 0227 04       		.byte	0x4
+ 1127 0228 0D       		.uleb128 0xd
+ 1128 0229 1A030000 		.4byte	.LASF41
+ 1129 022d 06       		.byte	0x6
+ 1130 022e 3A       		.byte	0x3a
+ 1131 022f 8C000000 		.4byte	0x8c
+ 1132 0233 06       		.byte	0x6
+ 1133 0234 0D       		.uleb128 0xd
+ 1134 0235 D0020000 		.4byte	.LASF42
+ 1135 0239 06       		.byte	0x6
+ 1136 023a 3B       		.byte	0x3b
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 26
+
+
+ 1137 023b 47020000 		.4byte	0x247
+ 1138 023f 08       		.byte	0x8
+ 1139 0240 00       		.byte	0
+ 1140 0241 06       		.uleb128 0x6
+ 1141 0242 04       		.byte	0x4
+ 1142 0243 D3010000 		.4byte	0x1d3
+ 1143 0247 06       		.uleb128 0x6
+ 1144 0248 04       		.byte	0x4
+ 1145 0249 8C000000 		.4byte	0x8c
+ 1146 024d 03       		.uleb128 0x3
+ 1147 024e 6F030000 		.4byte	.LASF43
+ 1148 0252 06       		.byte	0x6
+ 1149 0253 3E       		.byte	0x3e
+ 1150 0254 58020000 		.4byte	0x258
+ 1151 0258 06       		.uleb128 0x6
+ 1152 0259 04       		.byte	0x4
+ 1153 025a 5E020000 		.4byte	0x25e
+ 1154 025e 0F       		.uleb128 0xf
+ 1155 025f 69020000 		.4byte	0x269
+ 1156 0263 10       		.uleb128 0x10
+ 1157 0264 69020000 		.4byte	0x269
+ 1158 0268 00       		.byte	0
+ 1159 0269 06       		.uleb128 0x6
+ 1160 026a 04       		.byte	0x4
+ 1161 026b 04020000 		.4byte	0x204
+ 1162 026f 08       		.uleb128 0x8
+ 1163 0270 8B020000 		.4byte	.LASF44
+ 1164 0274 0C       		.byte	0xc
+ 1165 0275 06       		.byte	0x6
+ 1166 0276 40       		.byte	0x40
+ 1167 0277 A0020000 		.4byte	0x2a0
+ 1168 027b 0D       		.uleb128 0xd
+ 1169 027c 7E010000 		.4byte	.LASF33
+ 1170 0280 06       		.byte	0x6
+ 1171 0281 41       		.byte	0x41
+ 1172 0282 8C000000 		.4byte	0x8c
+ 1173 0286 00       		.byte	0
+ 1174 0287 0D       		.uleb128 0xd
+ 1175 0288 00000000 		.4byte	.LASF45
+ 1176 028c 06       		.byte	0x6
+ 1177 028d 42       		.byte	0x42
+ 1178 028e 4D020000 		.4byte	0x24d
+ 1179 0292 04       		.byte	0x4
+ 1180 0293 0D       		.uleb128 0xd
+ 1181 0294 6C040000 		.4byte	.LASF46
+ 1182 0298 06       		.byte	0x6
+ 1183 0299 43       		.byte	0x43
+ 1184 029a A0020000 		.4byte	0x2a0
+ 1185 029e 08       		.byte	0x8
+ 1186 029f 00       		.byte	0
+ 1187 02a0 06       		.uleb128 0x6
+ 1188 02a1 04       		.byte	0x4
+ 1189 02a2 6F020000 		.4byte	0x26f
+ 1190 02a6 08       		.uleb128 0x8
+ 1191 02a7 E4020000 		.4byte	.LASF47
+ 1192 02ab A0       		.byte	0xa0
+ 1193 02ac 06       		.byte	0x6
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 27
+
+
+ 1194 02ad 47       		.byte	0x47
+ 1195 02ae EF020000 		.4byte	0x2ef
+ 1196 02b2 0D       		.uleb128 0xd
+ 1197 02b3 D2000000 		.4byte	.LASF48
+ 1198 02b7 06       		.byte	0x6
+ 1199 02b8 48       		.byte	0x48
+ 1200 02b9 C5000000 		.4byte	0xc5
+ 1201 02bd 00       		.byte	0
+ 1202 02be 0E       		.uleb128 0xe
+ 1203 02bf 55494400 		.ascii	"UID\000"
+ 1204 02c3 06       		.byte	0x6
+ 1205 02c4 49       		.byte	0x49
+ 1206 02c5 C5000000 		.4byte	0xc5
+ 1207 02c9 04       		.byte	0x4
+ 1208 02ca 0D       		.uleb128 0xd
+ 1209 02cb 88000000 		.4byte	.LASF49
+ 1210 02cf 06       		.byte	0x6
+ 1211 02d0 4A       		.byte	0x4a
+ 1212 02d1 EF020000 		.4byte	0x2ef
+ 1213 02d5 08       		.byte	0x8
+ 1214 02d6 0D       		.uleb128 0xd
+ 1215 02d7 47010000 		.4byte	.LASF50
+ 1216 02db 06       		.byte	0x6
+ 1217 02dc 4B       		.byte	0x4b
+ 1218 02dd C5000000 		.4byte	0xc5
+ 1219 02e1 1C       		.byte	0x1c
+ 1220 02e2 0E       		.uleb128 0xe
+ 1221 02e3 52465500 		.ascii	"RFU\000"
+ 1222 02e7 06       		.byte	0x6
+ 1223 02e8 4C       		.byte	0x4c
+ 1224 02e9 FF020000 		.4byte	0x2ff
+ 1225 02ed 20       		.byte	0x20
+ 1226 02ee 00       		.byte	0
+ 1227 02ef 11       		.uleb128 0x11
+ 1228 02f0 EB000000 		.4byte	0xeb
+ 1229 02f4 FF020000 		.4byte	0x2ff
+ 1230 02f8 12       		.uleb128 0x12
+ 1231 02f9 00010000 		.4byte	0x100
+ 1232 02fd 13       		.byte	0x13
+ 1233 02fe 00       		.byte	0
+ 1234 02ff 11       		.uleb128 0x11
+ 1235 0300 8C000000 		.4byte	0x8c
+ 1236 0304 0F030000 		.4byte	0x30f
+ 1237 0308 12       		.uleb128 0x12
+ 1238 0309 00010000 		.4byte	0x100
+ 1239 030d 7F       		.byte	0x7f
+ 1240 030e 00       		.byte	0
+ 1241 030f 08       		.uleb128 0x8
+ 1242 0310 6A000000 		.4byte	.LASF51
+ 1243 0314 08       		.byte	0x8
+ 1244 0315 06       		.byte	0x6
+ 1245 0316 4E       		.byte	0x4e
+ 1246 0317 34030000 		.4byte	0x334
+ 1247 031b 0E       		.uleb128 0xe
+ 1248 031c 44435000 		.ascii	"DCP\000"
+ 1249 0320 06       		.byte	0x6
+ 1250 0321 4F       		.byte	0x4f
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 28
+
+
+ 1251 0322 4D020000 		.4byte	0x24d
+ 1252 0326 00       		.byte	0
+ 1253 0327 0D       		.uleb128 0xd
+ 1254 0328 42010000 		.4byte	.LASF52
+ 1255 032c 06       		.byte	0x6
+ 1256 032d 50       		.byte	0x50
+ 1257 032e A0020000 		.4byte	0x2a0
+ 1258 0332 04       		.byte	0x4
+ 1259 0333 00       		.byte	0
+ 1260 0334 08       		.uleb128 0x8
+ 1261 0335 49000000 		.4byte	.LASF53
+ 1262 0339 A8       		.byte	0xa8
+ 1263 033a 06       		.byte	0x6
+ 1264 033b 46       		.byte	0x46
+ 1265 033c 59030000 		.4byte	0x359
+ 1266 0340 0D       		.uleb128 0xd
+ 1267 0341 8D000000 		.4byte	.LASF54
+ 1268 0345 06       		.byte	0x6
+ 1269 0346 4D       		.byte	0x4d
+ 1270 0347 A6020000 		.4byte	0x2a6
+ 1271 034b 00       		.byte	0
+ 1272 034c 0D       		.uleb128 0xd
+ 1273 034d 43000000 		.4byte	.LASF55
+ 1274 0351 06       		.byte	0x6
+ 1275 0352 51       		.byte	0x51
+ 1276 0353 0F030000 		.4byte	0x30f
+ 1277 0357 A0       		.byte	0xa0
+ 1278 0358 00       		.byte	0
+ 1279 0359 13       		.uleb128 0x13
+ 1280 035a 98020000 		.4byte	.LASF56
+ 1281 035e 01       		.byte	0x1
+ 1282 035f 8C       		.byte	0x8c
+ 1283 0360 00000000 		.4byte	.LFB64
+ 1284 0364 4C000000 		.4byte	.LFE64-.LFB64
+ 1285 0368 01       		.uleb128 0x1
+ 1286 0369 9C       		.byte	0x9c
+ 1287 036a 7C030000 		.4byte	0x37c
+ 1288 036e 14       		.uleb128 0x14
+ 1289 036f 3E000000 		.4byte	.LASF58
+ 1290 0373 01       		.byte	0x1
+ 1291 0374 8C       		.byte	0x8c
+ 1292 0375 C5000000 		.4byte	0xc5
+ 1293 0379 01       		.uleb128 0x1
+ 1294 037a 50       		.byte	0x50
+ 1295 037b 00       		.byte	0
+ 1296 037c 13       		.uleb128 0x13
+ 1297 037d 6A010000 		.4byte	.LASF57
+ 1298 0381 01       		.byte	0x1
+ 1299 0382 E9       		.byte	0xe9
+ 1300 0383 00000000 		.4byte	.LFB66
+ 1301 0387 9C000000 		.4byte	.LFE66-.LFB66
+ 1302 038b 01       		.uleb128 0x1
+ 1303 038c 9C       		.byte	0x9c
+ 1304 038d 6D040000 		.4byte	0x46d
+ 1305 0391 15       		.uleb128 0x15
+ 1306 0392 54010000 		.4byte	.LASF59
+ 1307 0396 01       		.byte	0x1
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 29
+
+
+ 1308 0397 E9       		.byte	0xe9
+ 1309 0398 D1000000 		.4byte	0xd1
+ 1310 039c 00000000 		.4byte	.LLST0
+ 1311 03a0 15       		.uleb128 0x15
+ 1312 03a1 F6020000 		.4byte	.LASF60
+ 1313 03a5 01       		.byte	0x1
+ 1314 03a6 E9       		.byte	0xe9
+ 1315 03a7 D1000000 		.4byte	0xd1
+ 1316 03ab 21000000 		.4byte	.LLST1
+ 1317 03af 15       		.uleb128 0x15
+ 1318 03b0 1D010000 		.4byte	.LASF61
+ 1319 03b4 01       		.byte	0x1
+ 1320 03b5 E9       		.byte	0xe9
+ 1321 03b6 AD000000 		.4byte	0xad
+ 1322 03ba 4D000000 		.4byte	.LLST2
+ 1323 03be 16       		.uleb128 0x16
+ 1324 03bf 666700   		.ascii	"fg\000"
+ 1325 03c2 01       		.byte	0x1
+ 1326 03c3 E9       		.byte	0xe9
+ 1327 03c4 C5000000 		.4byte	0xc5
+ 1328 03c8 6E000000 		.4byte	.LLST3
+ 1329 03cc 16       		.uleb128 0x16
+ 1330 03cd 626700   		.ascii	"bg\000"
+ 1331 03d0 01       		.byte	0x1
+ 1332 03d1 E9       		.byte	0xe9
+ 1333 03d2 C5000000 		.4byte	0xc5
+ 1334 03d6 99000000 		.4byte	.LLST4
+ 1335 03da 17       		.uleb128 0x17
+ 1336 03db 7800     		.ascii	"x\000"
+ 1337 03dd 01       		.byte	0x1
+ 1338 03de EB       		.byte	0xeb
+ 1339 03df D1000000 		.4byte	0xd1
+ 1340 03e3 B9000000 		.4byte	.LLST5
+ 1341 03e7 17       		.uleb128 0x17
+ 1342 03e8 7900     		.ascii	"y\000"
+ 1343 03ea 01       		.byte	0x1
+ 1344 03eb EB       		.byte	0xeb
+ 1345 03ec D1000000 		.4byte	0xd1
+ 1346 03f0 D7000000 		.4byte	.LLST6
+ 1347 03f4 17       		.uleb128 0x17
+ 1348 03f5 667000   		.ascii	"fp\000"
+ 1349 03f8 01       		.byte	0x1
+ 1350 03f9 EB       		.byte	0xeb
+ 1351 03fa D1000000 		.4byte	0xd1
+ 1352 03fe F5000000 		.4byte	.LLST7
+ 1353 0402 18       		.uleb128 0x18
+ 1354 0403 7B040000 		.4byte	.LASF62
+ 1355 0407 01       		.byte	0x1
+ 1356 0408 EC       		.byte	0xec
+ 1357 0409 AD000000 		.4byte	0xad
+ 1358 040d 08010000 		.4byte	.LLST8
+ 1359 0411 18       		.uleb128 0x18
+ 1360 0412 82000000 		.4byte	.LASF63
+ 1361 0416 01       		.byte	0x1
+ 1362 0417 ED       		.byte	0xed
+ 1363 0418 D1000000 		.4byte	0xd1
+ 1364 041c 31010000 		.4byte	.LLST9
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 30
+
+
+ 1365 0420 18       		.uleb128 0x18
+ 1366 0421 69030000 		.4byte	.LASF64
+ 1367 0425 01       		.byte	0x1
+ 1368 0426 ED       		.byte	0xed
+ 1369 0427 D1000000 		.4byte	0xd1
+ 1370 042b 44010000 		.4byte	.LLST10
+ 1371 042f 19       		.uleb128 0x19
+ 1372 0430 58000000 		.4byte	.LVL10
+ 1373 0434 66060000 		.4byte	0x666
+ 1374 0438 50040000 		.4byte	0x450
+ 1375 043c 1A       		.uleb128 0x1a
+ 1376 043d 01       		.uleb128 0x1
+ 1377 043e 50       		.byte	0x50
+ 1378 043f 02       		.uleb128 0x2
+ 1379 0440 76       		.byte	0x76
+ 1380 0441 00       		.sleb128 0
+ 1381 0442 1A       		.uleb128 0x1a
+ 1382 0443 01       		.uleb128 0x1
+ 1383 0444 51       		.byte	0x51
+ 1384 0445 02       		.uleb128 0x2
+ 1385 0446 75       		.byte	0x75
+ 1386 0447 00       		.sleb128 0
+ 1387 0448 1A       		.uleb128 0x1a
+ 1388 0449 01       		.uleb128 0x1
+ 1389 044a 52       		.byte	0x52
+ 1390 044b 03       		.uleb128 0x3
+ 1391 044c 91       		.byte	0x91
+ 1392 044d 54       		.sleb128 -44
+ 1393 044e 06       		.byte	0x6
+ 1394 044f 00       		.byte	0
+ 1395 0450 1B       		.uleb128 0x1b
+ 1396 0451 6A000000 		.4byte	.LVL11
+ 1397 0455 66060000 		.4byte	0x666
+ 1398 0459 1A       		.uleb128 0x1a
+ 1399 045a 01       		.uleb128 0x1
+ 1400 045b 50       		.byte	0x50
+ 1401 045c 02       		.uleb128 0x2
+ 1402 045d 76       		.byte	0x76
+ 1403 045e 00       		.sleb128 0
+ 1404 045f 1A       		.uleb128 0x1a
+ 1405 0460 01       		.uleb128 0x1
+ 1406 0461 51       		.byte	0x51
+ 1407 0462 02       		.uleb128 0x2
+ 1408 0463 75       		.byte	0x75
+ 1409 0464 00       		.sleb128 0
+ 1410 0465 1A       		.uleb128 0x1a
+ 1411 0466 01       		.uleb128 0x1
+ 1412 0467 52       		.byte	0x52
+ 1413 0468 02       		.uleb128 0x2
+ 1414 0469 79       		.byte	0x79
+ 1415 046a 00       		.sleb128 0
+ 1416 046b 00       		.byte	0
+ 1417 046c 00       		.byte	0
+ 1418 046d 13       		.uleb128 0x13
+ 1419 046e 99030000 		.4byte	.LASF65
+ 1420 0472 01       		.byte	0x1
+ 1421 0473 B2       		.byte	0xb2
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 31
+
+
+ 1422 0474 00000000 		.4byte	.LFB65
+ 1423 0478 9C000000 		.4byte	.LFE65-.LFB65
+ 1424 047c 01       		.uleb128 0x1
+ 1425 047d 9C       		.byte	0x9c
+ 1426 047e 9B050000 		.4byte	0x59b
+ 1427 0482 15       		.uleb128 0x15
+ 1428 0483 54010000 		.4byte	.LASF59
+ 1429 0487 01       		.byte	0x1
+ 1430 0488 B2       		.byte	0xb2
+ 1431 0489 D1000000 		.4byte	0xd1
+ 1432 048d 57010000 		.4byte	.LLST11
+ 1433 0491 15       		.uleb128 0x15
+ 1434 0492 F6020000 		.4byte	.LASF60
+ 1435 0496 01       		.byte	0x1
+ 1436 0497 B2       		.byte	0xb2
+ 1437 0498 D1000000 		.4byte	0xd1
+ 1438 049c 75010000 		.4byte	.LLST12
+ 1439 04a0 15       		.uleb128 0x15
+ 1440 04a1 B3020000 		.4byte	.LASF66
+ 1441 04a5 01       		.byte	0x1
+ 1442 04a6 B2       		.byte	0xb2
+ 1443 04a7 07010000 		.4byte	0x107
+ 1444 04ab A1010000 		.4byte	.LLST13
+ 1445 04af 16       		.uleb128 0x16
+ 1446 04b0 666700   		.ascii	"fg\000"
+ 1447 04b3 01       		.byte	0x1
+ 1448 04b4 B2       		.byte	0xb2
+ 1449 04b5 C5000000 		.4byte	0xc5
+ 1450 04b9 CD010000 		.4byte	.LLST14
+ 1451 04bd 16       		.uleb128 0x16
+ 1452 04be 626700   		.ascii	"bg\000"
+ 1453 04c1 01       		.byte	0x1
+ 1454 04c2 B2       		.byte	0xb2
+ 1455 04c3 C5000000 		.4byte	0xc5
+ 1456 04c7 F9010000 		.4byte	.LLST15
+ 1457 04cb 18       		.uleb128 0x18
+ 1458 04cc AC020000 		.4byte	.LASF67
+ 1459 04d0 01       		.byte	0x1
+ 1460 04d1 B4       		.byte	0xb4
+ 1461 04d2 C5000000 		.4byte	0xc5
+ 1462 04d6 19020000 		.4byte	.LLST16
+ 1463 04da 18       		.uleb128 0x18
+ 1464 04db 82000000 		.4byte	.LASF63
+ 1465 04df 01       		.byte	0x1
+ 1466 04e0 B5       		.byte	0xb5
+ 1467 04e1 C5000000 		.4byte	0xc5
+ 1468 04e5 38020000 		.4byte	.LLST17
+ 1469 04e9 19       		.uleb128 0x19
+ 1470 04ea 22000000 		.4byte	.LVL23
+ 1471 04ee 71060000 		.4byte	0x671
+ 1472 04f2 FC040000 		.4byte	0x4fc
+ 1473 04f6 1A       		.uleb128 0x1a
+ 1474 04f7 01       		.uleb128 0x1
+ 1475 04f8 50       		.byte	0x50
+ 1476 04f9 01       		.uleb128 0x1
+ 1477 04fa 31       		.byte	0x31
+ 1478 04fb 00       		.byte	0
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 32
+
+
+ 1479 04fc 19       		.uleb128 0x19
+ 1480 04fd 32000000 		.4byte	.LVL24
+ 1481 0501 7C030000 		.4byte	0x37c
+ 1482 0505 23050000 		.4byte	0x523
+ 1483 0509 1A       		.uleb128 0x1a
+ 1484 050a 01       		.uleb128 0x1
+ 1485 050b 50       		.byte	0x50
+ 1486 050c 02       		.uleb128 0x2
+ 1487 050d 74       		.byte	0x74
+ 1488 050e 00       		.sleb128 0
+ 1489 050f 1A       		.uleb128 0x1a
+ 1490 0510 01       		.uleb128 0x1
+ 1491 0511 51       		.byte	0x51
+ 1492 0512 02       		.uleb128 0x2
+ 1493 0513 79       		.byte	0x79
+ 1494 0514 00       		.sleb128 0
+ 1495 0515 1A       		.uleb128 0x1a
+ 1496 0516 01       		.uleb128 0x1
+ 1497 0517 52       		.byte	0x52
+ 1498 0518 02       		.uleb128 0x2
+ 1499 0519 76       		.byte	0x76
+ 1500 051a 00       		.sleb128 0
+ 1501 051b 1A       		.uleb128 0x1a
+ 1502 051c 02       		.uleb128 0x2
+ 1503 051d 7D       		.byte	0x7d
+ 1504 051e 00       		.sleb128 0
+ 1505 051f 02       		.uleb128 0x2
+ 1506 0520 78       		.byte	0x78
+ 1507 0521 00       		.sleb128 0
+ 1508 0522 00       		.byte	0
+ 1509 0523 19       		.uleb128 0x19
+ 1510 0524 44000000 		.4byte	.LVL25
+ 1511 0528 7C030000 		.4byte	0x37c
+ 1512 052c 50050000 		.4byte	0x550
+ 1513 0530 1A       		.uleb128 0x1a
+ 1514 0531 01       		.uleb128 0x1
+ 1515 0532 50       		.byte	0x50
+ 1516 0533 02       		.uleb128 0x2
+ 1517 0534 74       		.byte	0x74
+ 1518 0535 00       		.sleb128 0
+ 1519 0536 1A       		.uleb128 0x1a
+ 1520 0537 01       		.uleb128 0x1
+ 1521 0538 51       		.byte	0x51
+ 1522 0539 02       		.uleb128 0x2
+ 1523 053a 79       		.byte	0x79
+ 1524 053b 00       		.sleb128 0
+ 1525 053c 1A       		.uleb128 0x1a
+ 1526 053d 01       		.uleb128 0x1
+ 1527 053e 52       		.byte	0x52
+ 1528 053f 02       		.uleb128 0x2
+ 1529 0540 76       		.byte	0x76
+ 1530 0541 00       		.sleb128 0
+ 1531 0542 1A       		.uleb128 0x1a
+ 1532 0543 01       		.uleb128 0x1
+ 1533 0544 53       		.byte	0x53
+ 1534 0545 02       		.uleb128 0x2
+ 1535 0546 7A       		.byte	0x7a
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 33
+
+
+ 1536 0547 00       		.sleb128 0
+ 1537 0548 1A       		.uleb128 0x1a
+ 1538 0549 02       		.uleb128 0x2
+ 1539 054a 7D       		.byte	0x7d
+ 1540 054b 00       		.sleb128 0
+ 1541 054c 02       		.uleb128 0x2
+ 1542 054d 78       		.byte	0x78
+ 1543 054e 00       		.sleb128 0
+ 1544 054f 00       		.byte	0
+ 1545 0550 19       		.uleb128 0x19
+ 1546 0551 6A000000 		.4byte	.LVL28
+ 1547 0555 7C060000 		.4byte	0x67c
+ 1548 0559 77050000 		.4byte	0x577
+ 1549 055d 1A       		.uleb128 0x1a
+ 1550 055e 01       		.uleb128 0x1
+ 1551 055f 50       		.byte	0x50
+ 1552 0560 02       		.uleb128 0x2
+ 1553 0561 74       		.byte	0x74
+ 1554 0562 00       		.sleb128 0
+ 1555 0563 1A       		.uleb128 0x1a
+ 1556 0564 01       		.uleb128 0x1
+ 1557 0565 51       		.byte	0x51
+ 1558 0566 02       		.uleb128 0x2
+ 1559 0567 79       		.byte	0x79
+ 1560 0568 00       		.sleb128 0
+ 1561 0569 1A       		.uleb128 0x1a
+ 1562 056a 01       		.uleb128 0x1
+ 1563 056b 52       		.byte	0x52
+ 1564 056c 02       		.uleb128 0x2
+ 1565 056d 74       		.byte	0x74
+ 1566 056e 00       		.sleb128 0
+ 1567 056f 1A       		.uleb128 0x1a
+ 1568 0570 02       		.uleb128 0x2
+ 1569 0571 7D       		.byte	0x7d
+ 1570 0572 00       		.sleb128 0
+ 1571 0573 02       		.uleb128 0x2
+ 1572 0574 78       		.byte	0x78
+ 1573 0575 00       		.sleb128 0
+ 1574 0576 00       		.byte	0
+ 1575 0577 1B       		.uleb128 0x1b
+ 1576 0578 8C000000 		.4byte	.LVL30
+ 1577 057c 7C060000 		.4byte	0x67c
+ 1578 0580 1A       		.uleb128 0x1a
+ 1579 0581 01       		.uleb128 0x1
+ 1580 0582 50       		.byte	0x50
+ 1581 0583 02       		.uleb128 0x2
+ 1582 0584 74       		.byte	0x74
+ 1583 0585 7F       		.sleb128 -1
+ 1584 0586 1A       		.uleb128 0x1a
+ 1585 0587 01       		.uleb128 0x1
+ 1586 0588 51       		.byte	0x51
+ 1587 0589 02       		.uleb128 0x2
+ 1588 058a 79       		.byte	0x79
+ 1589 058b 00       		.sleb128 0
+ 1590 058c 1A       		.uleb128 0x1a
+ 1591 058d 01       		.uleb128 0x1
+ 1592 058e 52       		.byte	0x52
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 34
+
+
+ 1593 058f 02       		.uleb128 0x2
+ 1594 0590 74       		.byte	0x74
+ 1595 0591 7F       		.sleb128 -1
+ 1596 0592 1A       		.uleb128 0x1a
+ 1597 0593 02       		.uleb128 0x2
+ 1598 0594 7D       		.byte	0x7d
+ 1599 0595 00       		.sleb128 0
+ 1600 0596 02       		.uleb128 0x2
+ 1601 0597 78       		.byte	0x78
+ 1602 0598 00       		.sleb128 0
+ 1603 0599 00       		.byte	0
+ 1604 059a 00       		.byte	0
+ 1605 059b 1C       		.uleb128 0x1c
+ 1606 059c E7000000 		.4byte	.LASF68
+ 1607 05a0 05       		.byte	0x5
+ 1608 05a1 27       		.byte	0x27
+ 1609 05a2 0D010000 		.4byte	0x10d
+ 1610 05a6 05       		.uleb128 0x5
+ 1611 05a7 03       		.byte	0x3
+ 1612 05a8 00000000 		.4byte	StripLights_Done
+ 1613 05ac 1C       		.uleb128 0x1c
+ 1614 05ad FB020000 		.4byte	.LASF69
+ 1615 05b1 05       		.byte	0x5
+ 1616 05b2 29       		.byte	0x29
+ 1617 05b3 AD000000 		.4byte	0xad
+ 1618 05b7 05       		.uleb128 0x5
+ 1619 05b8 03       		.byte	0x3
+ 1620 05b9 00000000 		.4byte	StripLights_UseGammaCorrection
+ 1621 05bd 1D       		.uleb128 0x1d
+ 1622 05be B6030000 		.4byte	.LASF70
+ 1623 05c2 07       		.byte	0x7
+ 1624 05c3 1207     		.2byte	0x712
+ 1625 05c5 C9050000 		.4byte	0x5c9
+ 1626 05c9 1E       		.uleb128 0x1e
+ 1627 05ca A2000000 		.4byte	0xa2
+ 1628 05ce 1C       		.uleb128 0x1c
+ 1629 05cf 79000000 		.4byte	.LASF71
+ 1630 05d3 06       		.byte	0x6
+ 1631 05d4 2B       		.byte	0x2b
+ 1632 05d5 7F010000 		.4byte	0x17f
+ 1633 05d9 05       		.uleb128 0x5
+ 1634 05da 03       		.byte	0x3
+ 1635 05db 00000000 		.4byte	System_u
+ 1636 05df 1C       		.uleb128 0x1c
+ 1637 05e0 63010000 		.4byte	.LASF72
+ 1638 05e4 06       		.byte	0x6
+ 1639 05e5 53       		.byte	0x53
+ 1640 05e6 34030000 		.4byte	0x334
+ 1641 05ea 05       		.uleb128 0x5
+ 1642 05eb 03       		.byte	0x3
+ 1643 05ec 00000000 		.4byte	Config
+ 1644 05f0 1C       		.uleb128 0x1c
+ 1645 05f1 25010000 		.4byte	.LASF73
+ 1646 05f5 01       		.byte	0x1
+ 1647 05f6 13       		.byte	0x13
+ 1648 05f7 01060000 		.4byte	0x601
+ 1649 05fb 05       		.uleb128 0x5
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 35
+
+
+ 1650 05fc 03       		.byte	0x3
+ 1651 05fd 00000000 		.4byte	StripLights_fontPtr
+ 1652 0601 06       		.uleb128 0x6
+ 1653 0602 04       		.byte	0x4
+ 1654 0603 07060000 		.4byte	0x607
+ 1655 0607 1F       		.uleb128 0x1f
+ 1656 0608 AD000000 		.4byte	0xad
+ 1657 060c 1C       		.uleb128 0x1c
+ 1658 060d A0000000 		.4byte	.LASF74
+ 1659 0611 01       		.byte	0x1
+ 1660 0612 14       		.byte	0x14
+ 1661 0613 D1000000 		.4byte	0xd1
+ 1662 0617 05       		.uleb128 0x5
+ 1663 0618 03       		.byte	0x3
+ 1664 0619 00000000 		.4byte	StripLights_fontX
+ 1665 061d 1C       		.uleb128 0x1c
+ 1666 061e B2000000 		.4byte	.LASF75
+ 1667 0622 01       		.byte	0x1
+ 1668 0623 15       		.byte	0x15
+ 1669 0624 D1000000 		.4byte	0xd1
+ 1670 0628 05       		.uleb128 0x5
+ 1671 0629 03       		.byte	0x3
+ 1672 062a 00000000 		.4byte	StripLights_fontY
+ 1673 062e 1C       		.uleb128 0x1c
+ 1674 062f 95040000 		.4byte	.LASF76
+ 1675 0633 01       		.byte	0x1
+ 1676 0634 16       		.byte	0x16
+ 1677 0635 D1000000 		.4byte	0xd1
+ 1678 0639 05       		.uleb128 0x5
+ 1679 063a 03       		.byte	0x3
+ 1680 063b 00000000 		.4byte	StripLights_fontOffset
+ 1681 063f 11       		.uleb128 0x11
+ 1682 0640 07060000 		.4byte	0x607
+ 1683 0644 50060000 		.4byte	0x650
+ 1684 0648 20       		.uleb128 0x20
+ 1685 0649 00010000 		.4byte	0x100
+ 1686 064d DF01     		.2byte	0x1df
+ 1687 064f 00       		.byte	0
+ 1688 0650 1C       		.uleb128 0x1c
+ 1689 0651 51040000 		.4byte	.LASF77
+ 1690 0655 01       		.byte	0x1
+ 1691 0656 1B       		.byte	0x1b
+ 1692 0657 61060000 		.4byte	0x661
+ 1693 065b 05       		.uleb128 0x5
+ 1694 065c 03       		.byte	0x3
+ 1695 065d 00000000 		.4byte	StripLights_Font5x7
+ 1696 0661 1F       		.uleb128 0x1f
+ 1697 0662 3F060000 		.4byte	0x63f
+ 1698 0666 21       		.uleb128 0x21
+ 1699 0667 0F020000 		.4byte	.LASF78
+ 1700 066b 0F020000 		.4byte	.LASF78
+ 1701 066f 05       		.byte	0x5
+ 1702 0670 21       		.byte	0x21
+ 1703 0671 21       		.uleb128 0x21
+ 1704 0672 29000000 		.4byte	.LASF79
+ 1705 0676 29000000 		.4byte	.LASF79
+ 1706 067a 05       		.byte	0x5
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 36
+
+
+ 1707 067b 23       		.byte	0x23
+ 1708 067c 21       		.uleb128 0x21
+ 1709 067d 80040000 		.4byte	.LASF80
+ 1710 0681 80040000 		.4byte	.LASF80
+ 1711 0685 05       		.byte	0x5
+ 1712 0686 1F       		.byte	0x1f
+ 1713 0687 00       		.byte	0
+ 1714              		.section	.debug_abbrev,"",%progbits
+ 1715              	.Ldebug_abbrev0:
+ 1716 0000 01       		.uleb128 0x1
+ 1717 0001 11       		.uleb128 0x11
+ 1718 0002 01       		.byte	0x1
+ 1719 0003 25       		.uleb128 0x25
+ 1720 0004 0E       		.uleb128 0xe
+ 1721 0005 13       		.uleb128 0x13
+ 1722 0006 0B       		.uleb128 0xb
+ 1723 0007 03       		.uleb128 0x3
+ 1724 0008 0E       		.uleb128 0xe
+ 1725 0009 1B       		.uleb128 0x1b
+ 1726 000a 0E       		.uleb128 0xe
+ 1727 000b 55       		.uleb128 0x55
+ 1728 000c 17       		.uleb128 0x17
+ 1729 000d 11       		.uleb128 0x11
+ 1730 000e 01       		.uleb128 0x1
+ 1731 000f 10       		.uleb128 0x10
+ 1732 0010 17       		.uleb128 0x17
+ 1733 0011 00       		.byte	0
+ 1734 0012 00       		.byte	0
+ 1735 0013 02       		.uleb128 0x2
+ 1736 0014 24       		.uleb128 0x24
+ 1737 0015 00       		.byte	0
+ 1738 0016 0B       		.uleb128 0xb
+ 1739 0017 0B       		.uleb128 0xb
+ 1740 0018 3E       		.uleb128 0x3e
+ 1741 0019 0B       		.uleb128 0xb
+ 1742 001a 03       		.uleb128 0x3
+ 1743 001b 0E       		.uleb128 0xe
+ 1744 001c 00       		.byte	0
+ 1745 001d 00       		.byte	0
+ 1746 001e 03       		.uleb128 0x3
+ 1747 001f 16       		.uleb128 0x16
+ 1748 0020 00       		.byte	0
+ 1749 0021 03       		.uleb128 0x3
+ 1750 0022 0E       		.uleb128 0xe
+ 1751 0023 3A       		.uleb128 0x3a
+ 1752 0024 0B       		.uleb128 0xb
+ 1753 0025 3B       		.uleb128 0x3b
+ 1754 0026 0B       		.uleb128 0xb
+ 1755 0027 49       		.uleb128 0x49
+ 1756 0028 13       		.uleb128 0x13
+ 1757 0029 00       		.byte	0
+ 1758 002a 00       		.byte	0
+ 1759 002b 04       		.uleb128 0x4
+ 1760 002c 24       		.uleb128 0x24
+ 1761 002d 00       		.byte	0
+ 1762 002e 0B       		.uleb128 0xb
+ 1763 002f 0B       		.uleb128 0xb
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 37
+
+
+ 1764 0030 3E       		.uleb128 0x3e
+ 1765 0031 0B       		.uleb128 0xb
+ 1766 0032 03       		.uleb128 0x3
+ 1767 0033 08       		.uleb128 0x8
+ 1768 0034 00       		.byte	0
+ 1769 0035 00       		.byte	0
+ 1770 0036 05       		.uleb128 0x5
+ 1771 0037 16       		.uleb128 0x16
+ 1772 0038 00       		.byte	0
+ 1773 0039 03       		.uleb128 0x3
+ 1774 003a 0E       		.uleb128 0xe
+ 1775 003b 3A       		.uleb128 0x3a
+ 1776 003c 0B       		.uleb128 0xb
+ 1777 003d 3B       		.uleb128 0x3b
+ 1778 003e 05       		.uleb128 0x5
+ 1779 003f 49       		.uleb128 0x49
+ 1780 0040 13       		.uleb128 0x13
+ 1781 0041 00       		.byte	0
+ 1782 0042 00       		.byte	0
+ 1783 0043 06       		.uleb128 0x6
+ 1784 0044 0F       		.uleb128 0xf
+ 1785 0045 00       		.byte	0
+ 1786 0046 0B       		.uleb128 0xb
+ 1787 0047 0B       		.uleb128 0xb
+ 1788 0048 49       		.uleb128 0x49
+ 1789 0049 13       		.uleb128 0x13
+ 1790 004a 00       		.byte	0
+ 1791 004b 00       		.byte	0
+ 1792 004c 07       		.uleb128 0x7
+ 1793 004d 15       		.uleb128 0x15
+ 1794 004e 00       		.byte	0
+ 1795 004f 27       		.uleb128 0x27
+ 1796 0050 19       		.uleb128 0x19
+ 1797 0051 00       		.byte	0
+ 1798 0052 00       		.byte	0
+ 1799 0053 08       		.uleb128 0x8
+ 1800 0054 13       		.uleb128 0x13
+ 1801 0055 01       		.byte	0x1
+ 1802 0056 03       		.uleb128 0x3
+ 1803 0057 0E       		.uleb128 0xe
+ 1804 0058 0B       		.uleb128 0xb
+ 1805 0059 0B       		.uleb128 0xb
+ 1806 005a 3A       		.uleb128 0x3a
+ 1807 005b 0B       		.uleb128 0xb
+ 1808 005c 3B       		.uleb128 0x3b
+ 1809 005d 0B       		.uleb128 0xb
+ 1810 005e 01       		.uleb128 0x1
+ 1811 005f 13       		.uleb128 0x13
+ 1812 0060 00       		.byte	0
+ 1813 0061 00       		.byte	0
+ 1814 0062 09       		.uleb128 0x9
+ 1815 0063 0D       		.uleb128 0xd
+ 1816 0064 00       		.byte	0
+ 1817 0065 03       		.uleb128 0x3
+ 1818 0066 0E       		.uleb128 0xe
+ 1819 0067 3A       		.uleb128 0x3a
+ 1820 0068 0B       		.uleb128 0xb
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 38
+
+
+ 1821 0069 3B       		.uleb128 0x3b
+ 1822 006a 0B       		.uleb128 0xb
+ 1823 006b 49       		.uleb128 0x49
+ 1824 006c 13       		.uleb128 0x13
+ 1825 006d 0B       		.uleb128 0xb
+ 1826 006e 0B       		.uleb128 0xb
+ 1827 006f 0D       		.uleb128 0xd
+ 1828 0070 0B       		.uleb128 0xb
+ 1829 0071 0C       		.uleb128 0xc
+ 1830 0072 0B       		.uleb128 0xb
+ 1831 0073 38       		.uleb128 0x38
+ 1832 0074 0B       		.uleb128 0xb
+ 1833 0075 00       		.byte	0
+ 1834 0076 00       		.byte	0
+ 1835 0077 0A       		.uleb128 0xa
+ 1836 0078 0D       		.uleb128 0xd
+ 1837 0079 00       		.byte	0
+ 1838 007a 03       		.uleb128 0x3
+ 1839 007b 08       		.uleb128 0x8
+ 1840 007c 3A       		.uleb128 0x3a
+ 1841 007d 0B       		.uleb128 0xb
+ 1842 007e 3B       		.uleb128 0x3b
+ 1843 007f 0B       		.uleb128 0xb
+ 1844 0080 49       		.uleb128 0x49
+ 1845 0081 13       		.uleb128 0x13
+ 1846 0082 0B       		.uleb128 0xb
+ 1847 0083 0B       		.uleb128 0xb
+ 1848 0084 0D       		.uleb128 0xd
+ 1849 0085 0B       		.uleb128 0xb
+ 1850 0086 0C       		.uleb128 0xc
+ 1851 0087 0B       		.uleb128 0xb
+ 1852 0088 38       		.uleb128 0x38
+ 1853 0089 0B       		.uleb128 0xb
+ 1854 008a 00       		.byte	0
+ 1855 008b 00       		.byte	0
+ 1856 008c 0B       		.uleb128 0xb
+ 1857 008d 17       		.uleb128 0x17
+ 1858 008e 01       		.byte	0x1
+ 1859 008f 03       		.uleb128 0x3
+ 1860 0090 0E       		.uleb128 0xe
+ 1861 0091 0B       		.uleb128 0xb
+ 1862 0092 0B       		.uleb128 0xb
+ 1863 0093 3A       		.uleb128 0x3a
+ 1864 0094 0B       		.uleb128 0xb
+ 1865 0095 3B       		.uleb128 0x3b
+ 1866 0096 0B       		.uleb128 0xb
+ 1867 0097 01       		.uleb128 0x1
+ 1868 0098 13       		.uleb128 0x13
+ 1869 0099 00       		.byte	0
+ 1870 009a 00       		.byte	0
+ 1871 009b 0C       		.uleb128 0xc
+ 1872 009c 0D       		.uleb128 0xd
+ 1873 009d 00       		.byte	0
+ 1874 009e 03       		.uleb128 0x3
+ 1875 009f 0E       		.uleb128 0xe
+ 1876 00a0 3A       		.uleb128 0x3a
+ 1877 00a1 0B       		.uleb128 0xb
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 39
+
+
+ 1878 00a2 3B       		.uleb128 0x3b
+ 1879 00a3 0B       		.uleb128 0xb
+ 1880 00a4 49       		.uleb128 0x49
+ 1881 00a5 13       		.uleb128 0x13
+ 1882 00a6 00       		.byte	0
+ 1883 00a7 00       		.byte	0
+ 1884 00a8 0D       		.uleb128 0xd
+ 1885 00a9 0D       		.uleb128 0xd
+ 1886 00aa 00       		.byte	0
+ 1887 00ab 03       		.uleb128 0x3
+ 1888 00ac 0E       		.uleb128 0xe
+ 1889 00ad 3A       		.uleb128 0x3a
+ 1890 00ae 0B       		.uleb128 0xb
+ 1891 00af 3B       		.uleb128 0x3b
+ 1892 00b0 0B       		.uleb128 0xb
+ 1893 00b1 49       		.uleb128 0x49
+ 1894 00b2 13       		.uleb128 0x13
+ 1895 00b3 38       		.uleb128 0x38
+ 1896 00b4 0B       		.uleb128 0xb
+ 1897 00b5 00       		.byte	0
+ 1898 00b6 00       		.byte	0
+ 1899 00b7 0E       		.uleb128 0xe
+ 1900 00b8 0D       		.uleb128 0xd
+ 1901 00b9 00       		.byte	0
+ 1902 00ba 03       		.uleb128 0x3
+ 1903 00bb 08       		.uleb128 0x8
+ 1904 00bc 3A       		.uleb128 0x3a
+ 1905 00bd 0B       		.uleb128 0xb
+ 1906 00be 3B       		.uleb128 0x3b
+ 1907 00bf 0B       		.uleb128 0xb
+ 1908 00c0 49       		.uleb128 0x49
+ 1909 00c1 13       		.uleb128 0x13
+ 1910 00c2 38       		.uleb128 0x38
+ 1911 00c3 0B       		.uleb128 0xb
+ 1912 00c4 00       		.byte	0
+ 1913 00c5 00       		.byte	0
+ 1914 00c6 0F       		.uleb128 0xf
+ 1915 00c7 15       		.uleb128 0x15
+ 1916 00c8 01       		.byte	0x1
+ 1917 00c9 27       		.uleb128 0x27
+ 1918 00ca 19       		.uleb128 0x19
+ 1919 00cb 01       		.uleb128 0x1
+ 1920 00cc 13       		.uleb128 0x13
+ 1921 00cd 00       		.byte	0
+ 1922 00ce 00       		.byte	0
+ 1923 00cf 10       		.uleb128 0x10
+ 1924 00d0 05       		.uleb128 0x5
+ 1925 00d1 00       		.byte	0
+ 1926 00d2 49       		.uleb128 0x49
+ 1927 00d3 13       		.uleb128 0x13
+ 1928 00d4 00       		.byte	0
+ 1929 00d5 00       		.byte	0
+ 1930 00d6 11       		.uleb128 0x11
+ 1931 00d7 01       		.uleb128 0x1
+ 1932 00d8 01       		.byte	0x1
+ 1933 00d9 49       		.uleb128 0x49
+ 1934 00da 13       		.uleb128 0x13
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 40
+
+
+ 1935 00db 01       		.uleb128 0x1
+ 1936 00dc 13       		.uleb128 0x13
+ 1937 00dd 00       		.byte	0
+ 1938 00de 00       		.byte	0
+ 1939 00df 12       		.uleb128 0x12
+ 1940 00e0 21       		.uleb128 0x21
+ 1941 00e1 00       		.byte	0
+ 1942 00e2 49       		.uleb128 0x49
+ 1943 00e3 13       		.uleb128 0x13
+ 1944 00e4 2F       		.uleb128 0x2f
+ 1945 00e5 0B       		.uleb128 0xb
+ 1946 00e6 00       		.byte	0
+ 1947 00e7 00       		.byte	0
+ 1948 00e8 13       		.uleb128 0x13
+ 1949 00e9 2E       		.uleb128 0x2e
+ 1950 00ea 01       		.byte	0x1
+ 1951 00eb 3F       		.uleb128 0x3f
+ 1952 00ec 19       		.uleb128 0x19
+ 1953 00ed 03       		.uleb128 0x3
+ 1954 00ee 0E       		.uleb128 0xe
+ 1955 00ef 3A       		.uleb128 0x3a
+ 1956 00f0 0B       		.uleb128 0xb
+ 1957 00f1 3B       		.uleb128 0x3b
+ 1958 00f2 0B       		.uleb128 0xb
+ 1959 00f3 27       		.uleb128 0x27
+ 1960 00f4 19       		.uleb128 0x19
+ 1961 00f5 11       		.uleb128 0x11
+ 1962 00f6 01       		.uleb128 0x1
+ 1963 00f7 12       		.uleb128 0x12
+ 1964 00f8 06       		.uleb128 0x6
+ 1965 00f9 40       		.uleb128 0x40
+ 1966 00fa 18       		.uleb128 0x18
+ 1967 00fb 9742     		.uleb128 0x2117
+ 1968 00fd 19       		.uleb128 0x19
+ 1969 00fe 01       		.uleb128 0x1
+ 1970 00ff 13       		.uleb128 0x13
+ 1971 0100 00       		.byte	0
+ 1972 0101 00       		.byte	0
+ 1973 0102 14       		.uleb128 0x14
+ 1974 0103 05       		.uleb128 0x5
+ 1975 0104 00       		.byte	0
+ 1976 0105 03       		.uleb128 0x3
+ 1977 0106 0E       		.uleb128 0xe
+ 1978 0107 3A       		.uleb128 0x3a
+ 1979 0108 0B       		.uleb128 0xb
+ 1980 0109 3B       		.uleb128 0x3b
+ 1981 010a 0B       		.uleb128 0xb
+ 1982 010b 49       		.uleb128 0x49
+ 1983 010c 13       		.uleb128 0x13
+ 1984 010d 02       		.uleb128 0x2
+ 1985 010e 18       		.uleb128 0x18
+ 1986 010f 00       		.byte	0
+ 1987 0110 00       		.byte	0
+ 1988 0111 15       		.uleb128 0x15
+ 1989 0112 05       		.uleb128 0x5
+ 1990 0113 00       		.byte	0
+ 1991 0114 03       		.uleb128 0x3
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 41
+
+
+ 1992 0115 0E       		.uleb128 0xe
+ 1993 0116 3A       		.uleb128 0x3a
+ 1994 0117 0B       		.uleb128 0xb
+ 1995 0118 3B       		.uleb128 0x3b
+ 1996 0119 0B       		.uleb128 0xb
+ 1997 011a 49       		.uleb128 0x49
+ 1998 011b 13       		.uleb128 0x13
+ 1999 011c 02       		.uleb128 0x2
+ 2000 011d 17       		.uleb128 0x17
+ 2001 011e 00       		.byte	0
+ 2002 011f 00       		.byte	0
+ 2003 0120 16       		.uleb128 0x16
+ 2004 0121 05       		.uleb128 0x5
+ 2005 0122 00       		.byte	0
+ 2006 0123 03       		.uleb128 0x3
+ 2007 0124 08       		.uleb128 0x8
+ 2008 0125 3A       		.uleb128 0x3a
+ 2009 0126 0B       		.uleb128 0xb
+ 2010 0127 3B       		.uleb128 0x3b
+ 2011 0128 0B       		.uleb128 0xb
+ 2012 0129 49       		.uleb128 0x49
+ 2013 012a 13       		.uleb128 0x13
+ 2014 012b 02       		.uleb128 0x2
+ 2015 012c 17       		.uleb128 0x17
+ 2016 012d 00       		.byte	0
+ 2017 012e 00       		.byte	0
+ 2018 012f 17       		.uleb128 0x17
+ 2019 0130 34       		.uleb128 0x34
+ 2020 0131 00       		.byte	0
+ 2021 0132 03       		.uleb128 0x3
+ 2022 0133 08       		.uleb128 0x8
+ 2023 0134 3A       		.uleb128 0x3a
+ 2024 0135 0B       		.uleb128 0xb
+ 2025 0136 3B       		.uleb128 0x3b
+ 2026 0137 0B       		.uleb128 0xb
+ 2027 0138 49       		.uleb128 0x49
+ 2028 0139 13       		.uleb128 0x13
+ 2029 013a 02       		.uleb128 0x2
+ 2030 013b 17       		.uleb128 0x17
+ 2031 013c 00       		.byte	0
+ 2032 013d 00       		.byte	0
+ 2033 013e 18       		.uleb128 0x18
+ 2034 013f 34       		.uleb128 0x34
+ 2035 0140 00       		.byte	0
+ 2036 0141 03       		.uleb128 0x3
+ 2037 0142 0E       		.uleb128 0xe
+ 2038 0143 3A       		.uleb128 0x3a
+ 2039 0144 0B       		.uleb128 0xb
+ 2040 0145 3B       		.uleb128 0x3b
+ 2041 0146 0B       		.uleb128 0xb
+ 2042 0147 49       		.uleb128 0x49
+ 2043 0148 13       		.uleb128 0x13
+ 2044 0149 02       		.uleb128 0x2
+ 2045 014a 17       		.uleb128 0x17
+ 2046 014b 00       		.byte	0
+ 2047 014c 00       		.byte	0
+ 2048 014d 19       		.uleb128 0x19
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 42
+
+
+ 2049 014e 898201   		.uleb128 0x4109
+ 2050 0151 01       		.byte	0x1
+ 2051 0152 11       		.uleb128 0x11
+ 2052 0153 01       		.uleb128 0x1
+ 2053 0154 31       		.uleb128 0x31
+ 2054 0155 13       		.uleb128 0x13
+ 2055 0156 01       		.uleb128 0x1
+ 2056 0157 13       		.uleb128 0x13
+ 2057 0158 00       		.byte	0
+ 2058 0159 00       		.byte	0
+ 2059 015a 1A       		.uleb128 0x1a
+ 2060 015b 8A8201   		.uleb128 0x410a
+ 2061 015e 00       		.byte	0
+ 2062 015f 02       		.uleb128 0x2
+ 2063 0160 18       		.uleb128 0x18
+ 2064 0161 9142     		.uleb128 0x2111
+ 2065 0163 18       		.uleb128 0x18
+ 2066 0164 00       		.byte	0
+ 2067 0165 00       		.byte	0
+ 2068 0166 1B       		.uleb128 0x1b
+ 2069 0167 898201   		.uleb128 0x4109
+ 2070 016a 01       		.byte	0x1
+ 2071 016b 11       		.uleb128 0x11
+ 2072 016c 01       		.uleb128 0x1
+ 2073 016d 31       		.uleb128 0x31
+ 2074 016e 13       		.uleb128 0x13
+ 2075 016f 00       		.byte	0
+ 2076 0170 00       		.byte	0
+ 2077 0171 1C       		.uleb128 0x1c
+ 2078 0172 34       		.uleb128 0x34
+ 2079 0173 00       		.byte	0
+ 2080 0174 03       		.uleb128 0x3
+ 2081 0175 0E       		.uleb128 0xe
+ 2082 0176 3A       		.uleb128 0x3a
+ 2083 0177 0B       		.uleb128 0xb
+ 2084 0178 3B       		.uleb128 0x3b
+ 2085 0179 0B       		.uleb128 0xb
+ 2086 017a 49       		.uleb128 0x49
+ 2087 017b 13       		.uleb128 0x13
+ 2088 017c 3F       		.uleb128 0x3f
+ 2089 017d 19       		.uleb128 0x19
+ 2090 017e 02       		.uleb128 0x2
+ 2091 017f 18       		.uleb128 0x18
+ 2092 0180 00       		.byte	0
+ 2093 0181 00       		.byte	0
+ 2094 0182 1D       		.uleb128 0x1d
+ 2095 0183 34       		.uleb128 0x34
+ 2096 0184 00       		.byte	0
+ 2097 0185 03       		.uleb128 0x3
+ 2098 0186 0E       		.uleb128 0xe
+ 2099 0187 3A       		.uleb128 0x3a
+ 2100 0188 0B       		.uleb128 0xb
+ 2101 0189 3B       		.uleb128 0x3b
+ 2102 018a 05       		.uleb128 0x5
+ 2103 018b 49       		.uleb128 0x49
+ 2104 018c 13       		.uleb128 0x13
+ 2105 018d 3F       		.uleb128 0x3f
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 43
+
+
+ 2106 018e 19       		.uleb128 0x19
+ 2107 018f 3C       		.uleb128 0x3c
+ 2108 0190 19       		.uleb128 0x19
+ 2109 0191 00       		.byte	0
+ 2110 0192 00       		.byte	0
+ 2111 0193 1E       		.uleb128 0x1e
+ 2112 0194 35       		.uleb128 0x35
+ 2113 0195 00       		.byte	0
+ 2114 0196 49       		.uleb128 0x49
+ 2115 0197 13       		.uleb128 0x13
+ 2116 0198 00       		.byte	0
+ 2117 0199 00       		.byte	0
+ 2118 019a 1F       		.uleb128 0x1f
+ 2119 019b 26       		.uleb128 0x26
+ 2120 019c 00       		.byte	0
+ 2121 019d 49       		.uleb128 0x49
+ 2122 019e 13       		.uleb128 0x13
+ 2123 019f 00       		.byte	0
+ 2124 01a0 00       		.byte	0
+ 2125 01a1 20       		.uleb128 0x20
+ 2126 01a2 21       		.uleb128 0x21
+ 2127 01a3 00       		.byte	0
+ 2128 01a4 49       		.uleb128 0x49
+ 2129 01a5 13       		.uleb128 0x13
+ 2130 01a6 2F       		.uleb128 0x2f
+ 2131 01a7 05       		.uleb128 0x5
+ 2132 01a8 00       		.byte	0
+ 2133 01a9 00       		.byte	0
+ 2134 01aa 21       		.uleb128 0x21
+ 2135 01ab 2E       		.uleb128 0x2e
+ 2136 01ac 00       		.byte	0
+ 2137 01ad 3F       		.uleb128 0x3f
+ 2138 01ae 19       		.uleb128 0x19
+ 2139 01af 3C       		.uleb128 0x3c
+ 2140 01b0 19       		.uleb128 0x19
+ 2141 01b1 6E       		.uleb128 0x6e
+ 2142 01b2 0E       		.uleb128 0xe
+ 2143 01b3 03       		.uleb128 0x3
+ 2144 01b4 0E       		.uleb128 0xe
+ 2145 01b5 3A       		.uleb128 0x3a
+ 2146 01b6 0B       		.uleb128 0xb
+ 2147 01b7 3B       		.uleb128 0x3b
+ 2148 01b8 0B       		.uleb128 0xb
+ 2149 01b9 00       		.byte	0
+ 2150 01ba 00       		.byte	0
+ 2151 01bb 00       		.byte	0
+ 2152              		.section	.debug_loc,"",%progbits
+ 2153              	.Ldebug_loc0:
+ 2154              	.LLST0:
+ 2155 0000 00000000 		.4byte	.LVL1
+ 2156 0004 3A000000 		.4byte	.LVL9
+ 2157 0008 0100     		.2byte	0x1
+ 2158 000a 50       		.byte	0x50
+ 2159 000b 3A000000 		.4byte	.LVL9
+ 2160 000f 9C000000 		.4byte	.LFE66
+ 2161 0013 0400     		.2byte	0x4
+ 2162 0015 F3       		.byte	0xf3
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 44
+
+
+ 2163 0016 01       		.uleb128 0x1
+ 2164 0017 50       		.byte	0x50
+ 2165 0018 9F       		.byte	0x9f
+ 2166 0019 00000000 		.4byte	0
+ 2167 001d 00000000 		.4byte	0
+ 2168              	.LLST1:
+ 2169 0021 00000000 		.4byte	.LVL1
+ 2170 0025 3A000000 		.4byte	.LVL9
+ 2171 0029 0100     		.2byte	0x1
+ 2172 002b 51       		.byte	0x51
+ 2173 002c 3A000000 		.4byte	.LVL9
+ 2174 0030 8A000000 		.4byte	.LVL19
+ 2175 0034 0100     		.2byte	0x1
+ 2176 0036 5B       		.byte	0x5b
+ 2177 0037 8A000000 		.4byte	.LVL19
+ 2178 003b 9C000000 		.4byte	.LFE66
+ 2179 003f 0400     		.2byte	0x4
+ 2180 0041 F3       		.byte	0xf3
+ 2181 0042 01       		.uleb128 0x1
+ 2182 0043 51       		.byte	0x51
+ 2183 0044 9F       		.byte	0x9f
+ 2184 0045 00000000 		.4byte	0
+ 2185 0049 00000000 		.4byte	0
+ 2186              	.LLST2:
+ 2187 004d 00000000 		.4byte	.LVL1
+ 2188 0051 18000000 		.4byte	.LVL3
+ 2189 0055 0100     		.2byte	0x1
+ 2190 0057 52       		.byte	0x52
+ 2191 0058 18000000 		.4byte	.LVL3
+ 2192 005c 9C000000 		.4byte	.LFE66
+ 2193 0060 0400     		.2byte	0x4
+ 2194 0062 F3       		.byte	0xf3
+ 2195 0063 01       		.uleb128 0x1
+ 2196 0064 52       		.byte	0x52
+ 2197 0065 9F       		.byte	0x9f
+ 2198 0066 00000000 		.4byte	0
+ 2199 006a 00000000 		.4byte	0
+ 2200              	.LLST3:
+ 2201 006e 00000000 		.4byte	.LVL1
+ 2202 0072 12000000 		.4byte	.LVL2
+ 2203 0076 0100     		.2byte	0x1
+ 2204 0078 53       		.byte	0x53
+ 2205 0079 12000000 		.4byte	.LVL2
+ 2206 007d 8A000000 		.4byte	.LVL19
+ 2207 0081 0200     		.2byte	0x2
+ 2208 0083 91       		.byte	0x91
+ 2209 0084 54       		.sleb128 -44
+ 2210 0085 8A000000 		.4byte	.LVL19
+ 2211 0089 9C000000 		.4byte	.LFE66
+ 2212 008d 0200     		.2byte	0x2
+ 2213 008f 7D       		.byte	0x7d
+ 2214 0090 54       		.sleb128 -44
+ 2215 0091 00000000 		.4byte	0
+ 2216 0095 00000000 		.4byte	0
+ 2217              	.LLST4:
+ 2218 0099 00000000 		.4byte	.LVL1
+ 2219 009d 8A000000 		.4byte	.LVL19
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 45
+
+
+ 2220 00a1 0200     		.2byte	0x2
+ 2221 00a3 91       		.byte	0x91
+ 2222 00a4 00       		.sleb128 0
+ 2223 00a5 8A000000 		.4byte	.LVL19
+ 2224 00a9 9C000000 		.4byte	.LFE66
+ 2225 00ad 0200     		.2byte	0x2
+ 2226 00af 7D       		.byte	0x7d
+ 2227 00b0 00       		.sleb128 0
+ 2228 00b1 00000000 		.4byte	0
+ 2229 00b5 00000000 		.4byte	0
+ 2230              	.LLST5:
+ 2231 00b9 38000000 		.4byte	.LVL8
+ 2232 00bd 3A000000 		.4byte	.LVL9
+ 2233 00c1 0100     		.2byte	0x1
+ 2234 00c3 50       		.byte	0x50
+ 2235 00c4 3A000000 		.4byte	.LVL9
+ 2236 00c8 8A000000 		.4byte	.LVL19
+ 2237 00cc 0100     		.2byte	0x1
+ 2238 00ce 56       		.byte	0x56
+ 2239 00cf 00000000 		.4byte	0
+ 2240 00d3 00000000 		.4byte	0
+ 2241              	.LLST6:
+ 2242 00d7 3A000000 		.4byte	.LVL9
+ 2243 00db 72000000 		.4byte	.LVL15
+ 2244 00df 0100     		.2byte	0x1
+ 2245 00e1 55       		.byte	0x55
+ 2246 00e2 76000000 		.4byte	.LVL16
+ 2247 00e6 80000000 		.4byte	.LVL18
+ 2248 00ea 0100     		.2byte	0x1
+ 2249 00ec 55       		.byte	0x55
+ 2250 00ed 00000000 		.4byte	0
+ 2251 00f1 00000000 		.4byte	0
+ 2252              	.LLST7:
+ 2253 00f5 1E000000 		.4byte	.LVL4
+ 2254 00f9 8A000000 		.4byte	.LVL19
+ 2255 00fd 0100     		.2byte	0x1
+ 2256 00ff 58       		.byte	0x58
+ 2257 0100 00000000 		.4byte	0
+ 2258 0104 00000000 		.4byte	0
+ 2259              	.LLST8:
+ 2260 0108 3A000000 		.4byte	.LVL9
+ 2261 010c 6C000000 		.4byte	.LVL12
+ 2262 0110 0100     		.2byte	0x1
+ 2263 0112 54       		.byte	0x54
+ 2264 0113 6E000000 		.4byte	.LVL13
+ 2265 0117 72000000 		.4byte	.LVL15
+ 2266 011b 0100     		.2byte	0x1
+ 2267 011d 54       		.byte	0x54
+ 2268 011e 76000000 		.4byte	.LVL16
+ 2269 0122 80000000 		.4byte	.LVL18
+ 2270 0126 0100     		.2byte	0x1
+ 2271 0128 54       		.byte	0x54
+ 2272 0129 00000000 		.4byte	0
+ 2273 012d 00000000 		.4byte	0
+ 2274              	.LLST9:
+ 2275 0131 32000000 		.4byte	.LVL7
+ 2276 0135 8A000000 		.4byte	.LVL19
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 46
+
+
+ 2277 0139 0100     		.2byte	0x1
+ 2278 013b 57       		.byte	0x57
+ 2279 013c 00000000 		.4byte	0
+ 2280 0140 00000000 		.4byte	0
+ 2281              	.LLST10:
+ 2282 0144 22000000 		.4byte	.LVL5
+ 2283 0148 8A000000 		.4byte	.LVL19
+ 2284 014c 0100     		.2byte	0x1
+ 2285 014e 5A       		.byte	0x5a
+ 2286 014f 00000000 		.4byte	0
+ 2287 0153 00000000 		.4byte	0
+ 2288              	.LLST11:
+ 2289 0157 00000000 		.4byte	.LVL20
+ 2290 015b 16000000 		.4byte	.LVL22
+ 2291 015f 0100     		.2byte	0x1
+ 2292 0161 50       		.byte	0x50
+ 2293 0162 16000000 		.4byte	.LVL22
+ 2294 0166 92000000 		.4byte	.LVL31
+ 2295 016a 0100     		.2byte	0x1
+ 2296 016c 54       		.byte	0x54
+ 2297 016d 00000000 		.4byte	0
+ 2298 0171 00000000 		.4byte	0
+ 2299              	.LLST12:
+ 2300 0175 00000000 		.4byte	.LVL20
+ 2301 0179 16000000 		.4byte	.LVL22
+ 2302 017d 0100     		.2byte	0x1
+ 2303 017f 51       		.byte	0x51
+ 2304 0180 16000000 		.4byte	.LVL22
+ 2305 0184 92000000 		.4byte	.LVL31
+ 2306 0188 0100     		.2byte	0x1
+ 2307 018a 59       		.byte	0x59
+ 2308 018b 92000000 		.4byte	.LVL31
+ 2309 018f 9C000000 		.4byte	.LFE65
+ 2310 0193 0400     		.2byte	0x4
+ 2311 0195 F3       		.byte	0xf3
+ 2312 0196 01       		.uleb128 0x1
+ 2313 0197 51       		.byte	0x51
+ 2314 0198 9F       		.byte	0x9f
+ 2315 0199 00000000 		.4byte	0
+ 2316 019d 00000000 		.4byte	0
+ 2317              	.LLST13:
+ 2318 01a1 00000000 		.4byte	.LVL20
+ 2319 01a5 16000000 		.4byte	.LVL22
+ 2320 01a9 0100     		.2byte	0x1
+ 2321 01ab 52       		.byte	0x52
+ 2322 01ac 16000000 		.4byte	.LVL22
+ 2323 01b0 92000000 		.4byte	.LVL31
+ 2324 01b4 0100     		.2byte	0x1
+ 2325 01b6 57       		.byte	0x57
+ 2326 01b7 92000000 		.4byte	.LVL31
+ 2327 01bb 9C000000 		.4byte	.LFE65
+ 2328 01bf 0400     		.2byte	0x4
+ 2329 01c1 F3       		.byte	0xf3
+ 2330 01c2 01       		.uleb128 0x1
+ 2331 01c3 52       		.byte	0x52
+ 2332 01c4 9F       		.byte	0x9f
+ 2333 01c5 00000000 		.4byte	0
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 47
+
+
+ 2334 01c9 00000000 		.4byte	0
+ 2335              	.LLST14:
+ 2336 01cd 00000000 		.4byte	.LVL20
+ 2337 01d1 16000000 		.4byte	.LVL22
+ 2338 01d5 0100     		.2byte	0x1
+ 2339 01d7 53       		.byte	0x53
+ 2340 01d8 16000000 		.4byte	.LVL22
+ 2341 01dc 92000000 		.4byte	.LVL31
+ 2342 01e0 0100     		.2byte	0x1
+ 2343 01e2 5A       		.byte	0x5a
+ 2344 01e3 92000000 		.4byte	.LVL31
+ 2345 01e7 9C000000 		.4byte	.LFE65
+ 2346 01eb 0400     		.2byte	0x4
+ 2347 01ed F3       		.byte	0xf3
+ 2348 01ee 01       		.uleb128 0x1
+ 2349 01ef 53       		.byte	0x53
+ 2350 01f0 9F       		.byte	0x9f
+ 2351 01f1 00000000 		.4byte	0
+ 2352 01f5 00000000 		.4byte	0
+ 2353              	.LLST15:
+ 2354 01f9 00000000 		.4byte	.LVL20
+ 2355 01fd 92000000 		.4byte	.LVL31
+ 2356 0201 0200     		.2byte	0x2
+ 2357 0203 91       		.byte	0x91
+ 2358 0204 00       		.sleb128 0
+ 2359 0205 92000000 		.4byte	.LVL31
+ 2360 0209 9C000000 		.4byte	.LFE65
+ 2361 020d 0200     		.2byte	0x2
+ 2362 020f 7D       		.byte	0x7d
+ 2363 0210 00       		.sleb128 0
+ 2364 0211 00000000 		.4byte	0
+ 2365 0215 00000000 		.4byte	0
+ 2366              	.LLST16:
+ 2367 0219 12000000 		.4byte	.LVL21
+ 2368 021d 16000000 		.4byte	.LVL22
+ 2369 0221 0200     		.2byte	0x2
+ 2370 0223 30       		.byte	0x30
+ 2371 0224 9F       		.byte	0x9f
+ 2372 0225 16000000 		.4byte	.LVL22
+ 2373 0229 92000000 		.4byte	.LVL31
+ 2374 022d 0100     		.2byte	0x1
+ 2375 022f 55       		.byte	0x55
+ 2376 0230 00000000 		.4byte	0
+ 2377 0234 00000000 		.4byte	0
+ 2378              	.LLST17:
+ 2379 0238 12000000 		.4byte	.LVL21
+ 2380 023c 16000000 		.4byte	.LVL22
+ 2381 0240 0A00     		.2byte	0xa
+ 2382 0242 03       		.byte	0x3
+ 2383 0243 00000000 		.4byte	StripLights_fontY
+ 2384 0247 06       		.byte	0x6
+ 2385 0248 71       		.byte	0x71
+ 2386 0249 00       		.sleb128 0
+ 2387 024a 22       		.byte	0x22
+ 2388 024b 9F       		.byte	0x9f
+ 2389 024c 00000000 		.4byte	0
+ 2390 0250 00000000 		.4byte	0
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 48
+
+
+ 2391              		.section	.debug_aranges,"",%progbits
+ 2392 0000 2C000000 		.4byte	0x2c
+ 2393 0004 0200     		.2byte	0x2
+ 2394 0006 00000000 		.4byte	.Ldebug_info0
+ 2395 000a 04       		.byte	0x4
+ 2396 000b 00       		.byte	0
+ 2397 000c 0000     		.2byte	0
+ 2398 000e 0000     		.2byte	0
+ 2399 0010 00000000 		.4byte	.LFB64
+ 2400 0014 4C000000 		.4byte	.LFE64-.LFB64
+ 2401 0018 00000000 		.4byte	.LFB66
+ 2402 001c 9C000000 		.4byte	.LFE66-.LFB66
+ 2403 0020 00000000 		.4byte	.LFB65
+ 2404 0024 9C000000 		.4byte	.LFE65-.LFB65
+ 2405 0028 00000000 		.4byte	0
+ 2406 002c 00000000 		.4byte	0
+ 2407              		.section	.debug_ranges,"",%progbits
+ 2408              	.Ldebug_ranges0:
+ 2409 0000 00000000 		.4byte	.LFB64
+ 2410 0004 4C000000 		.4byte	.LFE64
+ 2411 0008 00000000 		.4byte	.LFB66
+ 2412 000c 9C000000 		.4byte	.LFE66
+ 2413 0010 00000000 		.4byte	.LFB65
+ 2414 0014 9C000000 		.4byte	.LFE65
+ 2415 0018 00000000 		.4byte	0
+ 2416 001c 00000000 		.4byte	0
+ 2417              		.section	.debug_line,"",%progbits
+ 2418              	.Ldebug_line0:
+ 2419 0000 0C020000 		.section	.debug_str,"MS",%progbits,1
+ 2419      02007B01 
+ 2419      00000201 
+ 2419      FB0E0D00 
+ 2419      01010101 
+ 2420              	.LASF45:
+ 2421 0000 48616E64 		.ascii	"Handle\000"
+ 2421      6C6500
+ 2422              	.LASF24:
+ 2423 0007 53747269 		.ascii	"StripLights_Event\000"
+ 2423      704C6967 
+ 2423      6874735F 
+ 2423      4576656E 
+ 2423      7400
+ 2424              	.LASF34:
+ 2425 0019 4672616D 		.ascii	"FrameNr\000"
+ 2425      654E7200 
+ 2426              	.LASF30:
+ 2427 0021 62797465 		.ascii	"byteVal\000"
+ 2427      56616C00 
+ 2428              	.LASF79:
+ 2429 0029 53747269 		.ascii	"StripLights_ColorInc\000"
+ 2429      704C6967 
+ 2429      6874735F 
+ 2429      436F6C6F 
+ 2429      72496E63 
+ 2430              	.LASF58:
+ 2431 003e 666F6E74 		.ascii	"font\000"
+ 2431      00
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 49
+
+
+ 2432              	.LASF55:
+ 2433 0043 506F7274 		.ascii	"Ports\000"
+ 2433      7300
+ 2434              	.LASF53:
+ 2435 0049 476C6F62 		.ascii	"GlobalConfig_s\000"
+ 2435      616C436F 
+ 2435      6E666967 
+ 2435      5F7300
+ 2436              	.LASF23:
+ 2437 0058 73697A65 		.ascii	"sizetype\000"
+ 2437      74797065 
+ 2437      00
+ 2438              	.LASF31:
+ 2439 0061 53797374 		.ascii	"System_s\000"
+ 2439      656D5F73 
+ 2439      00
+ 2440              	.LASF51:
+ 2441 006a 4170706C 		.ascii	"Applications_s\000"
+ 2441      69636174 
+ 2441      696F6E73 
+ 2441      5F7300
+ 2442              	.LASF71:
+ 2443 0079 53797374 		.ascii	"System_u\000"
+ 2443      656D5F75 
+ 2443      00
+ 2444              	.LASF63:
+ 2445 0082 7953746F 		.ascii	"yStop\000"
+ 2445      7000
+ 2446              	.LASF49:
+ 2447 0088 4E616D65 		.ascii	"Name\000"
+ 2447      00
+ 2448              	.LASF54:
+ 2449 008d 4E657477 		.ascii	"Network\000"
+ 2449      6F726B00 
+ 2450              	.LASF4:
+ 2451 0095 5F5F7569 		.ascii	"__uint16_t\000"
+ 2451      6E743136 
+ 2451      5F7400
+ 2452              	.LASF74:
+ 2453 00a0 53747269 		.ascii	"StripLights_fontX\000"
+ 2453      704C6967 
+ 2453      6874735F 
+ 2453      666F6E74 
+ 2453      5800
+ 2454              	.LASF75:
+ 2455 00b2 53747269 		.ascii	"StripLights_fontY\000"
+ 2455      704C6967 
+ 2455      6874735F 
+ 2455      666F6E74 
+ 2455      5900
+ 2456              	.LASF16:
+ 2457 00c4 75696E74 		.ascii	"uint16\000"
+ 2457      313600
+ 2458              	.LASF40:
+ 2459 00cb 48656164 		.ascii	"Header\000"
+ 2459      657200
+ 2460              	.LASF48:
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 50
+
+
+ 2461 00d2 54797065 		.ascii	"TypeIdentifier\000"
+ 2461      4964656E 
+ 2461      74696669 
+ 2461      657200
+ 2462              	.LASF15:
+ 2463 00e1 75696E74 		.ascii	"uint8\000"
+ 2463      3800
+ 2464              	.LASF68:
+ 2465 00e7 53747269 		.ascii	"StripLights_Done\000"
+ 2465      704C6967 
+ 2465      6874735F 
+ 2465      446F6E65 
+ 2465      00
+ 2466              	.LASF2:
+ 2467 00f8 73686F72 		.ascii	"short int\000"
+ 2467      7420696E 
+ 2467      7400
+ 2468              	.LASF36:
+ 2469 0102 54617267 		.ascii	"Target\000"
+ 2469      657400
+ 2470              	.LASF19:
+ 2471 0109 666C6F61 		.ascii	"float\000"
+ 2471      7400
+ 2472              	.LASF9:
+ 2473 010f 6C6F6E67 		.ascii	"long long int\000"
+ 2473      206C6F6E 
+ 2473      6720696E 
+ 2473      7400
+ 2474              	.LASF61:
+ 2475 011d 74686543 		.ascii	"theChar\000"
+ 2475      68617200 
+ 2476              	.LASF73:
+ 2477 0125 53747269 		.ascii	"StripLights_fontPtr\000"
+ 2477      704C6967 
+ 2477      6874735F 
+ 2477      666F6E74 
+ 2477      50747200 
+ 2478              	.LASF7:
+ 2479 0139 6C6F6E67 		.ascii	"long int\000"
+ 2479      20696E74 
+ 2479      00
+ 2480              	.LASF52:
+ 2481 0142 4C697374 		.ascii	"List\000"
+ 2481      00
+ 2482              	.LASF50:
+ 2483 0147 4672616D 		.ascii	"FrameCounter\000"
+ 2483      65436F75 
+ 2483      6E746572 
+ 2483      00
+ 2484              	.LASF59:
+ 2485 0154 78706F73 		.ascii	"xpos\000"
+ 2485      00
+ 2486              	.LASF38:
+ 2487 0159 50617261 		.ascii	"Parameter\000"
+ 2487      6D657465 
+ 2487      7200
+ 2488              	.LASF72:
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 51
+
+
+ 2489 0163 436F6E66 		.ascii	"Config\000"
+ 2489      696700
+ 2490              	.LASF57:
+ 2491 016a 53747269 		.ascii	"StripLights_PutChar\000"
+ 2491      704C6967 
+ 2491      6874735F 
+ 2491      50757443 
+ 2491      68617200 
+ 2492              	.LASF33:
+ 2493 017e 506F7274 		.ascii	"Port\000"
+ 2493      00
+ 2494              	.LASF22:
+ 2495 0183 6C6F6E67 		.ascii	"long double\000"
+ 2495      20646F75 
+ 2495      626C6500 
+ 2496              	.LASF26:
+ 2497 018f 4E61636B 		.ascii	"Nack\000"
+ 2497      00
+ 2498              	.LASF82:
+ 2499 0194 47656E65 		.ascii	"Generated_Source\\PSoC5\\StripLights_fonts.c\000"
+ 2499      72617465 
+ 2499      645F536F 
+ 2499      75726365 
+ 2499      5C50536F 
+ 2500              	.LASF84:
+ 2501 01bf 5F737973 		.ascii	"_system_u\000"
+ 2501      74656D5F 
+ 2501      7500
+ 2502              	.LASF1:
+ 2503 01c9 756E7369 		.ascii	"unsigned char\000"
+ 2503      676E6564 
+ 2503      20636861 
+ 2503      7200
+ 2504              	.LASF25:
+ 2505 01d7 41636B52 		.ascii	"AckReq\000"
+ 2505      657100
+ 2506              	.LASF35:
+ 2507 01de 4672616D 		.ascii	"FrameHeader_s\000"
+ 2507      65486561 
+ 2507      6465725F 
+ 2507      7300
+ 2508              	.LASF0:
+ 2509 01ec 7369676E 		.ascii	"signed char\000"
+ 2509      65642063 
+ 2509      68617200 
+ 2510              	.LASF10:
+ 2511 01f8 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 2511      206C6F6E 
+ 2511      6720756E 
+ 2511      7369676E 
+ 2511      65642069 
+ 2512              	.LASF78:
+ 2513 020f 53747269 		.ascii	"StripLights_Pixel\000"
+ 2513      704C6967 
+ 2513      6874735F 
+ 2513      50697865 
+ 2513      6C00
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 52
+
+
+ 2514              	.LASF11:
+ 2515 0221 756E7369 		.ascii	"unsigned int\000"
+ 2515      676E6564 
+ 2515      20696E74 
+ 2515      00
+ 2516              	.LASF13:
+ 2517 022e 75696E74 		.ascii	"uint16_t\000"
+ 2517      31365F74 
+ 2517      00
+ 2518              	.LASF83:
+ 2519 0237 433A5C55 		.ascii	"C:\\Users\\matij\\source\\Workspaces\\Embedded\\PSo"
+ 2519      73657273 
+ 2519      5C6D6174 
+ 2519      696A5C73 
+ 2519      6F757263 
+ 2520 0264 435C4C69 		.ascii	"C\\Libraries\\Ontwikkeling\\BCom0.3.cydsn\000"
+ 2520      62726172 
+ 2520      6965735C 
+ 2520      4F6E7477 
+ 2520      696B6B65 
+ 2521              	.LASF44:
+ 2522 028b 506F7274 		.ascii	"PortHandle_s\000"
+ 2522      48616E64 
+ 2522      6C655F73 
+ 2522      00
+ 2523              	.LASF56:
+ 2524 0298 53747269 		.ascii	"StripLights_SetFont\000"
+ 2524      704C6967 
+ 2524      6874735F 
+ 2524      53657446 
+ 2524      6F6E7400 
+ 2525              	.LASF67:
+ 2526 02ac 73747250 		.ascii	"strPos\000"
+ 2526      6F7300
+ 2527              	.LASF66:
+ 2528 02b3 74686553 		.ascii	"theString\000"
+ 2528      7472696E 
+ 2528      6700
+ 2529              	.LASF5:
+ 2530 02bd 73686F72 		.ascii	"short unsigned int\000"
+ 2530      7420756E 
+ 2530      7369676E 
+ 2530      65642069 
+ 2530      6E7400
+ 2531              	.LASF42:
+ 2532 02d0 5061796C 		.ascii	"Payload\000"
+ 2532      6F616400 
+ 2533              	.LASF37:
+ 2534 02d8 536F7572 		.ascii	"Source\000"
+ 2534      636500
+ 2535              	.LASF21:
+ 2536 02df 63686172 		.ascii	"char\000"
+ 2536      00
+ 2537              	.LASF47:
+ 2538 02e4 4E657477 		.ascii	"Network_s\000"
+ 2538      6F726B5F 
+ 2538      7300
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 53
+
+
+ 2539              	.LASF14:
+ 2540 02ee 696E7433 		.ascii	"int32_t\000"
+ 2540      325F7400 
+ 2541              	.LASF60:
+ 2542 02f6 79706F73 		.ascii	"ypos\000"
+ 2542      00
+ 2543              	.LASF69:
+ 2544 02fb 53747269 		.ascii	"StripLights_UseGammaCorrection\000"
+ 2544      704C6967 
+ 2544      6874735F 
+ 2544      55736547 
+ 2544      616D6D61 
+ 2545              	.LASF41:
+ 2546 031a 4C656E67 		.ascii	"Lenght\000"
+ 2546      687400
+ 2547              	.LASF39:
+ 2548 0321 42436F6D 		.ascii	"BComFrame_s\000"
+ 2548      4672616D 
+ 2548      655F7300 
+ 2549              	.LASF27:
+ 2550 032d 456E6372 		.ascii	"Encrypted\000"
+ 2550      79707465 
+ 2550      6400
+ 2551              	.LASF32:
+ 2552 0337 50617261 		.ascii	"Parameter_s\000"
+ 2552      6D657465 
+ 2552      725F7300 
+ 2553              	.LASF17:
+ 2554 0343 75696E74 		.ascii	"uint32\000"
+ 2554      333200
+ 2555              	.LASF8:
+ 2556 034a 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2556      20756E73 
+ 2556      69676E65 
+ 2556      6420696E 
+ 2556      7400
+ 2557              	.LASF18:
+ 2558 035c 696E7433 		.ascii	"int32\000"
+ 2558      3200
+ 2559              	.LASF20:
+ 2560 0362 646F7562 		.ascii	"double\000"
+ 2560      6C6500
+ 2561              	.LASF64:
+ 2562 0369 7853746F 		.ascii	"xStop\000"
+ 2562      7000
+ 2563              	.LASF43:
+ 2564 036f 42436F6D 		.ascii	"BCom_1_CallBackFunction\000"
+ 2564      5F315F43 
+ 2564      616C6C42 
+ 2564      61636B46 
+ 2564      756E6374 
+ 2565              	.LASF6:
+ 2566 0387 5F5F696E 		.ascii	"__int32_t\000"
+ 2566      7433325F 
+ 2566      7400
+ 2567              	.LASF12:
+ 2568 0391 75696E74 		.ascii	"uint8_t\000"
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 54
+
+
+ 2568      385F7400 
+ 2569              	.LASF65:
+ 2570 0399 53747269 		.ascii	"StripLights_PrintString\000"
+ 2570      704C6967 
+ 2570      6874735F 
+ 2570      5072696E 
+ 2570      74537472 
+ 2571              	.LASF28:
+ 2572 03b1 50696E67 		.ascii	"Ping\000"
+ 2572      00
+ 2573              	.LASF70:
+ 2574 03b6 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 2574      52784275 
+ 2574      66666572 
+ 2574      00
+ 2575              	.LASF81:
+ 2576 03c3 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 2576      43313120 
+ 2576      352E342E 
+ 2576      31203230 
+ 2576      31363036 
+ 2577 03f6 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 2577      20726576 
+ 2577      6973696F 
+ 2577      6E203233 
+ 2577      37373135 
+ 2578 0429 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 2578      66756E63 
+ 2578      74696F6E 
+ 2578      2D736563 
+ 2578      74696F6E 
+ 2579              	.LASF77:
+ 2580 0451 53747269 		.ascii	"StripLights_Font5x7\000"
+ 2580      704C6967 
+ 2580      6874735F 
+ 2580      466F6E74 
+ 2580      35783700 
+ 2581              	.LASF29:
+ 2582 0465 53797374 		.ascii	"System\000"
+ 2582      656D00
+ 2583              	.LASF46:
+ 2584 046c 6E657874 		.ascii	"next\000"
+ 2584      00
+ 2585              	.LASF3:
+ 2586 0471 5F5F7569 		.ascii	"__uint8_t\000"
+ 2586      6E74385F 
+ 2586      7400
+ 2587              	.LASF62:
+ 2588 047b 6D61736B 		.ascii	"mask\000"
+ 2588      00
+ 2589              	.LASF80:
+ 2590 0480 53747269 		.ascii	"StripLights_DrawLine\000"
+ 2590      704C6967 
+ 2590      6874735F 
+ 2590      44726177 
+ 2590      4C696E65 
+ 2591              	.LASF76:
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccjWsBL4.s 			page 55
+
+
+ 2592 0495 53747269 		.ascii	"StripLights_fontOffset\000"
+ 2592      704C6967 
+ 2592      6874735F 
+ 2592      666F6E74 
+ 2592      4F666673 
+ 2593              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

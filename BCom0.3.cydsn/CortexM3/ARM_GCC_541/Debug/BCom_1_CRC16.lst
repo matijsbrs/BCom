@@ -1,0 +1,1215 @@
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccxoqFRE.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"BCom_1_CRC16.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.init_crc16_tab,"ax",%progbits
+  20              		.align	2
+  21              		.thumb
+  22              		.thumb_func
+  23              		.type	init_crc16_tab, %function
+  24              	init_crc16_tab:
+  25              	.LFB2:
+  26              		.file 1 "Generated_Source\\PSoC5\\BCom_1_CRC16.c"
+   1:Generated_Source\PSoC5/BCom_1_CRC16.c **** /*
+   2:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * Library: libcrc
+   3:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * File:    src/crc16.c
+   4:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * Author:  Lammert Bies
+   5:Generated_Source\PSoC5/BCom_1_CRC16.c ****  *
+   6:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * This file is licensed under the MIT License as stated below
+   7:Generated_Source\PSoC5/BCom_1_CRC16.c ****  *
+   8:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * Copyright (c) 1999-2016 Lammert Bies
+   9:Generated_Source\PSoC5/BCom_1_CRC16.c ****  *
+  10:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * Permission is hereby granted, free of charge, to any person obtaining a copy
+  11:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * of this software and associated documentation files (the "Software"), to deal
+  12:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * in the Software without restriction, including without limitation the rights
+  13:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  14:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * copies of the Software, and to permit persons to whom the Software is
+  15:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * furnished to do so, subject to the following conditions:
+  16:Generated_Source\PSoC5/BCom_1_CRC16.c ****  *
+  17:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * The above copyright notice and this permission notice shall be included in all
+  18:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * copies or substantial portions of the Software.
+  19:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * 
+  20:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  21:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  22:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  23:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  24:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  25:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  26:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * SOFTWARE.
+  27:Generated_Source\PSoC5/BCom_1_CRC16.c ****  *
+  28:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * Description
+  29:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * -----------
+  30:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * The source file src/crc16.c contains routines which calculate the common
+  31:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * CRC16 cyclic redundancy check values for an incomming byte string.
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccxoqFRE.s 			page 2
+
+
+  32:Generated_Source\PSoC5/BCom_1_CRC16.c ****  */
+  33:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+  34:Generated_Source\PSoC5/BCom_1_CRC16.c **** #include <stdbool.h>
+  35:Generated_Source\PSoC5/BCom_1_CRC16.c **** #include <stdlib.h>
+  36:Generated_Source\PSoC5/BCom_1_CRC16.c **** #include "BCom_1_checksum.h"
+  37:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+  38:Generated_Source\PSoC5/BCom_1_CRC16.c **** static void             init_crc16_tab( void );
+  39:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+  40:Generated_Source\PSoC5/BCom_1_CRC16.c **** static bool             crc_tab16_init          = false;
+  41:Generated_Source\PSoC5/BCom_1_CRC16.c **** static uint16_t         crc_tab16[256];
+  42:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+  43:Generated_Source\PSoC5/BCom_1_CRC16.c **** /*
+  44:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * uint16_t crc_16( const unsigned char *input_str, size_t num_bytes );
+  45:Generated_Source\PSoC5/BCom_1_CRC16.c ****  *
+  46:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * The function crc_16() calculates the 16 bits CRC16 in one pass for a byte
+  47:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * string of which the beginning has been passed to the function. The number of
+  48:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * bytes to check is also a parameter. The number of the bytes in the string is
+  49:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * limited by the constant SIZE_MAX.
+  50:Generated_Source\PSoC5/BCom_1_CRC16.c ****  */
+  51:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+  52:Generated_Source\PSoC5/BCom_1_CRC16.c **** uint16_t crc_16( const unsigned char *input_str, size_t num_bytes ) {
+  53:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+  54:Generated_Source\PSoC5/BCom_1_CRC16.c **** 	uint16_t crc;
+  55:Generated_Source\PSoC5/BCom_1_CRC16.c **** 	const unsigned char *ptr;
+  56:Generated_Source\PSoC5/BCom_1_CRC16.c **** 	size_t a;
+  57:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+  58:Generated_Source\PSoC5/BCom_1_CRC16.c **** 	if ( ! crc_tab16_init ) init_crc16_tab();
+  59:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+  60:Generated_Source\PSoC5/BCom_1_CRC16.c **** 	crc = CRC_START_16;
+  61:Generated_Source\PSoC5/BCom_1_CRC16.c **** 	ptr = input_str;
+  62:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+  63:Generated_Source\PSoC5/BCom_1_CRC16.c **** 	if ( ptr != NULL ) for (a=0; a<num_bytes; a++) {
+  64:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+  65:Generated_Source\PSoC5/BCom_1_CRC16.c **** 		crc = (crc >> 8) ^ crc_tab16[ (crc ^ (uint16_t) *ptr++) & 0x00FF ];
+  66:Generated_Source\PSoC5/BCom_1_CRC16.c **** 	}
+  67:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+  68:Generated_Source\PSoC5/BCom_1_CRC16.c **** 	return crc;
+  69:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+  70:Generated_Source\PSoC5/BCom_1_CRC16.c **** }  /* crc_16 */
+  71:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+  72:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+  73:Generated_Source\PSoC5/BCom_1_CRC16.c **** /*
+  74:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * uint16_t update_crc_16( uint16_t crc, unsigned char c );
+  75:Generated_Source\PSoC5/BCom_1_CRC16.c ****  *
+  76:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * The function update_crc_16() calculates a new CRC-16 value based on the
+  77:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * previous value of the CRC and the next byte of data to be checked.
+  78:Generated_Source\PSoC5/BCom_1_CRC16.c ****  */
+  79:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+  80:Generated_Source\PSoC5/BCom_1_CRC16.c **** uint16_t update_crc_16( uint16_t crc, unsigned char c ) {
+  81:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+  82:Generated_Source\PSoC5/BCom_1_CRC16.c **** 	if ( ! crc_tab16_init ) init_crc16_tab();
+  83:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+  84:Generated_Source\PSoC5/BCom_1_CRC16.c **** 	return (crc >> 8) ^ crc_tab16[ (crc ^ (uint16_t) c) & 0x00FF ];
+  85:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+  86:Generated_Source\PSoC5/BCom_1_CRC16.c **** }  /* update_crc_16 */
+  87:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+  88:Generated_Source\PSoC5/BCom_1_CRC16.c **** /*
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccxoqFRE.s 			page 3
+
+
+  89:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * static void init_crc16_tab( void );
+  90:Generated_Source\PSoC5/BCom_1_CRC16.c ****  *
+  91:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * For optimal performance uses the CRC16 routine a lookup table with values
+  92:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * that can be used directly in the XOR arithmetic in the algorithm. This
+  93:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * lookup table is calculated by the init_crc16_tab() routine, the first time
+  94:Generated_Source\PSoC5/BCom_1_CRC16.c ****  * the CRC function is called.
+  95:Generated_Source\PSoC5/BCom_1_CRC16.c ****  */
+  96:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+  97:Generated_Source\PSoC5/BCom_1_CRC16.c **** static void init_crc16_tab( void ) {
+  27              		.loc 1 97 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  32 0000 10B4     		push	{r4}
+  33              		.cfi_def_cfa_offset 4
+  34              		.cfi_offset 4, -4
+  35              	.LVL0:
+  98:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+  99:Generated_Source\PSoC5/BCom_1_CRC16.c **** 	uint16_t i;
+ 100:Generated_Source\PSoC5/BCom_1_CRC16.c **** 	uint16_t j;
+ 101:Generated_Source\PSoC5/BCom_1_CRC16.c **** 	uint16_t crc;
+ 102:Generated_Source\PSoC5/BCom_1_CRC16.c **** 	uint16_t c;
+ 103:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+ 104:Generated_Source\PSoC5/BCom_1_CRC16.c **** 	for (i=0; i<256; i++) {
+  36              		.loc 1 104 0
+  37 0002 0024     		movs	r4, #0
+  38 0004 19E0     		b	.L2
+  39              	.LVL1:
+  40              	.L5:
+ 105:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+ 106:Generated_Source\PSoC5/BCom_1_CRC16.c **** 		crc = 0;
+ 107:Generated_Source\PSoC5/BCom_1_CRC16.c **** 		c   = i;
+ 108:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+ 109:Generated_Source\PSoC5/BCom_1_CRC16.c **** 		for (j=0; j<8; j++) {
+ 110:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+ 111:Generated_Source\PSoC5/BCom_1_CRC16.c **** 			if ( (crc ^ c) & 0x0001 ) crc = ( crc >> 1 ) ^ CRC_POLY_16;
+  41              		.loc 1 111 0
+  42 0006 82EA0100 		eor	r0, r2, r1
+  43 000a 10F0010F 		tst	r0, #1
+  44 000e 04D0     		beq	.L3
+  45              		.loc 1 111 0 is_stmt 0 discriminator 1
+  46 0010 4AF20100 		movw	r0, #40961
+  47 0014 80EA5202 		eor	r2, r0, r2, lsr #1
+  48              	.LVL2:
+  49 0018 00E0     		b	.L4
+  50              	.L3:
+ 112:Generated_Source\PSoC5/BCom_1_CRC16.c **** 			else                      crc =   crc >> 1;
+  51              		.loc 1 112 0 is_stmt 1
+  52 001a 5208     		lsrs	r2, r2, #1
+  53              	.LVL3:
+  54              	.L4:
+ 113:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+ 114:Generated_Source\PSoC5/BCom_1_CRC16.c **** 			c = c >> 1;
+  55              		.loc 1 114 0 discriminator 2
+  56 001c C1F34F01 		ubfx	r1, r1, #1, #16
+  57              	.LVL4:
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccxoqFRE.s 			page 4
+
+
+ 109:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+  58              		.loc 1 109 0 discriminator 2
+  59 0020 0133     		adds	r3, r3, #1
+  60              	.LVL5:
+  61 0022 9BB2     		uxth	r3, r3
+  62              	.LVL6:
+  63 0024 02E0     		b	.L6
+  64              	.LVL7:
+  65              	.L7:
+  66 0026 2146     		mov	r1, r4
+  67 0028 0022     		movs	r2, #0
+  68 002a 1346     		mov	r3, r2
+  69              	.L6:
+  70              	.LVL8:
+ 109:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+  71              		.loc 1 109 0 is_stmt 0 discriminator 1
+  72 002c 072B     		cmp	r3, #7
+  73 002e EAD9     		bls	.L5
+ 115:Generated_Source\PSoC5/BCom_1_CRC16.c **** 		}
+ 116:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+ 117:Generated_Source\PSoC5/BCom_1_CRC16.c **** 		crc_tab16[i] = crc;
+  74              		.loc 1 117 0 is_stmt 1 discriminator 2
+  75 0030 064B     		ldr	r3, .L9
+  76              	.LVL9:
+  77 0032 23F81420 		strh	r2, [r3, r4, lsl #1]	@ movhi
+ 104:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+  78              		.loc 1 104 0 discriminator 2
+  79 0036 0134     		adds	r4, r4, #1
+  80              	.LVL10:
+  81 0038 A4B2     		uxth	r4, r4
+  82              	.LVL11:
+  83              	.L2:
+ 104:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+  84              		.loc 1 104 0 is_stmt 0 discriminator 1
+  85 003a FF2C     		cmp	r4, #255
+  86 003c F3D9     		bls	.L7
+ 118:Generated_Source\PSoC5/BCom_1_CRC16.c **** 	}
+ 119:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+ 120:Generated_Source\PSoC5/BCom_1_CRC16.c **** 	crc_tab16_init = true;
+  87              		.loc 1 120 0 is_stmt 1
+  88 003e 0122     		movs	r2, #1
+  89 0040 024B     		ldr	r3, .L9
+  90 0042 83F80022 		strb	r2, [r3, #512]
+ 121:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+ 122:Generated_Source\PSoC5/BCom_1_CRC16.c **** }  /* init_crc16_tab */
+  91              		.loc 1 122 0
+  92 0046 10BC     		pop	{r4}
+  93              		.cfi_restore 4
+  94              		.cfi_def_cfa_offset 0
+  95              	.LVL12:
+  96 0048 7047     		bx	lr
+  97              	.L10:
+  98 004a 00BF     		.align	2
+  99              	.L9:
+ 100 004c 00000000 		.word	.LANCHOR0
+ 101              		.cfi_endproc
+ 102              	.LFE2:
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccxoqFRE.s 			page 5
+
+
+ 103              		.size	init_crc16_tab, .-init_crc16_tab
+ 104              		.section	.text.crc_16,"ax",%progbits
+ 105              		.align	2
+ 106              		.global	crc_16
+ 107              		.thumb
+ 108              		.thumb_func
+ 109              		.type	crc_16, %function
+ 110              	crc_16:
+ 111              	.LFB0:
+  52:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+ 112              		.loc 1 52 0
+ 113              		.cfi_startproc
+ 114              		@ args = 0, pretend = 0, frame = 0
+ 115              		@ frame_needed = 0, uses_anonymous_args = 0
+ 116              	.LVL13:
+ 117 0000 38B5     		push	{r3, r4, r5, lr}
+ 118              		.cfi_def_cfa_offset 16
+ 119              		.cfi_offset 3, -16
+ 120              		.cfi_offset 4, -12
+ 121              		.cfi_offset 5, -8
+ 122              		.cfi_offset 14, -4
+ 123 0002 0446     		mov	r4, r0
+ 124 0004 0D46     		mov	r5, r1
+  58:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+ 125              		.loc 1 58 0
+ 126 0006 0C4B     		ldr	r3, .L18
+ 127 0008 93F80032 		ldrb	r3, [r3, #512]	@ zero_extendqisi2
+ 128 000c 0BB9     		cbnz	r3, .L12
+  58:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+ 129              		.loc 1 58 0 is_stmt 0 discriminator 1
+ 130 000e FFF7FEFF 		bl	init_crc16_tab
+ 131              	.LVL14:
+ 132              	.L12:
+  63:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+ 133              		.loc 1 63 0 is_stmt 1
+ 134 0012 64B9     		cbnz	r4, .L16
+  60:Generated_Source\PSoC5/BCom_1_CRC16.c **** 	ptr = input_str;
+ 135              		.loc 1 60 0
+ 136 0014 0020     		movs	r0, #0
+ 137 0016 38BD     		pop	{r3, r4, r5, pc}
+ 138              	.LVL15:
+ 139              	.L15:
+  65:Generated_Source\PSoC5/BCom_1_CRC16.c **** 	}
+ 140              		.loc 1 65 0 discriminator 4
+ 141 0018 2378     		ldrb	r3, [r4]	@ zero_extendqisi2
+ 142 001a 4340     		eors	r3, r3, r0
+ 143 001c DBB2     		uxtb	r3, r3
+ 144 001e 0649     		ldr	r1, .L18
+ 145 0020 31F81330 		ldrh	r3, [r1, r3, lsl #1]
+ 146 0024 83EA1020 		eor	r0, r3, r0, lsr #8
+ 147              	.LVL16:
+  63:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+ 148              		.loc 1 63 0 discriminator 4
+ 149 0028 0132     		adds	r2, r2, #1
+ 150              	.LVL17:
+  65:Generated_Source\PSoC5/BCom_1_CRC16.c **** 	}
+ 151              		.loc 1 65 0 discriminator 4
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccxoqFRE.s 			page 6
+
+
+ 152 002a 0134     		adds	r4, r4, #1
+ 153              	.LVL18:
+ 154 002c 01E0     		b	.L13
+ 155              	.LVL19:
+ 156              	.L16:
+ 157 002e 0022     		movs	r2, #0
+ 158 0030 1046     		mov	r0, r2
+ 159              	.LVL20:
+ 160              	.L13:
+  63:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+ 161              		.loc 1 63 0 discriminator 2
+ 162 0032 AA42     		cmp	r2, r5
+ 163 0034 F0D3     		bcc	.L15
+  70:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+ 164              		.loc 1 70 0
+ 165 0036 38BD     		pop	{r3, r4, r5, pc}
+ 166              	.LVL21:
+ 167              	.L19:
+ 168              		.align	2
+ 169              	.L18:
+ 170 0038 00000000 		.word	.LANCHOR0
+ 171              		.cfi_endproc
+ 172              	.LFE0:
+ 173              		.size	crc_16, .-crc_16
+ 174              		.section	.text.update_crc_16,"ax",%progbits
+ 175              		.align	2
+ 176              		.global	update_crc_16
+ 177              		.thumb
+ 178              		.thumb_func
+ 179              		.type	update_crc_16, %function
+ 180              	update_crc_16:
+ 181              	.LFB1:
+  80:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+ 182              		.loc 1 80 0
+ 183              		.cfi_startproc
+ 184              		@ args = 0, pretend = 0, frame = 0
+ 185              		@ frame_needed = 0, uses_anonymous_args = 0
+ 186              	.LVL22:
+ 187 0000 38B5     		push	{r3, r4, r5, lr}
+ 188              		.cfi_def_cfa_offset 16
+ 189              		.cfi_offset 3, -16
+ 190              		.cfi_offset 4, -12
+ 191              		.cfi_offset 5, -8
+ 192              		.cfi_offset 14, -4
+ 193 0002 0546     		mov	r5, r0
+ 194 0004 0C46     		mov	r4, r1
+  82:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+ 195              		.loc 1 82 0
+ 196 0006 074B     		ldr	r3, .L23
+ 197 0008 93F80032 		ldrb	r3, [r3, #512]	@ zero_extendqisi2
+ 198 000c 0BB9     		cbnz	r3, .L21
+  82:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+ 199              		.loc 1 82 0 is_stmt 0 discriminator 1
+ 200 000e FFF7FEFF 		bl	init_crc16_tab
+ 201              	.LVL23:
+ 202              	.L21:
+  84:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccxoqFRE.s 			page 7
+
+
+ 203              		.loc 1 84 0 is_stmt 1
+ 204 0012 6C40     		eors	r4, r4, r5
+ 205 0014 E4B2     		uxtb	r4, r4
+ 206 0016 034B     		ldr	r3, .L23
+ 207 0018 33F81400 		ldrh	r0, [r3, r4, lsl #1]
+  86:Generated_Source\PSoC5/BCom_1_CRC16.c **** 
+ 208              		.loc 1 86 0
+ 209 001c 80EA1520 		eor	r0, r0, r5, lsr #8
+ 210 0020 38BD     		pop	{r3, r4, r5, pc}
+ 211              	.L24:
+ 212 0022 00BF     		.align	2
+ 213              	.L23:
+ 214 0024 00000000 		.word	.LANCHOR0
+ 215              		.cfi_endproc
+ 216              	.LFE1:
+ 217              		.size	update_crc_16, .-update_crc_16
+ 218              		.bss
+ 219              		.align	2
+ 220              		.set	.LANCHOR0,. + 0
+ 221              		.type	crc_tab16, %object
+ 222              		.size	crc_tab16, 512
+ 223              	crc_tab16:
+ 224 0000 00000000 		.space	512
+ 224      00000000 
+ 224      00000000 
+ 224      00000000 
+ 224      00000000 
+ 225              		.type	crc_tab16_init, %object
+ 226              		.size	crc_tab16_init, 1
+ 227              	crc_tab16_init:
+ 228 0200 00       		.space	1
+ 229              		.text
+ 230              	.Letext0:
+ 231              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 232              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 233              		.file 4 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 234              		.section	.debug_info,"",%progbits
+ 235              	.Ldebug_info0:
+ 236 0000 D9010000 		.4byte	0x1d9
+ 237 0004 0400     		.2byte	0x4
+ 238 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 239 000a 04       		.byte	0x4
+ 240 000b 01       		.uleb128 0x1
+ 241 000c 8B000000 		.4byte	.LASF22
+ 242 0010 0C       		.byte	0xc
+ 243 0011 3A010000 		.4byte	.LASF23
+ 244 0015 07000000 		.4byte	.LASF24
+ 245 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 246 001d 00000000 		.4byte	0
+ 247 0021 00000000 		.4byte	.Ldebug_line0
+ 248 0025 02       		.uleb128 0x2
+ 249 0026 00000000 		.4byte	.LASF6
+ 250 002a 02       		.byte	0x2
+ 251 002b D8       		.byte	0xd8
+ 252 002c 30000000 		.4byte	0x30
+ 253 0030 03       		.uleb128 0x3
+ 254 0031 04       		.byte	0x4
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccxoqFRE.s 			page 8
+
+
+ 255 0032 07       		.byte	0x7
+ 256 0033 86010000 		.4byte	.LASF0
+ 257 0037 04       		.uleb128 0x4
+ 258 0038 04       		.byte	0x4
+ 259 0039 05       		.byte	0x5
+ 260 003a 696E7400 		.ascii	"int\000"
+ 261 003e 03       		.uleb128 0x3
+ 262 003f 08       		.byte	0x8
+ 263 0040 05       		.byte	0x5
+ 264 0041 B3010000 		.4byte	.LASF1
+ 265 0045 03       		.uleb128 0x3
+ 266 0046 08       		.byte	0x8
+ 267 0047 04       		.byte	0x4
+ 268 0048 F0010000 		.4byte	.LASF2
+ 269 004c 03       		.uleb128 0x3
+ 270 004d 01       		.byte	0x1
+ 271 004e 06       		.byte	0x6
+ 272 004f FC010000 		.4byte	.LASF3
+ 273 0053 03       		.uleb128 0x3
+ 274 0054 01       		.byte	0x1
+ 275 0055 08       		.byte	0x8
+ 276 0056 7D000000 		.4byte	.LASF4
+ 277 005a 03       		.uleb128 0x3
+ 278 005b 02       		.byte	0x2
+ 279 005c 05       		.byte	0x5
+ 280 005d CF010000 		.4byte	.LASF5
+ 281 0061 02       		.uleb128 0x2
+ 282 0062 60010000 		.4byte	.LASF7
+ 283 0066 03       		.byte	0x3
+ 284 0067 2B       		.byte	0x2b
+ 285 0068 6C000000 		.4byte	0x6c
+ 286 006c 03       		.uleb128 0x3
+ 287 006d 02       		.byte	0x2
+ 288 006e 07       		.byte	0x7
+ 289 006f 5B000000 		.4byte	.LASF8
+ 290 0073 03       		.uleb128 0x3
+ 291 0074 04       		.byte	0x4
+ 292 0075 05       		.byte	0x5
+ 293 0076 E2010000 		.4byte	.LASF9
+ 294 007a 03       		.uleb128 0x3
+ 295 007b 04       		.byte	0x4
+ 296 007c 07       		.byte	0x7
+ 297 007d 19010000 		.4byte	.LASF10
+ 298 0081 03       		.uleb128 0x3
+ 299 0082 08       		.byte	0x8
+ 300 0083 07       		.byte	0x7
+ 301 0084 93010000 		.4byte	.LASF11
+ 302 0088 03       		.uleb128 0x3
+ 303 0089 04       		.byte	0x4
+ 304 008a 07       		.byte	0x7
+ 305 008b AA010000 		.4byte	.LASF12
+ 306 008f 03       		.uleb128 0x3
+ 307 0090 01       		.byte	0x1
+ 308 0091 08       		.byte	0x8
+ 309 0092 EB010000 		.4byte	.LASF13
+ 310 0096 02       		.uleb128 0x2
+ 311 0097 D9010000 		.4byte	.LASF14
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccxoqFRE.s 			page 9
+
+
+ 312 009b 04       		.byte	0x4
+ 313 009c 24       		.byte	0x24
+ 314 009d 61000000 		.4byte	0x61
+ 315 00a1 05       		.uleb128 0x5
+ 316 00a2 6E000000 		.4byte	.LASF25
+ 317 00a6 01       		.byte	0x1
+ 318 00a7 61       		.byte	0x61
+ 319 00a8 00000000 		.4byte	.LFB2
+ 320 00ac 50000000 		.4byte	.LFE2-.LFB2
+ 321 00b0 01       		.uleb128 0x1
+ 322 00b1 9C       		.byte	0x9c
+ 323 00b2 ED000000 		.4byte	0xed
+ 324 00b6 06       		.uleb128 0x6
+ 325 00b7 6900     		.ascii	"i\000"
+ 326 00b9 01       		.byte	0x1
+ 327 00ba 63       		.byte	0x63
+ 328 00bb 96000000 		.4byte	0x96
+ 329 00bf 00000000 		.4byte	.LLST0
+ 330 00c3 06       		.uleb128 0x6
+ 331 00c4 6A00     		.ascii	"j\000"
+ 332 00c6 01       		.byte	0x1
+ 333 00c7 64       		.byte	0x64
+ 334 00c8 96000000 		.4byte	0x96
+ 335 00cc 2A000000 		.4byte	.LLST1
+ 336 00d0 06       		.uleb128 0x6
+ 337 00d1 63726300 		.ascii	"crc\000"
+ 338 00d5 01       		.byte	0x1
+ 339 00d6 65       		.byte	0x65
+ 340 00d7 96000000 		.4byte	0x96
+ 341 00db 53000000 		.4byte	.LLST2
+ 342 00df 06       		.uleb128 0x6
+ 343 00e0 6300     		.ascii	"c\000"
+ 344 00e2 01       		.byte	0x1
+ 345 00e3 66       		.byte	0x66
+ 346 00e4 96000000 		.4byte	0x96
+ 347 00e8 71000000 		.4byte	.LLST3
+ 348 00ec 00       		.byte	0
+ 349 00ed 07       		.uleb128 0x7
+ 350 00ee 6B010000 		.4byte	.LASF17
+ 351 00f2 01       		.byte	0x1
+ 352 00f3 34       		.byte	0x34
+ 353 00f4 96000000 		.4byte	0x96
+ 354 00f8 00000000 		.4byte	.LFB0
+ 355 00fc 3C000000 		.4byte	.LFE0-.LFB0
+ 356 0100 01       		.uleb128 0x1
+ 357 0101 9C       		.byte	0x9c
+ 358 0102 59010000 		.4byte	0x159
+ 359 0106 08       		.uleb128 0x8
+ 360 0107 08020000 		.4byte	.LASF15
+ 361 010b 01       		.byte	0x1
+ 362 010c 34       		.byte	0x34
+ 363 010d 59010000 		.4byte	0x159
+ 364 0111 8F000000 		.4byte	.LLST4
+ 365 0115 08       		.uleb128 0x8
+ 366 0116 72010000 		.4byte	.LASF16
+ 367 011a 01       		.byte	0x1
+ 368 011b 34       		.byte	0x34
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccxoqFRE.s 			page 10
+
+
+ 369 011c 25000000 		.4byte	0x25
+ 370 0120 D4000000 		.4byte	.LLST5
+ 371 0124 06       		.uleb128 0x6
+ 372 0125 63726300 		.ascii	"crc\000"
+ 373 0129 01       		.byte	0x1
+ 374 012a 36       		.byte	0x36
+ 375 012b 96000000 		.4byte	0x96
+ 376 012f 00010000 		.4byte	.LLST6
+ 377 0133 06       		.uleb128 0x6
+ 378 0134 70747200 		.ascii	"ptr\000"
+ 379 0138 01       		.byte	0x1
+ 380 0139 37       		.byte	0x37
+ 381 013a 59010000 		.4byte	0x159
+ 382 013e 36010000 		.4byte	.LLST7
+ 383 0142 06       		.uleb128 0x6
+ 384 0143 6100     		.ascii	"a\000"
+ 385 0145 01       		.byte	0x1
+ 386 0146 38       		.byte	0x38
+ 387 0147 25000000 		.4byte	0x25
+ 388 014b 61010000 		.4byte	.LLST8
+ 389 014f 09       		.uleb128 0x9
+ 390 0150 12000000 		.4byte	.LVL14
+ 391 0154 A1000000 		.4byte	0xa1
+ 392 0158 00       		.byte	0
+ 393 0159 0A       		.uleb128 0xa
+ 394 015a 04       		.byte	0x4
+ 395 015b 5F010000 		.4byte	0x15f
+ 396 015f 0B       		.uleb128 0xb
+ 397 0160 53000000 		.4byte	0x53
+ 398 0164 07       		.uleb128 0x7
+ 399 0165 C1010000 		.4byte	.LASF18
+ 400 0169 01       		.byte	0x1
+ 401 016a 50       		.byte	0x50
+ 402 016b 96000000 		.4byte	0x96
+ 403 016f 00000000 		.4byte	.LFB1
+ 404 0173 28000000 		.4byte	.LFE1-.LFB1
+ 405 0177 01       		.uleb128 0x1
+ 406 0178 9C       		.byte	0x9c
+ 407 0179 A3010000 		.4byte	0x1a3
+ 408 017d 0C       		.uleb128 0xc
+ 409 017e 63726300 		.ascii	"crc\000"
+ 410 0182 01       		.byte	0x1
+ 411 0183 50       		.byte	0x50
+ 412 0184 96000000 		.4byte	0x96
+ 413 0188 7F010000 		.4byte	.LLST9
+ 414 018c 0C       		.uleb128 0xc
+ 415 018d 6300     		.ascii	"c\000"
+ 416 018f 01       		.byte	0x1
+ 417 0190 50       		.byte	0x50
+ 418 0191 53000000 		.4byte	0x53
+ 419 0195 A0010000 		.4byte	.LLST10
+ 420 0199 09       		.uleb128 0x9
+ 421 019a 12000000 		.4byte	.LVL23
+ 422 019e A1000000 		.4byte	0xa1
+ 423 01a2 00       		.byte	0
+ 424 01a3 0D       		.uleb128 0xd
+ 425 01a4 2B010000 		.4byte	.LASF19
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccxoqFRE.s 			page 11
+
+
+ 426 01a8 01       		.byte	0x1
+ 427 01a9 28       		.byte	0x28
+ 428 01aa B4010000 		.4byte	0x1b4
+ 429 01ae 05       		.uleb128 0x5
+ 430 01af 03       		.byte	0x3
+ 431 01b0 00020000 		.4byte	crc_tab16_init
+ 432 01b4 03       		.uleb128 0x3
+ 433 01b5 01       		.byte	0x1
+ 434 01b6 02       		.byte	0x2
+ 435 01b7 12020000 		.4byte	.LASF20
+ 436 01bb 0E       		.uleb128 0xe
+ 437 01bc 96000000 		.4byte	0x96
+ 438 01c0 CB010000 		.4byte	0x1cb
+ 439 01c4 0F       		.uleb128 0xf
+ 440 01c5 88000000 		.4byte	0x88
+ 441 01c9 FF       		.byte	0xff
+ 442 01ca 00       		.byte	0
+ 443 01cb 0D       		.uleb128 0xd
+ 444 01cc 7C010000 		.4byte	.LASF21
+ 445 01d0 01       		.byte	0x1
+ 446 01d1 29       		.byte	0x29
+ 447 01d2 BB010000 		.4byte	0x1bb
+ 448 01d6 05       		.uleb128 0x5
+ 449 01d7 03       		.byte	0x3
+ 450 01d8 00000000 		.4byte	crc_tab16
+ 451 01dc 00       		.byte	0
+ 452              		.section	.debug_abbrev,"",%progbits
+ 453              	.Ldebug_abbrev0:
+ 454 0000 01       		.uleb128 0x1
+ 455 0001 11       		.uleb128 0x11
+ 456 0002 01       		.byte	0x1
+ 457 0003 25       		.uleb128 0x25
+ 458 0004 0E       		.uleb128 0xe
+ 459 0005 13       		.uleb128 0x13
+ 460 0006 0B       		.uleb128 0xb
+ 461 0007 03       		.uleb128 0x3
+ 462 0008 0E       		.uleb128 0xe
+ 463 0009 1B       		.uleb128 0x1b
+ 464 000a 0E       		.uleb128 0xe
+ 465 000b 55       		.uleb128 0x55
+ 466 000c 17       		.uleb128 0x17
+ 467 000d 11       		.uleb128 0x11
+ 468 000e 01       		.uleb128 0x1
+ 469 000f 10       		.uleb128 0x10
+ 470 0010 17       		.uleb128 0x17
+ 471 0011 00       		.byte	0
+ 472 0012 00       		.byte	0
+ 473 0013 02       		.uleb128 0x2
+ 474 0014 16       		.uleb128 0x16
+ 475 0015 00       		.byte	0
+ 476 0016 03       		.uleb128 0x3
+ 477 0017 0E       		.uleb128 0xe
+ 478 0018 3A       		.uleb128 0x3a
+ 479 0019 0B       		.uleb128 0xb
+ 480 001a 3B       		.uleb128 0x3b
+ 481 001b 0B       		.uleb128 0xb
+ 482 001c 49       		.uleb128 0x49
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccxoqFRE.s 			page 12
+
+
+ 483 001d 13       		.uleb128 0x13
+ 484 001e 00       		.byte	0
+ 485 001f 00       		.byte	0
+ 486 0020 03       		.uleb128 0x3
+ 487 0021 24       		.uleb128 0x24
+ 488 0022 00       		.byte	0
+ 489 0023 0B       		.uleb128 0xb
+ 490 0024 0B       		.uleb128 0xb
+ 491 0025 3E       		.uleb128 0x3e
+ 492 0026 0B       		.uleb128 0xb
+ 493 0027 03       		.uleb128 0x3
+ 494 0028 0E       		.uleb128 0xe
+ 495 0029 00       		.byte	0
+ 496 002a 00       		.byte	0
+ 497 002b 04       		.uleb128 0x4
+ 498 002c 24       		.uleb128 0x24
+ 499 002d 00       		.byte	0
+ 500 002e 0B       		.uleb128 0xb
+ 501 002f 0B       		.uleb128 0xb
+ 502 0030 3E       		.uleb128 0x3e
+ 503 0031 0B       		.uleb128 0xb
+ 504 0032 03       		.uleb128 0x3
+ 505 0033 08       		.uleb128 0x8
+ 506 0034 00       		.byte	0
+ 507 0035 00       		.byte	0
+ 508 0036 05       		.uleb128 0x5
+ 509 0037 2E       		.uleb128 0x2e
+ 510 0038 01       		.byte	0x1
+ 511 0039 03       		.uleb128 0x3
+ 512 003a 0E       		.uleb128 0xe
+ 513 003b 3A       		.uleb128 0x3a
+ 514 003c 0B       		.uleb128 0xb
+ 515 003d 3B       		.uleb128 0x3b
+ 516 003e 0B       		.uleb128 0xb
+ 517 003f 27       		.uleb128 0x27
+ 518 0040 19       		.uleb128 0x19
+ 519 0041 11       		.uleb128 0x11
+ 520 0042 01       		.uleb128 0x1
+ 521 0043 12       		.uleb128 0x12
+ 522 0044 06       		.uleb128 0x6
+ 523 0045 40       		.uleb128 0x40
+ 524 0046 18       		.uleb128 0x18
+ 525 0047 9742     		.uleb128 0x2117
+ 526 0049 19       		.uleb128 0x19
+ 527 004a 01       		.uleb128 0x1
+ 528 004b 13       		.uleb128 0x13
+ 529 004c 00       		.byte	0
+ 530 004d 00       		.byte	0
+ 531 004e 06       		.uleb128 0x6
+ 532 004f 34       		.uleb128 0x34
+ 533 0050 00       		.byte	0
+ 534 0051 03       		.uleb128 0x3
+ 535 0052 08       		.uleb128 0x8
+ 536 0053 3A       		.uleb128 0x3a
+ 537 0054 0B       		.uleb128 0xb
+ 538 0055 3B       		.uleb128 0x3b
+ 539 0056 0B       		.uleb128 0xb
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccxoqFRE.s 			page 13
+
+
+ 540 0057 49       		.uleb128 0x49
+ 541 0058 13       		.uleb128 0x13
+ 542 0059 02       		.uleb128 0x2
+ 543 005a 17       		.uleb128 0x17
+ 544 005b 00       		.byte	0
+ 545 005c 00       		.byte	0
+ 546 005d 07       		.uleb128 0x7
+ 547 005e 2E       		.uleb128 0x2e
+ 548 005f 01       		.byte	0x1
+ 549 0060 3F       		.uleb128 0x3f
+ 550 0061 19       		.uleb128 0x19
+ 551 0062 03       		.uleb128 0x3
+ 552 0063 0E       		.uleb128 0xe
+ 553 0064 3A       		.uleb128 0x3a
+ 554 0065 0B       		.uleb128 0xb
+ 555 0066 3B       		.uleb128 0x3b
+ 556 0067 0B       		.uleb128 0xb
+ 557 0068 27       		.uleb128 0x27
+ 558 0069 19       		.uleb128 0x19
+ 559 006a 49       		.uleb128 0x49
+ 560 006b 13       		.uleb128 0x13
+ 561 006c 11       		.uleb128 0x11
+ 562 006d 01       		.uleb128 0x1
+ 563 006e 12       		.uleb128 0x12
+ 564 006f 06       		.uleb128 0x6
+ 565 0070 40       		.uleb128 0x40
+ 566 0071 18       		.uleb128 0x18
+ 567 0072 9742     		.uleb128 0x2117
+ 568 0074 19       		.uleb128 0x19
+ 569 0075 01       		.uleb128 0x1
+ 570 0076 13       		.uleb128 0x13
+ 571 0077 00       		.byte	0
+ 572 0078 00       		.byte	0
+ 573 0079 08       		.uleb128 0x8
+ 574 007a 05       		.uleb128 0x5
+ 575 007b 00       		.byte	0
+ 576 007c 03       		.uleb128 0x3
+ 577 007d 0E       		.uleb128 0xe
+ 578 007e 3A       		.uleb128 0x3a
+ 579 007f 0B       		.uleb128 0xb
+ 580 0080 3B       		.uleb128 0x3b
+ 581 0081 0B       		.uleb128 0xb
+ 582 0082 49       		.uleb128 0x49
+ 583 0083 13       		.uleb128 0x13
+ 584 0084 02       		.uleb128 0x2
+ 585 0085 17       		.uleb128 0x17
+ 586 0086 00       		.byte	0
+ 587 0087 00       		.byte	0
+ 588 0088 09       		.uleb128 0x9
+ 589 0089 898201   		.uleb128 0x4109
+ 590 008c 00       		.byte	0
+ 591 008d 11       		.uleb128 0x11
+ 592 008e 01       		.uleb128 0x1
+ 593 008f 31       		.uleb128 0x31
+ 594 0090 13       		.uleb128 0x13
+ 595 0091 00       		.byte	0
+ 596 0092 00       		.byte	0
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccxoqFRE.s 			page 14
+
+
+ 597 0093 0A       		.uleb128 0xa
+ 598 0094 0F       		.uleb128 0xf
+ 599 0095 00       		.byte	0
+ 600 0096 0B       		.uleb128 0xb
+ 601 0097 0B       		.uleb128 0xb
+ 602 0098 49       		.uleb128 0x49
+ 603 0099 13       		.uleb128 0x13
+ 604 009a 00       		.byte	0
+ 605 009b 00       		.byte	0
+ 606 009c 0B       		.uleb128 0xb
+ 607 009d 26       		.uleb128 0x26
+ 608 009e 00       		.byte	0
+ 609 009f 49       		.uleb128 0x49
+ 610 00a0 13       		.uleb128 0x13
+ 611 00a1 00       		.byte	0
+ 612 00a2 00       		.byte	0
+ 613 00a3 0C       		.uleb128 0xc
+ 614 00a4 05       		.uleb128 0x5
+ 615 00a5 00       		.byte	0
+ 616 00a6 03       		.uleb128 0x3
+ 617 00a7 08       		.uleb128 0x8
+ 618 00a8 3A       		.uleb128 0x3a
+ 619 00a9 0B       		.uleb128 0xb
+ 620 00aa 3B       		.uleb128 0x3b
+ 621 00ab 0B       		.uleb128 0xb
+ 622 00ac 49       		.uleb128 0x49
+ 623 00ad 13       		.uleb128 0x13
+ 624 00ae 02       		.uleb128 0x2
+ 625 00af 17       		.uleb128 0x17
+ 626 00b0 00       		.byte	0
+ 627 00b1 00       		.byte	0
+ 628 00b2 0D       		.uleb128 0xd
+ 629 00b3 34       		.uleb128 0x34
+ 630 00b4 00       		.byte	0
+ 631 00b5 03       		.uleb128 0x3
+ 632 00b6 0E       		.uleb128 0xe
+ 633 00b7 3A       		.uleb128 0x3a
+ 634 00b8 0B       		.uleb128 0xb
+ 635 00b9 3B       		.uleb128 0x3b
+ 636 00ba 0B       		.uleb128 0xb
+ 637 00bb 49       		.uleb128 0x49
+ 638 00bc 13       		.uleb128 0x13
+ 639 00bd 02       		.uleb128 0x2
+ 640 00be 18       		.uleb128 0x18
+ 641 00bf 00       		.byte	0
+ 642 00c0 00       		.byte	0
+ 643 00c1 0E       		.uleb128 0xe
+ 644 00c2 01       		.uleb128 0x1
+ 645 00c3 01       		.byte	0x1
+ 646 00c4 49       		.uleb128 0x49
+ 647 00c5 13       		.uleb128 0x13
+ 648 00c6 01       		.uleb128 0x1
+ 649 00c7 13       		.uleb128 0x13
+ 650 00c8 00       		.byte	0
+ 651 00c9 00       		.byte	0
+ 652 00ca 0F       		.uleb128 0xf
+ 653 00cb 21       		.uleb128 0x21
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccxoqFRE.s 			page 15
+
+
+ 654 00cc 00       		.byte	0
+ 655 00cd 49       		.uleb128 0x49
+ 656 00ce 13       		.uleb128 0x13
+ 657 00cf 2F       		.uleb128 0x2f
+ 658 00d0 0B       		.uleb128 0xb
+ 659 00d1 00       		.byte	0
+ 660 00d2 00       		.byte	0
+ 661 00d3 00       		.byte	0
+ 662              		.section	.debug_loc,"",%progbits
+ 663              	.Ldebug_loc0:
+ 664              	.LLST0:
+ 665 0000 02000000 		.4byte	.LVL0
+ 666 0004 06000000 		.4byte	.LVL1
+ 667 0008 0200     		.2byte	0x2
+ 668 000a 30       		.byte	0x30
+ 669 000b 9F       		.byte	0x9f
+ 670 000c 06000000 		.4byte	.LVL1
+ 671 0010 38000000 		.4byte	.LVL10
+ 672 0014 0100     		.2byte	0x1
+ 673 0016 54       		.byte	0x54
+ 674 0017 3A000000 		.4byte	.LVL11
+ 675 001b 48000000 		.4byte	.LVL12
+ 676 001f 0100     		.2byte	0x1
+ 677 0021 54       		.byte	0x54
+ 678 0022 00000000 		.4byte	0
+ 679 0026 00000000 		.4byte	0
+ 680              	.LLST1:
+ 681 002a 06000000 		.4byte	.LVL1
+ 682 002e 22000000 		.4byte	.LVL5
+ 683 0032 0100     		.2byte	0x1
+ 684 0034 53       		.byte	0x53
+ 685 0035 24000000 		.4byte	.LVL6
+ 686 0039 26000000 		.4byte	.LVL7
+ 687 003d 0100     		.2byte	0x1
+ 688 003f 53       		.byte	0x53
+ 689 0040 2C000000 		.4byte	.LVL8
+ 690 0044 32000000 		.4byte	.LVL9
+ 691 0048 0100     		.2byte	0x1
+ 692 004a 53       		.byte	0x53
+ 693 004b 00000000 		.4byte	0
+ 694 004f 00000000 		.4byte	0
+ 695              	.LLST2:
+ 696 0053 06000000 		.4byte	.LVL1
+ 697 0057 26000000 		.4byte	.LVL7
+ 698 005b 0100     		.2byte	0x1
+ 699 005d 52       		.byte	0x52
+ 700 005e 2C000000 		.4byte	.LVL8
+ 701 0062 3A000000 		.4byte	.LVL11
+ 702 0066 0100     		.2byte	0x1
+ 703 0068 52       		.byte	0x52
+ 704 0069 00000000 		.4byte	0
+ 705 006d 00000000 		.4byte	0
+ 706              	.LLST3:
+ 707 0071 06000000 		.4byte	.LVL1
+ 708 0075 26000000 		.4byte	.LVL7
+ 709 0079 0100     		.2byte	0x1
+ 710 007b 51       		.byte	0x51
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccxoqFRE.s 			page 16
+
+
+ 711 007c 2C000000 		.4byte	.LVL8
+ 712 0080 3A000000 		.4byte	.LVL11
+ 713 0084 0100     		.2byte	0x1
+ 714 0086 51       		.byte	0x51
+ 715 0087 00000000 		.4byte	0
+ 716 008b 00000000 		.4byte	0
+ 717              	.LLST4:
+ 718 008f 00000000 		.4byte	.LVL13
+ 719 0093 11000000 		.4byte	.LVL14-1
+ 720 0097 0100     		.2byte	0x1
+ 721 0099 50       		.byte	0x50
+ 722 009a 11000000 		.4byte	.LVL14-1
+ 723 009e 18000000 		.4byte	.LVL15
+ 724 00a2 0100     		.2byte	0x1
+ 725 00a4 54       		.byte	0x54
+ 726 00a5 18000000 		.4byte	.LVL15
+ 727 00a9 2E000000 		.4byte	.LVL19
+ 728 00ad 0400     		.2byte	0x4
+ 729 00af F3       		.byte	0xf3
+ 730 00b0 01       		.uleb128 0x1
+ 731 00b1 50       		.byte	0x50
+ 732 00b2 9F       		.byte	0x9f
+ 733 00b3 2E000000 		.4byte	.LVL19
+ 734 00b7 32000000 		.4byte	.LVL20
+ 735 00bb 0100     		.2byte	0x1
+ 736 00bd 54       		.byte	0x54
+ 737 00be 32000000 		.4byte	.LVL20
+ 738 00c2 3C000000 		.4byte	.LFE0
+ 739 00c6 0400     		.2byte	0x4
+ 740 00c8 F3       		.byte	0xf3
+ 741 00c9 01       		.uleb128 0x1
+ 742 00ca 50       		.byte	0x50
+ 743 00cb 9F       		.byte	0x9f
+ 744 00cc 00000000 		.4byte	0
+ 745 00d0 00000000 		.4byte	0
+ 746              	.LLST5:
+ 747 00d4 00000000 		.4byte	.LVL13
+ 748 00d8 11000000 		.4byte	.LVL14-1
+ 749 00dc 0100     		.2byte	0x1
+ 750 00de 51       		.byte	0x51
+ 751 00df 11000000 		.4byte	.LVL14-1
+ 752 00e3 38000000 		.4byte	.LVL21
+ 753 00e7 0100     		.2byte	0x1
+ 754 00e9 55       		.byte	0x55
+ 755 00ea 38000000 		.4byte	.LVL21
+ 756 00ee 3C000000 		.4byte	.LFE0
+ 757 00f2 0400     		.2byte	0x4
+ 758 00f4 F3       		.byte	0xf3
+ 759 00f5 01       		.uleb128 0x1
+ 760 00f6 51       		.byte	0x51
+ 761 00f7 9F       		.byte	0x9f
+ 762 00f8 00000000 		.4byte	0
+ 763 00fc 00000000 		.4byte	0
+ 764              	.LLST6:
+ 765 0100 12000000 		.4byte	.LVL14
+ 766 0104 18000000 		.4byte	.LVL15
+ 767 0108 0200     		.2byte	0x2
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccxoqFRE.s 			page 17
+
+
+ 768 010a 30       		.byte	0x30
+ 769 010b 9F       		.byte	0x9f
+ 770 010c 18000000 		.4byte	.LVL15
+ 771 0110 2E000000 		.4byte	.LVL19
+ 772 0114 0100     		.2byte	0x1
+ 773 0116 50       		.byte	0x50
+ 774 0117 2E000000 		.4byte	.LVL19
+ 775 011b 32000000 		.4byte	.LVL20
+ 776 011f 0200     		.2byte	0x2
+ 777 0121 30       		.byte	0x30
+ 778 0122 9F       		.byte	0x9f
+ 779 0123 32000000 		.4byte	.LVL20
+ 780 0127 3C000000 		.4byte	.LFE0
+ 781 012b 0100     		.2byte	0x1
+ 782 012d 50       		.byte	0x50
+ 783 012e 00000000 		.4byte	0
+ 784 0132 00000000 		.4byte	0
+ 785              	.LLST7:
+ 786 0136 12000000 		.4byte	.LVL14
+ 787 013a 18000000 		.4byte	.LVL15
+ 788 013e 0100     		.2byte	0x1
+ 789 0140 54       		.byte	0x54
+ 790 0141 18000000 		.4byte	.LVL15
+ 791 0145 2C000000 		.4byte	.LVL18
+ 792 0149 0300     		.2byte	0x3
+ 793 014b 74       		.byte	0x74
+ 794 014c 01       		.sleb128 1
+ 795 014d 9F       		.byte	0x9f
+ 796 014e 2C000000 		.4byte	.LVL18
+ 797 0152 38000000 		.4byte	.LVL21
+ 798 0156 0100     		.2byte	0x1
+ 799 0158 54       		.byte	0x54
+ 800 0159 00000000 		.4byte	0
+ 801 015d 00000000 		.4byte	0
+ 802              	.LLST8:
+ 803 0161 18000000 		.4byte	.LVL15
+ 804 0165 2E000000 		.4byte	.LVL19
+ 805 0169 0100     		.2byte	0x1
+ 806 016b 52       		.byte	0x52
+ 807 016c 32000000 		.4byte	.LVL20
+ 808 0170 3C000000 		.4byte	.LFE0
+ 809 0174 0100     		.2byte	0x1
+ 810 0176 52       		.byte	0x52
+ 811 0177 00000000 		.4byte	0
+ 812 017b 00000000 		.4byte	0
+ 813              	.LLST9:
+ 814 017f 00000000 		.4byte	.LVL22
+ 815 0183 11000000 		.4byte	.LVL23-1
+ 816 0187 0100     		.2byte	0x1
+ 817 0189 50       		.byte	0x50
+ 818 018a 11000000 		.4byte	.LVL23-1
+ 819 018e 28000000 		.4byte	.LFE1
+ 820 0192 0400     		.2byte	0x4
+ 821 0194 F3       		.byte	0xf3
+ 822 0195 01       		.uleb128 0x1
+ 823 0196 50       		.byte	0x50
+ 824 0197 9F       		.byte	0x9f
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccxoqFRE.s 			page 18
+
+
+ 825 0198 00000000 		.4byte	0
+ 826 019c 00000000 		.4byte	0
+ 827              	.LLST10:
+ 828 01a0 00000000 		.4byte	.LVL22
+ 829 01a4 11000000 		.4byte	.LVL23-1
+ 830 01a8 0100     		.2byte	0x1
+ 831 01aa 51       		.byte	0x51
+ 832 01ab 11000000 		.4byte	.LVL23-1
+ 833 01af 28000000 		.4byte	.LFE1
+ 834 01b3 0400     		.2byte	0x4
+ 835 01b5 F3       		.byte	0xf3
+ 836 01b6 01       		.uleb128 0x1
+ 837 01b7 51       		.byte	0x51
+ 838 01b8 9F       		.byte	0x9f
+ 839 01b9 00000000 		.4byte	0
+ 840 01bd 00000000 		.4byte	0
+ 841              		.section	.debug_aranges,"",%progbits
+ 842 0000 2C000000 		.4byte	0x2c
+ 843 0004 0200     		.2byte	0x2
+ 844 0006 00000000 		.4byte	.Ldebug_info0
+ 845 000a 04       		.byte	0x4
+ 846 000b 00       		.byte	0
+ 847 000c 0000     		.2byte	0
+ 848 000e 0000     		.2byte	0
+ 849 0010 00000000 		.4byte	.LFB2
+ 850 0014 50000000 		.4byte	.LFE2-.LFB2
+ 851 0018 00000000 		.4byte	.LFB0
+ 852 001c 3C000000 		.4byte	.LFE0-.LFB0
+ 853 0020 00000000 		.4byte	.LFB1
+ 854 0024 28000000 		.4byte	.LFE1-.LFB1
+ 855 0028 00000000 		.4byte	0
+ 856 002c 00000000 		.4byte	0
+ 857              		.section	.debug_ranges,"",%progbits
+ 858              	.Ldebug_ranges0:
+ 859 0000 00000000 		.4byte	.LFB2
+ 860 0004 50000000 		.4byte	.LFE2
+ 861 0008 00000000 		.4byte	.LFB0
+ 862 000c 3C000000 		.4byte	.LFE0
+ 863 0010 00000000 		.4byte	.LFB1
+ 864 0014 28000000 		.4byte	.LFE1
+ 865 0018 00000000 		.4byte	0
+ 866 001c 00000000 		.4byte	0
+ 867              		.section	.debug_line,"",%progbits
+ 868              	.Ldebug_line0:
+ 869 0000 4B020000 		.section	.debug_str,"MS",%progbits,1
+ 869      0200BB01 
+ 869      00000201 
+ 869      FB0E0D00 
+ 869      01010101 
+ 870              	.LASF6:
+ 871 0000 73697A65 		.ascii	"size_t\000"
+ 871      5F7400
+ 872              	.LASF24:
+ 873 0007 433A5C55 		.ascii	"C:\\Users\\matij\\source\\Workspaces\\Embedded\\PSo"
+ 873      73657273 
+ 873      5C6D6174 
+ 873      696A5C73 
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccxoqFRE.s 			page 19
+
+
+ 873      6F757263 
+ 874 0034 435C4C69 		.ascii	"C\\Libraries\\Ontwikkeling\\BCom0.3.cydsn\000"
+ 874      62726172 
+ 874      6965735C 
+ 874      4F6E7477 
+ 874      696B6B65 
+ 875              	.LASF8:
+ 876 005b 73686F72 		.ascii	"short unsigned int\000"
+ 876      7420756E 
+ 876      7369676E 
+ 876      65642069 
+ 876      6E7400
+ 877              	.LASF25:
+ 878 006e 696E6974 		.ascii	"init_crc16_tab\000"
+ 878      5F637263 
+ 878      31365F74 
+ 878      616200
+ 879              	.LASF4:
+ 880 007d 756E7369 		.ascii	"unsigned char\000"
+ 880      676E6564 
+ 880      20636861 
+ 880      7200
+ 881              	.LASF22:
+ 882 008b 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 882      43313120 
+ 882      352E342E 
+ 882      31203230 
+ 882      31363036 
+ 883 00be 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 883      20726576 
+ 883      6973696F 
+ 883      6E203233 
+ 883      37373135 
+ 884 00f1 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 884      66756E63 
+ 884      74696F6E 
+ 884      2D736563 
+ 884      74696F6E 
+ 885              	.LASF10:
+ 886 0119 6C6F6E67 		.ascii	"long unsigned int\000"
+ 886      20756E73 
+ 886      69676E65 
+ 886      6420696E 
+ 886      7400
+ 887              	.LASF19:
+ 888 012b 6372635F 		.ascii	"crc_tab16_init\000"
+ 888      74616231 
+ 888      365F696E 
+ 888      697400
+ 889              	.LASF23:
+ 890 013a 47656E65 		.ascii	"Generated_Source\\PSoC5\\BCom_1_CRC16.c\000"
+ 890      72617465 
+ 890      645F536F 
+ 890      75726365 
+ 890      5C50536F 
+ 891              	.LASF7:
+ 892 0160 5F5F7569 		.ascii	"__uint16_t\000"
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccxoqFRE.s 			page 20
+
+
+ 892      6E743136 
+ 892      5F7400
+ 893              	.LASF17:
+ 894 016b 6372635F 		.ascii	"crc_16\000"
+ 894      313600
+ 895              	.LASF16:
+ 896 0172 6E756D5F 		.ascii	"num_bytes\000"
+ 896      62797465 
+ 896      7300
+ 897              	.LASF21:
+ 898 017c 6372635F 		.ascii	"crc_tab16\000"
+ 898      74616231 
+ 898      3600
+ 899              	.LASF0:
+ 900 0186 756E7369 		.ascii	"unsigned int\000"
+ 900      676E6564 
+ 900      20696E74 
+ 900      00
+ 901              	.LASF11:
+ 902 0193 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 902      206C6F6E 
+ 902      6720756E 
+ 902      7369676E 
+ 902      65642069 
+ 903              	.LASF12:
+ 904 01aa 73697A65 		.ascii	"sizetype\000"
+ 904      74797065 
+ 904      00
+ 905              	.LASF1:
+ 906 01b3 6C6F6E67 		.ascii	"long long int\000"
+ 906      206C6F6E 
+ 906      6720696E 
+ 906      7400
+ 907              	.LASF18:
+ 908 01c1 75706461 		.ascii	"update_crc_16\000"
+ 908      74655F63 
+ 908      72635F31 
+ 908      3600
+ 909              	.LASF5:
+ 910 01cf 73686F72 		.ascii	"short int\000"
+ 910      7420696E 
+ 910      7400
+ 911              	.LASF14:
+ 912 01d9 75696E74 		.ascii	"uint16_t\000"
+ 912      31365F74 
+ 912      00
+ 913              	.LASF9:
+ 914 01e2 6C6F6E67 		.ascii	"long int\000"
+ 914      20696E74 
+ 914      00
+ 915              	.LASF13:
+ 916 01eb 63686172 		.ascii	"char\000"
+ 916      00
+ 917              	.LASF2:
+ 918 01f0 6C6F6E67 		.ascii	"long double\000"
+ 918      20646F75 
+ 918      626C6500 
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccxoqFRE.s 			page 21
+
+
+ 919              	.LASF3:
+ 920 01fc 7369676E 		.ascii	"signed char\000"
+ 920      65642063 
+ 920      68617200 
+ 921              	.LASF15:
+ 922 0208 696E7075 		.ascii	"input_str\000"
+ 922      745F7374 
+ 922      7200
+ 923              	.LASF20:
+ 924 0212 5F426F6F 		.ascii	"_Bool\000"
+ 924      6C00
+ 925              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

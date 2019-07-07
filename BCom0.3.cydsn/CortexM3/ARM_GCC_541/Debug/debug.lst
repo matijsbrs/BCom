@@ -1,0 +1,1547 @@
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccVtfewS.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"debug.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text._write,"ax",%progbits
+  20              		.align	2
+  21              		.global	_write
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	_write, %function
+  25              	_write:
+  26              	.LFB64:
+  27              		.file 1 "debug.c"
+   1:debug.c       **** /*******************************************************************************
+   2:debug.c       **** * File Name: debug.c
+   3:debug.c       **** *
+   4:debug.c       **** * Version: 1.10
+   5:debug.c       **** *
+   6:debug.c       **** * Description:
+   7:debug.c       **** *  This file contains functions for printf functionality.
+   8:debug.c       **** *
+   9:debug.c       **** *******************************************************************************
+  10:debug.c       **** * Copyright (2017), Cypress Semiconductor Corporation. All rights reserved.
+  11:debug.c       **** *******************************************************************************
+  12:debug.c       **** * This software, including source code, documentation and related materials
+  13:debug.c       **** * (“Software”), is owned by Cypress Semiconductor Corporation or one of its
+  14:debug.c       **** * subsidiaries (“Cypress”) and is protected by and subject to worldwide patent
+  15:debug.c       **** * protection (United States and foreign), United States copyright laws and
+  16:debug.c       **** * international treaty provisions. Therefore, you may use this Software only
+  17:debug.c       **** * as provided in the license agreement accompanying the software package from
+  18:debug.c       **** * which you obtained this Software (“EULA”).
+  19:debug.c       **** *
+  20:debug.c       **** * If no EULA applies, Cypress hereby grants you a personal, non-exclusive,
+  21:debug.c       **** * non-transferable license to copy, modify, and compile the Software source
+  22:debug.c       **** * code solely for use in connection with Cypress’s integrated circuit products.
+  23:debug.c       **** * Any reproduction, modification, translation, compilation, or representation
+  24:debug.c       **** * of this Software except as specified above is prohibited without the express
+  25:debug.c       **** * written permission of Cypress.
+  26:debug.c       **** *
+  27:debug.c       **** * Disclaimer: THIS SOFTWARE IS PROVIDED AS-IS, WITH NO WARRANTY OF ANY KIND, 
+  28:debug.c       **** * EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, NONINFRINGEMENT, IMPLIED 
+  29:debug.c       **** * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. Cypress 
+  30:debug.c       **** * reserves the right to make changes to the Software without notice. Cypress 
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccVtfewS.s 			page 2
+
+
+  31:debug.c       **** * does not assume any liability arising out of the application or use of the 
+  32:debug.c       **** * Software or any product or circuit described in the Software. Cypress does 
+  33:debug.c       **** * not authorize its products for use in any products where a malfunction or 
+  34:debug.c       **** * failure of the Cypress product may reasonably be expected to result in 
+  35:debug.c       **** * significant property damage, injury or death (“High Risk Product”). By 
+  36:debug.c       **** * including Cypress’s product in a High Risk Product, the manufacturer of such 
+  37:debug.c       **** * system or application assumes all risk of such use and in doing so agrees to 
+  38:debug.c       **** * indemnify Cypress against all liability. 
+  39:debug.c       **** *******************************************************************************/
+  40:debug.c       **** 
+  41:debug.c       **** 
+  42:debug.c       **** #include <project.h>
+  43:debug.c       **** #include <stdio.h>
+  44:debug.c       **** #include "common.h"
+  45:debug.c       **** 
+  46:debug.c       **** #if (UART_PRINTF_ENABLED == ENABLED)
+  47:debug.c       **** 
+  48:debug.c       **** #if (CY_PSOC3)
+  49:debug.c       ****     /* For Keil compiler revise putchar() function with communication
+  50:debug.c       ****        component which has to send data */
+  51:debug.c       ****     char putchar(char c)
+  52:debug.c       ****     {
+  53:debug.c       ****         UART_PutChar(c);
+  54:debug.c       ****         return (c);
+  55:debug.c       ****     }
+  56:debug.c       ****     
+  57:debug.c       **** #else
+  58:debug.c       ****     
+  59:debug.c       ****     #if defined(__ARMCC_VERSION)
+  60:debug.c       ****         
+  61:debug.c       ****     /* For MDK/RVDS compiler revise fputc function for printf functionality */
+  62:debug.c       ****     struct __FILE 
+  63:debug.c       ****     {
+  64:debug.c       ****         int handle;  
+  65:debug.c       ****     };
+  66:debug.c       **** 
+  67:debug.c       ****     enum 
+  68:debug.c       ****     {
+  69:debug.c       ****         STDIN_HANDLE,
+  70:debug.c       ****         STDOUT_HANDLE,
+  71:debug.c       ****         STDERR_HANDLE
+  72:debug.c       ****     };
+  73:debug.c       **** 
+  74:debug.c       ****     FILE __stdin = {STDIN_HANDLE};
+  75:debug.c       ****     FILE __stdout = {STDOUT_HANDLE};
+  76:debug.c       ****     FILE __stderr = {STDERR_HANDLE};
+  77:debug.c       **** 
+  78:debug.c       ****     int fputc(int ch, FILE *file) 
+  79:debug.c       ****     {
+  80:debug.c       ****         int ret = EOF;
+  81:debug.c       **** 
+  82:debug.c       ****         switch( file->handle )
+  83:debug.c       ****         {
+  84:debug.c       ****             case STDOUT_HANDLE:
+  85:debug.c       ****                 UART_PutChar(ch);
+  86:debug.c       ****                 ret = ch ;
+  87:debug.c       ****                 break ;
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccVtfewS.s 			page 3
+
+
+  88:debug.c       **** 
+  89:debug.c       ****             case STDERR_HANDLE:
+  90:debug.c       ****                 ret = ch ;
+  91:debug.c       ****                 break ;
+  92:debug.c       **** 
+  93:debug.c       ****             default:
+  94:debug.c       ****                 file = file;
+  95:debug.c       ****                 break ;
+  96:debug.c       ****         }
+  97:debug.c       ****         return (ret);
+  98:debug.c       ****     }
+  99:debug.c       **** 
+ 100:debug.c       ****     #elif defined (__ICCARM__)      /* IAR */
+ 101:debug.c       **** 
+ 102:debug.c       ****     /* For IAR compiler revise __write() function for printf functionality */
+ 103:debug.c       ****     size_t __write(int handle, const unsigned char * buffer, size_t size)
+ 104:debug.c       ****     {
+ 105:debug.c       ****         size_t nChars = 0;
+ 106:debug.c       **** 
+ 107:debug.c       ****         if (buffer != NULL)
+ 108:debug.c       ****         {
+ 109:debug.c       ****             for (/* Empty */; size != 0; --size)
+ 110:debug.c       ****             {
+ 111:debug.c       ****                 UART_PutChar(*buffer++);
+ 112:debug.c       ****                 ++nChars;
+ 113:debug.c       ****             }
+ 114:debug.c       ****         }
+ 115:debug.c       ****         else
+ 116:debug.c       ****         {
+ 117:debug.c       ****             /*
+ 118:debug.c       ****              * This means that we should flush internal buffers.  Since we
+ 119:debug.c       ****              * don't we just return.  (Remember, "handle" == -1 means that all
+ 120:debug.c       ****              * handles should be flushed.)
+ 121:debug.c       ****              */
+ 122:debug.c       ****         }
+ 123:debug.c       **** 
+ 124:debug.c       ****         return (nChars);
+ 125:debug.c       ****     }
+ 126:debug.c       **** 
+ 127:debug.c       ****     #else  /* (__GNUC__)  GCC */
+ 128:debug.c       **** 
+ 129:debug.c       ****     /* For GCC compiler revise _write() function for printf functionality */
+ 130:debug.c       ****     int _write(int file, char *ptr, int len)
+ 131:debug.c       ****     {
+  28              		.loc 1 131 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              	.LVL0:
+  33 0000 70B5     		push	{r4, r5, r6, lr}
+  34              		.cfi_def_cfa_offset 16
+  35              		.cfi_offset 4, -16
+  36              		.cfi_offset 5, -12
+  37              		.cfi_offset 6, -8
+  38              		.cfi_offset 14, -4
+  39 0002 1646     		mov	r6, r2
+  40              	.LVL1:
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccVtfewS.s 			page 4
+
+
+ 132:debug.c       ****         int i;
+ 133:debug.c       ****         file = file;
+ 134:debug.c       ****         for (i = 0; i < len; i++)
+  41              		.loc 1 134 0
+  42 0004 0024     		movs	r4, #0
+  43 0006 05E0     		b	.L2
+  44              	.LVL2:
+  45              	.L3:
+ 135:debug.c       ****         {
+ 136:debug.c       ****             UART_PutChar(*ptr++);
+  46              		.loc 1 136 0 discriminator 3
+  47 0008 4D1C     		adds	r5, r1, #1
+  48              	.LVL3:
+  49 000a 0878     		ldrb	r0, [r1]	@ zero_extendqisi2
+  50 000c FFF7FEFF 		bl	UART_PutChar
+  51              	.LVL4:
+ 134:debug.c       ****         {
+  52              		.loc 1 134 0 discriminator 3
+  53 0010 0134     		adds	r4, r4, #1
+  54              	.LVL5:
+  55              		.loc 1 136 0 discriminator 3
+  56 0012 2946     		mov	r1, r5
+  57              	.LVL6:
+  58              	.L2:
+ 134:debug.c       ****         {
+  59              		.loc 1 134 0 discriminator 1
+  60 0014 B442     		cmp	r4, r6
+  61 0016 F7DB     		blt	.L3
+ 137:debug.c       ****         }
+ 138:debug.c       ****         return (len);
+ 139:debug.c       ****     }
+  62              		.loc 1 139 0
+  63 0018 3046     		mov	r0, r6
+  64 001a 70BD     		pop	{r4, r5, r6, pc}
+  65              		.cfi_endproc
+  66              	.LFE64:
+  67              		.size	_write, .-_write
+  68              		.comm	Config,168,4
+  69              		.comm	System_u,1,4
+  70              		.comm	StripLights_UseGammaCorrection,1,1
+  71              		.comm	StripLights_Done,4,4
+  72              		.text
+  73              	.Letext0:
+  74              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+  75              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+  76              		.file 4 "Generated_Source\\PSoC5/cytypes.h"
+  77              		.file 5 "Generated_Source\\PSoC5/StripLights.h"
+  78              		.file 6 "Generated_Source\\PSoC5/BCom_1_BCom.h"
+  79              		.file 7 "Generated_Source\\PSoC5/core_cm3.h"
+  80              		.file 8 "Generated_Source\\PSoC5/UART.h"
+  81              		.section	.debug_info,"",%progbits
+  82              	.Ldebug_info0:
+  83 0000 07040000 		.4byte	0x407
+  84 0004 0400     		.2byte	0x4
+  85 0006 00000000 		.4byte	.Ldebug_abbrev0
+  86 000a 04       		.byte	0x4
+  87 000b 01       		.uleb128 0x1
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccVtfewS.s 			page 5
+
+
+  88 000c DD020000 		.4byte	.LASF61
+  89 0010 0C       		.byte	0xc
+  90 0011 BE010000 		.4byte	.LASF62
+  91 0015 07000000 		.4byte	.LASF63
+  92 0019 00000000 		.4byte	.Ldebug_ranges0+0
+  93 001d 00000000 		.4byte	0
+  94 0021 00000000 		.4byte	.Ldebug_line0
+  95 0025 02       		.uleb128 0x2
+  96 0026 01       		.byte	0x1
+  97 0027 06       		.byte	0x6
+  98 0028 C6010000 		.4byte	.LASF0
+  99 002c 03       		.uleb128 0x3
+ 100 002d 49010000 		.4byte	.LASF3
+ 101 0031 02       		.byte	0x2
+ 102 0032 1D       		.byte	0x1d
+ 103 0033 37000000 		.4byte	0x37
+ 104 0037 02       		.uleb128 0x2
+ 105 0038 01       		.byte	0x1
+ 106 0039 08       		.byte	0x8
+ 107 003a 96010000 		.4byte	.LASF1
+ 108 003e 02       		.uleb128 0x2
+ 109 003f 02       		.byte	0x2
+ 110 0040 05       		.byte	0x5
+ 111 0041 C7000000 		.4byte	.LASF2
+ 112 0045 03       		.uleb128 0x3
+ 113 0046 B7000000 		.4byte	.LASF4
+ 114 004a 02       		.byte	0x2
+ 115 004b 2B       		.byte	0x2b
+ 116 004c 50000000 		.4byte	0x50
+ 117 0050 02       		.uleb128 0x2
+ 118 0051 02       		.byte	0x2
+ 119 0052 07       		.byte	0x7
+ 120 0053 1D020000 		.4byte	.LASF5
+ 121 0057 03       		.uleb128 0x3
+ 122 0058 BE020000 		.4byte	.LASF6
+ 123 005c 02       		.byte	0x2
+ 124 005d 3F       		.byte	0x3f
+ 125 005e 62000000 		.4byte	0x62
+ 126 0062 02       		.uleb128 0x2
+ 127 0063 04       		.byte	0x4
+ 128 0064 05       		.byte	0x5
+ 129 0065 2E010000 		.4byte	.LASF7
+ 130 0069 02       		.uleb128 0x2
+ 131 006a 04       		.byte	0x4
+ 132 006b 07       		.byte	0x7
+ 133 006c A5020000 		.4byte	.LASF8
+ 134 0070 02       		.uleb128 0x2
+ 135 0071 08       		.byte	0x8
+ 136 0072 05       		.byte	0x5
+ 137 0073 08010000 		.4byte	.LASF9
+ 138 0077 02       		.uleb128 0x2
+ 139 0078 08       		.byte	0x8
+ 140 0079 07       		.byte	0x7
+ 141 007a D2010000 		.4byte	.LASF10
+ 142 007e 04       		.uleb128 0x4
+ 143 007f 04       		.byte	0x4
+ 144 0080 05       		.byte	0x5
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccVtfewS.s 			page 6
+
+
+ 145 0081 696E7400 		.ascii	"int\000"
+ 146 0085 02       		.uleb128 0x2
+ 147 0086 04       		.byte	0x4
+ 148 0087 07       		.byte	0x7
+ 149 0088 E9010000 		.4byte	.LASF11
+ 150 008c 03       		.uleb128 0x3
+ 151 008d C8020000 		.4byte	.LASF12
+ 152 0091 03       		.byte	0x3
+ 153 0092 18       		.byte	0x18
+ 154 0093 2C000000 		.4byte	0x2c
+ 155 0097 03       		.uleb128 0x3
+ 156 0098 F6010000 		.4byte	.LASF13
+ 157 009c 03       		.byte	0x3
+ 158 009d 24       		.byte	0x24
+ 159 009e 45000000 		.4byte	0x45
+ 160 00a2 03       		.uleb128 0x3
+ 161 00a3 4E020000 		.4byte	.LASF14
+ 162 00a7 03       		.byte	0x3
+ 163 00a8 2C       		.byte	0x2c
+ 164 00a9 57000000 		.4byte	0x57
+ 165 00ad 05       		.uleb128 0x5
+ 166 00ae EE000000 		.4byte	.LASF15
+ 167 00b2 04       		.byte	0x4
+ 168 00b3 E401     		.2byte	0x1e4
+ 169 00b5 37000000 		.4byte	0x37
+ 170 00b9 05       		.uleb128 0x5
+ 171 00ba D1000000 		.4byte	.LASF16
+ 172 00be 04       		.byte	0x4
+ 173 00bf E501     		.2byte	0x1e5
+ 174 00c1 50000000 		.4byte	0x50
+ 175 00c5 05       		.uleb128 0x5
+ 176 00c6 9E020000 		.4byte	.LASF17
+ 177 00ca 04       		.byte	0x4
+ 178 00cb E601     		.2byte	0x1e6
+ 179 00cd 69000000 		.4byte	0x69
+ 180 00d1 02       		.uleb128 0x2
+ 181 00d2 04       		.byte	0x4
+ 182 00d3 04       		.byte	0x4
+ 183 00d4 02010000 		.4byte	.LASF18
+ 184 00d8 02       		.uleb128 0x2
+ 185 00d9 08       		.byte	0x8
+ 186 00da 04       		.byte	0x4
+ 187 00db B7020000 		.4byte	.LASF19
+ 188 00df 02       		.uleb128 0x2
+ 189 00e0 01       		.byte	0x1
+ 190 00e1 08       		.byte	0x8
+ 191 00e2 3F020000 		.4byte	.LASF20
+ 192 00e6 06       		.uleb128 0x6
+ 193 00e7 04       		.byte	0x4
+ 194 00e8 EC000000 		.4byte	0xec
+ 195 00ec 07       		.uleb128 0x7
+ 196 00ed 02       		.uleb128 0x2
+ 197 00ee 08       		.byte	0x8
+ 198 00ef 04       		.byte	0x4
+ 199 00f0 6E010000 		.4byte	.LASF21
+ 200 00f4 02       		.uleb128 0x2
+ 201 00f5 04       		.byte	0x4
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccVtfewS.s 			page 7
+
+
+ 202 00f6 07       		.byte	0x7
+ 203 00f7 80000000 		.4byte	.LASF22
+ 204 00fb 06       		.uleb128 0x6
+ 205 00fc 04       		.byte	0x4
+ 206 00fd DF000000 		.4byte	0xdf
+ 207 0101 03       		.uleb128 0x3
+ 208 0102 7A010000 		.4byte	.LASF23
+ 209 0106 05       		.byte	0x5
+ 210 0107 26       		.byte	0x26
+ 211 0108 E6000000 		.4byte	0xe6
+ 212 010c 08       		.uleb128 0x8
+ 213 010d 89000000 		.4byte	.LASF30
+ 214 0111 01       		.byte	0x1
+ 215 0112 06       		.byte	0x6
+ 216 0113 22       		.byte	0x22
+ 217 0114 73010000 		.4byte	0x173
+ 218 0118 09       		.uleb128 0x9
+ 219 0119 A4010000 		.4byte	.LASF24
+ 220 011d 06       		.byte	0x6
+ 221 011e 23       		.byte	0x23
+ 222 011f AD000000 		.4byte	0xad
+ 223 0123 01       		.byte	0x1
+ 224 0124 01       		.byte	0x1
+ 225 0125 07       		.byte	0x7
+ 226 0126 00       		.byte	0
+ 227 0127 0A       		.uleb128 0xa
+ 228 0128 41636B00 		.ascii	"Ack\000"
+ 229 012c 06       		.byte	0x6
+ 230 012d 24       		.byte	0x24
+ 231 012e AD000000 		.4byte	0xad
+ 232 0132 01       		.byte	0x1
+ 233 0133 01       		.byte	0x1
+ 234 0134 06       		.byte	0x6
+ 235 0135 00       		.byte	0
+ 236 0136 09       		.uleb128 0x9
+ 237 0137 B9010000 		.4byte	.LASF25
+ 238 013b 06       		.byte	0x6
+ 239 013c 25       		.byte	0x25
+ 240 013d AD000000 		.4byte	0xad
+ 241 0141 01       		.byte	0x1
+ 242 0142 01       		.byte	0x1
+ 243 0143 05       		.byte	0x5
+ 244 0144 00       		.byte	0
+ 245 0145 09       		.uleb128 0x9
+ 246 0146 88020000 		.4byte	.LASF26
+ 247 014a 06       		.byte	0x6
+ 248 014b 26       		.byte	0x26
+ 249 014c AD000000 		.4byte	0xad
+ 250 0150 01       		.byte	0x1
+ 251 0151 01       		.byte	0x1
+ 252 0152 04       		.byte	0x4
+ 253 0153 00       		.byte	0
+ 254 0154 09       		.uleb128 0x9
+ 255 0155 64010000 		.4byte	.LASF27
+ 256 0159 06       		.byte	0x6
+ 257 015a 27       		.byte	0x27
+ 258 015b AD000000 		.4byte	0xad
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccVtfewS.s 			page 8
+
+
+ 259 015f 01       		.byte	0x1
+ 260 0160 01       		.byte	0x1
+ 261 0161 03       		.byte	0x3
+ 262 0162 00       		.byte	0
+ 263 0163 0A       		.uleb128 0xa
+ 264 0164 52465500 		.ascii	"RFU\000"
+ 265 0168 06       		.byte	0x6
+ 266 0169 28       		.byte	0x28
+ 267 016a AD000000 		.4byte	0xad
+ 268 016e 01       		.byte	0x1
+ 269 016f 03       		.byte	0x3
+ 270 0170 00       		.byte	0
+ 271 0171 00       		.byte	0
+ 272 0172 00       		.byte	0
+ 273 0173 0B       		.uleb128 0xb
+ 274 0174 8C010000 		.4byte	.LASF64
+ 275 0178 01       		.byte	0x1
+ 276 0179 06       		.byte	0x6
+ 277 017a 21       		.byte	0x21
+ 278 017b 96010000 		.4byte	0x196
+ 279 017f 0C       		.uleb128 0xc
+ 280 0180 6B030000 		.4byte	.LASF28
+ 281 0184 06       		.byte	0x6
+ 282 0185 29       		.byte	0x29
+ 283 0186 0C010000 		.4byte	0x10c
+ 284 018a 0C       		.uleb128 0xc
+ 285 018b 63000000 		.4byte	.LASF29
+ 286 018f 06       		.byte	0x6
+ 287 0190 2A       		.byte	0x2a
+ 288 0191 AD000000 		.4byte	0xad
+ 289 0195 00       		.byte	0
+ 290 0196 08       		.uleb128 0x8
+ 291 0197 92020000 		.4byte	.LASF31
+ 292 019b 04       		.byte	0x4
+ 293 019c 06       		.byte	0x6
+ 294 019d 30       		.byte	0x30
+ 295 019e C7010000 		.4byte	0x1c7
+ 296 01a2 0D       		.uleb128 0xd
+ 297 01a3 6B030000 		.4byte	.LASF28
+ 298 01a7 06       		.byte	0x6
+ 299 01a8 31       		.byte	0x31
+ 300 01a9 AD000000 		.4byte	0xad
+ 301 01ad 00       		.byte	0
+ 302 01ae 0D       		.uleb128 0xd
+ 303 01af 69010000 		.4byte	.LASF32
+ 304 01b3 06       		.byte	0x6
+ 305 01b4 32       		.byte	0x32
+ 306 01b5 AD000000 		.4byte	0xad
+ 307 01b9 01       		.byte	0x1
+ 308 01ba 0D       		.uleb128 0xd
+ 309 01bb 5B000000 		.4byte	.LASF33
+ 310 01bf 06       		.byte	0x6
+ 311 01c0 33       		.byte	0x33
+ 312 01c1 B9000000 		.4byte	0xb9
+ 313 01c5 02       		.byte	0x2
+ 314 01c6 00       		.byte	0
+ 315 01c7 08       		.uleb128 0x8
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccVtfewS.s 			page 9
+
+
+ 316 01c8 AB010000 		.4byte	.LASF34
+ 317 01cc 0C       		.byte	0xc
+ 318 01cd 06       		.byte	0x6
+ 319 01ce 2D       		.byte	0x2d
+ 320 01cf F8010000 		.4byte	0x1f8
+ 321 01d3 0D       		.uleb128 0xd
+ 322 01d4 FB000000 		.4byte	.LASF35
+ 323 01d8 06       		.byte	0x6
+ 324 01d9 2E       		.byte	0x2e
+ 325 01da C5000000 		.4byte	0xc5
+ 326 01de 00       		.byte	0
+ 327 01df 0D       		.uleb128 0xd
+ 328 01e0 38020000 		.4byte	.LASF36
+ 329 01e4 06       		.byte	0x6
+ 330 01e5 2F       		.byte	0x2f
+ 331 01e6 C5000000 		.4byte	0xc5
+ 332 01ea 04       		.byte	0x4
+ 333 01eb 0D       		.uleb128 0xd
+ 334 01ec 53010000 		.4byte	.LASF37
+ 335 01f0 06       		.byte	0x6
+ 336 01f1 34       		.byte	0x34
+ 337 01f2 96010000 		.4byte	0x196
+ 338 01f6 08       		.byte	0x8
+ 339 01f7 00       		.byte	0
+ 340 01f8 08       		.uleb128 0x8
+ 341 01f9 7C020000 		.4byte	.LASF38
+ 342 01fd 0C       		.byte	0xc
+ 343 01fe 06       		.byte	0x6
+ 344 01ff 37       		.byte	0x37
+ 345 0200 35020000 		.4byte	0x235
+ 346 0204 0D       		.uleb128 0xd
+ 347 0205 D8000000 		.4byte	.LASF39
+ 348 0209 06       		.byte	0x6
+ 349 020a 38       		.byte	0x38
+ 350 020b 35020000 		.4byte	0x235
+ 351 020f 00       		.byte	0
+ 352 0210 0E       		.uleb128 0xe
+ 353 0211 43524300 		.ascii	"CRC\000"
+ 354 0215 06       		.byte	0x6
+ 355 0216 39       		.byte	0x39
+ 356 0217 97000000 		.4byte	0x97
+ 357 021b 04       		.byte	0x4
+ 358 021c 0D       		.uleb128 0xd
+ 359 021d 75020000 		.4byte	.LASF40
+ 360 0221 06       		.byte	0x6
+ 361 0222 3A       		.byte	0x3a
+ 362 0223 8C000000 		.4byte	0x8c
+ 363 0227 06       		.byte	0x6
+ 364 0228 0D       		.uleb128 0xd
+ 365 0229 30020000 		.4byte	.LASF41
+ 366 022d 06       		.byte	0x6
+ 367 022e 3B       		.byte	0x3b
+ 368 022f 3B020000 		.4byte	0x23b
+ 369 0233 08       		.byte	0x8
+ 370 0234 00       		.byte	0
+ 371 0235 06       		.uleb128 0x6
+ 372 0236 04       		.byte	0x4
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccVtfewS.s 			page 10
+
+
+ 373 0237 C7010000 		.4byte	0x1c7
+ 374 023b 06       		.uleb128 0x6
+ 375 023c 04       		.byte	0x4
+ 376 023d 8C000000 		.4byte	0x8c
+ 377 0241 03       		.uleb128 0x3
+ 378 0242 16010000 		.4byte	.LASF42
+ 379 0246 06       		.byte	0x6
+ 380 0247 3E       		.byte	0x3e
+ 381 0248 4C020000 		.4byte	0x24c
+ 382 024c 06       		.uleb128 0x6
+ 383 024d 04       		.byte	0x4
+ 384 024e 52020000 		.4byte	0x252
+ 385 0252 0F       		.uleb128 0xf
+ 386 0253 5D020000 		.4byte	0x25d
+ 387 0257 10       		.uleb128 0x10
+ 388 0258 5D020000 		.4byte	0x25d
+ 389 025c 00       		.byte	0
+ 390 025d 06       		.uleb128 0x6
+ 391 025e 04       		.byte	0x4
+ 392 025f F8010000 		.4byte	0x1f8
+ 393 0263 08       		.uleb128 0x8
+ 394 0264 FF010000 		.4byte	.LASF43
+ 395 0268 0C       		.byte	0xc
+ 396 0269 06       		.byte	0x6
+ 397 026a 40       		.byte	0x40
+ 398 026b 94020000 		.4byte	0x294
+ 399 026f 0D       		.uleb128 0xd
+ 400 0270 69010000 		.4byte	.LASF32
+ 401 0274 06       		.byte	0x6
+ 402 0275 41       		.byte	0x41
+ 403 0276 8C000000 		.4byte	0x8c
+ 404 027a 00       		.byte	0
+ 405 027b 0D       		.uleb128 0xd
+ 406 027c 00000000 		.4byte	.LASF44
+ 407 0280 06       		.byte	0x6
+ 408 0281 42       		.byte	0x42
+ 409 0282 41020000 		.4byte	0x241
+ 410 0286 04       		.byte	0x4
+ 411 0287 0D       		.uleb128 0xd
+ 412 0288 72030000 		.4byte	.LASF45
+ 413 028c 06       		.byte	0x6
+ 414 028d 43       		.byte	0x43
+ 415 028e 94020000 		.4byte	0x294
+ 416 0292 08       		.byte	0x8
+ 417 0293 00       		.byte	0
+ 418 0294 06       		.uleb128 0x6
+ 419 0295 04       		.byte	0x4
+ 420 0296 63020000 		.4byte	0x263
+ 421 029a 08       		.uleb128 0x8
+ 422 029b 44020000 		.4byte	.LASF46
+ 423 029f A0       		.byte	0xa0
+ 424 02a0 06       		.byte	0x6
+ 425 02a1 47       		.byte	0x47
+ 426 02a2 E3020000 		.4byte	0x2e3
+ 427 02a6 0D       		.uleb128 0xd
+ 428 02a7 DF000000 		.4byte	.LASF47
+ 429 02ab 06       		.byte	0x6
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccVtfewS.s 			page 11
+
+
+ 430 02ac 48       		.byte	0x48
+ 431 02ad C5000000 		.4byte	0xc5
+ 432 02b1 00       		.byte	0
+ 433 02b2 0E       		.uleb128 0xe
+ 434 02b3 55494400 		.ascii	"UID\000"
+ 435 02b7 06       		.byte	0x6
+ 436 02b8 49       		.byte	0x49
+ 437 02b9 C5000000 		.4byte	0xc5
+ 438 02bd 04       		.byte	0x4
+ 439 02be 0D       		.uleb128 0xd
+ 440 02bf AA000000 		.4byte	.LASF48
+ 441 02c3 06       		.byte	0x6
+ 442 02c4 4A       		.byte	0x4a
+ 443 02c5 E3020000 		.4byte	0x2e3
+ 444 02c9 08       		.byte	0x8
+ 445 02ca 0D       		.uleb128 0xd
+ 446 02cb 3C010000 		.4byte	.LASF49
+ 447 02cf 06       		.byte	0x6
+ 448 02d0 4B       		.byte	0x4b
+ 449 02d1 C5000000 		.4byte	0xc5
+ 450 02d5 1C       		.byte	0x1c
+ 451 02d6 0E       		.uleb128 0xe
+ 452 02d7 52465500 		.ascii	"RFU\000"
+ 453 02db 06       		.byte	0x6
+ 454 02dc 4C       		.byte	0x4c
+ 455 02dd F3020000 		.4byte	0x2f3
+ 456 02e1 20       		.byte	0x20
+ 457 02e2 00       		.byte	0
+ 458 02e3 11       		.uleb128 0x11
+ 459 02e4 DF000000 		.4byte	0xdf
+ 460 02e8 F3020000 		.4byte	0x2f3
+ 461 02ec 12       		.uleb128 0x12
+ 462 02ed F4000000 		.4byte	0xf4
+ 463 02f1 13       		.byte	0x13
+ 464 02f2 00       		.byte	0
+ 465 02f3 11       		.uleb128 0x11
+ 466 02f4 8C000000 		.4byte	0x8c
+ 467 02f8 03030000 		.4byte	0x303
+ 468 02fc 12       		.uleb128 0x12
+ 469 02fd F4000000 		.4byte	0xf4
+ 470 0301 7F       		.byte	0x7f
+ 471 0302 00       		.byte	0
+ 472 0303 08       		.uleb128 0x8
+ 473 0304 92000000 		.4byte	.LASF50
+ 474 0308 08       		.byte	0x8
+ 475 0309 06       		.byte	0x6
+ 476 030a 4E       		.byte	0x4e
+ 477 030b 28030000 		.4byte	0x328
+ 478 030f 0E       		.uleb128 0xe
+ 479 0310 44435000 		.ascii	"DCP\000"
+ 480 0314 06       		.byte	0x6
+ 481 0315 4F       		.byte	0x4f
+ 482 0316 41020000 		.4byte	0x241
+ 483 031a 00       		.byte	0
+ 484 031b 0D       		.uleb128 0xd
+ 485 031c 37010000 		.4byte	.LASF51
+ 486 0320 06       		.byte	0x6
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccVtfewS.s 			page 12
+
+
+ 487 0321 50       		.byte	0x50
+ 488 0322 94020000 		.4byte	0x294
+ 489 0326 04       		.byte	0x4
+ 490 0327 00       		.byte	0
+ 491 0328 08       		.uleb128 0x8
+ 492 0329 71000000 		.4byte	.LASF52
+ 493 032d A8       		.byte	0xa8
+ 494 032e 06       		.byte	0x6
+ 495 032f 46       		.byte	0x46
+ 496 0330 4D030000 		.4byte	0x34d
+ 497 0334 0D       		.uleb128 0xd
+ 498 0335 AF000000 		.4byte	.LASF53
+ 499 0339 06       		.byte	0x6
+ 500 033a 4D       		.byte	0x4d
+ 501 033b 9A020000 		.4byte	0x29a
+ 502 033f 00       		.byte	0
+ 503 0340 0D       		.uleb128 0xd
+ 504 0341 6B000000 		.4byte	.LASF54
+ 505 0345 06       		.byte	0x6
+ 506 0346 51       		.byte	0x51
+ 507 0347 03030000 		.4byte	0x303
+ 508 034b A0       		.byte	0xa0
+ 509 034c 00       		.byte	0
+ 510 034d 13       		.uleb128 0x13
+ 511 034e F4000000 		.4byte	.LASF65
+ 512 0352 01       		.byte	0x1
+ 513 0353 82       		.byte	0x82
+ 514 0354 7E000000 		.4byte	0x7e
+ 515 0358 00000000 		.4byte	.LFB64
+ 516 035c 1C000000 		.4byte	.LFE64-.LFB64
+ 517 0360 01       		.uleb128 0x1
+ 518 0361 9C       		.byte	0x9c
+ 519 0362 AA030000 		.4byte	0x3aa
+ 520 0366 14       		.uleb128 0x14
+ 521 0367 C2000000 		.4byte	.LASF55
+ 522 036b 01       		.byte	0x1
+ 523 036c 82       		.byte	0x82
+ 524 036d 7E000000 		.4byte	0x7e
+ 525 0371 00000000 		.4byte	.LLST0
+ 526 0375 15       		.uleb128 0x15
+ 527 0376 70747200 		.ascii	"ptr\000"
+ 528 037a 01       		.byte	0x1
+ 529 037b 82       		.byte	0x82
+ 530 037c FB000000 		.4byte	0xfb
+ 531 0380 21000000 		.4byte	.LLST1
+ 532 0384 15       		.uleb128 0x15
+ 533 0385 6C656E00 		.ascii	"len\000"
+ 534 0389 01       		.byte	0x1
+ 535 038a 82       		.byte	0x82
+ 536 038b 7E000000 		.4byte	0x7e
+ 537 038f 4A000000 		.4byte	.LLST2
+ 538 0393 16       		.uleb128 0x16
+ 539 0394 6900     		.ascii	"i\000"
+ 540 0396 01       		.byte	0x1
+ 541 0397 84       		.byte	0x84
+ 542 0398 7E000000 		.4byte	0x7e
+ 543 039c 68000000 		.4byte	.LLST3
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccVtfewS.s 			page 13
+
+
+ 544 03a0 17       		.uleb128 0x17
+ 545 03a1 10000000 		.4byte	.LVL4
+ 546 03a5 FF030000 		.4byte	0x3ff
+ 547 03a9 00       		.byte	0
+ 548 03aa 18       		.uleb128 0x18
+ 549 03ab 0C020000 		.4byte	.LASF56
+ 550 03af 05       		.byte	0x5
+ 551 03b0 27       		.byte	0x27
+ 552 03b1 01010000 		.4byte	0x101
+ 553 03b5 05       		.uleb128 0x5
+ 554 03b6 03       		.byte	0x3
+ 555 03b7 00000000 		.4byte	StripLights_Done
+ 556 03bb 18       		.uleb128 0x18
+ 557 03bc 56020000 		.4byte	.LASF57
+ 558 03c0 05       		.byte	0x5
+ 559 03c1 29       		.byte	0x29
+ 560 03c2 AD000000 		.4byte	0xad
+ 561 03c6 05       		.uleb128 0x5
+ 562 03c7 03       		.byte	0x3
+ 563 03c8 00000000 		.4byte	StripLights_UseGammaCorrection
+ 564 03cc 19       		.uleb128 0x19
+ 565 03cd D0020000 		.4byte	.LASF58
+ 566 03d1 07       		.byte	0x7
+ 567 03d2 1207     		.2byte	0x712
+ 568 03d4 D8030000 		.4byte	0x3d8
+ 569 03d8 1A       		.uleb128 0x1a
+ 570 03d9 A2000000 		.4byte	0xa2
+ 571 03dd 18       		.uleb128 0x18
+ 572 03de A1000000 		.4byte	.LASF59
+ 573 03e2 06       		.byte	0x6
+ 574 03e3 2B       		.byte	0x2b
+ 575 03e4 73010000 		.4byte	0x173
+ 576 03e8 05       		.uleb128 0x5
+ 577 03e9 03       		.byte	0x3
+ 578 03ea 00000000 		.4byte	System_u
+ 579 03ee 18       		.uleb128 0x18
+ 580 03ef 5D010000 		.4byte	.LASF60
+ 581 03f3 06       		.byte	0x6
+ 582 03f4 53       		.byte	0x53
+ 583 03f5 28030000 		.4byte	0x328
+ 584 03f9 05       		.uleb128 0x5
+ 585 03fa 03       		.byte	0x3
+ 586 03fb 00000000 		.4byte	Config
+ 587 03ff 1B       		.uleb128 0x1b
+ 588 0400 77030000 		.4byte	.LASF66
+ 589 0404 77030000 		.4byte	.LASF66
+ 590 0408 08       		.byte	0x8
+ 591 0409 8A       		.byte	0x8a
+ 592 040a 00       		.byte	0
+ 593              		.section	.debug_abbrev,"",%progbits
+ 594              	.Ldebug_abbrev0:
+ 595 0000 01       		.uleb128 0x1
+ 596 0001 11       		.uleb128 0x11
+ 597 0002 01       		.byte	0x1
+ 598 0003 25       		.uleb128 0x25
+ 599 0004 0E       		.uleb128 0xe
+ 600 0005 13       		.uleb128 0x13
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccVtfewS.s 			page 14
+
+
+ 601 0006 0B       		.uleb128 0xb
+ 602 0007 03       		.uleb128 0x3
+ 603 0008 0E       		.uleb128 0xe
+ 604 0009 1B       		.uleb128 0x1b
+ 605 000a 0E       		.uleb128 0xe
+ 606 000b 55       		.uleb128 0x55
+ 607 000c 17       		.uleb128 0x17
+ 608 000d 11       		.uleb128 0x11
+ 609 000e 01       		.uleb128 0x1
+ 610 000f 10       		.uleb128 0x10
+ 611 0010 17       		.uleb128 0x17
+ 612 0011 00       		.byte	0
+ 613 0012 00       		.byte	0
+ 614 0013 02       		.uleb128 0x2
+ 615 0014 24       		.uleb128 0x24
+ 616 0015 00       		.byte	0
+ 617 0016 0B       		.uleb128 0xb
+ 618 0017 0B       		.uleb128 0xb
+ 619 0018 3E       		.uleb128 0x3e
+ 620 0019 0B       		.uleb128 0xb
+ 621 001a 03       		.uleb128 0x3
+ 622 001b 0E       		.uleb128 0xe
+ 623 001c 00       		.byte	0
+ 624 001d 00       		.byte	0
+ 625 001e 03       		.uleb128 0x3
+ 626 001f 16       		.uleb128 0x16
+ 627 0020 00       		.byte	0
+ 628 0021 03       		.uleb128 0x3
+ 629 0022 0E       		.uleb128 0xe
+ 630 0023 3A       		.uleb128 0x3a
+ 631 0024 0B       		.uleb128 0xb
+ 632 0025 3B       		.uleb128 0x3b
+ 633 0026 0B       		.uleb128 0xb
+ 634 0027 49       		.uleb128 0x49
+ 635 0028 13       		.uleb128 0x13
+ 636 0029 00       		.byte	0
+ 637 002a 00       		.byte	0
+ 638 002b 04       		.uleb128 0x4
+ 639 002c 24       		.uleb128 0x24
+ 640 002d 00       		.byte	0
+ 641 002e 0B       		.uleb128 0xb
+ 642 002f 0B       		.uleb128 0xb
+ 643 0030 3E       		.uleb128 0x3e
+ 644 0031 0B       		.uleb128 0xb
+ 645 0032 03       		.uleb128 0x3
+ 646 0033 08       		.uleb128 0x8
+ 647 0034 00       		.byte	0
+ 648 0035 00       		.byte	0
+ 649 0036 05       		.uleb128 0x5
+ 650 0037 16       		.uleb128 0x16
+ 651 0038 00       		.byte	0
+ 652 0039 03       		.uleb128 0x3
+ 653 003a 0E       		.uleb128 0xe
+ 654 003b 3A       		.uleb128 0x3a
+ 655 003c 0B       		.uleb128 0xb
+ 656 003d 3B       		.uleb128 0x3b
+ 657 003e 05       		.uleb128 0x5
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccVtfewS.s 			page 15
+
+
+ 658 003f 49       		.uleb128 0x49
+ 659 0040 13       		.uleb128 0x13
+ 660 0041 00       		.byte	0
+ 661 0042 00       		.byte	0
+ 662 0043 06       		.uleb128 0x6
+ 663 0044 0F       		.uleb128 0xf
+ 664 0045 00       		.byte	0
+ 665 0046 0B       		.uleb128 0xb
+ 666 0047 0B       		.uleb128 0xb
+ 667 0048 49       		.uleb128 0x49
+ 668 0049 13       		.uleb128 0x13
+ 669 004a 00       		.byte	0
+ 670 004b 00       		.byte	0
+ 671 004c 07       		.uleb128 0x7
+ 672 004d 15       		.uleb128 0x15
+ 673 004e 00       		.byte	0
+ 674 004f 27       		.uleb128 0x27
+ 675 0050 19       		.uleb128 0x19
+ 676 0051 00       		.byte	0
+ 677 0052 00       		.byte	0
+ 678 0053 08       		.uleb128 0x8
+ 679 0054 13       		.uleb128 0x13
+ 680 0055 01       		.byte	0x1
+ 681 0056 03       		.uleb128 0x3
+ 682 0057 0E       		.uleb128 0xe
+ 683 0058 0B       		.uleb128 0xb
+ 684 0059 0B       		.uleb128 0xb
+ 685 005a 3A       		.uleb128 0x3a
+ 686 005b 0B       		.uleb128 0xb
+ 687 005c 3B       		.uleb128 0x3b
+ 688 005d 0B       		.uleb128 0xb
+ 689 005e 01       		.uleb128 0x1
+ 690 005f 13       		.uleb128 0x13
+ 691 0060 00       		.byte	0
+ 692 0061 00       		.byte	0
+ 693 0062 09       		.uleb128 0x9
+ 694 0063 0D       		.uleb128 0xd
+ 695 0064 00       		.byte	0
+ 696 0065 03       		.uleb128 0x3
+ 697 0066 0E       		.uleb128 0xe
+ 698 0067 3A       		.uleb128 0x3a
+ 699 0068 0B       		.uleb128 0xb
+ 700 0069 3B       		.uleb128 0x3b
+ 701 006a 0B       		.uleb128 0xb
+ 702 006b 49       		.uleb128 0x49
+ 703 006c 13       		.uleb128 0x13
+ 704 006d 0B       		.uleb128 0xb
+ 705 006e 0B       		.uleb128 0xb
+ 706 006f 0D       		.uleb128 0xd
+ 707 0070 0B       		.uleb128 0xb
+ 708 0071 0C       		.uleb128 0xc
+ 709 0072 0B       		.uleb128 0xb
+ 710 0073 38       		.uleb128 0x38
+ 711 0074 0B       		.uleb128 0xb
+ 712 0075 00       		.byte	0
+ 713 0076 00       		.byte	0
+ 714 0077 0A       		.uleb128 0xa
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccVtfewS.s 			page 16
+
+
+ 715 0078 0D       		.uleb128 0xd
+ 716 0079 00       		.byte	0
+ 717 007a 03       		.uleb128 0x3
+ 718 007b 08       		.uleb128 0x8
+ 719 007c 3A       		.uleb128 0x3a
+ 720 007d 0B       		.uleb128 0xb
+ 721 007e 3B       		.uleb128 0x3b
+ 722 007f 0B       		.uleb128 0xb
+ 723 0080 49       		.uleb128 0x49
+ 724 0081 13       		.uleb128 0x13
+ 725 0082 0B       		.uleb128 0xb
+ 726 0083 0B       		.uleb128 0xb
+ 727 0084 0D       		.uleb128 0xd
+ 728 0085 0B       		.uleb128 0xb
+ 729 0086 0C       		.uleb128 0xc
+ 730 0087 0B       		.uleb128 0xb
+ 731 0088 38       		.uleb128 0x38
+ 732 0089 0B       		.uleb128 0xb
+ 733 008a 00       		.byte	0
+ 734 008b 00       		.byte	0
+ 735 008c 0B       		.uleb128 0xb
+ 736 008d 17       		.uleb128 0x17
+ 737 008e 01       		.byte	0x1
+ 738 008f 03       		.uleb128 0x3
+ 739 0090 0E       		.uleb128 0xe
+ 740 0091 0B       		.uleb128 0xb
+ 741 0092 0B       		.uleb128 0xb
+ 742 0093 3A       		.uleb128 0x3a
+ 743 0094 0B       		.uleb128 0xb
+ 744 0095 3B       		.uleb128 0x3b
+ 745 0096 0B       		.uleb128 0xb
+ 746 0097 01       		.uleb128 0x1
+ 747 0098 13       		.uleb128 0x13
+ 748 0099 00       		.byte	0
+ 749 009a 00       		.byte	0
+ 750 009b 0C       		.uleb128 0xc
+ 751 009c 0D       		.uleb128 0xd
+ 752 009d 00       		.byte	0
+ 753 009e 03       		.uleb128 0x3
+ 754 009f 0E       		.uleb128 0xe
+ 755 00a0 3A       		.uleb128 0x3a
+ 756 00a1 0B       		.uleb128 0xb
+ 757 00a2 3B       		.uleb128 0x3b
+ 758 00a3 0B       		.uleb128 0xb
+ 759 00a4 49       		.uleb128 0x49
+ 760 00a5 13       		.uleb128 0x13
+ 761 00a6 00       		.byte	0
+ 762 00a7 00       		.byte	0
+ 763 00a8 0D       		.uleb128 0xd
+ 764 00a9 0D       		.uleb128 0xd
+ 765 00aa 00       		.byte	0
+ 766 00ab 03       		.uleb128 0x3
+ 767 00ac 0E       		.uleb128 0xe
+ 768 00ad 3A       		.uleb128 0x3a
+ 769 00ae 0B       		.uleb128 0xb
+ 770 00af 3B       		.uleb128 0x3b
+ 771 00b0 0B       		.uleb128 0xb
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccVtfewS.s 			page 17
+
+
+ 772 00b1 49       		.uleb128 0x49
+ 773 00b2 13       		.uleb128 0x13
+ 774 00b3 38       		.uleb128 0x38
+ 775 00b4 0B       		.uleb128 0xb
+ 776 00b5 00       		.byte	0
+ 777 00b6 00       		.byte	0
+ 778 00b7 0E       		.uleb128 0xe
+ 779 00b8 0D       		.uleb128 0xd
+ 780 00b9 00       		.byte	0
+ 781 00ba 03       		.uleb128 0x3
+ 782 00bb 08       		.uleb128 0x8
+ 783 00bc 3A       		.uleb128 0x3a
+ 784 00bd 0B       		.uleb128 0xb
+ 785 00be 3B       		.uleb128 0x3b
+ 786 00bf 0B       		.uleb128 0xb
+ 787 00c0 49       		.uleb128 0x49
+ 788 00c1 13       		.uleb128 0x13
+ 789 00c2 38       		.uleb128 0x38
+ 790 00c3 0B       		.uleb128 0xb
+ 791 00c4 00       		.byte	0
+ 792 00c5 00       		.byte	0
+ 793 00c6 0F       		.uleb128 0xf
+ 794 00c7 15       		.uleb128 0x15
+ 795 00c8 01       		.byte	0x1
+ 796 00c9 27       		.uleb128 0x27
+ 797 00ca 19       		.uleb128 0x19
+ 798 00cb 01       		.uleb128 0x1
+ 799 00cc 13       		.uleb128 0x13
+ 800 00cd 00       		.byte	0
+ 801 00ce 00       		.byte	0
+ 802 00cf 10       		.uleb128 0x10
+ 803 00d0 05       		.uleb128 0x5
+ 804 00d1 00       		.byte	0
+ 805 00d2 49       		.uleb128 0x49
+ 806 00d3 13       		.uleb128 0x13
+ 807 00d4 00       		.byte	0
+ 808 00d5 00       		.byte	0
+ 809 00d6 11       		.uleb128 0x11
+ 810 00d7 01       		.uleb128 0x1
+ 811 00d8 01       		.byte	0x1
+ 812 00d9 49       		.uleb128 0x49
+ 813 00da 13       		.uleb128 0x13
+ 814 00db 01       		.uleb128 0x1
+ 815 00dc 13       		.uleb128 0x13
+ 816 00dd 00       		.byte	0
+ 817 00de 00       		.byte	0
+ 818 00df 12       		.uleb128 0x12
+ 819 00e0 21       		.uleb128 0x21
+ 820 00e1 00       		.byte	0
+ 821 00e2 49       		.uleb128 0x49
+ 822 00e3 13       		.uleb128 0x13
+ 823 00e4 2F       		.uleb128 0x2f
+ 824 00e5 0B       		.uleb128 0xb
+ 825 00e6 00       		.byte	0
+ 826 00e7 00       		.byte	0
+ 827 00e8 13       		.uleb128 0x13
+ 828 00e9 2E       		.uleb128 0x2e
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccVtfewS.s 			page 18
+
+
+ 829 00ea 01       		.byte	0x1
+ 830 00eb 3F       		.uleb128 0x3f
+ 831 00ec 19       		.uleb128 0x19
+ 832 00ed 03       		.uleb128 0x3
+ 833 00ee 0E       		.uleb128 0xe
+ 834 00ef 3A       		.uleb128 0x3a
+ 835 00f0 0B       		.uleb128 0xb
+ 836 00f1 3B       		.uleb128 0x3b
+ 837 00f2 0B       		.uleb128 0xb
+ 838 00f3 27       		.uleb128 0x27
+ 839 00f4 19       		.uleb128 0x19
+ 840 00f5 49       		.uleb128 0x49
+ 841 00f6 13       		.uleb128 0x13
+ 842 00f7 11       		.uleb128 0x11
+ 843 00f8 01       		.uleb128 0x1
+ 844 00f9 12       		.uleb128 0x12
+ 845 00fa 06       		.uleb128 0x6
+ 846 00fb 40       		.uleb128 0x40
+ 847 00fc 18       		.uleb128 0x18
+ 848 00fd 9742     		.uleb128 0x2117
+ 849 00ff 19       		.uleb128 0x19
+ 850 0100 01       		.uleb128 0x1
+ 851 0101 13       		.uleb128 0x13
+ 852 0102 00       		.byte	0
+ 853 0103 00       		.byte	0
+ 854 0104 14       		.uleb128 0x14
+ 855 0105 05       		.uleb128 0x5
+ 856 0106 00       		.byte	0
+ 857 0107 03       		.uleb128 0x3
+ 858 0108 0E       		.uleb128 0xe
+ 859 0109 3A       		.uleb128 0x3a
+ 860 010a 0B       		.uleb128 0xb
+ 861 010b 3B       		.uleb128 0x3b
+ 862 010c 0B       		.uleb128 0xb
+ 863 010d 49       		.uleb128 0x49
+ 864 010e 13       		.uleb128 0x13
+ 865 010f 02       		.uleb128 0x2
+ 866 0110 17       		.uleb128 0x17
+ 867 0111 00       		.byte	0
+ 868 0112 00       		.byte	0
+ 869 0113 15       		.uleb128 0x15
+ 870 0114 05       		.uleb128 0x5
+ 871 0115 00       		.byte	0
+ 872 0116 03       		.uleb128 0x3
+ 873 0117 08       		.uleb128 0x8
+ 874 0118 3A       		.uleb128 0x3a
+ 875 0119 0B       		.uleb128 0xb
+ 876 011a 3B       		.uleb128 0x3b
+ 877 011b 0B       		.uleb128 0xb
+ 878 011c 49       		.uleb128 0x49
+ 879 011d 13       		.uleb128 0x13
+ 880 011e 02       		.uleb128 0x2
+ 881 011f 17       		.uleb128 0x17
+ 882 0120 00       		.byte	0
+ 883 0121 00       		.byte	0
+ 884 0122 16       		.uleb128 0x16
+ 885 0123 34       		.uleb128 0x34
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccVtfewS.s 			page 19
+
+
+ 886 0124 00       		.byte	0
+ 887 0125 03       		.uleb128 0x3
+ 888 0126 08       		.uleb128 0x8
+ 889 0127 3A       		.uleb128 0x3a
+ 890 0128 0B       		.uleb128 0xb
+ 891 0129 3B       		.uleb128 0x3b
+ 892 012a 0B       		.uleb128 0xb
+ 893 012b 49       		.uleb128 0x49
+ 894 012c 13       		.uleb128 0x13
+ 895 012d 02       		.uleb128 0x2
+ 896 012e 17       		.uleb128 0x17
+ 897 012f 00       		.byte	0
+ 898 0130 00       		.byte	0
+ 899 0131 17       		.uleb128 0x17
+ 900 0132 898201   		.uleb128 0x4109
+ 901 0135 00       		.byte	0
+ 902 0136 11       		.uleb128 0x11
+ 903 0137 01       		.uleb128 0x1
+ 904 0138 31       		.uleb128 0x31
+ 905 0139 13       		.uleb128 0x13
+ 906 013a 00       		.byte	0
+ 907 013b 00       		.byte	0
+ 908 013c 18       		.uleb128 0x18
+ 909 013d 34       		.uleb128 0x34
+ 910 013e 00       		.byte	0
+ 911 013f 03       		.uleb128 0x3
+ 912 0140 0E       		.uleb128 0xe
+ 913 0141 3A       		.uleb128 0x3a
+ 914 0142 0B       		.uleb128 0xb
+ 915 0143 3B       		.uleb128 0x3b
+ 916 0144 0B       		.uleb128 0xb
+ 917 0145 49       		.uleb128 0x49
+ 918 0146 13       		.uleb128 0x13
+ 919 0147 3F       		.uleb128 0x3f
+ 920 0148 19       		.uleb128 0x19
+ 921 0149 02       		.uleb128 0x2
+ 922 014a 18       		.uleb128 0x18
+ 923 014b 00       		.byte	0
+ 924 014c 00       		.byte	0
+ 925 014d 19       		.uleb128 0x19
+ 926 014e 34       		.uleb128 0x34
+ 927 014f 00       		.byte	0
+ 928 0150 03       		.uleb128 0x3
+ 929 0151 0E       		.uleb128 0xe
+ 930 0152 3A       		.uleb128 0x3a
+ 931 0153 0B       		.uleb128 0xb
+ 932 0154 3B       		.uleb128 0x3b
+ 933 0155 05       		.uleb128 0x5
+ 934 0156 49       		.uleb128 0x49
+ 935 0157 13       		.uleb128 0x13
+ 936 0158 3F       		.uleb128 0x3f
+ 937 0159 19       		.uleb128 0x19
+ 938 015a 3C       		.uleb128 0x3c
+ 939 015b 19       		.uleb128 0x19
+ 940 015c 00       		.byte	0
+ 941 015d 00       		.byte	0
+ 942 015e 1A       		.uleb128 0x1a
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccVtfewS.s 			page 20
+
+
+ 943 015f 35       		.uleb128 0x35
+ 944 0160 00       		.byte	0
+ 945 0161 49       		.uleb128 0x49
+ 946 0162 13       		.uleb128 0x13
+ 947 0163 00       		.byte	0
+ 948 0164 00       		.byte	0
+ 949 0165 1B       		.uleb128 0x1b
+ 950 0166 2E       		.uleb128 0x2e
+ 951 0167 00       		.byte	0
+ 952 0168 3F       		.uleb128 0x3f
+ 953 0169 19       		.uleb128 0x19
+ 954 016a 3C       		.uleb128 0x3c
+ 955 016b 19       		.uleb128 0x19
+ 956 016c 6E       		.uleb128 0x6e
+ 957 016d 0E       		.uleb128 0xe
+ 958 016e 03       		.uleb128 0x3
+ 959 016f 0E       		.uleb128 0xe
+ 960 0170 3A       		.uleb128 0x3a
+ 961 0171 0B       		.uleb128 0xb
+ 962 0172 3B       		.uleb128 0x3b
+ 963 0173 0B       		.uleb128 0xb
+ 964 0174 00       		.byte	0
+ 965 0175 00       		.byte	0
+ 966 0176 00       		.byte	0
+ 967              		.section	.debug_loc,"",%progbits
+ 968              	.Ldebug_loc0:
+ 969              	.LLST0:
+ 970 0000 00000000 		.4byte	.LVL0
+ 971 0004 08000000 		.4byte	.LVL2
+ 972 0008 0100     		.2byte	0x1
+ 973 000a 50       		.byte	0x50
+ 974 000b 08000000 		.4byte	.LVL2
+ 975 000f 1C000000 		.4byte	.LFE64
+ 976 0013 0400     		.2byte	0x4
+ 977 0015 F3       		.byte	0xf3
+ 978 0016 01       		.uleb128 0x1
+ 979 0017 50       		.byte	0x50
+ 980 0018 9F       		.byte	0x9f
+ 981 0019 00000000 		.4byte	0
+ 982 001d 00000000 		.4byte	0
+ 983              	.LLST1:
+ 984 0021 00000000 		.4byte	.LVL0
+ 985 0025 0A000000 		.4byte	.LVL3
+ 986 0029 0100     		.2byte	0x1
+ 987 002b 51       		.byte	0x51
+ 988 002c 0A000000 		.4byte	.LVL3
+ 989 0030 14000000 		.4byte	.LVL6
+ 990 0034 0100     		.2byte	0x1
+ 991 0036 55       		.byte	0x55
+ 992 0037 14000000 		.4byte	.LVL6
+ 993 003b 1C000000 		.4byte	.LFE64
+ 994 003f 0100     		.2byte	0x1
+ 995 0041 51       		.byte	0x51
+ 996 0042 00000000 		.4byte	0
+ 997 0046 00000000 		.4byte	0
+ 998              	.LLST2:
+ 999 004a 00000000 		.4byte	.LVL0
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccVtfewS.s 			page 21
+
+
+ 1000 004e 08000000 		.4byte	.LVL2
+ 1001 0052 0100     		.2byte	0x1
+ 1002 0054 52       		.byte	0x52
+ 1003 0055 08000000 		.4byte	.LVL2
+ 1004 0059 1C000000 		.4byte	.LFE64
+ 1005 005d 0100     		.2byte	0x1
+ 1006 005f 56       		.byte	0x56
+ 1007 0060 00000000 		.4byte	0
+ 1008 0064 00000000 		.4byte	0
+ 1009              	.LLST3:
+ 1010 0068 04000000 		.4byte	.LVL1
+ 1011 006c 08000000 		.4byte	.LVL2
+ 1012 0070 0200     		.2byte	0x2
+ 1013 0072 30       		.byte	0x30
+ 1014 0073 9F       		.byte	0x9f
+ 1015 0074 08000000 		.4byte	.LVL2
+ 1016 0078 1C000000 		.4byte	.LFE64
+ 1017 007c 0100     		.2byte	0x1
+ 1018 007e 54       		.byte	0x54
+ 1019 007f 00000000 		.4byte	0
+ 1020 0083 00000000 		.4byte	0
+ 1021              		.section	.debug_aranges,"",%progbits
+ 1022 0000 1C000000 		.4byte	0x1c
+ 1023 0004 0200     		.2byte	0x2
+ 1024 0006 00000000 		.4byte	.Ldebug_info0
+ 1025 000a 04       		.byte	0x4
+ 1026 000b 00       		.byte	0
+ 1027 000c 0000     		.2byte	0
+ 1028 000e 0000     		.2byte	0
+ 1029 0010 00000000 		.4byte	.LFB64
+ 1030 0014 1C000000 		.4byte	.LFE64-.LFB64
+ 1031 0018 00000000 		.4byte	0
+ 1032 001c 00000000 		.4byte	0
+ 1033              		.section	.debug_ranges,"",%progbits
+ 1034              	.Ldebug_ranges0:
+ 1035 0000 00000000 		.4byte	.LFB64
+ 1036 0004 1C000000 		.4byte	.LFE64
+ 1037 0008 00000000 		.4byte	0
+ 1038 000c 00000000 		.4byte	0
+ 1039              		.section	.debug_line,"",%progbits
+ 1040              	.Ldebug_line0:
+ 1041 0000 A5010000 		.section	.debug_str,"MS",%progbits,1
+ 1041      02007901 
+ 1041      00000201 
+ 1041      FB0E0D00 
+ 1041      01010101 
+ 1042              	.LASF44:
+ 1043 0000 48616E64 		.ascii	"Handle\000"
+ 1043      6C6500
+ 1044              	.LASF63:
+ 1045 0007 433A5C55 		.ascii	"C:\\Users\\matij\\source\\Workspaces\\Embedded\\PSo"
+ 1045      73657273 
+ 1045      5C6D6174 
+ 1045      696A5C73 
+ 1045      6F757263 
+ 1046 0034 435C4C69 		.ascii	"C\\Libraries\\Ontwikkeling\\BCom0.3.cydsn\000"
+ 1046      62726172 
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccVtfewS.s 			page 22
+
+
+ 1046      6965735C 
+ 1046      4F6E7477 
+ 1046      696B6B65 
+ 1047              	.LASF33:
+ 1048 005b 4672616D 		.ascii	"FrameNr\000"
+ 1048      654E7200 
+ 1049              	.LASF29:
+ 1050 0063 62797465 		.ascii	"byteVal\000"
+ 1050      56616C00 
+ 1051              	.LASF54:
+ 1052 006b 506F7274 		.ascii	"Ports\000"
+ 1052      7300
+ 1053              	.LASF52:
+ 1054 0071 476C6F62 		.ascii	"GlobalConfig_s\000"
+ 1054      616C436F 
+ 1054      6E666967 
+ 1054      5F7300
+ 1055              	.LASF22:
+ 1056 0080 73697A65 		.ascii	"sizetype\000"
+ 1056      74797065 
+ 1056      00
+ 1057              	.LASF30:
+ 1058 0089 53797374 		.ascii	"System_s\000"
+ 1058      656D5F73 
+ 1058      00
+ 1059              	.LASF50:
+ 1060 0092 4170706C 		.ascii	"Applications_s\000"
+ 1060      69636174 
+ 1060      696F6E73 
+ 1060      5F7300
+ 1061              	.LASF59:
+ 1062 00a1 53797374 		.ascii	"System_u\000"
+ 1062      656D5F75 
+ 1062      00
+ 1063              	.LASF48:
+ 1064 00aa 4E616D65 		.ascii	"Name\000"
+ 1064      00
+ 1065              	.LASF53:
+ 1066 00af 4E657477 		.ascii	"Network\000"
+ 1066      6F726B00 
+ 1067              	.LASF4:
+ 1068 00b7 5F5F7569 		.ascii	"__uint16_t\000"
+ 1068      6E743136 
+ 1068      5F7400
+ 1069              	.LASF55:
+ 1070 00c2 66696C65 		.ascii	"file\000"
+ 1070      00
+ 1071              	.LASF2:
+ 1072 00c7 73686F72 		.ascii	"short int\000"
+ 1072      7420696E 
+ 1072      7400
+ 1073              	.LASF16:
+ 1074 00d1 75696E74 		.ascii	"uint16\000"
+ 1074      313600
+ 1075              	.LASF39:
+ 1076 00d8 48656164 		.ascii	"Header\000"
+ 1076      657200
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccVtfewS.s 			page 23
+
+
+ 1077              	.LASF47:
+ 1078 00df 54797065 		.ascii	"TypeIdentifier\000"
+ 1078      4964656E 
+ 1078      74696669 
+ 1078      657200
+ 1079              	.LASF15:
+ 1080 00ee 75696E74 		.ascii	"uint8\000"
+ 1080      3800
+ 1081              	.LASF65:
+ 1082 00f4 5F777269 		.ascii	"_write\000"
+ 1082      746500
+ 1083              	.LASF35:
+ 1084 00fb 54617267 		.ascii	"Target\000"
+ 1084      657400
+ 1085              	.LASF18:
+ 1086 0102 666C6F61 		.ascii	"float\000"
+ 1086      7400
+ 1087              	.LASF9:
+ 1088 0108 6C6F6E67 		.ascii	"long long int\000"
+ 1088      206C6F6E 
+ 1088      6720696E 
+ 1088      7400
+ 1089              	.LASF42:
+ 1090 0116 42436F6D 		.ascii	"BCom_1_CallBackFunction\000"
+ 1090      5F315F43 
+ 1090      616C6C42 
+ 1090      61636B46 
+ 1090      756E6374 
+ 1091              	.LASF7:
+ 1092 012e 6C6F6E67 		.ascii	"long int\000"
+ 1092      20696E74 
+ 1092      00
+ 1093              	.LASF51:
+ 1094 0137 4C697374 		.ascii	"List\000"
+ 1094      00
+ 1095              	.LASF49:
+ 1096 013c 4672616D 		.ascii	"FrameCounter\000"
+ 1096      65436F75 
+ 1096      6E746572 
+ 1096      00
+ 1097              	.LASF3:
+ 1098 0149 5F5F7569 		.ascii	"__uint8_t\000"
+ 1098      6E74385F 
+ 1098      7400
+ 1099              	.LASF37:
+ 1100 0153 50617261 		.ascii	"Parameter\000"
+ 1100      6D657465 
+ 1100      7200
+ 1101              	.LASF60:
+ 1102 015d 436F6E66 		.ascii	"Config\000"
+ 1102      696700
+ 1103              	.LASF27:
+ 1104 0164 50696E67 		.ascii	"Ping\000"
+ 1104      00
+ 1105              	.LASF32:
+ 1106 0169 506F7274 		.ascii	"Port\000"
+ 1106      00
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccVtfewS.s 			page 24
+
+
+ 1107              	.LASF21:
+ 1108 016e 6C6F6E67 		.ascii	"long double\000"
+ 1108      20646F75 
+ 1108      626C6500 
+ 1109              	.LASF23:
+ 1110 017a 53747269 		.ascii	"StripLights_Event\000"
+ 1110      704C6967 
+ 1110      6874735F 
+ 1110      4576656E 
+ 1110      7400
+ 1111              	.LASF64:
+ 1112 018c 5F737973 		.ascii	"_system_u\000"
+ 1112      74656D5F 
+ 1112      7500
+ 1113              	.LASF1:
+ 1114 0196 756E7369 		.ascii	"unsigned char\000"
+ 1114      676E6564 
+ 1114      20636861 
+ 1114      7200
+ 1115              	.LASF24:
+ 1116 01a4 41636B52 		.ascii	"AckReq\000"
+ 1116      657100
+ 1117              	.LASF34:
+ 1118 01ab 4672616D 		.ascii	"FrameHeader_s\000"
+ 1118      65486561 
+ 1118      6465725F 
+ 1118      7300
+ 1119              	.LASF25:
+ 1120 01b9 4E61636B 		.ascii	"Nack\000"
+ 1120      00
+ 1121              	.LASF62:
+ 1122 01be 64656275 		.ascii	"debug.c\000"
+ 1122      672E6300 
+ 1123              	.LASF0:
+ 1124 01c6 7369676E 		.ascii	"signed char\000"
+ 1124      65642063 
+ 1124      68617200 
+ 1125              	.LASF10:
+ 1126 01d2 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1126      206C6F6E 
+ 1126      6720756E 
+ 1126      7369676E 
+ 1126      65642069 
+ 1127              	.LASF11:
+ 1128 01e9 756E7369 		.ascii	"unsigned int\000"
+ 1128      676E6564 
+ 1128      20696E74 
+ 1128      00
+ 1129              	.LASF13:
+ 1130 01f6 75696E74 		.ascii	"uint16_t\000"
+ 1130      31365F74 
+ 1130      00
+ 1131              	.LASF43:
+ 1132 01ff 506F7274 		.ascii	"PortHandle_s\000"
+ 1132      48616E64 
+ 1132      6C655F73 
+ 1132      00
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccVtfewS.s 			page 25
+
+
+ 1133              	.LASF56:
+ 1134 020c 53747269 		.ascii	"StripLights_Done\000"
+ 1134      704C6967 
+ 1134      6874735F 
+ 1134      446F6E65 
+ 1134      00
+ 1135              	.LASF5:
+ 1136 021d 73686F72 		.ascii	"short unsigned int\000"
+ 1136      7420756E 
+ 1136      7369676E 
+ 1136      65642069 
+ 1136      6E7400
+ 1137              	.LASF41:
+ 1138 0230 5061796C 		.ascii	"Payload\000"
+ 1138      6F616400 
+ 1139              	.LASF36:
+ 1140 0238 536F7572 		.ascii	"Source\000"
+ 1140      636500
+ 1141              	.LASF20:
+ 1142 023f 63686172 		.ascii	"char\000"
+ 1142      00
+ 1143              	.LASF46:
+ 1144 0244 4E657477 		.ascii	"Network_s\000"
+ 1144      6F726B5F 
+ 1144      7300
+ 1145              	.LASF14:
+ 1146 024e 696E7433 		.ascii	"int32_t\000"
+ 1146      325F7400 
+ 1147              	.LASF57:
+ 1148 0256 53747269 		.ascii	"StripLights_UseGammaCorrection\000"
+ 1148      704C6967 
+ 1148      6874735F 
+ 1148      55736547 
+ 1148      616D6D61 
+ 1149              	.LASF40:
+ 1150 0275 4C656E67 		.ascii	"Lenght\000"
+ 1150      687400
+ 1151              	.LASF38:
+ 1152 027c 42436F6D 		.ascii	"BComFrame_s\000"
+ 1152      4672616D 
+ 1152      655F7300 
+ 1153              	.LASF26:
+ 1154 0288 456E6372 		.ascii	"Encrypted\000"
+ 1154      79707465 
+ 1154      6400
+ 1155              	.LASF31:
+ 1156 0292 50617261 		.ascii	"Parameter_s\000"
+ 1156      6D657465 
+ 1156      725F7300 
+ 1157              	.LASF17:
+ 1158 029e 75696E74 		.ascii	"uint32\000"
+ 1158      333200
+ 1159              	.LASF8:
+ 1160 02a5 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1160      20756E73 
+ 1160      69676E65 
+ 1160      6420696E 
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccVtfewS.s 			page 26
+
+
+ 1160      7400
+ 1161              	.LASF19:
+ 1162 02b7 646F7562 		.ascii	"double\000"
+ 1162      6C6500
+ 1163              	.LASF6:
+ 1164 02be 5F5F696E 		.ascii	"__int32_t\000"
+ 1164      7433325F 
+ 1164      7400
+ 1165              	.LASF12:
+ 1166 02c8 75696E74 		.ascii	"uint8_t\000"
+ 1166      385F7400 
+ 1167              	.LASF58:
+ 1168 02d0 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1168      52784275 
+ 1168      66666572 
+ 1168      00
+ 1169              	.LASF61:
+ 1170 02dd 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1170      43313120 
+ 1170      352E342E 
+ 1170      31203230 
+ 1170      31363036 
+ 1171 0310 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 1171      20726576 
+ 1171      6973696F 
+ 1171      6E203233 
+ 1171      37373135 
+ 1172 0343 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 1172      66756E63 
+ 1172      74696F6E 
+ 1172      2D736563 
+ 1172      74696F6E 
+ 1173              	.LASF28:
+ 1174 036b 53797374 		.ascii	"System\000"
+ 1174      656D00
+ 1175              	.LASF45:
+ 1176 0372 6E657874 		.ascii	"next\000"
+ 1176      00
+ 1177              	.LASF66:
+ 1178 0377 55415254 		.ascii	"UART_PutChar\000"
+ 1178      5F507574 
+ 1178      43686172 
+ 1178      00
+ 1179              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

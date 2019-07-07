@@ -1,0 +1,2466 @@
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"BCom_1_BCom.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.Transport,"ax",%progbits
+  20              		.align	2
+  21              		.global	Transport
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	Transport, %function
+  25              	Transport:
+  26              	.LFB64:
+  27              		.file 1 "Generated_Source\\PSoC5\\BCom_1_BCom.c"
+   1:Generated_Source\PSoC5/BCom_1_BCom.c **** /* ========================================
+   2:Generated_Source\PSoC5/BCom_1_BCom.c ****  *
+   3:Generated_Source\PSoC5/BCom_1_BCom.c ****  * Copyright YOUR COMPANY, THE YEAR
+   4:Generated_Source\PSoC5/BCom_1_BCom.c ****  * All Rights Reserved
+   5:Generated_Source\PSoC5/BCom_1_BCom.c ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:Generated_Source\PSoC5/BCom_1_BCom.c ****  *
+   7:Generated_Source\PSoC5/BCom_1_BCom.c ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:Generated_Source\PSoC5/BCom_1_BCom.c ****  * WHICH IS THE PROPERTY OF your company.
+   9:Generated_Source\PSoC5/BCom_1_BCom.c ****  *
+  10:Generated_Source\PSoC5/BCom_1_BCom.c ****  * ========================================
+  11:Generated_Source\PSoC5/BCom_1_BCom.c **** */
+  12:Generated_Source\PSoC5/BCom_1_BCom.c **** #include "project.h"
+  13:Generated_Source\PSoC5/BCom_1_BCom.c **** #include "BCom_1_BCom.h"
+  14:Generated_Source\PSoC5/BCom_1_BCom.c **** 
+  15:Generated_Source\PSoC5/BCom_1_BCom.c **** // @180219 ^MB Added Transport layer function
+  16:Generated_Source\PSoC5/BCom_1_BCom.c **** void Transport(uint8_t * buffer, uint8_t bufferSize) {
+  28              		.loc 1 16 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 144
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              	.LVL0:
+  17:Generated_Source\PSoC5/BCom_1_BCom.c ****     if ( bufferSize <= 14 ) return;
+  33              		.loc 1 17 0
+  34 0000 0E29     		cmp	r1, #14
+  35 0002 4ED9     		bls	.L15
+  16:Generated_Source\PSoC5/BCom_1_BCom.c ****     if ( bufferSize <= 14 ) return;
+  36              		.loc 1 16 0
+  37 0004 10B5     		push	{r4, lr}
+  38              		.cfi_def_cfa_offset 8
+  39              		.cfi_offset 4, -8
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 2
+
+
+  40              		.cfi_offset 14, -4
+  41 0006 A4B0     		sub	sp, sp, #144
+  42              		.cfi_def_cfa_offset 152
+  18:Generated_Source\PSoC5/BCom_1_BCom.c ****     
+  19:Generated_Source\PSoC5/BCom_1_BCom.c ****     unsigned char input[128];
+  20:Generated_Source\PSoC5/BCom_1_BCom.c ****     uint8 inpLength = b64_decode(buffer,bufferSize,input);
+  43              		.loc 1 20 0
+  44 0008 04AC     		add	r4, sp, #16
+  45 000a 2246     		mov	r2, r4
+  46 000c FFF7FEFF 		bl	b64_decode
+  47              	.LVL1:
+  48 0010 C0B2     		uxtb	r0, r0
+  49              	.LVL2:
+  21:Generated_Source\PSoC5/BCom_1_BCom.c ****     
+  22:Generated_Source\PSoC5/BCom_1_BCom.c ****     uint16_t CRC = (input[inpLength] << 8) | input[inpLength+1];
+  50              		.loc 1 22 0
+  51 0012 24AB     		add	r3, sp, #144
+  52 0014 0344     		add	r3, r3, r0
+  53 0016 13F8801C 		ldrb	r1, [r3, #-128]	@ zero_extendqisi2
+  54 001a 421C     		adds	r2, r0, #1
+  55 001c 24AB     		add	r3, sp, #144
+  56 001e 1A44     		add	r2, r2, r3
+  57 0020 12F8803C 		ldrb	r3, [r2, #-128]	@ zero_extendqisi2
+  58 0024 43EA0123 		orr	r3, r3, r1, lsl #8
+  59              	.LVL3:
+  23:Generated_Source\PSoC5/BCom_1_BCom.c ****     input[inpLength-2] = '\0';
+  60              		.loc 1 23 0
+  61 0028 821E     		subs	r2, r0, #2
+  62 002a 24A9     		add	r1, sp, #144
+  63 002c 0A44     		add	r2, r2, r1
+  64 002e 0021     		movs	r1, #0
+  65 0030 02F8801C 		strb	r1, [r2, #-128]
+  24:Generated_Source\PSoC5/BCom_1_BCom.c ****     struct BComFrame_s Frame;
+  25:Generated_Source\PSoC5/BCom_1_BCom.c ****     Frame.Header = ( struct FrameHeader_s * ) &input[0];
+  66              		.loc 1 25 0
+  67 0034 0194     		str	r4, [sp, #4]
+  26:Generated_Source\PSoC5/BCom_1_BCom.c ****     Frame.CRC = CRC;
+  68              		.loc 1 26 0
+  69 0036 ADF80830 		strh	r3, [sp, #8]	@ movhi
+  27:Generated_Source\PSoC5/BCom_1_BCom.c ****     Frame.Lenght = inpLength-14;
+  70              		.loc 1 27 0
+  71 003a 0E38     		subs	r0, r0, #14
+  72              	.LVL4:
+  73 003c 8DF80A00 		strb	r0, [sp, #10]
+  28:Generated_Source\PSoC5/BCom_1_BCom.c ****     Frame.Payload = &input[12];
+  74              		.loc 1 28 0
+  75 0040 07AB     		add	r3, sp, #28
+  76              	.LVL5:
+  77 0042 0393     		str	r3, [sp, #12]
+  78              	.LVL6:
+  29:Generated_Source\PSoC5/BCom_1_BCom.c ****     
+  30:Generated_Source\PSoC5/BCom_1_BCom.c ****     uint8_t accept = 0x00;
+  31:Generated_Source\PSoC5/BCom_1_BCom.c ****     switch ((Frame.Header->Target >> 30)) {
+  79              		.loc 1 31 0
+  80 0044 049B     		ldr	r3, [sp, #16]
+  81 0046 9A0F     		lsrs	r2, r3, #30
+  82 0048 03D0     		beq	.L4
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 3
+
+
+  83 004a 032A     		cmp	r2, #3
+  84 004c 09D0     		beq	.L12
+  30:Generated_Source\PSoC5/BCom_1_BCom.c ****     switch ((Frame.Header->Target >> 30)) {
+  85              		.loc 1 30 0
+  86 004e 0B46     		mov	r3, r1
+  87 0050 0AE0     		b	.L5
+  88              	.L4:
+  32:Generated_Source\PSoC5/BCom_1_BCom.c ****         case 0: // Unicast 
+  33:Generated_Source\PSoC5/BCom_1_BCom.c ****             if ( ( Frame.Header->Target & 0x3FFFFFFF ) == Config.Network.UID ) 
+  89              		.loc 1 33 0
+  90 0052 23F04043 		bic	r3, r3, #-1073741824
+  91 0056 134A     		ldr	r2, .L16
+  92 0058 5268     		ldr	r2, [r2, #4]
+  93 005a 9342     		cmp	r3, r2
+  94 005c 03D0     		beq	.L13
+  30:Generated_Source\PSoC5/BCom_1_BCom.c ****     switch ((Frame.Header->Target >> 30)) {
+  95              		.loc 1 30 0
+  96 005e 0023     		movs	r3, #0
+  97 0060 02E0     		b	.L5
+  98              	.L12:
+  34:Generated_Source\PSoC5/BCom_1_BCom.c ****                 accept = 0xFF;
+  35:Generated_Source\PSoC5/BCom_1_BCom.c ****         break;
+  36:Generated_Source\PSoC5/BCom_1_BCom.c ****         case 1: // Multicast
+  37:Generated_Source\PSoC5/BCom_1_BCom.c ****                 
+  38:Generated_Source\PSoC5/BCom_1_BCom.c ****         break;
+  39:Generated_Source\PSoC5/BCom_1_BCom.c ****         case 2: // Reserved
+  40:Generated_Source\PSoC5/BCom_1_BCom.c ****                 
+  41:Generated_Source\PSoC5/BCom_1_BCom.c ****         break;
+  42:Generated_Source\PSoC5/BCom_1_BCom.c ****         case 3: // Broadcast
+  43:Generated_Source\PSoC5/BCom_1_BCom.c ****             accept = 0xFF;                
+  99              		.loc 1 43 0
+ 100 0062 FF23     		movs	r3, #255
+ 101 0064 00E0     		b	.L5
+ 102              	.L13:
+  34:Generated_Source\PSoC5/BCom_1_BCom.c ****                 accept = 0xFF;
+ 103              		.loc 1 34 0
+ 104 0066 FF23     		movs	r3, #255
+ 105              	.L5:
+ 106              	.LVL7:
+  44:Generated_Source\PSoC5/BCom_1_BCom.c ****         break;
+  45:Generated_Source\PSoC5/BCom_1_BCom.c ****     }
+  46:Generated_Source\PSoC5/BCom_1_BCom.c ****     
+  47:Generated_Source\PSoC5/BCom_1_BCom.c ****     if ( accept ) {
+ 107              		.loc 1 47 0
+ 108 0068 CBB1     		cbz	r3, .L1
+  48:Generated_Source\PSoC5/BCom_1_BCom.c ****         //if ( Frame.Header->Parameter.Ack ) {
+  49:Generated_Source\PSoC5/BCom_1_BCom.c ****             
+  50:Generated_Source\PSoC5/BCom_1_BCom.c ****         //}
+  51:Generated_Source\PSoC5/BCom_1_BCom.c ****         if ( Frame.Header->Parameter.Port == 1 ) {
+ 109              		.loc 1 51 0
+ 110 006a 9DF81910 		ldrb	r1, [sp, #25]	@ zero_extendqisi2
+ 111 006e 0129     		cmp	r1, #1
+ 112 0070 06D1     		bne	.L7
+  52:Generated_Source\PSoC5/BCom_1_BCom.c ****             //DCP_Handler(&Frame); 
+  53:Generated_Source\PSoC5/BCom_1_BCom.c ****             if ( Config.Ports.DCP ) Config.Ports.DCP(&Frame);
+ 113              		.loc 1 53 0
+ 114 0072 0C4B     		ldr	r3, .L16
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 4
+
+
+ 115              	.LVL8:
+ 116 0074 D3F8A030 		ldr	r3, [r3, #160]
+ 117 0078 8BB1     		cbz	r3, .L1
+ 118              		.loc 1 53 0 is_stmt 0 discriminator 1
+ 119 007a 01A8     		add	r0, sp, #4
+ 120              	.LVL9:
+ 121 007c 9847     		blx	r3
+ 122              	.LVL10:
+ 123 007e 0EE0     		b	.L1
+ 124              	.LVL11:
+ 125              	.L7:
+ 126              	.LBB2:
+  54:Generated_Source\PSoC5/BCom_1_BCom.c ****         } else {
+  55:Generated_Source\PSoC5/BCom_1_BCom.c ****             struct PortHandle_s * Entry = Config.Ports.List;
+ 127              		.loc 1 55 0 is_stmt 1
+ 128 0080 084B     		ldr	r3, .L16
+ 129              	.LVL12:
+ 130 0082 D3F8A430 		ldr	r3, [r3, #164]
+ 131              	.LVL13:
+  56:Generated_Source\PSoC5/BCom_1_BCom.c ****             while ( Entry != NULL ) {
+ 132              		.loc 1 56 0
+ 133 0086 08E0     		b	.L8
+ 134              	.L10:
+  57:Generated_Source\PSoC5/BCom_1_BCom.c ****                 if ( Entry->Port == Frame.Header->Parameter.Port ) {
+ 135              		.loc 1 57 0
+ 136 0088 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 137 008a 9142     		cmp	r1, r2
+ 138 008c 04D1     		bne	.L9
+  58:Generated_Source\PSoC5/BCom_1_BCom.c ****                     if ( Entry->Handle != NULL ) {
+ 139              		.loc 1 58 0
+ 140 008e 5B68     		ldr	r3, [r3, #4]
+ 141              	.LVL14:
+ 142 0090 2BB1     		cbz	r3, .L1
+  59:Generated_Source\PSoC5/BCom_1_BCom.c ****                         Entry->Handle(&Frame);
+ 143              		.loc 1 59 0
+ 144 0092 01A8     		add	r0, sp, #4
+ 145              	.LVL15:
+ 146 0094 9847     		blx	r3
+ 147              	.LVL16:
+ 148 0096 02E0     		b	.L1
+ 149              	.LVL17:
+ 150              	.L9:
+  60:Generated_Source\PSoC5/BCom_1_BCom.c ****                     }
+  61:Generated_Source\PSoC5/BCom_1_BCom.c ****                     break;
+  62:Generated_Source\PSoC5/BCom_1_BCom.c ****                 } else {
+  63:Generated_Source\PSoC5/BCom_1_BCom.c ****                     Entry = Entry->next;    
+ 151              		.loc 1 63 0
+ 152 0098 9B68     		ldr	r3, [r3, #8]
+ 153              	.LVL18:
+ 154              	.L8:
+  56:Generated_Source\PSoC5/BCom_1_BCom.c ****                 if ( Entry->Port == Frame.Header->Parameter.Port ) {
+ 155              		.loc 1 56 0
+ 156 009a 002B     		cmp	r3, #0
+ 157 009c F4D1     		bne	.L10
+ 158              	.LVL19:
+ 159              	.L1:
+ 160              	.LBE2:
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 5
+
+
+  64:Generated_Source\PSoC5/BCom_1_BCom.c ****                 }
+  65:Generated_Source\PSoC5/BCom_1_BCom.c ****             }
+  66:Generated_Source\PSoC5/BCom_1_BCom.c ****         }    
+  67:Generated_Source\PSoC5/BCom_1_BCom.c ****     }
+  68:Generated_Source\PSoC5/BCom_1_BCom.c **** }
+ 161              		.loc 1 68 0
+ 162 009e 24B0     		add	sp, sp, #144
+ 163              		.cfi_def_cfa_offset 8
+ 164              		@ sp needed
+ 165 00a0 10BD     		pop	{r4, pc}
+ 166              	.LVL20:
+ 167              	.L15:
+ 168              		.cfi_def_cfa_offset 0
+ 169              		.cfi_restore 4
+ 170              		.cfi_restore 14
+ 171 00a2 7047     		bx	lr
+ 172              	.L17:
+ 173              		.align	2
+ 174              	.L16:
+ 175 00a4 00000000 		.word	Config
+ 176              		.cfi_endproc
+ 177              	.LFE64:
+ 178              		.size	Transport, .-Transport
+ 179              		.section	.text.Transmit,"ax",%progbits
+ 180              		.align	2
+ 181              		.global	Transmit
+ 182              		.thumb
+ 183              		.thumb_func
+ 184              		.type	Transmit, %function
+ 185              	Transmit:
+ 186              	.LFB65:
+  69:Generated_Source\PSoC5/BCom_1_BCom.c **** 
+  70:Generated_Source\PSoC5/BCom_1_BCom.c **** void Transmit(uint32_t Target, unsigned char * PayloadIn, uint8_t Size) {
+ 187              		.loc 1 70 0
+ 188              		.cfi_startproc
+ 189              		@ args = 0, pretend = 0, frame = 256
+ 190              		@ frame_needed = 0, uses_anonymous_args = 0
+ 191              	.LVL21:
+ 192 0000 30B5     		push	{r4, r5, lr}
+ 193              		.cfi_def_cfa_offset 12
+ 194              		.cfi_offset 4, -12
+ 195              		.cfi_offset 5, -8
+ 196              		.cfi_offset 14, -4
+ 197 0002 C1B0     		sub	sp, sp, #260
+ 198              		.cfi_def_cfa_offset 272
+ 199 0004 1546     		mov	r5, r2
+ 200              	.LVL22:
+  71:Generated_Source\PSoC5/BCom_1_BCom.c ****     uint8 length = 12, ptr; // 20
+  72:Generated_Source\PSoC5/BCom_1_BCom.c ****         unsigned char output[128];
+  73:Generated_Source\PSoC5/BCom_1_BCom.c ****         unsigned char SerialOut[128];
+  74:Generated_Source\PSoC5/BCom_1_BCom.c ****         unsigned char * payload = &output[12];
+  75:Generated_Source\PSoC5/BCom_1_BCom.c ****         struct FrameHeader_s * Frame = ( struct FrameHeader_s * ) &output[0];
+  76:Generated_Source\PSoC5/BCom_1_BCom.c **** 
+  77:Generated_Source\PSoC5/BCom_1_BCom.c ****         Frame->Target = Target;
+ 201              		.loc 1 77 0
+ 202 0006 2090     		str	r0, [sp, #128]
+  78:Generated_Source\PSoC5/BCom_1_BCom.c ****         Frame->Source = Config.Network.UID;
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 6
+
+
+ 203              		.loc 1 78 0
+ 204 0008 204A     		ldr	r2, .L22
+ 205              	.LVL23:
+ 206 000a 5368     		ldr	r3, [r2, #4]
+ 207 000c 2193     		str	r3, [sp, #132]
+  79:Generated_Source\PSoC5/BCom_1_BCom.c ****         
+  80:Generated_Source\PSoC5/BCom_1_BCom.c ****         System_u.System.AckReq = 0;
+ 208              		.loc 1 80 0
+ 209 000e 2048     		ldr	r0, .L22+4
+ 210              	.LVL24:
+ 211 0010 0378     		ldrb	r3, [r0]	@ zero_extendqisi2
+  81:Generated_Source\PSoC5/BCom_1_BCom.c ****         System_u.System.Ack = 0;
+  82:Generated_Source\PSoC5/BCom_1_BCom.c ****         System_u.System.Nack = 0;
+  83:Generated_Source\PSoC5/BCom_1_BCom.c ****         System_u.System.Encrypted = 0;
+  84:Generated_Source\PSoC5/BCom_1_BCom.c ****         System_u.System.Ping = 0;
+  85:Generated_Source\PSoC5/BCom_1_BCom.c ****         System_u.System.RFU = 0;
+ 212              		.loc 1 85 0
+ 213 0012 03F0E003 		and	r3, r3, #224
+ 214 0016 6FF34713 		bfc	r3, #5, #3
+ 215 001a 0370     		strb	r3, [r0]
+  86:Generated_Source\PSoC5/BCom_1_BCom.c ****         
+  87:Generated_Source\PSoC5/BCom_1_BCom.c ****         Frame->Parameter.System = System_u.byteVal;
+ 216              		.loc 1 87 0
+ 217 001c 8DF88830 		strb	r3, [sp, #136]
+  88:Generated_Source\PSoC5/BCom_1_BCom.c ****         Frame->Parameter.Port = 10;
+ 218              		.loc 1 88 0
+ 219 0020 0A23     		movs	r3, #10
+ 220 0022 8DF88930 		strb	r3, [sp, #137]
+  89:Generated_Source\PSoC5/BCom_1_BCom.c ****         Frame->Parameter.FrameNr = (uint16) Config.Network.FrameCounter++;
+ 221              		.loc 1 89 0
+ 222 0026 D369     		ldr	r3, [r2, #28]
+ 223 0028 581C     		adds	r0, r3, #1
+ 224 002a D061     		str	r0, [r2, #28]
+ 225 002c ADF88A30 		strh	r3, [sp, #138]	@ movhi
+ 226              	.LVL25:
+  90:Generated_Source\PSoC5/BCom_1_BCom.c **** 
+  91:Generated_Source\PSoC5/BCom_1_BCom.c ****         for ( ptr = 0 ; ptr < Size ; ptr++ ) {
+ 227              		.loc 1 91 0
+ 228 0030 0024     		movs	r4, #0
+ 229 0032 04E0     		b	.L19
+ 230              	.LVL26:
+ 231              	.L20:
+  92:Generated_Source\PSoC5/BCom_1_BCom.c ****         payload[ptr] = PayloadIn[ptr];
+ 232              		.loc 1 92 0 discriminator 3
+ 233 0034 0A5D     		ldrb	r2, [r1, r4]	@ zero_extendqisi2
+ 234 0036 23AB     		add	r3, sp, #140
+ 235              	.LVL27:
+ 236 0038 1A55     		strb	r2, [r3, r4]
+  91:Generated_Source\PSoC5/BCom_1_BCom.c ****         payload[ptr] = PayloadIn[ptr];
+ 237              		.loc 1 91 0 discriminator 3
+ 238 003a 0134     		adds	r4, r4, #1
+ 239              	.LVL28:
+ 240 003c E4B2     		uxtb	r4, r4
+ 241              	.LVL29:
+ 242              	.L19:
+  91:Generated_Source\PSoC5/BCom_1_BCom.c ****         payload[ptr] = PayloadIn[ptr];
+ 243              		.loc 1 91 0 is_stmt 0 discriminator 1
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 7
+
+
+ 244 003e AC42     		cmp	r4, r5
+ 245 0040 F8D3     		bcc	.L20
+  93:Generated_Source\PSoC5/BCom_1_BCom.c ****         }
+  94:Generated_Source\PSoC5/BCom_1_BCom.c ****         length += Size; 
+ 246              		.loc 1 94 0 is_stmt 1
+ 247 0042 05F10C01 		add	r1, r5, #12
+ 248              	.LVL30:
+  95:Generated_Source\PSoC5/BCom_1_BCom.c **** 
+  96:Generated_Source\PSoC5/BCom_1_BCom.c ****         uint16_t crc = crc_16(output,length);
+ 249              		.loc 1 96 0
+ 250 0046 C9B2     		uxtb	r1, r1
+ 251 0048 20A8     		add	r0, sp, #128
+ 252              	.LVL31:
+ 253 004a FFF7FEFF 		bl	crc_16
+ 254              	.LVL32:
+  97:Generated_Source\PSoC5/BCom_1_BCom.c **** 
+  98:Generated_Source\PSoC5/BCom_1_BCom.c ****         payload[ptr++] = (uint8_t) (crc & 0xFF);
+ 255              		.loc 1 98 0
+ 256 004e 631C     		adds	r3, r4, #1
+ 257 0050 DBB2     		uxtb	r3, r3
+ 258              	.LVL33:
+ 259 0052 23AA     		add	r2, sp, #140
+ 260              	.LVL34:
+ 261 0054 1055     		strb	r0, [r2, r4]
+ 262              	.LVL35:
+  99:Generated_Source\PSoC5/BCom_1_BCom.c ****         payload[ptr++] = (uint8_t) ((crc >> 8 ) & 0xFF);
+ 263              		.loc 1 99 0
+ 264 0056 C0F30720 		ubfx	r0, r0, #8, #8
+ 265              	.LVL36:
+ 266 005a D054     		strb	r0, [r2, r3]
+ 100:Generated_Source\PSoC5/BCom_1_BCom.c ****         length += 2;
+ 267              		.loc 1 100 0
+ 268 005c 05F10E01 		add	r1, r5, #14
+ 269              	.LVL37:
+ 101:Generated_Source\PSoC5/BCom_1_BCom.c **** 
+ 102:Generated_Source\PSoC5/BCom_1_BCom.c ****         length= b64_encode( &output[0],length,&SerialOut[1]);
+ 270              		.loc 1 102 0
+ 271 0060 0DF10102 		add	r2, sp, #1
+ 272              	.LVL38:
+ 273 0064 C9B2     		uxtb	r1, r1
+ 274 0066 20A8     		add	r0, sp, #128
+ 275              	.LVL39:
+ 276 0068 FFF7FEFF 		bl	b64_encode
+ 277              	.LVL40:
+ 278 006c C0B2     		uxtb	r0, r0
+ 279              	.LVL41:
+ 103:Generated_Source\PSoC5/BCom_1_BCom.c ****         SerialOut[0] = ':';
+ 280              		.loc 1 103 0
+ 281 006e 3A23     		movs	r3, #58
+ 282 0070 8DF80030 		strb	r3, [sp]
+ 104:Generated_Source\PSoC5/BCom_1_BCom.c ****         SerialOut[length+1] = '\n';
+ 283              		.loc 1 104 0
+ 284 0074 431C     		adds	r3, r0, #1
+ 285 0076 0A22     		movs	r2, #10
+ 286 0078 0DF80320 		strb	r2, [sp, r3]
+ 105:Generated_Source\PSoC5/BCom_1_BCom.c **** 
+ 106:Generated_Source\PSoC5/BCom_1_BCom.c ****         UART_PutArray(SerialOut,length+2);
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 8
+
+
+ 287              		.loc 1 106 0
+ 288 007c 811C     		adds	r1, r0, #2
+ 289 007e C9B2     		uxtb	r1, r1
+ 290 0080 6846     		mov	r0, sp
+ 291              	.LVL42:
+ 292 0082 FFF7FEFF 		bl	UART_PutArray
+ 293              	.LVL43:
+ 107:Generated_Source\PSoC5/BCom_1_BCom.c ****     
+ 108:Generated_Source\PSoC5/BCom_1_BCom.c **** }
+ 294              		.loc 1 108 0
+ 295 0086 41B0     		add	sp, sp, #260
+ 296              		.cfi_def_cfa_offset 12
+ 297              		@ sp needed
+ 298 0088 30BD     		pop	{r4, r5, pc}
+ 299              	.LVL44:
+ 300              	.L23:
+ 301 008a 00BF     		.align	2
+ 302              	.L22:
+ 303 008c 00000000 		.word	Config
+ 304 0090 00000000 		.word	System_u
+ 305              		.cfi_endproc
+ 306              	.LFE65:
+ 307              		.size	Transmit, .-Transmit
+ 308              		.section	.text.BCom_1_Start,"ax",%progbits
+ 309              		.align	2
+ 310              		.global	BCom_1_Start
+ 311              		.thumb
+ 312              		.thumb_func
+ 313              		.type	BCom_1_Start, %function
+ 314              	BCom_1_Start:
+ 315              	.LFB66:
+ 109:Generated_Source\PSoC5/BCom_1_BCom.c **** 
+ 110:Generated_Source\PSoC5/BCom_1_BCom.c **** void BCom_1_Start() {
+ 316              		.loc 1 110 0
+ 317              		.cfi_startproc
+ 318              		@ args = 0, pretend = 0, frame = 0
+ 319              		@ frame_needed = 0, uses_anonymous_args = 0
+ 320              		@ link register save eliminated.
+ 111:Generated_Source\PSoC5/BCom_1_BCom.c ****     // Clear the ports
+ 112:Generated_Source\PSoC5/BCom_1_BCom.c ****     Config.Ports.List = NULL;
+ 321              		.loc 1 112 0
+ 322 0000 034B     		ldr	r3, .L25
+ 323 0002 0022     		movs	r2, #0
+ 324 0004 C3F8A420 		str	r2, [r3, #164]
+ 113:Generated_Source\PSoC5/BCom_1_BCom.c ****     Config.Ports.DCP = NULL;
+ 325              		.loc 1 113 0
+ 326 0008 C3F8A020 		str	r2, [r3, #160]
+ 327 000c 7047     		bx	lr
+ 328              	.L26:
+ 329 000e 00BF     		.align	2
+ 330              	.L25:
+ 331 0010 00000000 		.word	Config
+ 332              		.cfi_endproc
+ 333              	.LFE66:
+ 334              		.size	BCom_1_Start, .-BCom_1_Start
+ 335              		.comm	Config,168,4
+ 336              		.comm	System_u,1,4
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 9
+
+
+ 337              		.comm	StripLights_UseGammaCorrection,1,1
+ 338              		.comm	StripLights_Done,4,4
+ 339              		.text
+ 340              	.Letext0:
+ 341              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 342              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 343              		.file 4 "Generated_Source\\PSoC5\\cytypes.h"
+ 344              		.file 5 "Generated_Source\\PSoC5\\StripLights.h"
+ 345              		.file 6 "Generated_Source\\PSoC5\\BCom_1_BCom.h"
+ 346              		.file 7 "Generated_Source\\PSoC5/core_cm3.h"
+ 347              		.file 8 "Generated_Source\\PSoC5\\BCom_1_base64.h"
+ 348              		.file 9 "Generated_Source\\PSoC5\\BCom_1_checksum.h"
+ 349              		.file 10 "Generated_Source\\PSoC5\\UART.h"
+ 350              		.section	.debug_info,"",%progbits
+ 351              	.Ldebug_info0:
+ 352 0000 D2050000 		.4byte	0x5d2
+ 353 0004 0400     		.2byte	0x4
+ 354 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 355 000a 04       		.byte	0x4
+ 356 000b 01       		.uleb128 0x1
+ 357 000c A9030000 		.4byte	.LASF81
+ 358 0010 0C       		.byte	0xc
+ 359 0011 D9010000 		.4byte	.LASF82
+ 360 0015 0C000000 		.4byte	.LASF83
+ 361 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 362 001d 00000000 		.4byte	0
+ 363 0021 00000000 		.4byte	.Ldebug_line0
+ 364 0025 02       		.uleb128 0x2
+ 365 0026 01       		.byte	0x1
+ 366 0027 06       		.byte	0x6
+ 367 0028 53020000 		.4byte	.LASF0
+ 368 002c 03       		.uleb128 0x3
+ 369 002d A5010000 		.4byte	.LASF3
+ 370 0031 02       		.byte	0x2
+ 371 0032 1D       		.byte	0x1d
+ 372 0033 37000000 		.4byte	0x37
+ 373 0037 02       		.uleb128 0x2
+ 374 0038 01       		.byte	0x1
+ 375 0039 08       		.byte	0x8
+ 376 003a 8A010000 		.4byte	.LASF1
+ 377 003e 02       		.uleb128 0x2
+ 378 003f 02       		.byte	0x2
+ 379 0040 05       		.byte	0x5
+ 380 0041 EF000000 		.4byte	.LASF2
+ 381 0045 03       		.uleb128 0x3
+ 382 0046 E4000000 		.4byte	.LASF4
+ 383 004a 02       		.byte	0x2
+ 384 004b 2B       		.byte	0x2b
+ 385 004c 50000000 		.4byte	0x50
+ 386 0050 02       		.uleb128 0x2
+ 387 0051 02       		.byte	0x2
+ 388 0052 07       		.byte	0x7
+ 389 0053 BF020000 		.4byte	.LASF5
+ 390 0057 03       		.uleb128 0x3
+ 391 0058 7C030000 		.4byte	.LASF6
+ 392 005c 02       		.byte	0x2
+ 393 005d 3F       		.byte	0x3f
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 10
+
+
+ 394 005e 62000000 		.4byte	0x62
+ 395 0062 02       		.uleb128 0x2
+ 396 0063 04       		.byte	0x4
+ 397 0064 05       		.byte	0x5
+ 398 0065 7C010000 		.4byte	.LASF7
+ 399 0069 03       		.uleb128 0x3
+ 400 006a 66030000 		.4byte	.LASF8
+ 401 006e 02       		.byte	0x2
+ 402 006f 41       		.byte	0x41
+ 403 0070 74000000 		.4byte	0x74
+ 404 0074 02       		.uleb128 0x2
+ 405 0075 04       		.byte	0x4
+ 406 0076 07       		.byte	0x7
+ 407 0077 4D030000 		.4byte	.LASF9
+ 408 007b 02       		.uleb128 0x2
+ 409 007c 08       		.byte	0x8
+ 410 007d 05       		.byte	0x5
+ 411 007e 56010000 		.4byte	.LASF10
+ 412 0082 02       		.uleb128 0x2
+ 413 0083 08       		.byte	0x8
+ 414 0084 07       		.byte	0x7
+ 415 0085 5F020000 		.4byte	.LASF11
+ 416 0089 04       		.uleb128 0x4
+ 417 008a 04       		.byte	0x4
+ 418 008b 05       		.byte	0x5
+ 419 008c 696E7400 		.ascii	"int\000"
+ 420 0090 02       		.uleb128 0x2
+ 421 0091 04       		.byte	0x4
+ 422 0092 07       		.byte	0x7
+ 423 0093 7F020000 		.4byte	.LASF12
+ 424 0097 03       		.uleb128 0x3
+ 425 0098 86030000 		.4byte	.LASF13
+ 426 009c 03       		.byte	0x3
+ 427 009d 18       		.byte	0x18
+ 428 009e 2C000000 		.4byte	0x2c
+ 429 00a2 03       		.uleb128 0x3
+ 430 00a3 96020000 		.4byte	.LASF14
+ 431 00a7 03       		.byte	0x3
+ 432 00a8 24       		.byte	0x24
+ 433 00a9 45000000 		.4byte	0x45
+ 434 00ad 03       		.uleb128 0x3
+ 435 00ae F0020000 		.4byte	.LASF15
+ 436 00b2 03       		.byte	0x3
+ 437 00b3 2C       		.byte	0x2c
+ 438 00b4 57000000 		.4byte	0x57
+ 439 00b8 03       		.uleb128 0x3
+ 440 00b9 76020000 		.4byte	.LASF16
+ 441 00bd 03       		.byte	0x3
+ 442 00be 30       		.byte	0x30
+ 443 00bf 69000000 		.4byte	0x69
+ 444 00c3 05       		.uleb128 0x5
+ 445 00c4 1C010000 		.4byte	.LASF17
+ 446 00c8 04       		.byte	0x4
+ 447 00c9 E401     		.2byte	0x1e4
+ 448 00cb 37000000 		.4byte	0x37
+ 449 00cf 05       		.uleb128 0x5
+ 450 00d0 F9000000 		.4byte	.LASF18
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 11
+
+
+ 451 00d4 04       		.byte	0x4
+ 452 00d5 E501     		.2byte	0x1e5
+ 453 00d7 50000000 		.4byte	0x50
+ 454 00db 05       		.uleb128 0x5
+ 455 00dc 5F030000 		.4byte	.LASF19
+ 456 00e0 04       		.byte	0x4
+ 457 00e1 E601     		.2byte	0x1e6
+ 458 00e3 74000000 		.4byte	0x74
+ 459 00e7 02       		.uleb128 0x2
+ 460 00e8 04       		.byte	0x4
+ 461 00e9 04       		.byte	0x4
+ 462 00ea 3A010000 		.4byte	.LASF20
+ 463 00ee 02       		.uleb128 0x2
+ 464 00ef 08       		.byte	0x8
+ 465 00f0 04       		.byte	0x4
+ 466 00f1 95030000 		.4byte	.LASF21
+ 467 00f5 02       		.uleb128 0x2
+ 468 00f6 01       		.byte	0x1
+ 469 00f7 08       		.byte	0x8
+ 470 00f8 E1020000 		.4byte	.LASF22
+ 471 00fc 06       		.uleb128 0x6
+ 472 00fd 04       		.byte	0x4
+ 473 00fe 02010000 		.4byte	0x102
+ 474 0102 07       		.uleb128 0x7
+ 475 0103 02       		.uleb128 0x2
+ 476 0104 08       		.byte	0x8
+ 477 0105 04       		.byte	0x4
+ 478 0106 CB000000 		.4byte	.LASF23
+ 479 010a 02       		.uleb128 0x2
+ 480 010b 04       		.byte	0x4
+ 481 010c 07       		.byte	0x7
+ 482 010d A1000000 		.4byte	.LASF24
+ 483 0111 06       		.uleb128 0x6
+ 484 0112 04       		.byte	0x4
+ 485 0113 37000000 		.4byte	0x37
+ 486 0117 03       		.uleb128 0x3
+ 487 0118 05020000 		.4byte	.LASF25
+ 488 011c 05       		.byte	0x5
+ 489 011d 26       		.byte	0x26
+ 490 011e FC000000 		.4byte	0xfc
+ 491 0122 08       		.uleb128 0x8
+ 492 0123 AA000000 		.4byte	.LASF32
+ 493 0127 01       		.byte	0x1
+ 494 0128 06       		.byte	0x6
+ 495 0129 22       		.byte	0x22
+ 496 012a 89010000 		.4byte	0x189
+ 497 012e 09       		.uleb128 0x9
+ 498 012f 2F020000 		.4byte	.LASF26
+ 499 0133 06       		.byte	0x6
+ 500 0134 23       		.byte	0x23
+ 501 0135 C3000000 		.4byte	0xc3
+ 502 0139 01       		.byte	0x1
+ 503 013a 01       		.byte	0x1
+ 504 013b 07       		.byte	0x7
+ 505 013c 00       		.byte	0
+ 506 013d 0A       		.uleb128 0xa
+ 507 013e 41636B00 		.ascii	"Ack\000"
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 12
+
+
+ 508 0142 06       		.byte	0x6
+ 509 0143 24       		.byte	0x24
+ 510 0144 C3000000 		.4byte	0xc3
+ 511 0148 01       		.byte	0x1
+ 512 0149 01       		.byte	0x1
+ 513 014a 06       		.byte	0x6
+ 514 014b 00       		.byte	0
+ 515 014c 09       		.uleb128 0x9
+ 516 014d 4E020000 		.4byte	.LASF27
+ 517 0151 06       		.byte	0x6
+ 518 0152 25       		.byte	0x25
+ 519 0153 C3000000 		.4byte	0xc3
+ 520 0157 01       		.byte	0x1
+ 521 0158 01       		.byte	0x1
+ 522 0159 05       		.byte	0x5
+ 523 015a 00       		.byte	0
+ 524 015b 09       		.uleb128 0x9
+ 525 015c 2C030000 		.4byte	.LASF28
+ 526 0160 06       		.byte	0x6
+ 527 0161 26       		.byte	0x26
+ 528 0162 C3000000 		.4byte	0xc3
+ 529 0166 01       		.byte	0x1
+ 530 0167 01       		.byte	0x1
+ 531 0168 04       		.byte	0x4
+ 532 0169 00       		.byte	0
+ 533 016a 09       		.uleb128 0x9
+ 534 016b C6010000 		.4byte	.LASF29
+ 535 016f 06       		.byte	0x6
+ 536 0170 27       		.byte	0x27
+ 537 0171 C3000000 		.4byte	0xc3
+ 538 0175 01       		.byte	0x1
+ 539 0176 01       		.byte	0x1
+ 540 0177 03       		.byte	0x3
+ 541 0178 00       		.byte	0
+ 542 0179 0A       		.uleb128 0xa
+ 543 017a 52465500 		.ascii	"RFU\000"
+ 544 017e 06       		.byte	0x6
+ 545 017f 28       		.byte	0x28
+ 546 0180 C3000000 		.4byte	0xc3
+ 547 0184 01       		.byte	0x1
+ 548 0185 03       		.byte	0x3
+ 549 0186 00       		.byte	0
+ 550 0187 00       		.byte	0
+ 551 0188 00       		.byte	0
+ 552 0189 0B       		.uleb128 0xb
+ 553 018a 17020000 		.4byte	.LASF84
+ 554 018e 01       		.byte	0x1
+ 555 018f 06       		.byte	0x6
+ 556 0190 21       		.byte	0x21
+ 557 0191 AC010000 		.4byte	0x1ac
+ 558 0195 0C       		.uleb128 0xc
+ 559 0196 37040000 		.4byte	.LASF30
+ 560 019a 06       		.byte	0x6
+ 561 019b 29       		.byte	0x29
+ 562 019c 22010000 		.4byte	0x122
+ 563 01a0 0C       		.uleb128 0xc
+ 564 01a1 9F020000 		.4byte	.LASF31
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 13
+
+
+ 565 01a5 06       		.byte	0x6
+ 566 01a6 2A       		.byte	0x2a
+ 567 01a7 C3000000 		.4byte	0xc3
+ 568 01ab 00       		.byte	0
+ 569 01ac 08       		.uleb128 0x8
+ 570 01ad 36030000 		.4byte	.LASF33
+ 571 01b1 04       		.byte	0x4
+ 572 01b2 06       		.byte	0x6
+ 573 01b3 30       		.byte	0x30
+ 574 01b4 DD010000 		.4byte	0x1dd
+ 575 01b8 0D       		.uleb128 0xd
+ 576 01b9 37040000 		.4byte	.LASF30
+ 577 01bd 06       		.byte	0x6
+ 578 01be 31       		.byte	0x31
+ 579 01bf C3000000 		.4byte	0xc3
+ 580 01c3 00       		.byte	0
+ 581 01c4 0D       		.uleb128 0xd
+ 582 01c5 D4010000 		.4byte	.LASF34
+ 583 01c9 06       		.byte	0x6
+ 584 01ca 32       		.byte	0x32
+ 585 01cb C3000000 		.4byte	0xc3
+ 586 01cf 01       		.byte	0x1
+ 587 01d0 0D       		.uleb128 0xd
+ 588 01d1 6D000000 		.4byte	.LASF35
+ 589 01d5 06       		.byte	0x6
+ 590 01d6 33       		.byte	0x33
+ 591 01d7 CF000000 		.4byte	0xcf
+ 592 01db 02       		.byte	0x2
+ 593 01dc 00       		.byte	0
+ 594 01dd 08       		.uleb128 0x8
+ 595 01de 40020000 		.4byte	.LASF36
+ 596 01e2 0C       		.byte	0xc
+ 597 01e3 06       		.byte	0x6
+ 598 01e4 2D       		.byte	0x2d
+ 599 01e5 0E020000 		.4byte	0x20e
+ 600 01e9 0D       		.uleb128 0xd
+ 601 01ea 33010000 		.4byte	.LASF37
+ 602 01ee 06       		.byte	0x6
+ 603 01ef 2E       		.byte	0x2e
+ 604 01f0 DB000000 		.4byte	0xdb
+ 605 01f4 00       		.byte	0
+ 606 01f5 0D       		.uleb128 0xd
+ 607 01f6 DA020000 		.4byte	.LASF38
+ 608 01fa 06       		.byte	0x6
+ 609 01fb 2F       		.byte	0x2f
+ 610 01fc DB000000 		.4byte	0xdb
+ 611 0200 04       		.byte	0x4
+ 612 0201 0D       		.uleb128 0xd
+ 613 0202 B5010000 		.4byte	.LASF39
+ 614 0206 06       		.byte	0x6
+ 615 0207 34       		.byte	0x34
+ 616 0208 AC010000 		.4byte	0x1ac
+ 617 020c 08       		.byte	0x8
+ 618 020d 00       		.byte	0
+ 619 020e 08       		.uleb128 0x8
+ 620 020f 4A010000 		.4byte	.LASF40
+ 621 0213 0C       		.byte	0xc
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 14
+
+
+ 622 0214 06       		.byte	0x6
+ 623 0215 37       		.byte	0x37
+ 624 0216 4B020000 		.4byte	0x24b
+ 625 021a 0D       		.uleb128 0xd
+ 626 021b 00010000 		.4byte	.LASF41
+ 627 021f 06       		.byte	0x6
+ 628 0220 38       		.byte	0x38
+ 629 0221 4B020000 		.4byte	0x24b
+ 630 0225 00       		.byte	0
+ 631 0226 0E       		.uleb128 0xe
+ 632 0227 43524300 		.ascii	"CRC\000"
+ 633 022b 06       		.byte	0x6
+ 634 022c 39       		.byte	0x39
+ 635 022d A2000000 		.4byte	0xa2
+ 636 0231 04       		.byte	0x4
+ 637 0232 0D       		.uleb128 0xd
+ 638 0233 1E030000 		.4byte	.LASF42
+ 639 0237 06       		.byte	0x6
+ 640 0238 3A       		.byte	0x3a
+ 641 0239 97000000 		.4byte	0x97
+ 642 023d 06       		.byte	0x6
+ 643 023e 0D       		.uleb128 0xd
+ 644 023f D2020000 		.4byte	.LASF43
+ 645 0243 06       		.byte	0x6
+ 646 0244 3B       		.byte	0x3b
+ 647 0245 51020000 		.4byte	0x251
+ 648 0249 08       		.byte	0x8
+ 649 024a 00       		.byte	0
+ 650 024b 06       		.uleb128 0x6
+ 651 024c 04       		.byte	0x4
+ 652 024d DD010000 		.4byte	0x1dd
+ 653 0251 06       		.uleb128 0x6
+ 654 0252 04       		.byte	0x4
+ 655 0253 97000000 		.4byte	0x97
+ 656 0257 03       		.uleb128 0x3
+ 657 0258 64010000 		.4byte	.LASF44
+ 658 025c 06       		.byte	0x6
+ 659 025d 3E       		.byte	0x3e
+ 660 025e 62020000 		.4byte	0x262
+ 661 0262 06       		.uleb128 0x6
+ 662 0263 04       		.byte	0x4
+ 663 0264 68020000 		.4byte	0x268
+ 664 0268 0F       		.uleb128 0xf
+ 665 0269 73020000 		.4byte	0x273
+ 666 026d 10       		.uleb128 0x10
+ 667 026e 73020000 		.4byte	0x273
+ 668 0272 00       		.byte	0
+ 669 0273 06       		.uleb128 0x6
+ 670 0274 04       		.byte	0x4
+ 671 0275 0E020000 		.4byte	0x20e
+ 672 0279 08       		.uleb128 0x8
+ 673 027a A7020000 		.4byte	.LASF45
+ 674 027e 0C       		.byte	0xc
+ 675 027f 06       		.byte	0x6
+ 676 0280 40       		.byte	0x40
+ 677 0281 AA020000 		.4byte	0x2aa
+ 678 0285 0D       		.uleb128 0xd
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 15
+
+
+ 679 0286 D4010000 		.4byte	.LASF34
+ 680 028a 06       		.byte	0x6
+ 681 028b 41       		.byte	0x41
+ 682 028c 97000000 		.4byte	0x97
+ 683 0290 00       		.byte	0
+ 684 0291 0D       		.uleb128 0xd
+ 685 0292 05000000 		.4byte	.LASF46
+ 686 0296 06       		.byte	0x6
+ 687 0297 42       		.byte	0x42
+ 688 0298 57020000 		.4byte	0x257
+ 689 029c 04       		.byte	0x4
+ 690 029d 0D       		.uleb128 0xd
+ 691 029e 46040000 		.4byte	.LASF47
+ 692 02a2 06       		.byte	0x6
+ 693 02a3 43       		.byte	0x43
+ 694 02a4 AA020000 		.4byte	0x2aa
+ 695 02a8 08       		.byte	0x8
+ 696 02a9 00       		.byte	0
+ 697 02aa 06       		.uleb128 0x6
+ 698 02ab 04       		.byte	0x4
+ 699 02ac 79020000 		.4byte	0x279
+ 700 02b0 08       		.uleb128 0x8
+ 701 02b1 E6020000 		.4byte	.LASF48
+ 702 02b5 A0       		.byte	0xa0
+ 703 02b6 06       		.byte	0x6
+ 704 02b7 47       		.byte	0x47
+ 705 02b8 F9020000 		.4byte	0x2f9
+ 706 02bc 0D       		.uleb128 0xd
+ 707 02bd 07010000 		.4byte	.LASF49
+ 708 02c1 06       		.byte	0x6
+ 709 02c2 48       		.byte	0x48
+ 710 02c3 DB000000 		.4byte	0xdb
+ 711 02c7 00       		.byte	0
+ 712 02c8 0E       		.uleb128 0xe
+ 713 02c9 55494400 		.ascii	"UID\000"
+ 714 02cd 06       		.byte	0x6
+ 715 02ce 49       		.byte	0x49
+ 716 02cf DB000000 		.4byte	0xdb
+ 717 02d3 04       		.byte	0x4
+ 718 02d4 0D       		.uleb128 0xd
+ 719 02d5 D7000000 		.4byte	.LASF50
+ 720 02d9 06       		.byte	0x6
+ 721 02da 4A       		.byte	0x4a
+ 722 02db F9020000 		.4byte	0x2f9
+ 723 02df 08       		.byte	0x8
+ 724 02e0 0D       		.uleb128 0xd
+ 725 02e1 98010000 		.4byte	.LASF51
+ 726 02e5 06       		.byte	0x6
+ 727 02e6 4B       		.byte	0x4b
+ 728 02e7 DB000000 		.4byte	0xdb
+ 729 02eb 1C       		.byte	0x1c
+ 730 02ec 0E       		.uleb128 0xe
+ 731 02ed 52465500 		.ascii	"RFU\000"
+ 732 02f1 06       		.byte	0x6
+ 733 02f2 4C       		.byte	0x4c
+ 734 02f3 09030000 		.4byte	0x309
+ 735 02f7 20       		.byte	0x20
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 16
+
+
+ 736 02f8 00       		.byte	0
+ 737 02f9 11       		.uleb128 0x11
+ 738 02fa F5000000 		.4byte	0xf5
+ 739 02fe 09030000 		.4byte	0x309
+ 740 0302 12       		.uleb128 0x12
+ 741 0303 0A010000 		.4byte	0x10a
+ 742 0307 13       		.byte	0x13
+ 743 0308 00       		.byte	0
+ 744 0309 11       		.uleb128 0x11
+ 745 030a 97000000 		.4byte	0x97
+ 746 030e 19030000 		.4byte	0x319
+ 747 0312 12       		.uleb128 0x12
+ 748 0313 0A010000 		.4byte	0x10a
+ 749 0317 7F       		.byte	0x7f
+ 750 0318 00       		.byte	0
+ 751 0319 08       		.uleb128 0x8
+ 752 031a B3000000 		.4byte	.LASF52
+ 753 031e 08       		.byte	0x8
+ 754 031f 06       		.byte	0x6
+ 755 0320 4E       		.byte	0x4e
+ 756 0321 3E030000 		.4byte	0x33e
+ 757 0325 0E       		.uleb128 0xe
+ 758 0326 44435000 		.ascii	"DCP\000"
+ 759 032a 06       		.byte	0x6
+ 760 032b 4F       		.byte	0x4f
+ 761 032c 57020000 		.4byte	0x257
+ 762 0330 00       		.byte	0
+ 763 0331 0D       		.uleb128 0xd
+ 764 0332 85010000 		.4byte	.LASF53
+ 765 0336 06       		.byte	0x6
+ 766 0337 50       		.byte	0x50
+ 767 0338 AA020000 		.4byte	0x2aa
+ 768 033c 04       		.byte	0x4
+ 769 033d 00       		.byte	0
+ 770 033e 08       		.uleb128 0x8
+ 771 033f 8C000000 		.4byte	.LASF54
+ 772 0343 A8       		.byte	0xa8
+ 773 0344 06       		.byte	0x6
+ 774 0345 46       		.byte	0x46
+ 775 0346 63030000 		.4byte	0x363
+ 776 034a 0D       		.uleb128 0xd
+ 777 034b DC000000 		.4byte	.LASF55
+ 778 034f 06       		.byte	0x6
+ 779 0350 4D       		.byte	0x4d
+ 780 0351 B0020000 		.4byte	0x2b0
+ 781 0355 00       		.byte	0
+ 782 0356 0D       		.uleb128 0xd
+ 783 0357 86000000 		.4byte	.LASF56
+ 784 035b 06       		.byte	0x6
+ 785 035c 51       		.byte	0x51
+ 786 035d 19030000 		.4byte	0x319
+ 787 0361 A0       		.byte	0xa0
+ 788 0362 00       		.byte	0
+ 789 0363 13       		.uleb128 0x13
+ 790 0364 8C020000 		.4byte	.LASF64
+ 791 0368 01       		.byte	0x1
+ 792 0369 10       		.byte	0x10
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 17
+
+
+ 793 036a 00000000 		.4byte	.LFB64
+ 794 036e A8000000 		.4byte	.LFE64-.LFB64
+ 795 0372 01       		.uleb128 0x1
+ 796 0373 9C       		.byte	0x9c
+ 797 0374 34040000 		.4byte	0x434
+ 798 0378 14       		.uleb128 0x14
+ 799 0379 25030000 		.4byte	.LASF57
+ 800 037d 01       		.byte	0x1
+ 801 037e 10       		.byte	0x10
+ 802 037f 51020000 		.4byte	0x251
+ 803 0383 00000000 		.4byte	.LLST0
+ 804 0387 14       		.uleb128 0x14
+ 805 0388 71030000 		.4byte	.LASF58
+ 806 038c 01       		.byte	0x1
+ 807 038d 10       		.byte	0x10
+ 808 038e 97000000 		.4byte	0x97
+ 809 0392 2C000000 		.4byte	.LLST1
+ 810 0396 15       		.uleb128 0x15
+ 811 0397 9B000000 		.4byte	.LASF59
+ 812 039b 01       		.byte	0x1
+ 813 039c 13       		.byte	0x13
+ 814 039d 34040000 		.4byte	0x434
+ 815 03a1 03       		.uleb128 0x3
+ 816 03a2 91       		.byte	0x91
+ 817 03a3 F87E     		.sleb128 -136
+ 818 03a5 16       		.uleb128 0x16
+ 819 03a6 40010000 		.4byte	.LASF60
+ 820 03aa 01       		.byte	0x1
+ 821 03ab 14       		.byte	0x14
+ 822 03ac C3000000 		.4byte	0xc3
+ 823 03b0 58000000 		.4byte	.LLST2
+ 824 03b4 17       		.uleb128 0x17
+ 825 03b5 43524300 		.ascii	"CRC\000"
+ 826 03b9 01       		.byte	0x1
+ 827 03ba 16       		.byte	0x16
+ 828 03bb A2000000 		.4byte	0xa2
+ 829 03bf 92000000 		.4byte	.LLST3
+ 830 03c3 15       		.uleb128 0x15
+ 831 03c4 AF010000 		.4byte	.LASF61
+ 832 03c8 01       		.byte	0x1
+ 833 03c9 18       		.byte	0x18
+ 834 03ca 0E020000 		.4byte	0x20e
+ 835 03ce 03       		.uleb128 0x3
+ 836 03cf 91       		.byte	0x91
+ 837 03d0 EC7E     		.sleb128 -148
+ 838 03d2 16       		.uleb128 0x16
+ 839 03d3 17030000 		.4byte	.LASF62
+ 840 03d7 01       		.byte	0x1
+ 841 03d8 1E       		.byte	0x1e
+ 842 03d9 97000000 		.4byte	0x97
+ 843 03dd CC000000 		.4byte	.LLST4
+ 844 03e1 18       		.uleb128 0x18
+ 845 03e2 80000000 		.4byte	.LBB2
+ 846 03e6 1E000000 		.4byte	.LBE2-.LBB2
+ 847 03ea 0B040000 		.4byte	0x40b
+ 848 03ee 16       		.uleb128 0x16
+ 849 03ef 16010000 		.4byte	.LASF63
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 18
+
+
+ 850 03f3 01       		.byte	0x1
+ 851 03f4 37       		.byte	0x37
+ 852 03f5 AA020000 		.4byte	0x2aa
+ 853 03f9 F6000000 		.4byte	.LLST5
+ 854 03fd 19       		.uleb128 0x19
+ 855 03fe 96000000 		.4byte	.LVL16
+ 856 0402 1A       		.uleb128 0x1a
+ 857 0403 01       		.uleb128 0x1
+ 858 0404 50       		.byte	0x50
+ 859 0405 03       		.uleb128 0x3
+ 860 0406 91       		.byte	0x91
+ 861 0407 EC7E     		.sleb128 -148
+ 862 0409 00       		.byte	0
+ 863 040a 00       		.byte	0
+ 864 040b 1B       		.uleb128 0x1b
+ 865 040c 10000000 		.4byte	.LVL1
+ 866 0410 A9050000 		.4byte	0x5a9
+ 867 0414 26040000 		.4byte	0x426
+ 868 0418 1A       		.uleb128 0x1a
+ 869 0419 01       		.uleb128 0x1
+ 870 041a 50       		.byte	0x50
+ 871 041b 03       		.uleb128 0x3
+ 872 041c F3       		.byte	0xf3
+ 873 041d 01       		.uleb128 0x1
+ 874 041e 50       		.byte	0x50
+ 875 041f 1A       		.uleb128 0x1a
+ 876 0420 01       		.uleb128 0x1
+ 877 0421 52       		.byte	0x52
+ 878 0422 02       		.uleb128 0x2
+ 879 0423 74       		.byte	0x74
+ 880 0424 00       		.sleb128 0
+ 881 0425 00       		.byte	0
+ 882 0426 19       		.uleb128 0x19
+ 883 0427 7E000000 		.4byte	.LVL10
+ 884 042b 1A       		.uleb128 0x1a
+ 885 042c 01       		.uleb128 0x1
+ 886 042d 50       		.byte	0x50
+ 887 042e 03       		.uleb128 0x3
+ 888 042f 91       		.byte	0x91
+ 889 0430 EC7E     		.sleb128 -148
+ 890 0432 00       		.byte	0
+ 891 0433 00       		.byte	0
+ 892 0434 11       		.uleb128 0x11
+ 893 0435 37000000 		.4byte	0x37
+ 894 0439 44040000 		.4byte	0x444
+ 895 043d 12       		.uleb128 0x12
+ 896 043e 0A010000 		.4byte	0x10a
+ 897 0442 7F       		.byte	0x7f
+ 898 0443 00       		.byte	0
+ 899 0444 13       		.uleb128 0x13
+ 900 0445 CB010000 		.4byte	.LASF65
+ 901 0449 01       		.byte	0x1
+ 902 044a 46       		.byte	0x46
+ 903 044b 00000000 		.4byte	.LFB65
+ 904 044f 94000000 		.4byte	.LFE65-.LFB65
+ 905 0453 01       		.uleb128 0x1
+ 906 0454 9C       		.byte	0x9c
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 19
+
+
+ 907 0455 43050000 		.4byte	0x543
+ 908 0459 14       		.uleb128 0x14
+ 909 045a 33010000 		.4byte	.LASF37
+ 910 045e 01       		.byte	0x1
+ 911 045f 46       		.byte	0x46
+ 912 0460 B8000000 		.4byte	0xb8
+ 913 0464 14010000 		.4byte	.LLST6
+ 914 0468 14       		.uleb128 0x14
+ 915 0469 7C000000 		.4byte	.LASF66
+ 916 046d 01       		.byte	0x1
+ 917 046e 46       		.byte	0x46
+ 918 046f 11010000 		.4byte	0x111
+ 919 0473 42010000 		.4byte	.LLST7
+ 920 0477 14       		.uleb128 0x14
+ 921 0478 00000000 		.4byte	.LASF67
+ 922 047c 01       		.byte	0x1
+ 923 047d 46       		.byte	0x46
+ 924 047e 97000000 		.4byte	0x97
+ 925 0482 63010000 		.4byte	.LLST8
+ 926 0486 16       		.uleb128 0x16
+ 927 0487 FE010000 		.4byte	.LASF68
+ 928 048b 01       		.byte	0x1
+ 929 048c 47       		.byte	0x47
+ 930 048d C3000000 		.4byte	0xc3
+ 931 0491 84010000 		.4byte	.LLST9
+ 932 0495 17       		.uleb128 0x17
+ 933 0496 70747200 		.ascii	"ptr\000"
+ 934 049a 01       		.byte	0x1
+ 935 049b 47       		.byte	0x47
+ 936 049c C3000000 		.4byte	0xc3
+ 937 04a0 E0010000 		.4byte	.LLST10
+ 938 04a4 15       		.uleb128 0x15
+ 939 04a5 8E030000 		.4byte	.LASF69
+ 940 04a9 01       		.byte	0x1
+ 941 04aa 48       		.byte	0x48
+ 942 04ab 34040000 		.4byte	0x434
+ 943 04af 03       		.uleb128 0x3
+ 944 04b0 91       		.byte	0x91
+ 945 04b1 F07E     		.sleb128 -144
+ 946 04b3 15       		.uleb128 0x15
+ 947 04b4 36020000 		.4byte	.LASF70
+ 948 04b8 01       		.byte	0x1
+ 949 04b9 49       		.byte	0x49
+ 950 04ba 34040000 		.4byte	0x434
+ 951 04be 03       		.uleb128 0x3
+ 952 04bf 91       		.byte	0x91
+ 953 04c0 F07D     		.sleb128 -272
+ 954 04c2 16       		.uleb128 0x16
+ 955 04c3 3E040000 		.4byte	.LASF71
+ 956 04c7 01       		.byte	0x1
+ 957 04c8 4A       		.byte	0x4a
+ 958 04c9 11010000 		.4byte	0x111
+ 959 04cd 0A020000 		.4byte	.LLST11
+ 960 04d1 16       		.uleb128 0x16
+ 961 04d2 AF010000 		.4byte	.LASF61
+ 962 04d6 01       		.byte	0x1
+ 963 04d7 4B       		.byte	0x4b
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 20
+
+
+ 964 04d8 4B020000 		.4byte	0x24b
+ 965 04dc 60020000 		.4byte	.LLST12
+ 966 04e0 17       		.uleb128 0x17
+ 967 04e1 63726300 		.ascii	"crc\000"
+ 968 04e5 01       		.byte	0x1
+ 969 04e6 60       		.byte	0x60
+ 970 04e7 A2000000 		.4byte	0xa2
+ 971 04eb B6020000 		.4byte	.LLST13
+ 972 04ef 1B       		.uleb128 0x1b
+ 973 04f0 4E000000 		.4byte	.LVL32
+ 974 04f4 B4050000 		.4byte	0x5b4
+ 975 04f8 0D050000 		.4byte	0x50d
+ 976 04fc 1A       		.uleb128 0x1a
+ 977 04fd 01       		.uleb128 0x1
+ 978 04fe 50       		.byte	0x50
+ 979 04ff 03       		.uleb128 0x3
+ 980 0500 91       		.byte	0x91
+ 981 0501 F07E     		.sleb128 -144
+ 982 0503 1A       		.uleb128 0x1a
+ 983 0504 01       		.uleb128 0x1
+ 984 0505 51       		.byte	0x51
+ 985 0506 05       		.uleb128 0x5
+ 986 0507 75       		.byte	0x75
+ 987 0508 0C       		.sleb128 12
+ 988 0509 08       		.byte	0x8
+ 989 050a FF       		.byte	0xff
+ 990 050b 1A       		.byte	0x1a
+ 991 050c 00       		.byte	0
+ 992 050d 1B       		.uleb128 0x1b
+ 993 050e 6C000000 		.4byte	.LVL40
+ 994 0512 BF050000 		.4byte	0x5bf
+ 995 0516 32050000 		.4byte	0x532
+ 996 051a 1A       		.uleb128 0x1a
+ 997 051b 01       		.uleb128 0x1
+ 998 051c 50       		.byte	0x50
+ 999 051d 03       		.uleb128 0x3
+ 1000 051e 91       		.byte	0x91
+ 1001 051f F07E     		.sleb128 -144
+ 1002 0521 1A       		.uleb128 0x1a
+ 1003 0522 01       		.uleb128 0x1
+ 1004 0523 51       		.byte	0x51
+ 1005 0524 05       		.uleb128 0x5
+ 1006 0525 75       		.byte	0x75
+ 1007 0526 0E       		.sleb128 14
+ 1008 0527 08       		.byte	0x8
+ 1009 0528 FF       		.byte	0xff
+ 1010 0529 1A       		.byte	0x1a
+ 1011 052a 1A       		.uleb128 0x1a
+ 1012 052b 01       		.uleb128 0x1
+ 1013 052c 52       		.byte	0x52
+ 1014 052d 03       		.uleb128 0x3
+ 1015 052e 91       		.byte	0x91
+ 1016 052f F17D     		.sleb128 -271
+ 1017 0531 00       		.byte	0
+ 1018 0532 1C       		.uleb128 0x1c
+ 1019 0533 86000000 		.4byte	.LVL43
+ 1020 0537 CA050000 		.4byte	0x5ca
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 21
+
+
+ 1021 053b 1A       		.uleb128 0x1a
+ 1022 053c 01       		.uleb128 0x1
+ 1023 053d 50       		.byte	0x50
+ 1024 053e 02       		.uleb128 0x2
+ 1025 053f 7D       		.byte	0x7d
+ 1026 0540 00       		.sleb128 0
+ 1027 0541 00       		.byte	0
+ 1028 0542 00       		.byte	0
+ 1029 0543 1D       		.uleb128 0x1d
+ 1030 0544 60000000 		.4byte	.LASF85
+ 1031 0548 01       		.byte	0x1
+ 1032 0549 6E       		.byte	0x6e
+ 1033 054a 00000000 		.4byte	.LFB66
+ 1034 054e 14000000 		.4byte	.LFE66-.LFB66
+ 1035 0552 01       		.uleb128 0x1
+ 1036 0553 9C       		.byte	0x9c
+ 1037 0554 1E       		.uleb128 0x1e
+ 1038 0555 22010000 		.4byte	.LASF72
+ 1039 0559 05       		.byte	0x5
+ 1040 055a 27       		.byte	0x27
+ 1041 055b 17010000 		.4byte	0x117
+ 1042 055f 05       		.uleb128 0x5
+ 1043 0560 03       		.byte	0x3
+ 1044 0561 00000000 		.4byte	StripLights_Done
+ 1045 0565 1E       		.uleb128 0x1e
+ 1046 0566 F8020000 		.4byte	.LASF73
+ 1047 056a 05       		.byte	0x5
+ 1048 056b 29       		.byte	0x29
+ 1049 056c C3000000 		.4byte	0xc3
+ 1050 0570 05       		.uleb128 0x5
+ 1051 0571 03       		.byte	0x3
+ 1052 0572 00000000 		.4byte	StripLights_UseGammaCorrection
+ 1053 0576 1F       		.uleb128 0x1f
+ 1054 0577 9C030000 		.4byte	.LASF74
+ 1055 057b 07       		.byte	0x7
+ 1056 057c 1207     		.2byte	0x712
+ 1057 057e 82050000 		.4byte	0x582
+ 1058 0582 20       		.uleb128 0x20
+ 1059 0583 AD000000 		.4byte	0xad
+ 1060 0587 1E       		.uleb128 0x1e
+ 1061 0588 C2000000 		.4byte	.LASF75
+ 1062 058c 06       		.byte	0x6
+ 1063 058d 2B       		.byte	0x2b
+ 1064 058e 89010000 		.4byte	0x189
+ 1065 0592 05       		.uleb128 0x5
+ 1066 0593 03       		.byte	0x3
+ 1067 0594 00000000 		.4byte	System_u
+ 1068 0598 1E       		.uleb128 0x1e
+ 1069 0599 BF010000 		.4byte	.LASF76
+ 1070 059d 06       		.byte	0x6
+ 1071 059e 53       		.byte	0x53
+ 1072 059f 3E030000 		.4byte	0x33e
+ 1073 05a3 05       		.uleb128 0x5
+ 1074 05a4 03       		.byte	0x3
+ 1075 05a5 00000000 		.4byte	Config
+ 1076 05a9 21       		.uleb128 0x21
+ 1077 05aa B4020000 		.4byte	.LASF77
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 22
+
+
+ 1078 05ae B4020000 		.4byte	.LASF77
+ 1079 05b2 08       		.byte	0x8
+ 1080 05b3 22       		.byte	0x22
+ 1081 05b4 21       		.uleb128 0x21
+ 1082 05b5 75000000 		.4byte	.LASF78
+ 1083 05b9 75000000 		.4byte	.LASF78
+ 1084 05bd 09       		.byte	0x9
+ 1085 05be 51       		.byte	0x51
+ 1086 05bf 21       		.uleb128 0x21
+ 1087 05c0 42030000 		.4byte	.LASF79
+ 1088 05c4 42030000 		.4byte	.LASF79
+ 1089 05c8 08       		.byte	0x8
+ 1090 05c9 1C       		.byte	0x1c
+ 1091 05ca 21       		.uleb128 0x21
+ 1092 05cb 21020000 		.4byte	.LASF80
+ 1093 05cf 21020000 		.4byte	.LASF80
+ 1094 05d3 0A       		.byte	0xa
+ 1095 05d4 8C       		.byte	0x8c
+ 1096 05d5 00       		.byte	0
+ 1097              		.section	.debug_abbrev,"",%progbits
+ 1098              	.Ldebug_abbrev0:
+ 1099 0000 01       		.uleb128 0x1
+ 1100 0001 11       		.uleb128 0x11
+ 1101 0002 01       		.byte	0x1
+ 1102 0003 25       		.uleb128 0x25
+ 1103 0004 0E       		.uleb128 0xe
+ 1104 0005 13       		.uleb128 0x13
+ 1105 0006 0B       		.uleb128 0xb
+ 1106 0007 03       		.uleb128 0x3
+ 1107 0008 0E       		.uleb128 0xe
+ 1108 0009 1B       		.uleb128 0x1b
+ 1109 000a 0E       		.uleb128 0xe
+ 1110 000b 55       		.uleb128 0x55
+ 1111 000c 17       		.uleb128 0x17
+ 1112 000d 11       		.uleb128 0x11
+ 1113 000e 01       		.uleb128 0x1
+ 1114 000f 10       		.uleb128 0x10
+ 1115 0010 17       		.uleb128 0x17
+ 1116 0011 00       		.byte	0
+ 1117 0012 00       		.byte	0
+ 1118 0013 02       		.uleb128 0x2
+ 1119 0014 24       		.uleb128 0x24
+ 1120 0015 00       		.byte	0
+ 1121 0016 0B       		.uleb128 0xb
+ 1122 0017 0B       		.uleb128 0xb
+ 1123 0018 3E       		.uleb128 0x3e
+ 1124 0019 0B       		.uleb128 0xb
+ 1125 001a 03       		.uleb128 0x3
+ 1126 001b 0E       		.uleb128 0xe
+ 1127 001c 00       		.byte	0
+ 1128 001d 00       		.byte	0
+ 1129 001e 03       		.uleb128 0x3
+ 1130 001f 16       		.uleb128 0x16
+ 1131 0020 00       		.byte	0
+ 1132 0021 03       		.uleb128 0x3
+ 1133 0022 0E       		.uleb128 0xe
+ 1134 0023 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 23
+
+
+ 1135 0024 0B       		.uleb128 0xb
+ 1136 0025 3B       		.uleb128 0x3b
+ 1137 0026 0B       		.uleb128 0xb
+ 1138 0027 49       		.uleb128 0x49
+ 1139 0028 13       		.uleb128 0x13
+ 1140 0029 00       		.byte	0
+ 1141 002a 00       		.byte	0
+ 1142 002b 04       		.uleb128 0x4
+ 1143 002c 24       		.uleb128 0x24
+ 1144 002d 00       		.byte	0
+ 1145 002e 0B       		.uleb128 0xb
+ 1146 002f 0B       		.uleb128 0xb
+ 1147 0030 3E       		.uleb128 0x3e
+ 1148 0031 0B       		.uleb128 0xb
+ 1149 0032 03       		.uleb128 0x3
+ 1150 0033 08       		.uleb128 0x8
+ 1151 0034 00       		.byte	0
+ 1152 0035 00       		.byte	0
+ 1153 0036 05       		.uleb128 0x5
+ 1154 0037 16       		.uleb128 0x16
+ 1155 0038 00       		.byte	0
+ 1156 0039 03       		.uleb128 0x3
+ 1157 003a 0E       		.uleb128 0xe
+ 1158 003b 3A       		.uleb128 0x3a
+ 1159 003c 0B       		.uleb128 0xb
+ 1160 003d 3B       		.uleb128 0x3b
+ 1161 003e 05       		.uleb128 0x5
+ 1162 003f 49       		.uleb128 0x49
+ 1163 0040 13       		.uleb128 0x13
+ 1164 0041 00       		.byte	0
+ 1165 0042 00       		.byte	0
+ 1166 0043 06       		.uleb128 0x6
+ 1167 0044 0F       		.uleb128 0xf
+ 1168 0045 00       		.byte	0
+ 1169 0046 0B       		.uleb128 0xb
+ 1170 0047 0B       		.uleb128 0xb
+ 1171 0048 49       		.uleb128 0x49
+ 1172 0049 13       		.uleb128 0x13
+ 1173 004a 00       		.byte	0
+ 1174 004b 00       		.byte	0
+ 1175 004c 07       		.uleb128 0x7
+ 1176 004d 15       		.uleb128 0x15
+ 1177 004e 00       		.byte	0
+ 1178 004f 27       		.uleb128 0x27
+ 1179 0050 19       		.uleb128 0x19
+ 1180 0051 00       		.byte	0
+ 1181 0052 00       		.byte	0
+ 1182 0053 08       		.uleb128 0x8
+ 1183 0054 13       		.uleb128 0x13
+ 1184 0055 01       		.byte	0x1
+ 1185 0056 03       		.uleb128 0x3
+ 1186 0057 0E       		.uleb128 0xe
+ 1187 0058 0B       		.uleb128 0xb
+ 1188 0059 0B       		.uleb128 0xb
+ 1189 005a 3A       		.uleb128 0x3a
+ 1190 005b 0B       		.uleb128 0xb
+ 1191 005c 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 24
+
+
+ 1192 005d 0B       		.uleb128 0xb
+ 1193 005e 01       		.uleb128 0x1
+ 1194 005f 13       		.uleb128 0x13
+ 1195 0060 00       		.byte	0
+ 1196 0061 00       		.byte	0
+ 1197 0062 09       		.uleb128 0x9
+ 1198 0063 0D       		.uleb128 0xd
+ 1199 0064 00       		.byte	0
+ 1200 0065 03       		.uleb128 0x3
+ 1201 0066 0E       		.uleb128 0xe
+ 1202 0067 3A       		.uleb128 0x3a
+ 1203 0068 0B       		.uleb128 0xb
+ 1204 0069 3B       		.uleb128 0x3b
+ 1205 006a 0B       		.uleb128 0xb
+ 1206 006b 49       		.uleb128 0x49
+ 1207 006c 13       		.uleb128 0x13
+ 1208 006d 0B       		.uleb128 0xb
+ 1209 006e 0B       		.uleb128 0xb
+ 1210 006f 0D       		.uleb128 0xd
+ 1211 0070 0B       		.uleb128 0xb
+ 1212 0071 0C       		.uleb128 0xc
+ 1213 0072 0B       		.uleb128 0xb
+ 1214 0073 38       		.uleb128 0x38
+ 1215 0074 0B       		.uleb128 0xb
+ 1216 0075 00       		.byte	0
+ 1217 0076 00       		.byte	0
+ 1218 0077 0A       		.uleb128 0xa
+ 1219 0078 0D       		.uleb128 0xd
+ 1220 0079 00       		.byte	0
+ 1221 007a 03       		.uleb128 0x3
+ 1222 007b 08       		.uleb128 0x8
+ 1223 007c 3A       		.uleb128 0x3a
+ 1224 007d 0B       		.uleb128 0xb
+ 1225 007e 3B       		.uleb128 0x3b
+ 1226 007f 0B       		.uleb128 0xb
+ 1227 0080 49       		.uleb128 0x49
+ 1228 0081 13       		.uleb128 0x13
+ 1229 0082 0B       		.uleb128 0xb
+ 1230 0083 0B       		.uleb128 0xb
+ 1231 0084 0D       		.uleb128 0xd
+ 1232 0085 0B       		.uleb128 0xb
+ 1233 0086 0C       		.uleb128 0xc
+ 1234 0087 0B       		.uleb128 0xb
+ 1235 0088 38       		.uleb128 0x38
+ 1236 0089 0B       		.uleb128 0xb
+ 1237 008a 00       		.byte	0
+ 1238 008b 00       		.byte	0
+ 1239 008c 0B       		.uleb128 0xb
+ 1240 008d 17       		.uleb128 0x17
+ 1241 008e 01       		.byte	0x1
+ 1242 008f 03       		.uleb128 0x3
+ 1243 0090 0E       		.uleb128 0xe
+ 1244 0091 0B       		.uleb128 0xb
+ 1245 0092 0B       		.uleb128 0xb
+ 1246 0093 3A       		.uleb128 0x3a
+ 1247 0094 0B       		.uleb128 0xb
+ 1248 0095 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 25
+
+
+ 1249 0096 0B       		.uleb128 0xb
+ 1250 0097 01       		.uleb128 0x1
+ 1251 0098 13       		.uleb128 0x13
+ 1252 0099 00       		.byte	0
+ 1253 009a 00       		.byte	0
+ 1254 009b 0C       		.uleb128 0xc
+ 1255 009c 0D       		.uleb128 0xd
+ 1256 009d 00       		.byte	0
+ 1257 009e 03       		.uleb128 0x3
+ 1258 009f 0E       		.uleb128 0xe
+ 1259 00a0 3A       		.uleb128 0x3a
+ 1260 00a1 0B       		.uleb128 0xb
+ 1261 00a2 3B       		.uleb128 0x3b
+ 1262 00a3 0B       		.uleb128 0xb
+ 1263 00a4 49       		.uleb128 0x49
+ 1264 00a5 13       		.uleb128 0x13
+ 1265 00a6 00       		.byte	0
+ 1266 00a7 00       		.byte	0
+ 1267 00a8 0D       		.uleb128 0xd
+ 1268 00a9 0D       		.uleb128 0xd
+ 1269 00aa 00       		.byte	0
+ 1270 00ab 03       		.uleb128 0x3
+ 1271 00ac 0E       		.uleb128 0xe
+ 1272 00ad 3A       		.uleb128 0x3a
+ 1273 00ae 0B       		.uleb128 0xb
+ 1274 00af 3B       		.uleb128 0x3b
+ 1275 00b0 0B       		.uleb128 0xb
+ 1276 00b1 49       		.uleb128 0x49
+ 1277 00b2 13       		.uleb128 0x13
+ 1278 00b3 38       		.uleb128 0x38
+ 1279 00b4 0B       		.uleb128 0xb
+ 1280 00b5 00       		.byte	0
+ 1281 00b6 00       		.byte	0
+ 1282 00b7 0E       		.uleb128 0xe
+ 1283 00b8 0D       		.uleb128 0xd
+ 1284 00b9 00       		.byte	0
+ 1285 00ba 03       		.uleb128 0x3
+ 1286 00bb 08       		.uleb128 0x8
+ 1287 00bc 3A       		.uleb128 0x3a
+ 1288 00bd 0B       		.uleb128 0xb
+ 1289 00be 3B       		.uleb128 0x3b
+ 1290 00bf 0B       		.uleb128 0xb
+ 1291 00c0 49       		.uleb128 0x49
+ 1292 00c1 13       		.uleb128 0x13
+ 1293 00c2 38       		.uleb128 0x38
+ 1294 00c3 0B       		.uleb128 0xb
+ 1295 00c4 00       		.byte	0
+ 1296 00c5 00       		.byte	0
+ 1297 00c6 0F       		.uleb128 0xf
+ 1298 00c7 15       		.uleb128 0x15
+ 1299 00c8 01       		.byte	0x1
+ 1300 00c9 27       		.uleb128 0x27
+ 1301 00ca 19       		.uleb128 0x19
+ 1302 00cb 01       		.uleb128 0x1
+ 1303 00cc 13       		.uleb128 0x13
+ 1304 00cd 00       		.byte	0
+ 1305 00ce 00       		.byte	0
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 26
+
+
+ 1306 00cf 10       		.uleb128 0x10
+ 1307 00d0 05       		.uleb128 0x5
+ 1308 00d1 00       		.byte	0
+ 1309 00d2 49       		.uleb128 0x49
+ 1310 00d3 13       		.uleb128 0x13
+ 1311 00d4 00       		.byte	0
+ 1312 00d5 00       		.byte	0
+ 1313 00d6 11       		.uleb128 0x11
+ 1314 00d7 01       		.uleb128 0x1
+ 1315 00d8 01       		.byte	0x1
+ 1316 00d9 49       		.uleb128 0x49
+ 1317 00da 13       		.uleb128 0x13
+ 1318 00db 01       		.uleb128 0x1
+ 1319 00dc 13       		.uleb128 0x13
+ 1320 00dd 00       		.byte	0
+ 1321 00de 00       		.byte	0
+ 1322 00df 12       		.uleb128 0x12
+ 1323 00e0 21       		.uleb128 0x21
+ 1324 00e1 00       		.byte	0
+ 1325 00e2 49       		.uleb128 0x49
+ 1326 00e3 13       		.uleb128 0x13
+ 1327 00e4 2F       		.uleb128 0x2f
+ 1328 00e5 0B       		.uleb128 0xb
+ 1329 00e6 00       		.byte	0
+ 1330 00e7 00       		.byte	0
+ 1331 00e8 13       		.uleb128 0x13
+ 1332 00e9 2E       		.uleb128 0x2e
+ 1333 00ea 01       		.byte	0x1
+ 1334 00eb 3F       		.uleb128 0x3f
+ 1335 00ec 19       		.uleb128 0x19
+ 1336 00ed 03       		.uleb128 0x3
+ 1337 00ee 0E       		.uleb128 0xe
+ 1338 00ef 3A       		.uleb128 0x3a
+ 1339 00f0 0B       		.uleb128 0xb
+ 1340 00f1 3B       		.uleb128 0x3b
+ 1341 00f2 0B       		.uleb128 0xb
+ 1342 00f3 27       		.uleb128 0x27
+ 1343 00f4 19       		.uleb128 0x19
+ 1344 00f5 11       		.uleb128 0x11
+ 1345 00f6 01       		.uleb128 0x1
+ 1346 00f7 12       		.uleb128 0x12
+ 1347 00f8 06       		.uleb128 0x6
+ 1348 00f9 40       		.uleb128 0x40
+ 1349 00fa 18       		.uleb128 0x18
+ 1350 00fb 9742     		.uleb128 0x2117
+ 1351 00fd 19       		.uleb128 0x19
+ 1352 00fe 01       		.uleb128 0x1
+ 1353 00ff 13       		.uleb128 0x13
+ 1354 0100 00       		.byte	0
+ 1355 0101 00       		.byte	0
+ 1356 0102 14       		.uleb128 0x14
+ 1357 0103 05       		.uleb128 0x5
+ 1358 0104 00       		.byte	0
+ 1359 0105 03       		.uleb128 0x3
+ 1360 0106 0E       		.uleb128 0xe
+ 1361 0107 3A       		.uleb128 0x3a
+ 1362 0108 0B       		.uleb128 0xb
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 27
+
+
+ 1363 0109 3B       		.uleb128 0x3b
+ 1364 010a 0B       		.uleb128 0xb
+ 1365 010b 49       		.uleb128 0x49
+ 1366 010c 13       		.uleb128 0x13
+ 1367 010d 02       		.uleb128 0x2
+ 1368 010e 17       		.uleb128 0x17
+ 1369 010f 00       		.byte	0
+ 1370 0110 00       		.byte	0
+ 1371 0111 15       		.uleb128 0x15
+ 1372 0112 34       		.uleb128 0x34
+ 1373 0113 00       		.byte	0
+ 1374 0114 03       		.uleb128 0x3
+ 1375 0115 0E       		.uleb128 0xe
+ 1376 0116 3A       		.uleb128 0x3a
+ 1377 0117 0B       		.uleb128 0xb
+ 1378 0118 3B       		.uleb128 0x3b
+ 1379 0119 0B       		.uleb128 0xb
+ 1380 011a 49       		.uleb128 0x49
+ 1381 011b 13       		.uleb128 0x13
+ 1382 011c 02       		.uleb128 0x2
+ 1383 011d 18       		.uleb128 0x18
+ 1384 011e 00       		.byte	0
+ 1385 011f 00       		.byte	0
+ 1386 0120 16       		.uleb128 0x16
+ 1387 0121 34       		.uleb128 0x34
+ 1388 0122 00       		.byte	0
+ 1389 0123 03       		.uleb128 0x3
+ 1390 0124 0E       		.uleb128 0xe
+ 1391 0125 3A       		.uleb128 0x3a
+ 1392 0126 0B       		.uleb128 0xb
+ 1393 0127 3B       		.uleb128 0x3b
+ 1394 0128 0B       		.uleb128 0xb
+ 1395 0129 49       		.uleb128 0x49
+ 1396 012a 13       		.uleb128 0x13
+ 1397 012b 02       		.uleb128 0x2
+ 1398 012c 17       		.uleb128 0x17
+ 1399 012d 00       		.byte	0
+ 1400 012e 00       		.byte	0
+ 1401 012f 17       		.uleb128 0x17
+ 1402 0130 34       		.uleb128 0x34
+ 1403 0131 00       		.byte	0
+ 1404 0132 03       		.uleb128 0x3
+ 1405 0133 08       		.uleb128 0x8
+ 1406 0134 3A       		.uleb128 0x3a
+ 1407 0135 0B       		.uleb128 0xb
+ 1408 0136 3B       		.uleb128 0x3b
+ 1409 0137 0B       		.uleb128 0xb
+ 1410 0138 49       		.uleb128 0x49
+ 1411 0139 13       		.uleb128 0x13
+ 1412 013a 02       		.uleb128 0x2
+ 1413 013b 17       		.uleb128 0x17
+ 1414 013c 00       		.byte	0
+ 1415 013d 00       		.byte	0
+ 1416 013e 18       		.uleb128 0x18
+ 1417 013f 0B       		.uleb128 0xb
+ 1418 0140 01       		.byte	0x1
+ 1419 0141 11       		.uleb128 0x11
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 28
+
+
+ 1420 0142 01       		.uleb128 0x1
+ 1421 0143 12       		.uleb128 0x12
+ 1422 0144 06       		.uleb128 0x6
+ 1423 0145 01       		.uleb128 0x1
+ 1424 0146 13       		.uleb128 0x13
+ 1425 0147 00       		.byte	0
+ 1426 0148 00       		.byte	0
+ 1427 0149 19       		.uleb128 0x19
+ 1428 014a 898201   		.uleb128 0x4109
+ 1429 014d 01       		.byte	0x1
+ 1430 014e 11       		.uleb128 0x11
+ 1431 014f 01       		.uleb128 0x1
+ 1432 0150 00       		.byte	0
+ 1433 0151 00       		.byte	0
+ 1434 0152 1A       		.uleb128 0x1a
+ 1435 0153 8A8201   		.uleb128 0x410a
+ 1436 0156 00       		.byte	0
+ 1437 0157 02       		.uleb128 0x2
+ 1438 0158 18       		.uleb128 0x18
+ 1439 0159 9142     		.uleb128 0x2111
+ 1440 015b 18       		.uleb128 0x18
+ 1441 015c 00       		.byte	0
+ 1442 015d 00       		.byte	0
+ 1443 015e 1B       		.uleb128 0x1b
+ 1444 015f 898201   		.uleb128 0x4109
+ 1445 0162 01       		.byte	0x1
+ 1446 0163 11       		.uleb128 0x11
+ 1447 0164 01       		.uleb128 0x1
+ 1448 0165 31       		.uleb128 0x31
+ 1449 0166 13       		.uleb128 0x13
+ 1450 0167 01       		.uleb128 0x1
+ 1451 0168 13       		.uleb128 0x13
+ 1452 0169 00       		.byte	0
+ 1453 016a 00       		.byte	0
+ 1454 016b 1C       		.uleb128 0x1c
+ 1455 016c 898201   		.uleb128 0x4109
+ 1456 016f 01       		.byte	0x1
+ 1457 0170 11       		.uleb128 0x11
+ 1458 0171 01       		.uleb128 0x1
+ 1459 0172 31       		.uleb128 0x31
+ 1460 0173 13       		.uleb128 0x13
+ 1461 0174 00       		.byte	0
+ 1462 0175 00       		.byte	0
+ 1463 0176 1D       		.uleb128 0x1d
+ 1464 0177 2E       		.uleb128 0x2e
+ 1465 0178 00       		.byte	0
+ 1466 0179 3F       		.uleb128 0x3f
+ 1467 017a 19       		.uleb128 0x19
+ 1468 017b 03       		.uleb128 0x3
+ 1469 017c 0E       		.uleb128 0xe
+ 1470 017d 3A       		.uleb128 0x3a
+ 1471 017e 0B       		.uleb128 0xb
+ 1472 017f 3B       		.uleb128 0x3b
+ 1473 0180 0B       		.uleb128 0xb
+ 1474 0181 11       		.uleb128 0x11
+ 1475 0182 01       		.uleb128 0x1
+ 1476 0183 12       		.uleb128 0x12
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 29
+
+
+ 1477 0184 06       		.uleb128 0x6
+ 1478 0185 40       		.uleb128 0x40
+ 1479 0186 18       		.uleb128 0x18
+ 1480 0187 9742     		.uleb128 0x2117
+ 1481 0189 19       		.uleb128 0x19
+ 1482 018a 00       		.byte	0
+ 1483 018b 00       		.byte	0
+ 1484 018c 1E       		.uleb128 0x1e
+ 1485 018d 34       		.uleb128 0x34
+ 1486 018e 00       		.byte	0
+ 1487 018f 03       		.uleb128 0x3
+ 1488 0190 0E       		.uleb128 0xe
+ 1489 0191 3A       		.uleb128 0x3a
+ 1490 0192 0B       		.uleb128 0xb
+ 1491 0193 3B       		.uleb128 0x3b
+ 1492 0194 0B       		.uleb128 0xb
+ 1493 0195 49       		.uleb128 0x49
+ 1494 0196 13       		.uleb128 0x13
+ 1495 0197 3F       		.uleb128 0x3f
+ 1496 0198 19       		.uleb128 0x19
+ 1497 0199 02       		.uleb128 0x2
+ 1498 019a 18       		.uleb128 0x18
+ 1499 019b 00       		.byte	0
+ 1500 019c 00       		.byte	0
+ 1501 019d 1F       		.uleb128 0x1f
+ 1502 019e 34       		.uleb128 0x34
+ 1503 019f 00       		.byte	0
+ 1504 01a0 03       		.uleb128 0x3
+ 1505 01a1 0E       		.uleb128 0xe
+ 1506 01a2 3A       		.uleb128 0x3a
+ 1507 01a3 0B       		.uleb128 0xb
+ 1508 01a4 3B       		.uleb128 0x3b
+ 1509 01a5 05       		.uleb128 0x5
+ 1510 01a6 49       		.uleb128 0x49
+ 1511 01a7 13       		.uleb128 0x13
+ 1512 01a8 3F       		.uleb128 0x3f
+ 1513 01a9 19       		.uleb128 0x19
+ 1514 01aa 3C       		.uleb128 0x3c
+ 1515 01ab 19       		.uleb128 0x19
+ 1516 01ac 00       		.byte	0
+ 1517 01ad 00       		.byte	0
+ 1518 01ae 20       		.uleb128 0x20
+ 1519 01af 35       		.uleb128 0x35
+ 1520 01b0 00       		.byte	0
+ 1521 01b1 49       		.uleb128 0x49
+ 1522 01b2 13       		.uleb128 0x13
+ 1523 01b3 00       		.byte	0
+ 1524 01b4 00       		.byte	0
+ 1525 01b5 21       		.uleb128 0x21
+ 1526 01b6 2E       		.uleb128 0x2e
+ 1527 01b7 00       		.byte	0
+ 1528 01b8 3F       		.uleb128 0x3f
+ 1529 01b9 19       		.uleb128 0x19
+ 1530 01ba 3C       		.uleb128 0x3c
+ 1531 01bb 19       		.uleb128 0x19
+ 1532 01bc 6E       		.uleb128 0x6e
+ 1533 01bd 0E       		.uleb128 0xe
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 30
+
+
+ 1534 01be 03       		.uleb128 0x3
+ 1535 01bf 0E       		.uleb128 0xe
+ 1536 01c0 3A       		.uleb128 0x3a
+ 1537 01c1 0B       		.uleb128 0xb
+ 1538 01c2 3B       		.uleb128 0x3b
+ 1539 01c3 0B       		.uleb128 0xb
+ 1540 01c4 00       		.byte	0
+ 1541 01c5 00       		.byte	0
+ 1542 01c6 00       		.byte	0
+ 1543              		.section	.debug_loc,"",%progbits
+ 1544              	.Ldebug_loc0:
+ 1545              	.LLST0:
+ 1546 0000 00000000 		.4byte	.LVL0
+ 1547 0004 0F000000 		.4byte	.LVL1-1
+ 1548 0008 0100     		.2byte	0x1
+ 1549 000a 50       		.byte	0x50
+ 1550 000b 0F000000 		.4byte	.LVL1-1
+ 1551 000f A2000000 		.4byte	.LVL20
+ 1552 0013 0400     		.2byte	0x4
+ 1553 0015 F3       		.byte	0xf3
+ 1554 0016 01       		.uleb128 0x1
+ 1555 0017 50       		.byte	0x50
+ 1556 0018 9F       		.byte	0x9f
+ 1557 0019 A2000000 		.4byte	.LVL20
+ 1558 001d A8000000 		.4byte	.LFE64
+ 1559 0021 0100     		.2byte	0x1
+ 1560 0023 50       		.byte	0x50
+ 1561 0024 00000000 		.4byte	0
+ 1562 0028 00000000 		.4byte	0
+ 1563              	.LLST1:
+ 1564 002c 00000000 		.4byte	.LVL0
+ 1565 0030 0F000000 		.4byte	.LVL1-1
+ 1566 0034 0100     		.2byte	0x1
+ 1567 0036 51       		.byte	0x51
+ 1568 0037 0F000000 		.4byte	.LVL1-1
+ 1569 003b A2000000 		.4byte	.LVL20
+ 1570 003f 0400     		.2byte	0x4
+ 1571 0041 F3       		.byte	0xf3
+ 1572 0042 01       		.uleb128 0x1
+ 1573 0043 51       		.byte	0x51
+ 1574 0044 9F       		.byte	0x9f
+ 1575 0045 A2000000 		.4byte	.LVL20
+ 1576 0049 A8000000 		.4byte	.LFE64
+ 1577 004d 0100     		.2byte	0x1
+ 1578 004f 51       		.byte	0x51
+ 1579 0050 00000000 		.4byte	0
+ 1580 0054 00000000 		.4byte	0
+ 1581              	.LLST2:
+ 1582 0058 12000000 		.4byte	.LVL2
+ 1583 005c 3C000000 		.4byte	.LVL4
+ 1584 0060 0100     		.2byte	0x1
+ 1585 0062 50       		.byte	0x50
+ 1586 0063 3C000000 		.4byte	.LVL4
+ 1587 0067 7C000000 		.4byte	.LVL9
+ 1588 006b 0300     		.2byte	0x3
+ 1589 006d 70       		.byte	0x70
+ 1590 006e 0E       		.sleb128 14
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 31
+
+
+ 1591 006f 9F       		.byte	0x9f
+ 1592 0070 80000000 		.4byte	.LVL11
+ 1593 0074 94000000 		.4byte	.LVL15
+ 1594 0078 0300     		.2byte	0x3
+ 1595 007a 70       		.byte	0x70
+ 1596 007b 0E       		.sleb128 14
+ 1597 007c 9F       		.byte	0x9f
+ 1598 007d 98000000 		.4byte	.LVL17
+ 1599 0081 9E000000 		.4byte	.LVL19
+ 1600 0085 0300     		.2byte	0x3
+ 1601 0087 70       		.byte	0x70
+ 1602 0088 0E       		.sleb128 14
+ 1603 0089 9F       		.byte	0x9f
+ 1604 008a 00000000 		.4byte	0
+ 1605 008e 00000000 		.4byte	0
+ 1606              	.LLST3:
+ 1607 0092 28000000 		.4byte	.LVL3
+ 1608 0096 42000000 		.4byte	.LVL5
+ 1609 009a 0100     		.2byte	0x1
+ 1610 009c 53       		.byte	0x53
+ 1611 009d 42000000 		.4byte	.LVL5
+ 1612 00a1 7D000000 		.4byte	.LVL10-1
+ 1613 00a5 0300     		.2byte	0x3
+ 1614 00a7 91       		.byte	0x91
+ 1615 00a8 F07E     		.sleb128 -144
+ 1616 00aa 80000000 		.4byte	.LVL11
+ 1617 00ae 95000000 		.4byte	.LVL16-1
+ 1618 00b2 0300     		.2byte	0x3
+ 1619 00b4 91       		.byte	0x91
+ 1620 00b5 F07E     		.sleb128 -144
+ 1621 00b7 98000000 		.4byte	.LVL17
+ 1622 00bb 9E000000 		.4byte	.LVL19
+ 1623 00bf 0300     		.2byte	0x3
+ 1624 00c1 91       		.byte	0x91
+ 1625 00c2 F07E     		.sleb128 -144
+ 1626 00c4 00000000 		.4byte	0
+ 1627 00c8 00000000 		.4byte	0
+ 1628              	.LLST4:
+ 1629 00cc 44000000 		.4byte	.LVL6
+ 1630 00d0 68000000 		.4byte	.LVL7
+ 1631 00d4 0200     		.2byte	0x2
+ 1632 00d6 30       		.byte	0x30
+ 1633 00d7 9F       		.byte	0x9f
+ 1634 00d8 68000000 		.4byte	.LVL7
+ 1635 00dc 74000000 		.4byte	.LVL8
+ 1636 00e0 0100     		.2byte	0x1
+ 1637 00e2 53       		.byte	0x53
+ 1638 00e3 80000000 		.4byte	.LVL11
+ 1639 00e7 82000000 		.4byte	.LVL12
+ 1640 00eb 0100     		.2byte	0x1
+ 1641 00ed 53       		.byte	0x53
+ 1642 00ee 00000000 		.4byte	0
+ 1643 00f2 00000000 		.4byte	0
+ 1644              	.LLST5:
+ 1645 00f6 86000000 		.4byte	.LVL13
+ 1646 00fa 90000000 		.4byte	.LVL14
+ 1647 00fe 0100     		.2byte	0x1
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 32
+
+
+ 1648 0100 53       		.byte	0x53
+ 1649 0101 98000000 		.4byte	.LVL17
+ 1650 0105 9E000000 		.4byte	.LVL19
+ 1651 0109 0100     		.2byte	0x1
+ 1652 010b 53       		.byte	0x53
+ 1653 010c 00000000 		.4byte	0
+ 1654 0110 00000000 		.4byte	0
+ 1655              	.LLST6:
+ 1656 0114 00000000 		.4byte	.LVL21
+ 1657 0118 10000000 		.4byte	.LVL24
+ 1658 011c 0100     		.2byte	0x1
+ 1659 011e 50       		.byte	0x50
+ 1660 011f 10000000 		.4byte	.LVL24
+ 1661 0123 34000000 		.4byte	.LVL26
+ 1662 0127 0300     		.2byte	0x3
+ 1663 0129 91       		.byte	0x91
+ 1664 012a F07E     		.sleb128 -144
+ 1665 012c 34000000 		.4byte	.LVL26
+ 1666 0130 94000000 		.4byte	.LFE65
+ 1667 0134 0400     		.2byte	0x4
+ 1668 0136 F3       		.byte	0xf3
+ 1669 0137 01       		.uleb128 0x1
+ 1670 0138 50       		.byte	0x50
+ 1671 0139 9F       		.byte	0x9f
+ 1672 013a 00000000 		.4byte	0
+ 1673 013e 00000000 		.4byte	0
+ 1674              	.LLST7:
+ 1675 0142 00000000 		.4byte	.LVL21
+ 1676 0146 46000000 		.4byte	.LVL30
+ 1677 014a 0100     		.2byte	0x1
+ 1678 014c 51       		.byte	0x51
+ 1679 014d 46000000 		.4byte	.LVL30
+ 1680 0151 94000000 		.4byte	.LFE65
+ 1681 0155 0400     		.2byte	0x4
+ 1682 0157 F3       		.byte	0xf3
+ 1683 0158 01       		.uleb128 0x1
+ 1684 0159 51       		.byte	0x51
+ 1685 015a 9F       		.byte	0x9f
+ 1686 015b 00000000 		.4byte	0
+ 1687 015f 00000000 		.4byte	0
+ 1688              	.LLST8:
+ 1689 0163 00000000 		.4byte	.LVL21
+ 1690 0167 0A000000 		.4byte	.LVL23
+ 1691 016b 0100     		.2byte	0x1
+ 1692 016d 52       		.byte	0x52
+ 1693 016e 0A000000 		.4byte	.LVL23
+ 1694 0172 94000000 		.4byte	.LFE65
+ 1695 0176 0400     		.2byte	0x4
+ 1696 0178 F3       		.byte	0xf3
+ 1697 0179 01       		.uleb128 0x1
+ 1698 017a 52       		.byte	0x52
+ 1699 017b 9F       		.byte	0x9f
+ 1700 017c 00000000 		.4byte	0
+ 1701 0180 00000000 		.4byte	0
+ 1702              	.LLST9:
+ 1703 0184 06000000 		.4byte	.LVL22
+ 1704 0188 46000000 		.4byte	.LVL30
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 33
+
+
+ 1705 018c 0200     		.2byte	0x2
+ 1706 018e 3C       		.byte	0x3c
+ 1707 018f 9F       		.byte	0x9f
+ 1708 0190 46000000 		.4byte	.LVL30
+ 1709 0194 4D000000 		.4byte	.LVL32-1
+ 1710 0198 0100     		.2byte	0x1
+ 1711 019a 51       		.byte	0x51
+ 1712 019b 4D000000 		.4byte	.LVL32-1
+ 1713 019f 60000000 		.4byte	.LVL37
+ 1714 01a3 0300     		.2byte	0x3
+ 1715 01a5 75       		.byte	0x75
+ 1716 01a6 0C       		.sleb128 12
+ 1717 01a7 9F       		.byte	0x9f
+ 1718 01a8 60000000 		.4byte	.LVL37
+ 1719 01ac 6B000000 		.4byte	.LVL40-1
+ 1720 01b0 0100     		.2byte	0x1
+ 1721 01b2 51       		.byte	0x51
+ 1722 01b3 6B000000 		.4byte	.LVL40-1
+ 1723 01b7 6E000000 		.4byte	.LVL41
+ 1724 01bb 0300     		.2byte	0x3
+ 1725 01bd 75       		.byte	0x75
+ 1726 01be 0E       		.sleb128 14
+ 1727 01bf 9F       		.byte	0x9f
+ 1728 01c0 6E000000 		.4byte	.LVL41
+ 1729 01c4 82000000 		.4byte	.LVL42
+ 1730 01c8 0100     		.2byte	0x1
+ 1731 01ca 50       		.byte	0x50
+ 1732 01cb 82000000 		.4byte	.LVL42
+ 1733 01cf 85000000 		.4byte	.LVL43-1
+ 1734 01d3 0300     		.2byte	0x3
+ 1735 01d5 73       		.byte	0x73
+ 1736 01d6 7F       		.sleb128 -1
+ 1737 01d7 9F       		.byte	0x9f
+ 1738 01d8 00000000 		.4byte	0
+ 1739 01dc 00000000 		.4byte	0
+ 1740              	.LLST10:
+ 1741 01e0 30000000 		.4byte	.LVL25
+ 1742 01e4 34000000 		.4byte	.LVL26
+ 1743 01e8 0200     		.2byte	0x2
+ 1744 01ea 30       		.byte	0x30
+ 1745 01eb 9F       		.byte	0x9f
+ 1746 01ec 3C000000 		.4byte	.LVL28
+ 1747 01f0 3E000000 		.4byte	.LVL29
+ 1748 01f4 0100     		.2byte	0x1
+ 1749 01f6 54       		.byte	0x54
+ 1750 01f7 52000000 		.4byte	.LVL33
+ 1751 01fb 56000000 		.4byte	.LVL35
+ 1752 01ff 0100     		.2byte	0x1
+ 1753 0201 53       		.byte	0x53
+ 1754 0202 00000000 		.4byte	0
+ 1755 0206 00000000 		.4byte	0
+ 1756              	.LLST11:
+ 1757 020a 06000000 		.4byte	.LVL22
+ 1758 020e 38000000 		.4byte	.LVL27
+ 1759 0212 0400     		.2byte	0x4
+ 1760 0214 91       		.byte	0x91
+ 1761 0215 FC7E     		.sleb128 -132
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 34
+
+
+ 1762 0217 9F       		.byte	0x9f
+ 1763 0218 38000000 		.4byte	.LVL27
+ 1764 021c 3E000000 		.4byte	.LVL29
+ 1765 0220 0100     		.2byte	0x1
+ 1766 0222 53       		.byte	0x53
+ 1767 0223 3E000000 		.4byte	.LVL29
+ 1768 0227 54000000 		.4byte	.LVL34
+ 1769 022b 0400     		.2byte	0x4
+ 1770 022d 91       		.byte	0x91
+ 1771 022e FC7E     		.sleb128 -132
+ 1772 0230 9F       		.byte	0x9f
+ 1773 0231 54000000 		.4byte	.LVL34
+ 1774 0235 64000000 		.4byte	.LVL38
+ 1775 0239 0100     		.2byte	0x1
+ 1776 023b 52       		.byte	0x52
+ 1777 023c 64000000 		.4byte	.LVL38
+ 1778 0240 8A000000 		.4byte	.LVL44
+ 1779 0244 0400     		.2byte	0x4
+ 1780 0246 91       		.byte	0x91
+ 1781 0247 FC7E     		.sleb128 -132
+ 1782 0249 9F       		.byte	0x9f
+ 1783 024a 8A000000 		.4byte	.LVL44
+ 1784 024e 94000000 		.4byte	.LFE65
+ 1785 0252 0400     		.2byte	0x4
+ 1786 0254 7D       		.byte	0x7d
+ 1787 0255 FC7E     		.sleb128 -132
+ 1788 0257 9F       		.byte	0x9f
+ 1789 0258 00000000 		.4byte	0
+ 1790 025c 00000000 		.4byte	0
+ 1791              	.LLST12:
+ 1792 0260 06000000 		.4byte	.LVL22
+ 1793 0264 4A000000 		.4byte	.LVL31
+ 1794 0268 0400     		.2byte	0x4
+ 1795 026a 91       		.byte	0x91
+ 1796 026b F07E     		.sleb128 -144
+ 1797 026d 9F       		.byte	0x9f
+ 1798 026e 4A000000 		.4byte	.LVL31
+ 1799 0272 4D000000 		.4byte	.LVL32-1
+ 1800 0276 0100     		.2byte	0x1
+ 1801 0278 50       		.byte	0x50
+ 1802 0279 4D000000 		.4byte	.LVL32-1
+ 1803 027d 68000000 		.4byte	.LVL39
+ 1804 0281 0400     		.2byte	0x4
+ 1805 0283 91       		.byte	0x91
+ 1806 0284 F07E     		.sleb128 -144
+ 1807 0286 9F       		.byte	0x9f
+ 1808 0287 68000000 		.4byte	.LVL39
+ 1809 028b 6B000000 		.4byte	.LVL40-1
+ 1810 028f 0100     		.2byte	0x1
+ 1811 0291 50       		.byte	0x50
+ 1812 0292 6B000000 		.4byte	.LVL40-1
+ 1813 0296 8A000000 		.4byte	.LVL44
+ 1814 029a 0400     		.2byte	0x4
+ 1815 029c 91       		.byte	0x91
+ 1816 029d F07E     		.sleb128 -144
+ 1817 029f 9F       		.byte	0x9f
+ 1818 02a0 8A000000 		.4byte	.LVL44
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 35
+
+
+ 1819 02a4 94000000 		.4byte	.LFE65
+ 1820 02a8 0400     		.2byte	0x4
+ 1821 02aa 7D       		.byte	0x7d
+ 1822 02ab F07E     		.sleb128 -144
+ 1823 02ad 9F       		.byte	0x9f
+ 1824 02ae 00000000 		.4byte	0
+ 1825 02b2 00000000 		.4byte	0
+ 1826              	.LLST13:
+ 1827 02b6 4E000000 		.4byte	.LVL32
+ 1828 02ba 5A000000 		.4byte	.LVL36
+ 1829 02be 0100     		.2byte	0x1
+ 1830 02c0 50       		.byte	0x50
+ 1831 02c1 00000000 		.4byte	0
+ 1832 02c5 00000000 		.4byte	0
+ 1833              		.section	.debug_aranges,"",%progbits
+ 1834 0000 2C000000 		.4byte	0x2c
+ 1835 0004 0200     		.2byte	0x2
+ 1836 0006 00000000 		.4byte	.Ldebug_info0
+ 1837 000a 04       		.byte	0x4
+ 1838 000b 00       		.byte	0
+ 1839 000c 0000     		.2byte	0
+ 1840 000e 0000     		.2byte	0
+ 1841 0010 00000000 		.4byte	.LFB64
+ 1842 0014 A8000000 		.4byte	.LFE64-.LFB64
+ 1843 0018 00000000 		.4byte	.LFB65
+ 1844 001c 94000000 		.4byte	.LFE65-.LFB65
+ 1845 0020 00000000 		.4byte	.LFB66
+ 1846 0024 14000000 		.4byte	.LFE66-.LFB66
+ 1847 0028 00000000 		.4byte	0
+ 1848 002c 00000000 		.4byte	0
+ 1849              		.section	.debug_ranges,"",%progbits
+ 1850              	.Ldebug_ranges0:
+ 1851 0000 00000000 		.4byte	.LFB64
+ 1852 0004 A8000000 		.4byte	.LFE64
+ 1853 0008 00000000 		.4byte	.LFB65
+ 1854 000c 94000000 		.4byte	.LFE65
+ 1855 0010 00000000 		.4byte	.LFB66
+ 1856 0014 14000000 		.4byte	.LFE66
+ 1857 0018 00000000 		.4byte	0
+ 1858 001c 00000000 		.4byte	0
+ 1859              		.section	.debug_line,"",%progbits
+ 1860              	.Ldebug_line0:
+ 1861 0000 2C020000 		.section	.debug_str,"MS",%progbits,1
+ 1861      0200A701 
+ 1861      00000201 
+ 1861      FB0E0D00 
+ 1861      01010101 
+ 1862              	.LASF67:
+ 1863 0000 53697A65 		.ascii	"Size\000"
+ 1863      00
+ 1864              	.LASF46:
+ 1865 0005 48616E64 		.ascii	"Handle\000"
+ 1865      6C6500
+ 1866              	.LASF83:
+ 1867 000c 433A5C55 		.ascii	"C:\\Users\\matij\\source\\Workspaces\\Embedded\\PSo"
+ 1867      73657273 
+ 1867      5C6D6174 
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 36
+
+
+ 1867      696A5C73 
+ 1867      6F757263 
+ 1868 0039 435C4C69 		.ascii	"C\\Libraries\\Ontwikkeling\\BCom0.3.cydsn\000"
+ 1868      62726172 
+ 1868      6965735C 
+ 1868      4F6E7477 
+ 1868      696B6B65 
+ 1869              	.LASF85:
+ 1870 0060 42436F6D 		.ascii	"BCom_1_Start\000"
+ 1870      5F315F53 
+ 1870      74617274 
+ 1870      00
+ 1871              	.LASF35:
+ 1872 006d 4672616D 		.ascii	"FrameNr\000"
+ 1872      654E7200 
+ 1873              	.LASF78:
+ 1874 0075 6372635F 		.ascii	"crc_16\000"
+ 1874      313600
+ 1875              	.LASF66:
+ 1876 007c 5061796C 		.ascii	"PayloadIn\000"
+ 1876      6F616449 
+ 1876      6E00
+ 1877              	.LASF56:
+ 1878 0086 506F7274 		.ascii	"Ports\000"
+ 1878      7300
+ 1879              	.LASF54:
+ 1880 008c 476C6F62 		.ascii	"GlobalConfig_s\000"
+ 1880      616C436F 
+ 1880      6E666967 
+ 1880      5F7300
+ 1881              	.LASF59:
+ 1882 009b 696E7075 		.ascii	"input\000"
+ 1882      7400
+ 1883              	.LASF24:
+ 1884 00a1 73697A65 		.ascii	"sizetype\000"
+ 1884      74797065 
+ 1884      00
+ 1885              	.LASF32:
+ 1886 00aa 53797374 		.ascii	"System_s\000"
+ 1886      656D5F73 
+ 1886      00
+ 1887              	.LASF52:
+ 1888 00b3 4170706C 		.ascii	"Applications_s\000"
+ 1888      69636174 
+ 1888      696F6E73 
+ 1888      5F7300
+ 1889              	.LASF75:
+ 1890 00c2 53797374 		.ascii	"System_u\000"
+ 1890      656D5F75 
+ 1890      00
+ 1891              	.LASF23:
+ 1892 00cb 6C6F6E67 		.ascii	"long double\000"
+ 1892      20646F75 
+ 1892      626C6500 
+ 1893              	.LASF50:
+ 1894 00d7 4E616D65 		.ascii	"Name\000"
+ 1894      00
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 37
+
+
+ 1895              	.LASF55:
+ 1896 00dc 4E657477 		.ascii	"Network\000"
+ 1896      6F726B00 
+ 1897              	.LASF4:
+ 1898 00e4 5F5F7569 		.ascii	"__uint16_t\000"
+ 1898      6E743136 
+ 1898      5F7400
+ 1899              	.LASF2:
+ 1900 00ef 73686F72 		.ascii	"short int\000"
+ 1900      7420696E 
+ 1900      7400
+ 1901              	.LASF18:
+ 1902 00f9 75696E74 		.ascii	"uint16\000"
+ 1902      313600
+ 1903              	.LASF41:
+ 1904 0100 48656164 		.ascii	"Header\000"
+ 1904      657200
+ 1905              	.LASF49:
+ 1906 0107 54797065 		.ascii	"TypeIdentifier\000"
+ 1906      4964656E 
+ 1906      74696669 
+ 1906      657200
+ 1907              	.LASF63:
+ 1908 0116 456E7472 		.ascii	"Entry\000"
+ 1908      7900
+ 1909              	.LASF17:
+ 1910 011c 75696E74 		.ascii	"uint8\000"
+ 1910      3800
+ 1911              	.LASF72:
+ 1912 0122 53747269 		.ascii	"StripLights_Done\000"
+ 1912      704C6967 
+ 1912      6874735F 
+ 1912      446F6E65 
+ 1912      00
+ 1913              	.LASF37:
+ 1914 0133 54617267 		.ascii	"Target\000"
+ 1914      657400
+ 1915              	.LASF20:
+ 1916 013a 666C6F61 		.ascii	"float\000"
+ 1916      7400
+ 1917              	.LASF60:
+ 1918 0140 696E704C 		.ascii	"inpLength\000"
+ 1918      656E6774 
+ 1918      6800
+ 1919              	.LASF40:
+ 1920 014a 42436F6D 		.ascii	"BComFrame_s\000"
+ 1920      4672616D 
+ 1920      655F7300 
+ 1921              	.LASF10:
+ 1922 0156 6C6F6E67 		.ascii	"long long int\000"
+ 1922      206C6F6E 
+ 1922      6720696E 
+ 1922      7400
+ 1923              	.LASF44:
+ 1924 0164 42436F6D 		.ascii	"BCom_1_CallBackFunction\000"
+ 1924      5F315F43 
+ 1924      616C6C42 
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 38
+
+
+ 1924      61636B46 
+ 1924      756E6374 
+ 1925              	.LASF7:
+ 1926 017c 6C6F6E67 		.ascii	"long int\000"
+ 1926      20696E74 
+ 1926      00
+ 1927              	.LASF53:
+ 1928 0185 4C697374 		.ascii	"List\000"
+ 1928      00
+ 1929              	.LASF1:
+ 1930 018a 756E7369 		.ascii	"unsigned char\000"
+ 1930      676E6564 
+ 1930      20636861 
+ 1930      7200
+ 1931              	.LASF51:
+ 1932 0198 4672616D 		.ascii	"FrameCounter\000"
+ 1932      65436F75 
+ 1932      6E746572 
+ 1932      00
+ 1933              	.LASF3:
+ 1934 01a5 5F5F7569 		.ascii	"__uint8_t\000"
+ 1934      6E74385F 
+ 1934      7400
+ 1935              	.LASF61:
+ 1936 01af 4672616D 		.ascii	"Frame\000"
+ 1936      6500
+ 1937              	.LASF39:
+ 1938 01b5 50617261 		.ascii	"Parameter\000"
+ 1938      6D657465 
+ 1938      7200
+ 1939              	.LASF76:
+ 1940 01bf 436F6E66 		.ascii	"Config\000"
+ 1940      696700
+ 1941              	.LASF29:
+ 1942 01c6 50696E67 		.ascii	"Ping\000"
+ 1942      00
+ 1943              	.LASF65:
+ 1944 01cb 5472616E 		.ascii	"Transmit\000"
+ 1944      736D6974 
+ 1944      00
+ 1945              	.LASF34:
+ 1946 01d4 506F7274 		.ascii	"Port\000"
+ 1946      00
+ 1947              	.LASF82:
+ 1948 01d9 47656E65 		.ascii	"Generated_Source\\PSoC5\\BCom_1_BCom.c\000"
+ 1948      72617465 
+ 1948      645F536F 
+ 1948      75726365 
+ 1948      5C50536F 
+ 1949              	.LASF68:
+ 1950 01fe 6C656E67 		.ascii	"length\000"
+ 1950      746800
+ 1951              	.LASF25:
+ 1952 0205 53747269 		.ascii	"StripLights_Event\000"
+ 1952      704C6967 
+ 1952      6874735F 
+ 1952      4576656E 
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 39
+
+
+ 1952      7400
+ 1953              	.LASF84:
+ 1954 0217 5F737973 		.ascii	"_system_u\000"
+ 1954      74656D5F 
+ 1954      7500
+ 1955              	.LASF80:
+ 1956 0221 55415254 		.ascii	"UART_PutArray\000"
+ 1956      5F507574 
+ 1956      41727261 
+ 1956      7900
+ 1957              	.LASF26:
+ 1958 022f 41636B52 		.ascii	"AckReq\000"
+ 1958      657100
+ 1959              	.LASF70:
+ 1960 0236 53657269 		.ascii	"SerialOut\000"
+ 1960      616C4F75 
+ 1960      7400
+ 1961              	.LASF36:
+ 1962 0240 4672616D 		.ascii	"FrameHeader_s\000"
+ 1962      65486561 
+ 1962      6465725F 
+ 1962      7300
+ 1963              	.LASF27:
+ 1964 024e 4E61636B 		.ascii	"Nack\000"
+ 1964      00
+ 1965              	.LASF0:
+ 1966 0253 7369676E 		.ascii	"signed char\000"
+ 1966      65642063 
+ 1966      68617200 
+ 1967              	.LASF11:
+ 1968 025f 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1968      206C6F6E 
+ 1968      6720756E 
+ 1968      7369676E 
+ 1968      65642069 
+ 1969              	.LASF16:
+ 1970 0276 75696E74 		.ascii	"uint32_t\000"
+ 1970      33325F74 
+ 1970      00
+ 1971              	.LASF12:
+ 1972 027f 756E7369 		.ascii	"unsigned int\000"
+ 1972      676E6564 
+ 1972      20696E74 
+ 1972      00
+ 1973              	.LASF64:
+ 1974 028c 5472616E 		.ascii	"Transport\000"
+ 1974      73706F72 
+ 1974      7400
+ 1975              	.LASF14:
+ 1976 0296 75696E74 		.ascii	"uint16_t\000"
+ 1976      31365F74 
+ 1976      00
+ 1977              	.LASF31:
+ 1978 029f 62797465 		.ascii	"byteVal\000"
+ 1978      56616C00 
+ 1979              	.LASF45:
+ 1980 02a7 506F7274 		.ascii	"PortHandle_s\000"
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 40
+
+
+ 1980      48616E64 
+ 1980      6C655F73 
+ 1980      00
+ 1981              	.LASF77:
+ 1982 02b4 6236345F 		.ascii	"b64_decode\000"
+ 1982      6465636F 
+ 1982      646500
+ 1983              	.LASF5:
+ 1984 02bf 73686F72 		.ascii	"short unsigned int\000"
+ 1984      7420756E 
+ 1984      7369676E 
+ 1984      65642069 
+ 1984      6E7400
+ 1985              	.LASF43:
+ 1986 02d2 5061796C 		.ascii	"Payload\000"
+ 1986      6F616400 
+ 1987              	.LASF38:
+ 1988 02da 536F7572 		.ascii	"Source\000"
+ 1988      636500
+ 1989              	.LASF22:
+ 1990 02e1 63686172 		.ascii	"char\000"
+ 1990      00
+ 1991              	.LASF48:
+ 1992 02e6 4E657477 		.ascii	"Network_s\000"
+ 1992      6F726B5F 
+ 1992      7300
+ 1993              	.LASF15:
+ 1994 02f0 696E7433 		.ascii	"int32_t\000"
+ 1994      325F7400 
+ 1995              	.LASF73:
+ 1996 02f8 53747269 		.ascii	"StripLights_UseGammaCorrection\000"
+ 1996      704C6967 
+ 1996      6874735F 
+ 1996      55736547 
+ 1996      616D6D61 
+ 1997              	.LASF62:
+ 1998 0317 61636365 		.ascii	"accept\000"
+ 1998      707400
+ 1999              	.LASF42:
+ 2000 031e 4C656E67 		.ascii	"Lenght\000"
+ 2000      687400
+ 2001              	.LASF57:
+ 2002 0325 62756666 		.ascii	"buffer\000"
+ 2002      657200
+ 2003              	.LASF28:
+ 2004 032c 456E6372 		.ascii	"Encrypted\000"
+ 2004      79707465 
+ 2004      6400
+ 2005              	.LASF33:
+ 2006 0336 50617261 		.ascii	"Parameter_s\000"
+ 2006      6D657465 
+ 2006      725F7300 
+ 2007              	.LASF79:
+ 2008 0342 6236345F 		.ascii	"b64_encode\000"
+ 2008      656E636F 
+ 2008      646500
+ 2009              	.LASF9:
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 41
+
+
+ 2010 034d 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2010      20756E73 
+ 2010      69676E65 
+ 2010      6420696E 
+ 2010      7400
+ 2011              	.LASF19:
+ 2012 035f 75696E74 		.ascii	"uint32\000"
+ 2012      333200
+ 2013              	.LASF8:
+ 2014 0366 5F5F7569 		.ascii	"__uint32_t\000"
+ 2014      6E743332 
+ 2014      5F7400
+ 2015              	.LASF58:
+ 2016 0371 62756666 		.ascii	"bufferSize\000"
+ 2016      65725369 
+ 2016      7A6500
+ 2017              	.LASF6:
+ 2018 037c 5F5F696E 		.ascii	"__int32_t\000"
+ 2018      7433325F 
+ 2018      7400
+ 2019              	.LASF13:
+ 2020 0386 75696E74 		.ascii	"uint8_t\000"
+ 2020      385F7400 
+ 2021              	.LASF69:
+ 2022 038e 6F757470 		.ascii	"output\000"
+ 2022      757400
+ 2023              	.LASF21:
+ 2024 0395 646F7562 		.ascii	"double\000"
+ 2024      6C6500
+ 2025              	.LASF74:
+ 2026 039c 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 2026      52784275 
+ 2026      66666572 
+ 2026      00
+ 2027              	.LASF81:
+ 2028 03a9 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 2028      43313120 
+ 2028      352E342E 
+ 2028      31203230 
+ 2028      31363036 
+ 2029 03dc 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 2029      20726576 
+ 2029      6973696F 
+ 2029      6E203233 
+ 2029      37373135 
+ 2030 040f 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 2030      66756E63 
+ 2030      74696F6E 
+ 2030      2D736563 
+ 2030      74696F6E 
+ 2031              	.LASF30:
+ 2032 0437 53797374 		.ascii	"System\000"
+ 2032      656D00
+ 2033              	.LASF71:
+ 2034 043e 7061796C 		.ascii	"payload\000"
+ 2034      6F616400 
+ 2035              	.LASF47:
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccLsoMzl.s 			page 42
+
+
+ 2036 0446 6E657874 		.ascii	"next\000"
+ 2036      00
+ 2037              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

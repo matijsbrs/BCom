@@ -1,0 +1,80 @@
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/CortexM3/ARM_GCC_541/Debug/main.o : C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/BCom_1_BCom.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/BCom_1_base64.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/BCom_1_checksum.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/Button.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/Button_aliases.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/CyDmac.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/CyFlash.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/CyLib.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/CySpc.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/LedDriverOut.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/LedDriverOut_aliases.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/StatusLed.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/StatusLed_aliases.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/StripLights.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/StripLights_Clock.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/StripLights_StringSel.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/StripLights_cisr.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/StripLights_fisr.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/StripLights_fonts.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/UART.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/UART_IntClock.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/cmsis_armcc.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/cmsis_compiler.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/cmsis_gcc.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/core_cm3.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/core_cm3_psoc5.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/cyPm.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/cy_em_eeprom.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/cydevice.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/cydevice_trm.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/cydisabledsheets.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/cyfitter.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/cyfitter_cfg.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/cypins.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/cytypes.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/isr_rx.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/project.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/common.h C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/main.c 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/BCom_1_BCom.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/BCom_1_base64.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/BCom_1_checksum.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/Button.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/Button_aliases.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/CyDmac.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/CyFlash.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/CyLib.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/CySpc.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/LedDriverOut.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/LedDriverOut_aliases.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/StatusLed.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/StatusLed_aliases.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/StripLights.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/StripLights_Clock.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/StripLights_StringSel.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/StripLights_cisr.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/StripLights_fisr.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/StripLights_fonts.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/UART.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/UART_IntClock.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/cmsis_armcc.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/cmsis_compiler.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/cmsis_gcc.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/core_cm3.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/core_cm3_psoc5.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/cyPm.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/cy_em_eeprom.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/cydevice.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/cydevice_trm.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/cydisabledsheets.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/cyfitter.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/cyfitter_cfg.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/cypins.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/cytypes.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/isr_rx.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/Generated_Source/PSoC5/project.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/common.h : 
+
+C:/Users/matij/source/Workspaces/Embedded/PSoC/Libraries/Ontwikkeling/BCom0.3.cydsn/main.c : 
+

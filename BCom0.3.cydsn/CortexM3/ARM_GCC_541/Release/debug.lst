@@ -1,0 +1,2201 @@
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"debug.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text._write,"ax",%progbits
+  20              		.align	1
+  21              		.global	_write
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	_write, %function
+  25              	_write:
+  26              	.LFB64:
+  27              		.file 1 "debug.c"
+   1:debug.c       **** /*******************************************************************************
+   2:debug.c       **** * File Name: debug.c
+   3:debug.c       **** *
+   4:debug.c       **** * Version: 1.10
+   5:debug.c       **** *
+   6:debug.c       **** * Description:
+   7:debug.c       **** *  This file contains functions for printf functionality.
+   8:debug.c       **** *
+   9:debug.c       **** *******************************************************************************
+  10:debug.c       **** * Copyright (2017), Cypress Semiconductor Corporation. All rights reserved.
+  11:debug.c       **** *******************************************************************************
+  12:debug.c       **** * This software, including source code, documentation and related materials
+  13:debug.c       **** * (“Software”), is owned by Cypress Semiconductor Corporation or one of its
+  14:debug.c       **** * subsidiaries (“Cypress”) and is protected by and subject to worldwide patent
+  15:debug.c       **** * protection (United States and foreign), United States copyright laws and
+  16:debug.c       **** * international treaty provisions. Therefore, you may use this Software only
+  17:debug.c       **** * as provided in the license agreement accompanying the software package from
+  18:debug.c       **** * which you obtained this Software (“EULA”).
+  19:debug.c       **** *
+  20:debug.c       **** * If no EULA applies, Cypress hereby grants you a personal, non-exclusive,
+  21:debug.c       **** * non-transferable license to copy, modify, and compile the Software source
+  22:debug.c       **** * code solely for use in connection with Cypress’s integrated circuit products.
+  23:debug.c       **** * Any reproduction, modification, translation, compilation, or representation
+  24:debug.c       **** * of this Software except as specified above is prohibited without the express
+  25:debug.c       **** * written permission of Cypress.
+  26:debug.c       **** *
+  27:debug.c       **** * Disclaimer: THIS SOFTWARE IS PROVIDED AS-IS, WITH NO WARRANTY OF ANY KIND, 
+  28:debug.c       **** * EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, NONINFRINGEMENT, IMPLIED 
+  29:debug.c       **** * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. Cypress 
+  30:debug.c       **** * reserves the right to make changes to the Software without notice. Cypress 
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 2
+
+
+  31:debug.c       **** * does not assume any liability arising out of the application or use of the 
+  32:debug.c       **** * Software or any product or circuit described in the Software. Cypress does 
+  33:debug.c       **** * not authorize its products for use in any products where a malfunction or 
+  34:debug.c       **** * failure of the Cypress product may reasonably be expected to result in 
+  35:debug.c       **** * significant property damage, injury or death (“High Risk Product”). By 
+  36:debug.c       **** * including Cypress’s product in a High Risk Product, the manufacturer of such 
+  37:debug.c       **** * system or application assumes all risk of such use and in doing so agrees to 
+  38:debug.c       **** * indemnify Cypress against all liability. 
+  39:debug.c       **** *******************************************************************************/
+  40:debug.c       **** 
+  41:debug.c       **** 
+  42:debug.c       **** #include <project.h>
+  43:debug.c       **** #include <stdio.h>
+  44:debug.c       **** #include "common.h"
+  45:debug.c       **** 
+  46:debug.c       **** #if (UART_PRINTF_ENABLED == ENABLED)
+  47:debug.c       **** 
+  48:debug.c       **** #if (CY_PSOC3)
+  49:debug.c       ****     /* For Keil compiler revise putchar() function with communication
+  50:debug.c       ****        component which has to send data */
+  51:debug.c       ****     char putchar(char c)
+  52:debug.c       ****     {
+  53:debug.c       ****         UART_PutChar(c);
+  54:debug.c       ****         return (c);
+  55:debug.c       ****     }
+  56:debug.c       ****     
+  57:debug.c       **** #else
+  58:debug.c       ****     
+  59:debug.c       ****     #if defined(__ARMCC_VERSION)
+  60:debug.c       ****         
+  61:debug.c       ****     /* For MDK/RVDS compiler revise fputc function for printf functionality */
+  62:debug.c       ****     struct __FILE 
+  63:debug.c       ****     {
+  64:debug.c       ****         int handle;  
+  65:debug.c       ****     };
+  66:debug.c       **** 
+  67:debug.c       ****     enum 
+  68:debug.c       ****     {
+  69:debug.c       ****         STDIN_HANDLE,
+  70:debug.c       ****         STDOUT_HANDLE,
+  71:debug.c       ****         STDERR_HANDLE
+  72:debug.c       ****     };
+  73:debug.c       **** 
+  74:debug.c       ****     FILE __stdin = {STDIN_HANDLE};
+  75:debug.c       ****     FILE __stdout = {STDOUT_HANDLE};
+  76:debug.c       ****     FILE __stderr = {STDERR_HANDLE};
+  77:debug.c       **** 
+  78:debug.c       ****     int fputc(int ch, FILE *file) 
+  79:debug.c       ****     {
+  80:debug.c       ****         int ret = EOF;
+  81:debug.c       **** 
+  82:debug.c       ****         switch( file->handle )
+  83:debug.c       ****         {
+  84:debug.c       ****             case STDOUT_HANDLE:
+  85:debug.c       ****                 UART_PutChar(ch);
+  86:debug.c       ****                 ret = ch ;
+  87:debug.c       ****                 break ;
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 3
+
+
+  88:debug.c       **** 
+  89:debug.c       ****             case STDERR_HANDLE:
+  90:debug.c       ****                 ret = ch ;
+  91:debug.c       ****                 break ;
+  92:debug.c       **** 
+  93:debug.c       ****             default:
+  94:debug.c       ****                 file = file;
+  95:debug.c       ****                 break ;
+  96:debug.c       ****         }
+  97:debug.c       ****         return (ret);
+  98:debug.c       ****     }
+  99:debug.c       **** 
+ 100:debug.c       ****     #elif defined (__ICCARM__)      /* IAR */
+ 101:debug.c       **** 
+ 102:debug.c       ****     /* For IAR compiler revise __write() function for printf functionality */
+ 103:debug.c       ****     size_t __write(int handle, const unsigned char * buffer, size_t size)
+ 104:debug.c       ****     {
+ 105:debug.c       ****         size_t nChars = 0;
+ 106:debug.c       **** 
+ 107:debug.c       ****         if (buffer != NULL)
+ 108:debug.c       ****         {
+ 109:debug.c       ****             for (/* Empty */; size != 0; --size)
+ 110:debug.c       ****             {
+ 111:debug.c       ****                 UART_PutChar(*buffer++);
+ 112:debug.c       ****                 ++nChars;
+ 113:debug.c       ****             }
+ 114:debug.c       ****         }
+ 115:debug.c       ****         else
+ 116:debug.c       ****         {
+ 117:debug.c       ****             /*
+ 118:debug.c       ****              * This means that we should flush internal buffers.  Since we
+ 119:debug.c       ****              * don't we just return.  (Remember, "handle" == -1 means that all
+ 120:debug.c       ****              * handles should be flushed.)
+ 121:debug.c       ****              */
+ 122:debug.c       ****         }
+ 123:debug.c       **** 
+ 124:debug.c       ****         return (nChars);
+ 125:debug.c       ****     }
+ 126:debug.c       **** 
+ 127:debug.c       ****     #else  /* (__GNUC__)  GCC */
+ 128:debug.c       **** 
+ 129:debug.c       ****     /* For GCC compiler revise _write() function for printf functionality */
+ 130:debug.c       ****     int _write(int file, char *ptr, int len)
+ 131:debug.c       ****     {
+  28              		.loc 1 131 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              	.LVL0:
+  33 0000 70B5     		push	{r4, r5, r6, lr}
+  34              		.cfi_def_cfa_offset 16
+  35              		.cfi_offset 4, -16
+  36              		.cfi_offset 5, -12
+  37              		.cfi_offset 6, -8
+  38              		.cfi_offset 14, -4
+  39              		.loc 1 131 0
+  40 0002 0E46     		mov	r6, r1
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 4
+
+
+  41 0004 1546     		mov	r5, r2
+ 132:debug.c       ****         int i;
+ 133:debug.c       ****         file = file;
+ 134:debug.c       ****         for (i = 0; i < len; i++)
+  42              		.loc 1 134 0
+  43 0006 0C46     		mov	r4, r1
+  44              	.LVL1:
+  45              	.L2:
+  46              		.loc 1 134 0 is_stmt 0 discriminator 1
+  47 0008 A31B     		subs	r3, r4, r6
+  48              	.LVL2:
+  49 000a 9D42     		cmp	r5, r3
+  50 000c 04DD     		ble	.L5
+ 135:debug.c       ****         {
+ 136:debug.c       ****             UART_PutChar(*ptr++);
+  51              		.loc 1 136 0 is_stmt 1 discriminator 3
+  52 000e 14F8010B 		ldrb	r0, [r4], #1	@ zero_extendqisi2
+  53              	.LVL3:
+  54 0012 FFF7FEFF 		bl	UART_PutChar
+  55              	.LVL4:
+  56 0016 F7E7     		b	.L2
+  57              	.LVL5:
+  58              	.L5:
+ 137:debug.c       ****         }
+ 138:debug.c       ****         return (len);
+ 139:debug.c       ****     }
+  59              		.loc 1 139 0
+  60 0018 2846     		mov	r0, r5
+  61 001a 70BD     		pop	{r4, r5, r6, pc}
+  62              		.cfi_endproc
+  63              	.LFE64:
+  64              		.size	_write, .-_write
+  65              		.comm	Config,44,4
+  66              		.comm	System_u,1,1
+  67              		.comm	StripLights_UseGammaCorrection,1,1
+  68              		.comm	StripLights_Done,4,4
+  69              		.text
+  70              	.Letext0:
+  71              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+  72              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+  73              		.file 4 "Generated_Source\\PSoC5/cytypes.h"
+  74              		.file 5 "Generated_Source\\PSoC5/StripLights.h"
+  75              		.file 6 "Generated_Source\\PSoC5/BCom_1_BCom.h"
+  76              		.file 7 "Generated_Source\\PSoC5/core_cm3.h"
+  77              		.file 8 "Generated_Source\\PSoC5/BCom_1_checksum.h"
+  78              		.file 9 "Generated_Source\\PSoC5/UART.h"
+  79              		.section	.debug_info,"",%progbits
+  80              	.Ldebug_info0:
+  81 0000 60060000 		.4byte	0x660
+  82 0004 0400     		.2byte	0x4
+  83 0006 00000000 		.4byte	.Ldebug_abbrev0
+  84 000a 04       		.byte	0x4
+  85 000b 01       		.uleb128 0x1
+  86 000c 30020000 		.4byte	.LASF66
+  87 0010 0C       		.byte	0xc
+  88 0011 C8010000 		.4byte	.LASF67
+  89 0015 07000000 		.4byte	.LASF68
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 5
+
+
+  90 0019 00000000 		.4byte	.Ldebug_ranges0+0
+  91 001d 00000000 		.4byte	0
+  92 0021 00000000 		.4byte	.Ldebug_line0
+  93 0025 02       		.uleb128 0x2
+  94 0026 01       		.byte	0x1
+  95 0027 06       		.byte	0x6
+  96 0028 D0010000 		.4byte	.LASF0
+  97 002c 03       		.uleb128 0x3
+  98 002d 53010000 		.4byte	.LASF3
+  99 0031 02       		.byte	0x2
+ 100 0032 1D       		.byte	0x1d
+ 101 0033 37000000 		.4byte	0x37
+ 102 0037 02       		.uleb128 0x2
+ 103 0038 01       		.byte	0x1
+ 104 0039 08       		.byte	0x8
+ 105 003a A0010000 		.4byte	.LASF1
+ 106 003e 02       		.uleb128 0x2
+ 107 003f 02       		.byte	0x2
+ 108 0040 05       		.byte	0x5
+ 109 0041 D1000000 		.4byte	.LASF2
+ 110 0045 03       		.uleb128 0x3
+ 111 0046 B7000000 		.4byte	.LASF4
+ 112 004a 02       		.byte	0x2
+ 113 004b 2B       		.byte	0x2b
+ 114 004c 50000000 		.4byte	0x50
+ 115 0050 02       		.uleb128 0x2
+ 116 0051 02       		.byte	0x2
+ 117 0052 07       		.byte	0x7
+ 118 0053 CF020000 		.4byte	.LASF5
+ 119 0057 03       		.uleb128 0x3
+ 120 0058 7B030000 		.4byte	.LASF6
+ 121 005c 02       		.byte	0x2
+ 122 005d 3F       		.byte	0x3f
+ 123 005e 62000000 		.4byte	0x62
+ 124 0062 02       		.uleb128 0x2
+ 125 0063 04       		.byte	0x4
+ 126 0064 05       		.byte	0x5
+ 127 0065 38010000 		.4byte	.LASF7
+ 128 0069 03       		.uleb128 0x3
+ 129 006a 70030000 		.4byte	.LASF8
+ 130 006e 02       		.byte	0x2
+ 131 006f 41       		.byte	0x41
+ 132 0070 74000000 		.4byte	0x74
+ 133 0074 02       		.uleb128 0x2
+ 134 0075 04       		.byte	0x4
+ 135 0076 07       		.byte	0x7
+ 136 0077 57030000 		.4byte	.LASF9
+ 137 007b 02       		.uleb128 0x2
+ 138 007c 08       		.byte	0x8
+ 139 007d 05       		.byte	0x5
+ 140 007e 12010000 		.4byte	.LASF10
+ 141 0082 02       		.uleb128 0x2
+ 142 0083 08       		.byte	0x8
+ 143 0084 07       		.byte	0x7
+ 144 0085 DC010000 		.4byte	.LASF11
+ 145 0089 04       		.uleb128 0x4
+ 146 008a 04       		.byte	0x4
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 6
+
+
+ 147 008b 05       		.byte	0x5
+ 148 008c 696E7400 		.ascii	"int\000"
+ 149 0090 02       		.uleb128 0x2
+ 150 0091 04       		.byte	0x4
+ 151 0092 07       		.byte	0x7
+ 152 0093 FC010000 		.4byte	.LASF12
+ 153 0097 03       		.uleb128 0x3
+ 154 0098 85030000 		.4byte	.LASF13
+ 155 009c 03       		.byte	0x3
+ 156 009d 18       		.byte	0x18
+ 157 009e 2C000000 		.4byte	0x2c
+ 158 00a2 03       		.uleb128 0x3
+ 159 00a3 09020000 		.4byte	.LASF14
+ 160 00a7 03       		.byte	0x3
+ 161 00a8 24       		.byte	0x24
+ 162 00a9 45000000 		.4byte	0x45
+ 163 00ad 03       		.uleb128 0x3
+ 164 00ae 00030000 		.4byte	.LASF15
+ 165 00b2 03       		.byte	0x3
+ 166 00b3 2C       		.byte	0x2c
+ 167 00b4 57000000 		.4byte	0x57
+ 168 00b8 03       		.uleb128 0x3
+ 169 00b9 F3010000 		.4byte	.LASF16
+ 170 00bd 03       		.byte	0x3
+ 171 00be 30       		.byte	0x30
+ 172 00bf 69000000 		.4byte	0x69
+ 173 00c3 05       		.uleb128 0x5
+ 174 00c4 F8000000 		.4byte	.LASF17
+ 175 00c8 04       		.byte	0x4
+ 176 00c9 E401     		.2byte	0x1e4
+ 177 00cb 37000000 		.4byte	0x37
+ 178 00cf 05       		.uleb128 0x5
+ 179 00d0 DB000000 		.4byte	.LASF18
+ 180 00d4 04       		.byte	0x4
+ 181 00d5 E501     		.2byte	0x1e5
+ 182 00d7 50000000 		.4byte	0x50
+ 183 00db 05       		.uleb128 0x5
+ 184 00dc 50030000 		.4byte	.LASF19
+ 185 00e0 04       		.byte	0x4
+ 186 00e1 E601     		.2byte	0x1e6
+ 187 00e3 74000000 		.4byte	0x74
+ 188 00e7 02       		.uleb128 0x2
+ 189 00e8 04       		.byte	0x4
+ 190 00e9 04       		.byte	0x4
+ 191 00ea 0C010000 		.4byte	.LASF20
+ 192 00ee 02       		.uleb128 0x2
+ 193 00ef 08       		.byte	0x8
+ 194 00f0 04       		.byte	0x4
+ 195 00f1 69030000 		.4byte	.LASF21
+ 196 00f5 02       		.uleb128 0x2
+ 197 00f6 01       		.byte	0x1
+ 198 00f7 08       		.byte	0x8
+ 199 00f8 F1020000 		.4byte	.LASF22
+ 200 00fc 06       		.uleb128 0x6
+ 201 00fd 04       		.byte	0x4
+ 202 00fe 02010000 		.4byte	0x102
+ 203 0102 07       		.uleb128 0x7
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 7
+
+
+ 204 0103 02       		.uleb128 0x2
+ 205 0104 08       		.byte	0x8
+ 206 0105 04       		.byte	0x4
+ 207 0106 78010000 		.4byte	.LASF23
+ 208 010a 02       		.uleb128 0x2
+ 209 010b 04       		.byte	0x4
+ 210 010c 07       		.byte	0x7
+ 211 010d 80000000 		.4byte	.LASF24
+ 212 0111 06       		.uleb128 0x6
+ 213 0112 04       		.byte	0x4
+ 214 0113 F5000000 		.4byte	0xf5
+ 215 0117 03       		.uleb128 0x3
+ 216 0118 84010000 		.4byte	.LASF25
+ 217 011c 05       		.byte	0x5
+ 218 011d 26       		.byte	0x26
+ 219 011e FC000000 		.4byte	0xfc
+ 220 0122 08       		.uleb128 0x8
+ 221 0123 89000000 		.4byte	.LASF32
+ 222 0127 01       		.byte	0x1
+ 223 0128 06       		.byte	0x6
+ 224 0129 22       		.byte	0x22
+ 225 012a 89010000 		.4byte	0x189
+ 226 012e 09       		.uleb128 0x9
+ 227 012f AE010000 		.4byte	.LASF26
+ 228 0133 06       		.byte	0x6
+ 229 0134 23       		.byte	0x23
+ 230 0135 C3000000 		.4byte	0xc3
+ 231 0139 01       		.byte	0x1
+ 232 013a 01       		.byte	0x1
+ 233 013b 07       		.byte	0x7
+ 234 013c 00       		.byte	0
+ 235 013d 0A       		.uleb128 0xa
+ 236 013e 41636B00 		.ascii	"Ack\000"
+ 237 0142 06       		.byte	0x6
+ 238 0143 24       		.byte	0x24
+ 239 0144 C3000000 		.4byte	0xc3
+ 240 0148 01       		.byte	0x1
+ 241 0149 01       		.byte	0x1
+ 242 014a 06       		.byte	0x6
+ 243 014b 00       		.byte	0
+ 244 014c 09       		.uleb128 0x9
+ 245 014d C3010000 		.4byte	.LASF27
+ 246 0151 06       		.byte	0x6
+ 247 0152 25       		.byte	0x25
+ 248 0153 C3000000 		.4byte	0xc3
+ 249 0157 01       		.byte	0x1
+ 250 0158 01       		.byte	0x1
+ 251 0159 05       		.byte	0x5
+ 252 015a 00       		.byte	0
+ 253 015b 09       		.uleb128 0x9
+ 254 015c 3A030000 		.4byte	.LASF28
+ 255 0160 06       		.byte	0x6
+ 256 0161 26       		.byte	0x26
+ 257 0162 C3000000 		.4byte	0xc3
+ 258 0166 01       		.byte	0x1
+ 259 0167 01       		.byte	0x1
+ 260 0168 04       		.byte	0x4
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 8
+
+
+ 261 0169 00       		.byte	0
+ 262 016a 09       		.uleb128 0x9
+ 263 016b 6E010000 		.4byte	.LASF29
+ 264 016f 06       		.byte	0x6
+ 265 0170 27       		.byte	0x27
+ 266 0171 C3000000 		.4byte	0xc3
+ 267 0175 01       		.byte	0x1
+ 268 0176 01       		.byte	0x1
+ 269 0177 03       		.byte	0x3
+ 270 0178 00       		.byte	0
+ 271 0179 0A       		.uleb128 0xa
+ 272 017a 52465500 		.ascii	"RFU\000"
+ 273 017e 06       		.byte	0x6
+ 274 017f 28       		.byte	0x28
+ 275 0180 C3000000 		.4byte	0xc3
+ 276 0184 01       		.byte	0x1
+ 277 0185 03       		.byte	0x3
+ 278 0186 00       		.byte	0
+ 279 0187 00       		.byte	0
+ 280 0188 00       		.byte	0
+ 281 0189 0B       		.uleb128 0xb
+ 282 018a 96010000 		.4byte	.LASF69
+ 283 018e 01       		.byte	0x1
+ 284 018f 06       		.byte	0x6
+ 285 0190 21       		.byte	0x21
+ 286 0191 AC010000 		.4byte	0x1ac
+ 287 0195 0C       		.uleb128 0xc
+ 288 0196 A3030000 		.4byte	.LASF30
+ 289 019a 06       		.byte	0x6
+ 290 019b 29       		.byte	0x29
+ 291 019c 22010000 		.4byte	0x122
+ 292 01a0 0C       		.uleb128 0xc
+ 293 01a1 63000000 		.4byte	.LASF31
+ 294 01a5 06       		.byte	0x6
+ 295 01a6 2A       		.byte	0x2a
+ 296 01a7 C3000000 		.4byte	0xc3
+ 297 01ab 00       		.byte	0
+ 298 01ac 08       		.uleb128 0x8
+ 299 01ad 44030000 		.4byte	.LASF33
+ 300 01b1 04       		.byte	0x4
+ 301 01b2 06       		.byte	0x6
+ 302 01b3 30       		.byte	0x30
+ 303 01b4 DD010000 		.4byte	0x1dd
+ 304 01b8 0D       		.uleb128 0xd
+ 305 01b9 A3030000 		.4byte	.LASF30
+ 306 01bd 06       		.byte	0x6
+ 307 01be 31       		.byte	0x31
+ 308 01bf C3000000 		.4byte	0xc3
+ 309 01c3 00       		.byte	0
+ 310 01c4 0D       		.uleb128 0xd
+ 311 01c5 73010000 		.4byte	.LASF34
+ 312 01c9 06       		.byte	0x6
+ 313 01ca 32       		.byte	0x32
+ 314 01cb C3000000 		.4byte	0xc3
+ 315 01cf 01       		.byte	0x1
+ 316 01d0 0D       		.uleb128 0xd
+ 317 01d1 5B000000 		.4byte	.LASF35
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 9
+
+
+ 318 01d5 06       		.byte	0x6
+ 319 01d6 33       		.byte	0x33
+ 320 01d7 CF000000 		.4byte	0xcf
+ 321 01db 02       		.byte	0x2
+ 322 01dc 00       		.byte	0
+ 323 01dd 08       		.uleb128 0x8
+ 324 01de B5010000 		.4byte	.LASF36
+ 325 01e2 0C       		.byte	0xc
+ 326 01e3 06       		.byte	0x6
+ 327 01e4 2D       		.byte	0x2d
+ 328 01e5 0E020000 		.4byte	0x20e
+ 329 01e9 0D       		.uleb128 0xd
+ 330 01ea 05010000 		.4byte	.LASF37
+ 331 01ee 06       		.byte	0x6
+ 332 01ef 2E       		.byte	0x2e
+ 333 01f0 DB000000 		.4byte	0xdb
+ 334 01f4 00       		.byte	0
+ 335 01f5 0D       		.uleb128 0xd
+ 336 01f6 EA020000 		.4byte	.LASF38
+ 337 01fa 06       		.byte	0x6
+ 338 01fb 2F       		.byte	0x2f
+ 339 01fc DB000000 		.4byte	0xdb
+ 340 0200 04       		.byte	0x4
+ 341 0201 0D       		.uleb128 0xd
+ 342 0202 5D010000 		.4byte	.LASF39
+ 343 0206 06       		.byte	0x6
+ 344 0207 34       		.byte	0x34
+ 345 0208 AC010000 		.4byte	0x1ac
+ 346 020c 08       		.byte	0x8
+ 347 020d 00       		.byte	0
+ 348 020e 08       		.uleb128 0x8
+ 349 020f 2E030000 		.4byte	.LASF40
+ 350 0213 0C       		.byte	0xc
+ 351 0214 06       		.byte	0x6
+ 352 0215 37       		.byte	0x37
+ 353 0216 4B020000 		.4byte	0x24b
+ 354 021a 0D       		.uleb128 0xd
+ 355 021b E2000000 		.4byte	.LASF41
+ 356 021f 06       		.byte	0x6
+ 357 0220 38       		.byte	0x38
+ 358 0221 4B020000 		.4byte	0x24b
+ 359 0225 00       		.byte	0
+ 360 0226 0E       		.uleb128 0xe
+ 361 0227 43524300 		.ascii	"CRC\000"
+ 362 022b 06       		.byte	0x6
+ 363 022c 39       		.byte	0x39
+ 364 022d A2000000 		.4byte	0xa2
+ 365 0231 04       		.byte	0x4
+ 366 0232 0D       		.uleb128 0xd
+ 367 0233 27030000 		.4byte	.LASF42
+ 368 0237 06       		.byte	0x6
+ 369 0238 3A       		.byte	0x3a
+ 370 0239 97000000 		.4byte	0x97
+ 371 023d 06       		.byte	0x6
+ 372 023e 0D       		.uleb128 0xd
+ 373 023f E2020000 		.4byte	.LASF43
+ 374 0243 06       		.byte	0x6
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 10
+
+
+ 375 0244 3B       		.byte	0x3b
+ 376 0245 51020000 		.4byte	0x251
+ 377 0249 08       		.byte	0x8
+ 378 024a 00       		.byte	0
+ 379 024b 06       		.uleb128 0x6
+ 380 024c 04       		.byte	0x4
+ 381 024d DD010000 		.4byte	0x1dd
+ 382 0251 06       		.uleb128 0x6
+ 383 0252 04       		.byte	0x4
+ 384 0253 97000000 		.4byte	0x97
+ 385 0257 03       		.uleb128 0x3
+ 386 0258 20010000 		.4byte	.LASF44
+ 387 025c 06       		.byte	0x6
+ 388 025d 3E       		.byte	0x3e
+ 389 025e 62020000 		.4byte	0x262
+ 390 0262 06       		.uleb128 0x6
+ 391 0263 04       		.byte	0x4
+ 392 0264 68020000 		.4byte	0x268
+ 393 0268 0F       		.uleb128 0xf
+ 394 0269 73020000 		.4byte	0x273
+ 395 026d 10       		.uleb128 0x10
+ 396 026e 73020000 		.4byte	0x273
+ 397 0272 00       		.byte	0
+ 398 0273 06       		.uleb128 0x6
+ 399 0274 04       		.byte	0x4
+ 400 0275 0E020000 		.4byte	0x20e
+ 401 0279 03       		.uleb128 0x3
+ 402 027a BE020000 		.4byte	.LASF45
+ 403 027e 06       		.byte	0x6
+ 404 027f 3F       		.byte	0x3f
+ 405 0280 84020000 		.4byte	0x284
+ 406 0284 06       		.uleb128 0x6
+ 407 0285 04       		.byte	0x4
+ 408 0286 8A020000 		.4byte	0x28a
+ 409 028a 0F       		.uleb128 0xf
+ 410 028b 9A020000 		.4byte	0x29a
+ 411 028f 10       		.uleb128 0x10
+ 412 0290 9A020000 		.4byte	0x29a
+ 413 0294 10       		.uleb128 0x10
+ 414 0295 B8000000 		.4byte	0xb8
+ 415 0299 00       		.byte	0
+ 416 029a 06       		.uleb128 0x6
+ 417 029b 04       		.byte	0x4
+ 418 029c A0020000 		.4byte	0x2a0
+ 419 02a0 11       		.uleb128 0x11
+ 420 02a1 97000000 		.4byte	0x97
+ 421 02a5 08       		.uleb128 0x8
+ 422 02a6 12020000 		.4byte	.LASF46
+ 423 02aa 0C       		.byte	0xc
+ 424 02ab 06       		.byte	0x6
+ 425 02ac 41       		.byte	0x41
+ 426 02ad D6020000 		.4byte	0x2d6
+ 427 02b1 0D       		.uleb128 0xd
+ 428 02b2 73010000 		.4byte	.LASF34
+ 429 02b6 06       		.byte	0x6
+ 430 02b7 42       		.byte	0x42
+ 431 02b8 97000000 		.4byte	0x97
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 11
+
+
+ 432 02bc 00       		.byte	0
+ 433 02bd 0D       		.uleb128 0xd
+ 434 02be 00000000 		.4byte	.LASF47
+ 435 02c2 06       		.byte	0x6
+ 436 02c3 43       		.byte	0x43
+ 437 02c4 57020000 		.4byte	0x257
+ 438 02c8 04       		.byte	0x4
+ 439 02c9 0D       		.uleb128 0xd
+ 440 02ca AA030000 		.4byte	.LASF48
+ 441 02ce 06       		.byte	0x6
+ 442 02cf 44       		.byte	0x44
+ 443 02d0 D6020000 		.4byte	0x2d6
+ 444 02d4 08       		.byte	0x8
+ 445 02d5 00       		.byte	0
+ 446 02d6 06       		.uleb128 0x6
+ 447 02d7 04       		.byte	0x4
+ 448 02d8 A5020000 		.4byte	0x2a5
+ 449 02dc 08       		.uleb128 0x8
+ 450 02dd F6020000 		.4byte	.LASF49
+ 451 02e1 20       		.byte	0x20
+ 452 02e2 06       		.byte	0x6
+ 453 02e3 48       		.byte	0x48
+ 454 02e4 19030000 		.4byte	0x319
+ 455 02e8 0D       		.uleb128 0xd
+ 456 02e9 E9000000 		.4byte	.LASF50
+ 457 02ed 06       		.byte	0x6
+ 458 02ee 49       		.byte	0x49
+ 459 02ef DB000000 		.4byte	0xdb
+ 460 02f3 00       		.byte	0
+ 461 02f4 0E       		.uleb128 0xe
+ 462 02f5 55494400 		.ascii	"UID\000"
+ 463 02f9 06       		.byte	0x6
+ 464 02fa 4A       		.byte	0x4a
+ 465 02fb DB000000 		.4byte	0xdb
+ 466 02ff 04       		.byte	0x4
+ 467 0300 0D       		.uleb128 0xd
+ 468 0301 AA000000 		.4byte	.LASF51
+ 469 0305 06       		.byte	0x6
+ 470 0306 4B       		.byte	0x4b
+ 471 0307 19030000 		.4byte	0x319
+ 472 030b 08       		.byte	0x8
+ 473 030c 0D       		.uleb128 0xd
+ 474 030d 46010000 		.4byte	.LASF52
+ 475 0311 06       		.byte	0x6
+ 476 0312 4C       		.byte	0x4c
+ 477 0313 DB000000 		.4byte	0xdb
+ 478 0317 1C       		.byte	0x1c
+ 479 0318 00       		.byte	0
+ 480 0319 12       		.uleb128 0x12
+ 481 031a F5000000 		.4byte	0xf5
+ 482 031e 29030000 		.4byte	0x329
+ 483 0322 13       		.uleb128 0x13
+ 484 0323 0A010000 		.4byte	0x10a
+ 485 0327 13       		.byte	0x13
+ 486 0328 00       		.byte	0
+ 487 0329 08       		.uleb128 0x8
+ 488 032a 92000000 		.4byte	.LASF53
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 12
+
+
+ 489 032e 08       		.byte	0x8
+ 490 032f 06       		.byte	0x6
+ 491 0330 4E       		.byte	0x4e
+ 492 0331 4E030000 		.4byte	0x34e
+ 493 0335 0E       		.uleb128 0xe
+ 494 0336 44435000 		.ascii	"DCP\000"
+ 495 033a 06       		.byte	0x6
+ 496 033b 4F       		.byte	0x4f
+ 497 033c 57020000 		.4byte	0x257
+ 498 0340 00       		.byte	0
+ 499 0341 0D       		.uleb128 0xd
+ 500 0342 41010000 		.4byte	.LASF54
+ 501 0346 06       		.byte	0x6
+ 502 0347 50       		.byte	0x50
+ 503 0348 D6020000 		.4byte	0x2d6
+ 504 034c 04       		.byte	0x4
+ 505 034d 00       		.byte	0
+ 506 034e 08       		.uleb128 0x8
+ 507 034f 71000000 		.4byte	.LASF55
+ 508 0353 2C       		.byte	0x2c
+ 509 0354 06       		.byte	0x6
+ 510 0355 47       		.byte	0x47
+ 511 0356 7F030000 		.4byte	0x37f
+ 512 035a 0D       		.uleb128 0xd
+ 513 035b AF000000 		.4byte	.LASF56
+ 514 035f 06       		.byte	0x6
+ 515 0360 4D       		.byte	0x4d
+ 516 0361 DC020000 		.4byte	0x2dc
+ 517 0365 00       		.byte	0
+ 518 0366 0D       		.uleb128 0xd
+ 519 0367 6B000000 		.4byte	.LASF57
+ 520 036b 06       		.byte	0x6
+ 521 036c 51       		.byte	0x51
+ 522 036d 29030000 		.4byte	0x329
+ 523 0371 20       		.byte	0x20
+ 524 0372 0D       		.uleb128 0xd
+ 525 0373 8D030000 		.4byte	.LASF58
+ 526 0377 06       		.byte	0x6
+ 527 0378 52       		.byte	0x52
+ 528 0379 79020000 		.4byte	0x279
+ 529 037d 28       		.byte	0x28
+ 530 037e 00       		.byte	0
+ 531 037f 14       		.uleb128 0x14
+ 532 0380 FE000000 		.4byte	.LASF70
+ 533 0384 01       		.byte	0x1
+ 534 0385 82       		.byte	0x82
+ 535 0386 89000000 		.4byte	0x89
+ 536 038a 00000000 		.4byte	.LFB64
+ 537 038e 1C000000 		.4byte	.LFE64-.LFB64
+ 538 0392 01       		.uleb128 0x1
+ 539 0393 9C       		.byte	0x9c
+ 540 0394 DC030000 		.4byte	0x3dc
+ 541 0398 15       		.uleb128 0x15
+ 542 0399 C2000000 		.4byte	.LASF59
+ 543 039d 01       		.byte	0x1
+ 544 039e 82       		.byte	0x82
+ 545 039f 89000000 		.4byte	0x89
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 13
+
+
+ 546 03a3 00000000 		.4byte	.LLST0
+ 547 03a7 16       		.uleb128 0x16
+ 548 03a8 70747200 		.ascii	"ptr\000"
+ 549 03ac 01       		.byte	0x1
+ 550 03ad 82       		.byte	0x82
+ 551 03ae 11010000 		.4byte	0x111
+ 552 03b2 21000000 		.4byte	.LLST1
+ 553 03b6 16       		.uleb128 0x16
+ 554 03b7 6C656E00 		.ascii	"len\000"
+ 555 03bb 01       		.byte	0x1
+ 556 03bc 82       		.byte	0x82
+ 557 03bd 89000000 		.4byte	0x89
+ 558 03c1 57000000 		.4byte	.LLST2
+ 559 03c5 17       		.uleb128 0x17
+ 560 03c6 6900     		.ascii	"i\000"
+ 561 03c8 01       		.byte	0x1
+ 562 03c9 84       		.byte	0x84
+ 563 03ca 89000000 		.4byte	0x89
+ 564 03ce 75000000 		.4byte	.LLST3
+ 565 03d2 18       		.uleb128 0x18
+ 566 03d3 16000000 		.4byte	.LVL4
+ 567 03d7 58060000 		.4byte	0x658
+ 568 03db 00       		.byte	0
+ 569 03dc 12       		.uleb128 0x12
+ 570 03dd EC030000 		.4byte	0x3ec
+ 571 03e1 EC030000 		.4byte	0x3ec
+ 572 03e5 13       		.uleb128 0x13
+ 573 03e6 0A010000 		.4byte	0x10a
+ 574 03ea FF       		.byte	0xff
+ 575 03eb 00       		.byte	0
+ 576 03ec 11       		.uleb128 0x11
+ 577 03ed A2000000 		.4byte	0xa2
+ 578 03f1 19       		.uleb128 0x19
+ 579 03f2 C7000000 		.4byte	.LASF60
+ 580 03f6 08       		.byte	0x8
+ 581 03f7 6C       		.byte	0x6c
+ 582 03f8 FE050000 		.4byte	0x5fe
+ 583 03fc 0002     		.2byte	0x200
+ 584 03fe 00       		.byte	0
+ 585 03ff 00       		.byte	0
+ 586 0400 C1       		.byte	0xc1
+ 587 0401 C0       		.byte	0xc0
+ 588 0402 81       		.byte	0x81
+ 589 0403 C1       		.byte	0xc1
+ 590 0404 40       		.byte	0x40
+ 591 0405 01       		.byte	0x1
+ 592 0406 01       		.byte	0x1
+ 593 0407 C3       		.byte	0xc3
+ 594 0408 C0       		.byte	0xc0
+ 595 0409 03       		.byte	0x3
+ 596 040a 80       		.byte	0x80
+ 597 040b 02       		.byte	0x2
+ 598 040c 41       		.byte	0x41
+ 599 040d C2       		.byte	0xc2
+ 600 040e 01       		.byte	0x1
+ 601 040f C6       		.byte	0xc6
+ 602 0410 C0       		.byte	0xc0
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 14
+
+
+ 603 0411 06       		.byte	0x6
+ 604 0412 80       		.byte	0x80
+ 605 0413 07       		.byte	0x7
+ 606 0414 41       		.byte	0x41
+ 607 0415 C7       		.byte	0xc7
+ 608 0416 00       		.byte	0
+ 609 0417 05       		.byte	0x5
+ 610 0418 C1       		.byte	0xc1
+ 611 0419 C5       		.byte	0xc5
+ 612 041a 81       		.byte	0x81
+ 613 041b C4       		.byte	0xc4
+ 614 041c 40       		.byte	0x40
+ 615 041d 04       		.byte	0x4
+ 616 041e 01       		.byte	0x1
+ 617 041f CC       		.byte	0xcc
+ 618 0420 C0       		.byte	0xc0
+ 619 0421 0C       		.byte	0xc
+ 620 0422 80       		.byte	0x80
+ 621 0423 0D       		.byte	0xd
+ 622 0424 41       		.byte	0x41
+ 623 0425 CD       		.byte	0xcd
+ 624 0426 00       		.byte	0
+ 625 0427 0F       		.byte	0xf
+ 626 0428 C1       		.byte	0xc1
+ 627 0429 CF       		.byte	0xcf
+ 628 042a 81       		.byte	0x81
+ 629 042b CE       		.byte	0xce
+ 630 042c 40       		.byte	0x40
+ 631 042d 0E       		.byte	0xe
+ 632 042e 00       		.byte	0
+ 633 042f 0A       		.byte	0xa
+ 634 0430 C1       		.byte	0xc1
+ 635 0431 CA       		.byte	0xca
+ 636 0432 81       		.byte	0x81
+ 637 0433 CB       		.byte	0xcb
+ 638 0434 40       		.byte	0x40
+ 639 0435 0B       		.byte	0xb
+ 640 0436 01       		.byte	0x1
+ 641 0437 C9       		.byte	0xc9
+ 642 0438 C0       		.byte	0xc0
+ 643 0439 09       		.byte	0x9
+ 644 043a 80       		.byte	0x80
+ 645 043b 08       		.byte	0x8
+ 646 043c 41       		.byte	0x41
+ 647 043d C8       		.byte	0xc8
+ 648 043e 01       		.byte	0x1
+ 649 043f D8       		.byte	0xd8
+ 650 0440 C0       		.byte	0xc0
+ 651 0441 18       		.byte	0x18
+ 652 0442 80       		.byte	0x80
+ 653 0443 19       		.byte	0x19
+ 654 0444 41       		.byte	0x41
+ 655 0445 D9       		.byte	0xd9
+ 656 0446 00       		.byte	0
+ 657 0447 1B       		.byte	0x1b
+ 658 0448 C1       		.byte	0xc1
+ 659 0449 DB       		.byte	0xdb
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 15
+
+
+ 660 044a 81       		.byte	0x81
+ 661 044b DA       		.byte	0xda
+ 662 044c 40       		.byte	0x40
+ 663 044d 1A       		.byte	0x1a
+ 664 044e 00       		.byte	0
+ 665 044f 1E       		.byte	0x1e
+ 666 0450 C1       		.byte	0xc1
+ 667 0451 DE       		.byte	0xde
+ 668 0452 81       		.byte	0x81
+ 669 0453 DF       		.byte	0xdf
+ 670 0454 40       		.byte	0x40
+ 671 0455 1F       		.byte	0x1f
+ 672 0456 01       		.byte	0x1
+ 673 0457 DD       		.byte	0xdd
+ 674 0458 C0       		.byte	0xc0
+ 675 0459 1D       		.byte	0x1d
+ 676 045a 80       		.byte	0x80
+ 677 045b 1C       		.byte	0x1c
+ 678 045c 41       		.byte	0x41
+ 679 045d DC       		.byte	0xdc
+ 680 045e 00       		.byte	0
+ 681 045f 14       		.byte	0x14
+ 682 0460 C1       		.byte	0xc1
+ 683 0461 D4       		.byte	0xd4
+ 684 0462 81       		.byte	0x81
+ 685 0463 D5       		.byte	0xd5
+ 686 0464 40       		.byte	0x40
+ 687 0465 15       		.byte	0x15
+ 688 0466 01       		.byte	0x1
+ 689 0467 D7       		.byte	0xd7
+ 690 0468 C0       		.byte	0xc0
+ 691 0469 17       		.byte	0x17
+ 692 046a 80       		.byte	0x80
+ 693 046b 16       		.byte	0x16
+ 694 046c 41       		.byte	0x41
+ 695 046d D6       		.byte	0xd6
+ 696 046e 01       		.byte	0x1
+ 697 046f D2       		.byte	0xd2
+ 698 0470 C0       		.byte	0xc0
+ 699 0471 12       		.byte	0x12
+ 700 0472 80       		.byte	0x80
+ 701 0473 13       		.byte	0x13
+ 702 0474 41       		.byte	0x41
+ 703 0475 D3       		.byte	0xd3
+ 704 0476 00       		.byte	0
+ 705 0477 11       		.byte	0x11
+ 706 0478 C1       		.byte	0xc1
+ 707 0479 D1       		.byte	0xd1
+ 708 047a 81       		.byte	0x81
+ 709 047b D0       		.byte	0xd0
+ 710 047c 40       		.byte	0x40
+ 711 047d 10       		.byte	0x10
+ 712 047e 01       		.byte	0x1
+ 713 047f F0       		.byte	0xf0
+ 714 0480 C0       		.byte	0xc0
+ 715 0481 30       		.byte	0x30
+ 716 0482 80       		.byte	0x80
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 16
+
+
+ 717 0483 31       		.byte	0x31
+ 718 0484 41       		.byte	0x41
+ 719 0485 F1       		.byte	0xf1
+ 720 0486 00       		.byte	0
+ 721 0487 33       		.byte	0x33
+ 722 0488 C1       		.byte	0xc1
+ 723 0489 F3       		.byte	0xf3
+ 724 048a 81       		.byte	0x81
+ 725 048b F2       		.byte	0xf2
+ 726 048c 40       		.byte	0x40
+ 727 048d 32       		.byte	0x32
+ 728 048e 00       		.byte	0
+ 729 048f 36       		.byte	0x36
+ 730 0490 C1       		.byte	0xc1
+ 731 0491 F6       		.byte	0xf6
+ 732 0492 81       		.byte	0x81
+ 733 0493 F7       		.byte	0xf7
+ 734 0494 40       		.byte	0x40
+ 735 0495 37       		.byte	0x37
+ 736 0496 01       		.byte	0x1
+ 737 0497 F5       		.byte	0xf5
+ 738 0498 C0       		.byte	0xc0
+ 739 0499 35       		.byte	0x35
+ 740 049a 80       		.byte	0x80
+ 741 049b 34       		.byte	0x34
+ 742 049c 41       		.byte	0x41
+ 743 049d F4       		.byte	0xf4
+ 744 049e 00       		.byte	0
+ 745 049f 3C       		.byte	0x3c
+ 746 04a0 C1       		.byte	0xc1
+ 747 04a1 FC       		.byte	0xfc
+ 748 04a2 81       		.byte	0x81
+ 749 04a3 FD       		.byte	0xfd
+ 750 04a4 40       		.byte	0x40
+ 751 04a5 3D       		.byte	0x3d
+ 752 04a6 01       		.byte	0x1
+ 753 04a7 FF       		.byte	0xff
+ 754 04a8 C0       		.byte	0xc0
+ 755 04a9 3F       		.byte	0x3f
+ 756 04aa 80       		.byte	0x80
+ 757 04ab 3E       		.byte	0x3e
+ 758 04ac 41       		.byte	0x41
+ 759 04ad FE       		.byte	0xfe
+ 760 04ae 01       		.byte	0x1
+ 761 04af FA       		.byte	0xfa
+ 762 04b0 C0       		.byte	0xc0
+ 763 04b1 3A       		.byte	0x3a
+ 764 04b2 80       		.byte	0x80
+ 765 04b3 3B       		.byte	0x3b
+ 766 04b4 41       		.byte	0x41
+ 767 04b5 FB       		.byte	0xfb
+ 768 04b6 00       		.byte	0
+ 769 04b7 39       		.byte	0x39
+ 770 04b8 C1       		.byte	0xc1
+ 771 04b9 F9       		.byte	0xf9
+ 772 04ba 81       		.byte	0x81
+ 773 04bb F8       		.byte	0xf8
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 17
+
+
+ 774 04bc 40       		.byte	0x40
+ 775 04bd 38       		.byte	0x38
+ 776 04be 00       		.byte	0
+ 777 04bf 28       		.byte	0x28
+ 778 04c0 C1       		.byte	0xc1
+ 779 04c1 E8       		.byte	0xe8
+ 780 04c2 81       		.byte	0x81
+ 781 04c3 E9       		.byte	0xe9
+ 782 04c4 40       		.byte	0x40
+ 783 04c5 29       		.byte	0x29
+ 784 04c6 01       		.byte	0x1
+ 785 04c7 EB       		.byte	0xeb
+ 786 04c8 C0       		.byte	0xc0
+ 787 04c9 2B       		.byte	0x2b
+ 788 04ca 80       		.byte	0x80
+ 789 04cb 2A       		.byte	0x2a
+ 790 04cc 41       		.byte	0x41
+ 791 04cd EA       		.byte	0xea
+ 792 04ce 01       		.byte	0x1
+ 793 04cf EE       		.byte	0xee
+ 794 04d0 C0       		.byte	0xc0
+ 795 04d1 2E       		.byte	0x2e
+ 796 04d2 80       		.byte	0x80
+ 797 04d3 2F       		.byte	0x2f
+ 798 04d4 41       		.byte	0x41
+ 799 04d5 EF       		.byte	0xef
+ 800 04d6 00       		.byte	0
+ 801 04d7 2D       		.byte	0x2d
+ 802 04d8 C1       		.byte	0xc1
+ 803 04d9 ED       		.byte	0xed
+ 804 04da 81       		.byte	0x81
+ 805 04db EC       		.byte	0xec
+ 806 04dc 40       		.byte	0x40
+ 807 04dd 2C       		.byte	0x2c
+ 808 04de 01       		.byte	0x1
+ 809 04df E4       		.byte	0xe4
+ 810 04e0 C0       		.byte	0xc0
+ 811 04e1 24       		.byte	0x24
+ 812 04e2 80       		.byte	0x80
+ 813 04e3 25       		.byte	0x25
+ 814 04e4 41       		.byte	0x41
+ 815 04e5 E5       		.byte	0xe5
+ 816 04e6 00       		.byte	0
+ 817 04e7 27       		.byte	0x27
+ 818 04e8 C1       		.byte	0xc1
+ 819 04e9 E7       		.byte	0xe7
+ 820 04ea 81       		.byte	0x81
+ 821 04eb E6       		.byte	0xe6
+ 822 04ec 40       		.byte	0x40
+ 823 04ed 26       		.byte	0x26
+ 824 04ee 00       		.byte	0
+ 825 04ef 22       		.byte	0x22
+ 826 04f0 C1       		.byte	0xc1
+ 827 04f1 E2       		.byte	0xe2
+ 828 04f2 81       		.byte	0x81
+ 829 04f3 E3       		.byte	0xe3
+ 830 04f4 40       		.byte	0x40
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 18
+
+
+ 831 04f5 23       		.byte	0x23
+ 832 04f6 01       		.byte	0x1
+ 833 04f7 E1       		.byte	0xe1
+ 834 04f8 C0       		.byte	0xc0
+ 835 04f9 21       		.byte	0x21
+ 836 04fa 80       		.byte	0x80
+ 837 04fb 20       		.byte	0x20
+ 838 04fc 41       		.byte	0x41
+ 839 04fd E0       		.byte	0xe0
+ 840 04fe 01       		.byte	0x1
+ 841 04ff A0       		.byte	0xa0
+ 842 0500 C0       		.byte	0xc0
+ 843 0501 60       		.byte	0x60
+ 844 0502 80       		.byte	0x80
+ 845 0503 61       		.byte	0x61
+ 846 0504 41       		.byte	0x41
+ 847 0505 A1       		.byte	0xa1
+ 848 0506 00       		.byte	0
+ 849 0507 63       		.byte	0x63
+ 850 0508 C1       		.byte	0xc1
+ 851 0509 A3       		.byte	0xa3
+ 852 050a 81       		.byte	0x81
+ 853 050b A2       		.byte	0xa2
+ 854 050c 40       		.byte	0x40
+ 855 050d 62       		.byte	0x62
+ 856 050e 00       		.byte	0
+ 857 050f 66       		.byte	0x66
+ 858 0510 C1       		.byte	0xc1
+ 859 0511 A6       		.byte	0xa6
+ 860 0512 81       		.byte	0x81
+ 861 0513 A7       		.byte	0xa7
+ 862 0514 40       		.byte	0x40
+ 863 0515 67       		.byte	0x67
+ 864 0516 01       		.byte	0x1
+ 865 0517 A5       		.byte	0xa5
+ 866 0518 C0       		.byte	0xc0
+ 867 0519 65       		.byte	0x65
+ 868 051a 80       		.byte	0x80
+ 869 051b 64       		.byte	0x64
+ 870 051c 41       		.byte	0x41
+ 871 051d A4       		.byte	0xa4
+ 872 051e 00       		.byte	0
+ 873 051f 6C       		.byte	0x6c
+ 874 0520 C1       		.byte	0xc1
+ 875 0521 AC       		.byte	0xac
+ 876 0522 81       		.byte	0x81
+ 877 0523 AD       		.byte	0xad
+ 878 0524 40       		.byte	0x40
+ 879 0525 6D       		.byte	0x6d
+ 880 0526 01       		.byte	0x1
+ 881 0527 AF       		.byte	0xaf
+ 882 0528 C0       		.byte	0xc0
+ 883 0529 6F       		.byte	0x6f
+ 884 052a 80       		.byte	0x80
+ 885 052b 6E       		.byte	0x6e
+ 886 052c 41       		.byte	0x41
+ 887 052d AE       		.byte	0xae
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 19
+
+
+ 888 052e 01       		.byte	0x1
+ 889 052f AA       		.byte	0xaa
+ 890 0530 C0       		.byte	0xc0
+ 891 0531 6A       		.byte	0x6a
+ 892 0532 80       		.byte	0x80
+ 893 0533 6B       		.byte	0x6b
+ 894 0534 41       		.byte	0x41
+ 895 0535 AB       		.byte	0xab
+ 896 0536 00       		.byte	0
+ 897 0537 69       		.byte	0x69
+ 898 0538 C1       		.byte	0xc1
+ 899 0539 A9       		.byte	0xa9
+ 900 053a 81       		.byte	0x81
+ 901 053b A8       		.byte	0xa8
+ 902 053c 40       		.byte	0x40
+ 903 053d 68       		.byte	0x68
+ 904 053e 00       		.byte	0
+ 905 053f 78       		.byte	0x78
+ 906 0540 C1       		.byte	0xc1
+ 907 0541 B8       		.byte	0xb8
+ 908 0542 81       		.byte	0x81
+ 909 0543 B9       		.byte	0xb9
+ 910 0544 40       		.byte	0x40
+ 911 0545 79       		.byte	0x79
+ 912 0546 01       		.byte	0x1
+ 913 0547 BB       		.byte	0xbb
+ 914 0548 C0       		.byte	0xc0
+ 915 0549 7B       		.byte	0x7b
+ 916 054a 80       		.byte	0x80
+ 917 054b 7A       		.byte	0x7a
+ 918 054c 41       		.byte	0x41
+ 919 054d BA       		.byte	0xba
+ 920 054e 01       		.byte	0x1
+ 921 054f BE       		.byte	0xbe
+ 922 0550 C0       		.byte	0xc0
+ 923 0551 7E       		.byte	0x7e
+ 924 0552 80       		.byte	0x80
+ 925 0553 7F       		.byte	0x7f
+ 926 0554 41       		.byte	0x41
+ 927 0555 BF       		.byte	0xbf
+ 928 0556 00       		.byte	0
+ 929 0557 7D       		.byte	0x7d
+ 930 0558 C1       		.byte	0xc1
+ 931 0559 BD       		.byte	0xbd
+ 932 055a 81       		.byte	0x81
+ 933 055b BC       		.byte	0xbc
+ 934 055c 40       		.byte	0x40
+ 935 055d 7C       		.byte	0x7c
+ 936 055e 01       		.byte	0x1
+ 937 055f B4       		.byte	0xb4
+ 938 0560 C0       		.byte	0xc0
+ 939 0561 74       		.byte	0x74
+ 940 0562 80       		.byte	0x80
+ 941 0563 75       		.byte	0x75
+ 942 0564 41       		.byte	0x41
+ 943 0565 B5       		.byte	0xb5
+ 944 0566 00       		.byte	0
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 20
+
+
+ 945 0567 77       		.byte	0x77
+ 946 0568 C1       		.byte	0xc1
+ 947 0569 B7       		.byte	0xb7
+ 948 056a 81       		.byte	0x81
+ 949 056b B6       		.byte	0xb6
+ 950 056c 40       		.byte	0x40
+ 951 056d 76       		.byte	0x76
+ 952 056e 00       		.byte	0
+ 953 056f 72       		.byte	0x72
+ 954 0570 C1       		.byte	0xc1
+ 955 0571 B2       		.byte	0xb2
+ 956 0572 81       		.byte	0x81
+ 957 0573 B3       		.byte	0xb3
+ 958 0574 40       		.byte	0x40
+ 959 0575 73       		.byte	0x73
+ 960 0576 01       		.byte	0x1
+ 961 0577 B1       		.byte	0xb1
+ 962 0578 C0       		.byte	0xc0
+ 963 0579 71       		.byte	0x71
+ 964 057a 80       		.byte	0x80
+ 965 057b 70       		.byte	0x70
+ 966 057c 41       		.byte	0x41
+ 967 057d B0       		.byte	0xb0
+ 968 057e 00       		.byte	0
+ 969 057f 50       		.byte	0x50
+ 970 0580 C1       		.byte	0xc1
+ 971 0581 90       		.byte	0x90
+ 972 0582 81       		.byte	0x81
+ 973 0583 91       		.byte	0x91
+ 974 0584 40       		.byte	0x40
+ 975 0585 51       		.byte	0x51
+ 976 0586 01       		.byte	0x1
+ 977 0587 93       		.byte	0x93
+ 978 0588 C0       		.byte	0xc0
+ 979 0589 53       		.byte	0x53
+ 980 058a 80       		.byte	0x80
+ 981 058b 52       		.byte	0x52
+ 982 058c 41       		.byte	0x41
+ 983 058d 92       		.byte	0x92
+ 984 058e 01       		.byte	0x1
+ 985 058f 96       		.byte	0x96
+ 986 0590 C0       		.byte	0xc0
+ 987 0591 56       		.byte	0x56
+ 988 0592 80       		.byte	0x80
+ 989 0593 57       		.byte	0x57
+ 990 0594 41       		.byte	0x41
+ 991 0595 97       		.byte	0x97
+ 992 0596 00       		.byte	0
+ 993 0597 55       		.byte	0x55
+ 994 0598 C1       		.byte	0xc1
+ 995 0599 95       		.byte	0x95
+ 996 059a 81       		.byte	0x81
+ 997 059b 94       		.byte	0x94
+ 998 059c 40       		.byte	0x40
+ 999 059d 54       		.byte	0x54
+ 1000 059e 01       		.byte	0x1
+ 1001 059f 9C       		.byte	0x9c
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 21
+
+
+ 1002 05a0 C0       		.byte	0xc0
+ 1003 05a1 5C       		.byte	0x5c
+ 1004 05a2 80       		.byte	0x80
+ 1005 05a3 5D       		.byte	0x5d
+ 1006 05a4 41       		.byte	0x41
+ 1007 05a5 9D       		.byte	0x9d
+ 1008 05a6 00       		.byte	0
+ 1009 05a7 5F       		.byte	0x5f
+ 1010 05a8 C1       		.byte	0xc1
+ 1011 05a9 9F       		.byte	0x9f
+ 1012 05aa 81       		.byte	0x81
+ 1013 05ab 9E       		.byte	0x9e
+ 1014 05ac 40       		.byte	0x40
+ 1015 05ad 5E       		.byte	0x5e
+ 1016 05ae 00       		.byte	0
+ 1017 05af 5A       		.byte	0x5a
+ 1018 05b0 C1       		.byte	0xc1
+ 1019 05b1 9A       		.byte	0x9a
+ 1020 05b2 81       		.byte	0x81
+ 1021 05b3 9B       		.byte	0x9b
+ 1022 05b4 40       		.byte	0x40
+ 1023 05b5 5B       		.byte	0x5b
+ 1024 05b6 01       		.byte	0x1
+ 1025 05b7 99       		.byte	0x99
+ 1026 05b8 C0       		.byte	0xc0
+ 1027 05b9 59       		.byte	0x59
+ 1028 05ba 80       		.byte	0x80
+ 1029 05bb 58       		.byte	0x58
+ 1030 05bc 41       		.byte	0x41
+ 1031 05bd 98       		.byte	0x98
+ 1032 05be 01       		.byte	0x1
+ 1033 05bf 88       		.byte	0x88
+ 1034 05c0 C0       		.byte	0xc0
+ 1035 05c1 48       		.byte	0x48
+ 1036 05c2 80       		.byte	0x80
+ 1037 05c3 49       		.byte	0x49
+ 1038 05c4 41       		.byte	0x41
+ 1039 05c5 89       		.byte	0x89
+ 1040 05c6 00       		.byte	0
+ 1041 05c7 4B       		.byte	0x4b
+ 1042 05c8 C1       		.byte	0xc1
+ 1043 05c9 8B       		.byte	0x8b
+ 1044 05ca 81       		.byte	0x81
+ 1045 05cb 8A       		.byte	0x8a
+ 1046 05cc 40       		.byte	0x40
+ 1047 05cd 4A       		.byte	0x4a
+ 1048 05ce 00       		.byte	0
+ 1049 05cf 4E       		.byte	0x4e
+ 1050 05d0 C1       		.byte	0xc1
+ 1051 05d1 8E       		.byte	0x8e
+ 1052 05d2 81       		.byte	0x81
+ 1053 05d3 8F       		.byte	0x8f
+ 1054 05d4 40       		.byte	0x40
+ 1055 05d5 4F       		.byte	0x4f
+ 1056 05d6 01       		.byte	0x1
+ 1057 05d7 8D       		.byte	0x8d
+ 1058 05d8 C0       		.byte	0xc0
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 22
+
+
+ 1059 05d9 4D       		.byte	0x4d
+ 1060 05da 80       		.byte	0x80
+ 1061 05db 4C       		.byte	0x4c
+ 1062 05dc 41       		.byte	0x41
+ 1063 05dd 8C       		.byte	0x8c
+ 1064 05de 00       		.byte	0
+ 1065 05df 44       		.byte	0x44
+ 1066 05e0 C1       		.byte	0xc1
+ 1067 05e1 84       		.byte	0x84
+ 1068 05e2 81       		.byte	0x81
+ 1069 05e3 85       		.byte	0x85
+ 1070 05e4 40       		.byte	0x40
+ 1071 05e5 45       		.byte	0x45
+ 1072 05e6 01       		.byte	0x1
+ 1073 05e7 87       		.byte	0x87
+ 1074 05e8 C0       		.byte	0xc0
+ 1075 05e9 47       		.byte	0x47
+ 1076 05ea 80       		.byte	0x80
+ 1077 05eb 46       		.byte	0x46
+ 1078 05ec 41       		.byte	0x41
+ 1079 05ed 86       		.byte	0x86
+ 1080 05ee 01       		.byte	0x1
+ 1081 05ef 82       		.byte	0x82
+ 1082 05f0 C0       		.byte	0xc0
+ 1083 05f1 42       		.byte	0x42
+ 1084 05f2 80       		.byte	0x80
+ 1085 05f3 43       		.byte	0x43
+ 1086 05f4 41       		.byte	0x41
+ 1087 05f5 83       		.byte	0x83
+ 1088 05f6 00       		.byte	0
+ 1089 05f7 41       		.byte	0x41
+ 1090 05f8 C1       		.byte	0xc1
+ 1091 05f9 81       		.byte	0x81
+ 1092 05fa 81       		.byte	0x81
+ 1093 05fb 80       		.byte	0x80
+ 1094 05fc 40       		.byte	0x40
+ 1095 05fd 40       		.byte	0x40
+ 1096 05fe 11       		.uleb128 0x11
+ 1097 05ff DC030000 		.4byte	0x3dc
+ 1098 0603 1A       		.uleb128 0x1a
+ 1099 0604 1F020000 		.4byte	.LASF61
+ 1100 0608 05       		.byte	0x5
+ 1101 0609 27       		.byte	0x27
+ 1102 060a 17010000 		.4byte	0x117
+ 1103 060e 05       		.uleb128 0x5
+ 1104 060f 03       		.byte	0x3
+ 1105 0610 00000000 		.4byte	StripLights_Done
+ 1106 0614 1A       		.uleb128 0x1a
+ 1107 0615 08030000 		.4byte	.LASF62
+ 1108 0619 05       		.byte	0x5
+ 1109 061a 29       		.byte	0x29
+ 1110 061b C3000000 		.4byte	0xc3
+ 1111 061f 05       		.uleb128 0x5
+ 1112 0620 03       		.byte	0x3
+ 1113 0621 00000000 		.4byte	StripLights_UseGammaCorrection
+ 1114 0625 1B       		.uleb128 0x1b
+ 1115 0626 96030000 		.4byte	.LASF63
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 23
+
+
+ 1116 062a 07       		.byte	0x7
+ 1117 062b 1207     		.2byte	0x712
+ 1118 062d 31060000 		.4byte	0x631
+ 1119 0631 1C       		.uleb128 0x1c
+ 1120 0632 AD000000 		.4byte	0xad
+ 1121 0636 1A       		.uleb128 0x1a
+ 1122 0637 A1000000 		.4byte	.LASF64
+ 1123 063b 06       		.byte	0x6
+ 1124 063c 2B       		.byte	0x2b
+ 1125 063d 89010000 		.4byte	0x189
+ 1126 0641 05       		.uleb128 0x5
+ 1127 0642 03       		.byte	0x3
+ 1128 0643 00000000 		.4byte	System_u
+ 1129 0647 1A       		.uleb128 0x1a
+ 1130 0648 67010000 		.4byte	.LASF65
+ 1131 064c 06       		.byte	0x6
+ 1132 064d 54       		.byte	0x54
+ 1133 064e 4E030000 		.4byte	0x34e
+ 1134 0652 05       		.uleb128 0x5
+ 1135 0653 03       		.byte	0x3
+ 1136 0654 00000000 		.4byte	Config
+ 1137 0658 1D       		.uleb128 0x1d
+ 1138 0659 AF030000 		.4byte	.LASF71
+ 1139 065d AF030000 		.4byte	.LASF71
+ 1140 0661 09       		.byte	0x9
+ 1141 0662 8A       		.byte	0x8a
+ 1142 0663 00       		.byte	0
+ 1143              		.section	.debug_abbrev,"",%progbits
+ 1144              	.Ldebug_abbrev0:
+ 1145 0000 01       		.uleb128 0x1
+ 1146 0001 11       		.uleb128 0x11
+ 1147 0002 01       		.byte	0x1
+ 1148 0003 25       		.uleb128 0x25
+ 1149 0004 0E       		.uleb128 0xe
+ 1150 0005 13       		.uleb128 0x13
+ 1151 0006 0B       		.uleb128 0xb
+ 1152 0007 03       		.uleb128 0x3
+ 1153 0008 0E       		.uleb128 0xe
+ 1154 0009 1B       		.uleb128 0x1b
+ 1155 000a 0E       		.uleb128 0xe
+ 1156 000b 55       		.uleb128 0x55
+ 1157 000c 17       		.uleb128 0x17
+ 1158 000d 11       		.uleb128 0x11
+ 1159 000e 01       		.uleb128 0x1
+ 1160 000f 10       		.uleb128 0x10
+ 1161 0010 17       		.uleb128 0x17
+ 1162 0011 00       		.byte	0
+ 1163 0012 00       		.byte	0
+ 1164 0013 02       		.uleb128 0x2
+ 1165 0014 24       		.uleb128 0x24
+ 1166 0015 00       		.byte	0
+ 1167 0016 0B       		.uleb128 0xb
+ 1168 0017 0B       		.uleb128 0xb
+ 1169 0018 3E       		.uleb128 0x3e
+ 1170 0019 0B       		.uleb128 0xb
+ 1171 001a 03       		.uleb128 0x3
+ 1172 001b 0E       		.uleb128 0xe
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 24
+
+
+ 1173 001c 00       		.byte	0
+ 1174 001d 00       		.byte	0
+ 1175 001e 03       		.uleb128 0x3
+ 1176 001f 16       		.uleb128 0x16
+ 1177 0020 00       		.byte	0
+ 1178 0021 03       		.uleb128 0x3
+ 1179 0022 0E       		.uleb128 0xe
+ 1180 0023 3A       		.uleb128 0x3a
+ 1181 0024 0B       		.uleb128 0xb
+ 1182 0025 3B       		.uleb128 0x3b
+ 1183 0026 0B       		.uleb128 0xb
+ 1184 0027 49       		.uleb128 0x49
+ 1185 0028 13       		.uleb128 0x13
+ 1186 0029 00       		.byte	0
+ 1187 002a 00       		.byte	0
+ 1188 002b 04       		.uleb128 0x4
+ 1189 002c 24       		.uleb128 0x24
+ 1190 002d 00       		.byte	0
+ 1191 002e 0B       		.uleb128 0xb
+ 1192 002f 0B       		.uleb128 0xb
+ 1193 0030 3E       		.uleb128 0x3e
+ 1194 0031 0B       		.uleb128 0xb
+ 1195 0032 03       		.uleb128 0x3
+ 1196 0033 08       		.uleb128 0x8
+ 1197 0034 00       		.byte	0
+ 1198 0035 00       		.byte	0
+ 1199 0036 05       		.uleb128 0x5
+ 1200 0037 16       		.uleb128 0x16
+ 1201 0038 00       		.byte	0
+ 1202 0039 03       		.uleb128 0x3
+ 1203 003a 0E       		.uleb128 0xe
+ 1204 003b 3A       		.uleb128 0x3a
+ 1205 003c 0B       		.uleb128 0xb
+ 1206 003d 3B       		.uleb128 0x3b
+ 1207 003e 05       		.uleb128 0x5
+ 1208 003f 49       		.uleb128 0x49
+ 1209 0040 13       		.uleb128 0x13
+ 1210 0041 00       		.byte	0
+ 1211 0042 00       		.byte	0
+ 1212 0043 06       		.uleb128 0x6
+ 1213 0044 0F       		.uleb128 0xf
+ 1214 0045 00       		.byte	0
+ 1215 0046 0B       		.uleb128 0xb
+ 1216 0047 0B       		.uleb128 0xb
+ 1217 0048 49       		.uleb128 0x49
+ 1218 0049 13       		.uleb128 0x13
+ 1219 004a 00       		.byte	0
+ 1220 004b 00       		.byte	0
+ 1221 004c 07       		.uleb128 0x7
+ 1222 004d 15       		.uleb128 0x15
+ 1223 004e 00       		.byte	0
+ 1224 004f 27       		.uleb128 0x27
+ 1225 0050 19       		.uleb128 0x19
+ 1226 0051 00       		.byte	0
+ 1227 0052 00       		.byte	0
+ 1228 0053 08       		.uleb128 0x8
+ 1229 0054 13       		.uleb128 0x13
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 25
+
+
+ 1230 0055 01       		.byte	0x1
+ 1231 0056 03       		.uleb128 0x3
+ 1232 0057 0E       		.uleb128 0xe
+ 1233 0058 0B       		.uleb128 0xb
+ 1234 0059 0B       		.uleb128 0xb
+ 1235 005a 3A       		.uleb128 0x3a
+ 1236 005b 0B       		.uleb128 0xb
+ 1237 005c 3B       		.uleb128 0x3b
+ 1238 005d 0B       		.uleb128 0xb
+ 1239 005e 01       		.uleb128 0x1
+ 1240 005f 13       		.uleb128 0x13
+ 1241 0060 00       		.byte	0
+ 1242 0061 00       		.byte	0
+ 1243 0062 09       		.uleb128 0x9
+ 1244 0063 0D       		.uleb128 0xd
+ 1245 0064 00       		.byte	0
+ 1246 0065 03       		.uleb128 0x3
+ 1247 0066 0E       		.uleb128 0xe
+ 1248 0067 3A       		.uleb128 0x3a
+ 1249 0068 0B       		.uleb128 0xb
+ 1250 0069 3B       		.uleb128 0x3b
+ 1251 006a 0B       		.uleb128 0xb
+ 1252 006b 49       		.uleb128 0x49
+ 1253 006c 13       		.uleb128 0x13
+ 1254 006d 0B       		.uleb128 0xb
+ 1255 006e 0B       		.uleb128 0xb
+ 1256 006f 0D       		.uleb128 0xd
+ 1257 0070 0B       		.uleb128 0xb
+ 1258 0071 0C       		.uleb128 0xc
+ 1259 0072 0B       		.uleb128 0xb
+ 1260 0073 38       		.uleb128 0x38
+ 1261 0074 0B       		.uleb128 0xb
+ 1262 0075 00       		.byte	0
+ 1263 0076 00       		.byte	0
+ 1264 0077 0A       		.uleb128 0xa
+ 1265 0078 0D       		.uleb128 0xd
+ 1266 0079 00       		.byte	0
+ 1267 007a 03       		.uleb128 0x3
+ 1268 007b 08       		.uleb128 0x8
+ 1269 007c 3A       		.uleb128 0x3a
+ 1270 007d 0B       		.uleb128 0xb
+ 1271 007e 3B       		.uleb128 0x3b
+ 1272 007f 0B       		.uleb128 0xb
+ 1273 0080 49       		.uleb128 0x49
+ 1274 0081 13       		.uleb128 0x13
+ 1275 0082 0B       		.uleb128 0xb
+ 1276 0083 0B       		.uleb128 0xb
+ 1277 0084 0D       		.uleb128 0xd
+ 1278 0085 0B       		.uleb128 0xb
+ 1279 0086 0C       		.uleb128 0xc
+ 1280 0087 0B       		.uleb128 0xb
+ 1281 0088 38       		.uleb128 0x38
+ 1282 0089 0B       		.uleb128 0xb
+ 1283 008a 00       		.byte	0
+ 1284 008b 00       		.byte	0
+ 1285 008c 0B       		.uleb128 0xb
+ 1286 008d 17       		.uleb128 0x17
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 26
+
+
+ 1287 008e 01       		.byte	0x1
+ 1288 008f 03       		.uleb128 0x3
+ 1289 0090 0E       		.uleb128 0xe
+ 1290 0091 0B       		.uleb128 0xb
+ 1291 0092 0B       		.uleb128 0xb
+ 1292 0093 3A       		.uleb128 0x3a
+ 1293 0094 0B       		.uleb128 0xb
+ 1294 0095 3B       		.uleb128 0x3b
+ 1295 0096 0B       		.uleb128 0xb
+ 1296 0097 01       		.uleb128 0x1
+ 1297 0098 13       		.uleb128 0x13
+ 1298 0099 00       		.byte	0
+ 1299 009a 00       		.byte	0
+ 1300 009b 0C       		.uleb128 0xc
+ 1301 009c 0D       		.uleb128 0xd
+ 1302 009d 00       		.byte	0
+ 1303 009e 03       		.uleb128 0x3
+ 1304 009f 0E       		.uleb128 0xe
+ 1305 00a0 3A       		.uleb128 0x3a
+ 1306 00a1 0B       		.uleb128 0xb
+ 1307 00a2 3B       		.uleb128 0x3b
+ 1308 00a3 0B       		.uleb128 0xb
+ 1309 00a4 49       		.uleb128 0x49
+ 1310 00a5 13       		.uleb128 0x13
+ 1311 00a6 00       		.byte	0
+ 1312 00a7 00       		.byte	0
+ 1313 00a8 0D       		.uleb128 0xd
+ 1314 00a9 0D       		.uleb128 0xd
+ 1315 00aa 00       		.byte	0
+ 1316 00ab 03       		.uleb128 0x3
+ 1317 00ac 0E       		.uleb128 0xe
+ 1318 00ad 3A       		.uleb128 0x3a
+ 1319 00ae 0B       		.uleb128 0xb
+ 1320 00af 3B       		.uleb128 0x3b
+ 1321 00b0 0B       		.uleb128 0xb
+ 1322 00b1 49       		.uleb128 0x49
+ 1323 00b2 13       		.uleb128 0x13
+ 1324 00b3 38       		.uleb128 0x38
+ 1325 00b4 0B       		.uleb128 0xb
+ 1326 00b5 00       		.byte	0
+ 1327 00b6 00       		.byte	0
+ 1328 00b7 0E       		.uleb128 0xe
+ 1329 00b8 0D       		.uleb128 0xd
+ 1330 00b9 00       		.byte	0
+ 1331 00ba 03       		.uleb128 0x3
+ 1332 00bb 08       		.uleb128 0x8
+ 1333 00bc 3A       		.uleb128 0x3a
+ 1334 00bd 0B       		.uleb128 0xb
+ 1335 00be 3B       		.uleb128 0x3b
+ 1336 00bf 0B       		.uleb128 0xb
+ 1337 00c0 49       		.uleb128 0x49
+ 1338 00c1 13       		.uleb128 0x13
+ 1339 00c2 38       		.uleb128 0x38
+ 1340 00c3 0B       		.uleb128 0xb
+ 1341 00c4 00       		.byte	0
+ 1342 00c5 00       		.byte	0
+ 1343 00c6 0F       		.uleb128 0xf
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 27
+
+
+ 1344 00c7 15       		.uleb128 0x15
+ 1345 00c8 01       		.byte	0x1
+ 1346 00c9 27       		.uleb128 0x27
+ 1347 00ca 19       		.uleb128 0x19
+ 1348 00cb 01       		.uleb128 0x1
+ 1349 00cc 13       		.uleb128 0x13
+ 1350 00cd 00       		.byte	0
+ 1351 00ce 00       		.byte	0
+ 1352 00cf 10       		.uleb128 0x10
+ 1353 00d0 05       		.uleb128 0x5
+ 1354 00d1 00       		.byte	0
+ 1355 00d2 49       		.uleb128 0x49
+ 1356 00d3 13       		.uleb128 0x13
+ 1357 00d4 00       		.byte	0
+ 1358 00d5 00       		.byte	0
+ 1359 00d6 11       		.uleb128 0x11
+ 1360 00d7 26       		.uleb128 0x26
+ 1361 00d8 00       		.byte	0
+ 1362 00d9 49       		.uleb128 0x49
+ 1363 00da 13       		.uleb128 0x13
+ 1364 00db 00       		.byte	0
+ 1365 00dc 00       		.byte	0
+ 1366 00dd 12       		.uleb128 0x12
+ 1367 00de 01       		.uleb128 0x1
+ 1368 00df 01       		.byte	0x1
+ 1369 00e0 49       		.uleb128 0x49
+ 1370 00e1 13       		.uleb128 0x13
+ 1371 00e2 01       		.uleb128 0x1
+ 1372 00e3 13       		.uleb128 0x13
+ 1373 00e4 00       		.byte	0
+ 1374 00e5 00       		.byte	0
+ 1375 00e6 13       		.uleb128 0x13
+ 1376 00e7 21       		.uleb128 0x21
+ 1377 00e8 00       		.byte	0
+ 1378 00e9 49       		.uleb128 0x49
+ 1379 00ea 13       		.uleb128 0x13
+ 1380 00eb 2F       		.uleb128 0x2f
+ 1381 00ec 0B       		.uleb128 0xb
+ 1382 00ed 00       		.byte	0
+ 1383 00ee 00       		.byte	0
+ 1384 00ef 14       		.uleb128 0x14
+ 1385 00f0 2E       		.uleb128 0x2e
+ 1386 00f1 01       		.byte	0x1
+ 1387 00f2 3F       		.uleb128 0x3f
+ 1388 00f3 19       		.uleb128 0x19
+ 1389 00f4 03       		.uleb128 0x3
+ 1390 00f5 0E       		.uleb128 0xe
+ 1391 00f6 3A       		.uleb128 0x3a
+ 1392 00f7 0B       		.uleb128 0xb
+ 1393 00f8 3B       		.uleb128 0x3b
+ 1394 00f9 0B       		.uleb128 0xb
+ 1395 00fa 27       		.uleb128 0x27
+ 1396 00fb 19       		.uleb128 0x19
+ 1397 00fc 49       		.uleb128 0x49
+ 1398 00fd 13       		.uleb128 0x13
+ 1399 00fe 11       		.uleb128 0x11
+ 1400 00ff 01       		.uleb128 0x1
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 28
+
+
+ 1401 0100 12       		.uleb128 0x12
+ 1402 0101 06       		.uleb128 0x6
+ 1403 0102 40       		.uleb128 0x40
+ 1404 0103 18       		.uleb128 0x18
+ 1405 0104 9742     		.uleb128 0x2117
+ 1406 0106 19       		.uleb128 0x19
+ 1407 0107 01       		.uleb128 0x1
+ 1408 0108 13       		.uleb128 0x13
+ 1409 0109 00       		.byte	0
+ 1410 010a 00       		.byte	0
+ 1411 010b 15       		.uleb128 0x15
+ 1412 010c 05       		.uleb128 0x5
+ 1413 010d 00       		.byte	0
+ 1414 010e 03       		.uleb128 0x3
+ 1415 010f 0E       		.uleb128 0xe
+ 1416 0110 3A       		.uleb128 0x3a
+ 1417 0111 0B       		.uleb128 0xb
+ 1418 0112 3B       		.uleb128 0x3b
+ 1419 0113 0B       		.uleb128 0xb
+ 1420 0114 49       		.uleb128 0x49
+ 1421 0115 13       		.uleb128 0x13
+ 1422 0116 02       		.uleb128 0x2
+ 1423 0117 17       		.uleb128 0x17
+ 1424 0118 00       		.byte	0
+ 1425 0119 00       		.byte	0
+ 1426 011a 16       		.uleb128 0x16
+ 1427 011b 05       		.uleb128 0x5
+ 1428 011c 00       		.byte	0
+ 1429 011d 03       		.uleb128 0x3
+ 1430 011e 08       		.uleb128 0x8
+ 1431 011f 3A       		.uleb128 0x3a
+ 1432 0120 0B       		.uleb128 0xb
+ 1433 0121 3B       		.uleb128 0x3b
+ 1434 0122 0B       		.uleb128 0xb
+ 1435 0123 49       		.uleb128 0x49
+ 1436 0124 13       		.uleb128 0x13
+ 1437 0125 02       		.uleb128 0x2
+ 1438 0126 17       		.uleb128 0x17
+ 1439 0127 00       		.byte	0
+ 1440 0128 00       		.byte	0
+ 1441 0129 17       		.uleb128 0x17
+ 1442 012a 34       		.uleb128 0x34
+ 1443 012b 00       		.byte	0
+ 1444 012c 03       		.uleb128 0x3
+ 1445 012d 08       		.uleb128 0x8
+ 1446 012e 3A       		.uleb128 0x3a
+ 1447 012f 0B       		.uleb128 0xb
+ 1448 0130 3B       		.uleb128 0x3b
+ 1449 0131 0B       		.uleb128 0xb
+ 1450 0132 49       		.uleb128 0x49
+ 1451 0133 13       		.uleb128 0x13
+ 1452 0134 02       		.uleb128 0x2
+ 1453 0135 17       		.uleb128 0x17
+ 1454 0136 00       		.byte	0
+ 1455 0137 00       		.byte	0
+ 1456 0138 18       		.uleb128 0x18
+ 1457 0139 898201   		.uleb128 0x4109
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 29
+
+
+ 1458 013c 00       		.byte	0
+ 1459 013d 11       		.uleb128 0x11
+ 1460 013e 01       		.uleb128 0x1
+ 1461 013f 31       		.uleb128 0x31
+ 1462 0140 13       		.uleb128 0x13
+ 1463 0141 00       		.byte	0
+ 1464 0142 00       		.byte	0
+ 1465 0143 19       		.uleb128 0x19
+ 1466 0144 34       		.uleb128 0x34
+ 1467 0145 00       		.byte	0
+ 1468 0146 03       		.uleb128 0x3
+ 1469 0147 0E       		.uleb128 0xe
+ 1470 0148 3A       		.uleb128 0x3a
+ 1471 0149 0B       		.uleb128 0xb
+ 1472 014a 3B       		.uleb128 0x3b
+ 1473 014b 0B       		.uleb128 0xb
+ 1474 014c 49       		.uleb128 0x49
+ 1475 014d 13       		.uleb128 0x13
+ 1476 014e 1C       		.uleb128 0x1c
+ 1477 014f 03       		.uleb128 0x3
+ 1478 0150 00       		.byte	0
+ 1479 0151 00       		.byte	0
+ 1480 0152 1A       		.uleb128 0x1a
+ 1481 0153 34       		.uleb128 0x34
+ 1482 0154 00       		.byte	0
+ 1483 0155 03       		.uleb128 0x3
+ 1484 0156 0E       		.uleb128 0xe
+ 1485 0157 3A       		.uleb128 0x3a
+ 1486 0158 0B       		.uleb128 0xb
+ 1487 0159 3B       		.uleb128 0x3b
+ 1488 015a 0B       		.uleb128 0xb
+ 1489 015b 49       		.uleb128 0x49
+ 1490 015c 13       		.uleb128 0x13
+ 1491 015d 3F       		.uleb128 0x3f
+ 1492 015e 19       		.uleb128 0x19
+ 1493 015f 02       		.uleb128 0x2
+ 1494 0160 18       		.uleb128 0x18
+ 1495 0161 00       		.byte	0
+ 1496 0162 00       		.byte	0
+ 1497 0163 1B       		.uleb128 0x1b
+ 1498 0164 34       		.uleb128 0x34
+ 1499 0165 00       		.byte	0
+ 1500 0166 03       		.uleb128 0x3
+ 1501 0167 0E       		.uleb128 0xe
+ 1502 0168 3A       		.uleb128 0x3a
+ 1503 0169 0B       		.uleb128 0xb
+ 1504 016a 3B       		.uleb128 0x3b
+ 1505 016b 05       		.uleb128 0x5
+ 1506 016c 49       		.uleb128 0x49
+ 1507 016d 13       		.uleb128 0x13
+ 1508 016e 3F       		.uleb128 0x3f
+ 1509 016f 19       		.uleb128 0x19
+ 1510 0170 3C       		.uleb128 0x3c
+ 1511 0171 19       		.uleb128 0x19
+ 1512 0172 00       		.byte	0
+ 1513 0173 00       		.byte	0
+ 1514 0174 1C       		.uleb128 0x1c
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 30
+
+
+ 1515 0175 35       		.uleb128 0x35
+ 1516 0176 00       		.byte	0
+ 1517 0177 49       		.uleb128 0x49
+ 1518 0178 13       		.uleb128 0x13
+ 1519 0179 00       		.byte	0
+ 1520 017a 00       		.byte	0
+ 1521 017b 1D       		.uleb128 0x1d
+ 1522 017c 2E       		.uleb128 0x2e
+ 1523 017d 00       		.byte	0
+ 1524 017e 3F       		.uleb128 0x3f
+ 1525 017f 19       		.uleb128 0x19
+ 1526 0180 3C       		.uleb128 0x3c
+ 1527 0181 19       		.uleb128 0x19
+ 1528 0182 6E       		.uleb128 0x6e
+ 1529 0183 0E       		.uleb128 0xe
+ 1530 0184 03       		.uleb128 0x3
+ 1531 0185 0E       		.uleb128 0xe
+ 1532 0186 3A       		.uleb128 0x3a
+ 1533 0187 0B       		.uleb128 0xb
+ 1534 0188 3B       		.uleb128 0x3b
+ 1535 0189 0B       		.uleb128 0xb
+ 1536 018a 00       		.byte	0
+ 1537 018b 00       		.byte	0
+ 1538 018c 00       		.byte	0
+ 1539              		.section	.debug_loc,"",%progbits
+ 1540              	.Ldebug_loc0:
+ 1541              	.LLST0:
+ 1542 0000 00000000 		.4byte	.LVL0
+ 1543 0004 08000000 		.4byte	.LVL1
+ 1544 0008 0100     		.2byte	0x1
+ 1545 000a 50       		.byte	0x50
+ 1546 000b 08000000 		.4byte	.LVL1
+ 1547 000f 1C000000 		.4byte	.LFE64
+ 1548 0013 0400     		.2byte	0x4
+ 1549 0015 F3       		.byte	0xf3
+ 1550 0016 01       		.uleb128 0x1
+ 1551 0017 50       		.byte	0x50
+ 1552 0018 9F       		.byte	0x9f
+ 1553 0019 00000000 		.4byte	0
+ 1554 001d 00000000 		.4byte	0
+ 1555              	.LLST1:
+ 1556 0021 00000000 		.4byte	.LVL0
+ 1557 0025 08000000 		.4byte	.LVL1
+ 1558 0029 0100     		.2byte	0x1
+ 1559 002b 51       		.byte	0x51
+ 1560 002c 08000000 		.4byte	.LVL1
+ 1561 0030 12000000 		.4byte	.LVL3
+ 1562 0034 0100     		.2byte	0x1
+ 1563 0036 54       		.byte	0x54
+ 1564 0037 12000000 		.4byte	.LVL3
+ 1565 003b 18000000 		.4byte	.LVL5
+ 1566 003f 0300     		.2byte	0x3
+ 1567 0041 74       		.byte	0x74
+ 1568 0042 7F       		.sleb128 -1
+ 1569 0043 9F       		.byte	0x9f
+ 1570 0044 18000000 		.4byte	.LVL5
+ 1571 0048 1C000000 		.4byte	.LFE64
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 31
+
+
+ 1572 004c 0100     		.2byte	0x1
+ 1573 004e 54       		.byte	0x54
+ 1574 004f 00000000 		.4byte	0
+ 1575 0053 00000000 		.4byte	0
+ 1576              	.LLST2:
+ 1577 0057 00000000 		.4byte	.LVL0
+ 1578 005b 08000000 		.4byte	.LVL1
+ 1579 005f 0100     		.2byte	0x1
+ 1580 0061 52       		.byte	0x52
+ 1581 0062 08000000 		.4byte	.LVL1
+ 1582 0066 1C000000 		.4byte	.LFE64
+ 1583 006a 0100     		.2byte	0x1
+ 1584 006c 55       		.byte	0x55
+ 1585 006d 00000000 		.4byte	0
+ 1586 0071 00000000 		.4byte	0
+ 1587              	.LLST3:
+ 1588 0075 00000000 		.4byte	.LVL0
+ 1589 0079 08000000 		.4byte	.LVL1
+ 1590 007d 0200     		.2byte	0x2
+ 1591 007f 30       		.byte	0x30
+ 1592 0080 9F       		.byte	0x9f
+ 1593 0081 08000000 		.4byte	.LVL1
+ 1594 0085 0A000000 		.4byte	.LVL2
+ 1595 0089 0600     		.2byte	0x6
+ 1596 008b 74       		.byte	0x74
+ 1597 008c 00       		.sleb128 0
+ 1598 008d 76       		.byte	0x76
+ 1599 008e 00       		.sleb128 0
+ 1600 008f 1C       		.byte	0x1c
+ 1601 0090 9F       		.byte	0x9f
+ 1602 0091 0A000000 		.4byte	.LVL2
+ 1603 0095 15000000 		.4byte	.LVL4-1
+ 1604 0099 0100     		.2byte	0x1
+ 1605 009b 53       		.byte	0x53
+ 1606 009c 15000000 		.4byte	.LVL4-1
+ 1607 00a0 16000000 		.4byte	.LVL4
+ 1608 00a4 0700     		.2byte	0x7
+ 1609 00a6 76       		.byte	0x76
+ 1610 00a7 00       		.sleb128 0
+ 1611 00a8 20       		.byte	0x20
+ 1612 00a9 74       		.byte	0x74
+ 1613 00aa 00       		.sleb128 0
+ 1614 00ab 22       		.byte	0x22
+ 1615 00ac 9F       		.byte	0x9f
+ 1616 00ad 18000000 		.4byte	.LVL5
+ 1617 00b1 1C000000 		.4byte	.LFE64
+ 1618 00b5 0100     		.2byte	0x1
+ 1619 00b7 53       		.byte	0x53
+ 1620 00b8 00000000 		.4byte	0
+ 1621 00bc 00000000 		.4byte	0
+ 1622              		.section	.debug_aranges,"",%progbits
+ 1623 0000 1C000000 		.4byte	0x1c
+ 1624 0004 0200     		.2byte	0x2
+ 1625 0006 00000000 		.4byte	.Ldebug_info0
+ 1626 000a 04       		.byte	0x4
+ 1627 000b 00       		.byte	0
+ 1628 000c 0000     		.2byte	0
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 32
+
+
+ 1629 000e 0000     		.2byte	0
+ 1630 0010 00000000 		.4byte	.LFB64
+ 1631 0014 1C000000 		.4byte	.LFE64-.LFB64
+ 1632 0018 00000000 		.4byte	0
+ 1633 001c 00000000 		.4byte	0
+ 1634              		.section	.debug_ranges,"",%progbits
+ 1635              	.Ldebug_ranges0:
+ 1636 0000 00000000 		.4byte	.LFB64
+ 1637 0004 1C000000 		.4byte	.LFE64
+ 1638 0008 00000000 		.4byte	0
+ 1639 000c 00000000 		.4byte	0
+ 1640              		.section	.debug_line,"",%progbits
+ 1641              	.Ldebug_line0:
+ 1642 0000 B3010000 		.section	.debug_str,"MS",%progbits,1
+ 1642      02008E01 
+ 1642      00000201 
+ 1642      FB0E0D00 
+ 1642      01010101 
+ 1643              	.LASF47:
+ 1644 0000 48616E64 		.ascii	"Handle\000"
+ 1644      6C6500
+ 1645              	.LASF68:
+ 1646 0007 433A5C55 		.ascii	"C:\\Users\\matij\\source\\Workspaces\\Embedded\\PSo"
+ 1646      73657273 
+ 1646      5C6D6174 
+ 1646      696A5C73 
+ 1646      6F757263 
+ 1647 0034 435C4C69 		.ascii	"C\\Libraries\\Ontwikkeling\\BCom0.3.cydsn\000"
+ 1647      62726172 
+ 1647      6965735C 
+ 1647      4F6E7477 
+ 1647      696B6B65 
+ 1648              	.LASF35:
+ 1649 005b 4672616D 		.ascii	"FrameNr\000"
+ 1649      654E7200 
+ 1650              	.LASF31:
+ 1651 0063 62797465 		.ascii	"byteVal\000"
+ 1651      56616C00 
+ 1652              	.LASF57:
+ 1653 006b 506F7274 		.ascii	"Ports\000"
+ 1653      7300
+ 1654              	.LASF55:
+ 1655 0071 476C6F62 		.ascii	"GlobalConfig_s\000"
+ 1655      616C436F 
+ 1655      6E666967 
+ 1655      5F7300
+ 1656              	.LASF24:
+ 1657 0080 73697A65 		.ascii	"sizetype\000"
+ 1657      74797065 
+ 1657      00
+ 1658              	.LASF32:
+ 1659 0089 53797374 		.ascii	"System_s\000"
+ 1659      656D5F73 
+ 1659      00
+ 1660              	.LASF53:
+ 1661 0092 4170706C 		.ascii	"Applications_s\000"
+ 1661      69636174 
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 33
+
+
+ 1661      696F6E73 
+ 1661      5F7300
+ 1662              	.LASF64:
+ 1663 00a1 53797374 		.ascii	"System_u\000"
+ 1663      656D5F75 
+ 1663      00
+ 1664              	.LASF51:
+ 1665 00aa 4E616D65 		.ascii	"Name\000"
+ 1665      00
+ 1666              	.LASF56:
+ 1667 00af 4E657477 		.ascii	"Network\000"
+ 1667      6F726B00 
+ 1668              	.LASF4:
+ 1669 00b7 5F5F7569 		.ascii	"__uint16_t\000"
+ 1669      6E743136 
+ 1669      5F7400
+ 1670              	.LASF59:
+ 1671 00c2 66696C65 		.ascii	"file\000"
+ 1671      00
+ 1672              	.LASF60:
+ 1673 00c7 6372635F 		.ascii	"crc_tab16\000"
+ 1673      74616231 
+ 1673      3600
+ 1674              	.LASF2:
+ 1675 00d1 73686F72 		.ascii	"short int\000"
+ 1675      7420696E 
+ 1675      7400
+ 1676              	.LASF18:
+ 1677 00db 75696E74 		.ascii	"uint16\000"
+ 1677      313600
+ 1678              	.LASF41:
+ 1679 00e2 48656164 		.ascii	"Header\000"
+ 1679      657200
+ 1680              	.LASF50:
+ 1681 00e9 54797065 		.ascii	"TypeIdentifier\000"
+ 1681      4964656E 
+ 1681      74696669 
+ 1681      657200
+ 1682              	.LASF17:
+ 1683 00f8 75696E74 		.ascii	"uint8\000"
+ 1683      3800
+ 1684              	.LASF70:
+ 1685 00fe 5F777269 		.ascii	"_write\000"
+ 1685      746500
+ 1686              	.LASF37:
+ 1687 0105 54617267 		.ascii	"Target\000"
+ 1687      657400
+ 1688              	.LASF20:
+ 1689 010c 666C6F61 		.ascii	"float\000"
+ 1689      7400
+ 1690              	.LASF10:
+ 1691 0112 6C6F6E67 		.ascii	"long long int\000"
+ 1691      206C6F6E 
+ 1691      6720696E 
+ 1691      7400
+ 1692              	.LASF44:
+ 1693 0120 42436F6D 		.ascii	"BCom_1_CallBackFunction\000"
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 34
+
+
+ 1693      5F315F43 
+ 1693      616C6C42 
+ 1693      61636B46 
+ 1693      756E6374 
+ 1694              	.LASF7:
+ 1695 0138 6C6F6E67 		.ascii	"long int\000"
+ 1695      20696E74 
+ 1695      00
+ 1696              	.LASF54:
+ 1697 0141 4C697374 		.ascii	"List\000"
+ 1697      00
+ 1698              	.LASF52:
+ 1699 0146 4672616D 		.ascii	"FrameCounter\000"
+ 1699      65436F75 
+ 1699      6E746572 
+ 1699      00
+ 1700              	.LASF3:
+ 1701 0153 5F5F7569 		.ascii	"__uint8_t\000"
+ 1701      6E74385F 
+ 1701      7400
+ 1702              	.LASF39:
+ 1703 015d 50617261 		.ascii	"Parameter\000"
+ 1703      6D657465 
+ 1703      7200
+ 1704              	.LASF65:
+ 1705 0167 436F6E66 		.ascii	"Config\000"
+ 1705      696700
+ 1706              	.LASF29:
+ 1707 016e 50696E67 		.ascii	"Ping\000"
+ 1707      00
+ 1708              	.LASF34:
+ 1709 0173 506F7274 		.ascii	"Port\000"
+ 1709      00
+ 1710              	.LASF23:
+ 1711 0178 6C6F6E67 		.ascii	"long double\000"
+ 1711      20646F75 
+ 1711      626C6500 
+ 1712              	.LASF25:
+ 1713 0184 53747269 		.ascii	"StripLights_Event\000"
+ 1713      704C6967 
+ 1713      6874735F 
+ 1713      4576656E 
+ 1713      7400
+ 1714              	.LASF69:
+ 1715 0196 5F737973 		.ascii	"_system_u\000"
+ 1715      74656D5F 
+ 1715      7500
+ 1716              	.LASF1:
+ 1717 01a0 756E7369 		.ascii	"unsigned char\000"
+ 1717      676E6564 
+ 1717      20636861 
+ 1717      7200
+ 1718              	.LASF26:
+ 1719 01ae 41636B52 		.ascii	"AckReq\000"
+ 1719      657100
+ 1720              	.LASF36:
+ 1721 01b5 4672616D 		.ascii	"FrameHeader_s\000"
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 35
+
+
+ 1721      65486561 
+ 1721      6465725F 
+ 1721      7300
+ 1722              	.LASF27:
+ 1723 01c3 4E61636B 		.ascii	"Nack\000"
+ 1723      00
+ 1724              	.LASF67:
+ 1725 01c8 64656275 		.ascii	"debug.c\000"
+ 1725      672E6300 
+ 1726              	.LASF0:
+ 1727 01d0 7369676E 		.ascii	"signed char\000"
+ 1727      65642063 
+ 1727      68617200 
+ 1728              	.LASF11:
+ 1729 01dc 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1729      206C6F6E 
+ 1729      6720756E 
+ 1729      7369676E 
+ 1729      65642069 
+ 1730              	.LASF16:
+ 1731 01f3 75696E74 		.ascii	"uint32_t\000"
+ 1731      33325F74 
+ 1731      00
+ 1732              	.LASF12:
+ 1733 01fc 756E7369 		.ascii	"unsigned int\000"
+ 1733      676E6564 
+ 1733      20696E74 
+ 1733      00
+ 1734              	.LASF14:
+ 1735 0209 75696E74 		.ascii	"uint16_t\000"
+ 1735      31365F74 
+ 1735      00
+ 1736              	.LASF46:
+ 1737 0212 506F7274 		.ascii	"PortHandle_s\000"
+ 1737      48616E64 
+ 1737      6C655F73 
+ 1737      00
+ 1738              	.LASF61:
+ 1739 021f 53747269 		.ascii	"StripLights_Done\000"
+ 1739      704C6967 
+ 1739      6874735F 
+ 1739      446F6E65 
+ 1739      00
+ 1740              	.LASF66:
+ 1741 0230 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1741      43313120 
+ 1741      352E342E 
+ 1741      31203230 
+ 1741      31363036 
+ 1742 0263 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 1742      20726576 
+ 1742      6973696F 
+ 1742      6E203233 
+ 1742      37373135 
+ 1743 0296 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 1743      66756E63 
+ 1743      74696F6E 
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 36
+
+
+ 1743      2D736563 
+ 1743      74696F6E 
+ 1744              	.LASF45:
+ 1745 02be 42436F6D 		.ascii	"BCom_1_SerialOut\000"
+ 1745      5F315F53 
+ 1745      65726961 
+ 1745      6C4F7574 
+ 1745      00
+ 1746              	.LASF5:
+ 1747 02cf 73686F72 		.ascii	"short unsigned int\000"
+ 1747      7420756E 
+ 1747      7369676E 
+ 1747      65642069 
+ 1747      6E7400
+ 1748              	.LASF43:
+ 1749 02e2 5061796C 		.ascii	"Payload\000"
+ 1749      6F616400 
+ 1750              	.LASF38:
+ 1751 02ea 536F7572 		.ascii	"Source\000"
+ 1751      636500
+ 1752              	.LASF22:
+ 1753 02f1 63686172 		.ascii	"char\000"
+ 1753      00
+ 1754              	.LASF49:
+ 1755 02f6 4E657477 		.ascii	"Network_s\000"
+ 1755      6F726B5F 
+ 1755      7300
+ 1756              	.LASF15:
+ 1757 0300 696E7433 		.ascii	"int32_t\000"
+ 1757      325F7400 
+ 1758              	.LASF62:
+ 1759 0308 53747269 		.ascii	"StripLights_UseGammaCorrection\000"
+ 1759      704C6967 
+ 1759      6874735F 
+ 1759      55736547 
+ 1759      616D6D61 
+ 1760              	.LASF42:
+ 1761 0327 4C656E67 		.ascii	"Lenght\000"
+ 1761      687400
+ 1762              	.LASF40:
+ 1763 032e 42436F6D 		.ascii	"BComFrame_s\000"
+ 1763      4672616D 
+ 1763      655F7300 
+ 1764              	.LASF28:
+ 1765 033a 456E6372 		.ascii	"Encrypted\000"
+ 1765      79707465 
+ 1765      6400
+ 1766              	.LASF33:
+ 1767 0344 50617261 		.ascii	"Parameter_s\000"
+ 1767      6D657465 
+ 1767      725F7300 
+ 1768              	.LASF19:
+ 1769 0350 75696E74 		.ascii	"uint32\000"
+ 1769      333200
+ 1770              	.LASF9:
+ 1771 0357 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1771      20756E73 
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccrMkKba.s 			page 37
+
+
+ 1771      69676E65 
+ 1771      6420696E 
+ 1771      7400
+ 1772              	.LASF21:
+ 1773 0369 646F7562 		.ascii	"double\000"
+ 1773      6C6500
+ 1774              	.LASF8:
+ 1775 0370 5F5F7569 		.ascii	"__uint32_t\000"
+ 1775      6E743332 
+ 1775      5F7400
+ 1776              	.LASF6:
+ 1777 037b 5F5F696E 		.ascii	"__int32_t\000"
+ 1777      7433325F 
+ 1777      7400
+ 1778              	.LASF13:
+ 1779 0385 75696E74 		.ascii	"uint8_t\000"
+ 1779      385F7400 
+ 1780              	.LASF58:
+ 1781 038d 50757441 		.ascii	"PutArray\000"
+ 1781      72726179 
+ 1781      00
+ 1782              	.LASF63:
+ 1783 0396 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1783      52784275 
+ 1783      66666572 
+ 1783      00
+ 1784              	.LASF30:
+ 1785 03a3 53797374 		.ascii	"System\000"
+ 1785      656D00
+ 1786              	.LASF48:
+ 1787 03aa 6E657874 		.ascii	"next\000"
+ 1787      00
+ 1788              	.LASF71:
+ 1789 03af 55415254 		.ascii	"UART_PutChar\000"
+ 1789      5F507574 
+ 1789      43686172 
+ 1789      00
+ 1790              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

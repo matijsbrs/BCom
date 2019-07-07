@@ -1,0 +1,2095 @@
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccnW07XW.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"cymetadata.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.global	cy_metadata
+  20              		.global	cy_meta_flashprotect
+  21              		.global	cy_meta_wonvl
+  22              		.global	cy_meta_custnvl
+  23              		.global	cy_meta_configecc
+  24              		.section	.cyconfigecc,"a",%progbits
+  25              		.type	cy_meta_configecc, %object
+  26              		.size	cy_meta_configecc, 1516
+  27              	cy_meta_configecc:
+  28 0000 01       		.byte	1
+  29 0001 64       		.byte	100
+  30 0002 00       		.byte	0
+  31 0003 40       		.byte	64
+  32 0004 06       		.byte	6
+  33 0005 65       		.byte	101
+  34 0006 00       		.byte	0
+  35 0007 40       		.byte	64
+  36 0008 01       		.byte	1
+  37 0009 03       		.byte	3
+  38 000a 01       		.byte	1
+  39 000b 40       		.byte	64
+  40 000c 01       		.byte	1
+  41 000d 05       		.byte	5
+  42 000e 01       		.byte	1
+  43 000f 40       		.byte	64
+  44 0010 01       		.byte	1
+  45 0011 07       		.byte	7
+  46 0012 01       		.byte	1
+  47 0013 40       		.byte	64
+  48 0014 15       		.byte	21
+  49 0015 08       		.byte	8
+  50 0016 01       		.byte	1
+  51 0017 40       		.byte	64
+  52 0018 52       		.byte	82
+  53 0019 09       		.byte	9
+  54 001a 01       		.byte	1
+  55 001b 40       		.byte	64
+  56 001c 49       		.byte	73
+  57 001d 0A       		.byte	10
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccnW07XW.s 			page 2
+
+
+  58 001e 01       		.byte	1
+  59 001f 40       		.byte	64
+  60 0020 37       		.byte	55
+  61 0021 0B       		.byte	11
+  62 0022 01       		.byte	1
+  63 0023 40       		.byte	64
+  64 0024 03       		.byte	3
+  65 0025 0D       		.byte	13
+  66 0026 01       		.byte	1
+  67 0027 40       		.byte	64
+  68 0028 56       		.byte	86
+  69 0029 18       		.byte	24
+  70 002a 01       		.byte	1
+  71 002b 40       		.byte	64
+  72 002c 4C       		.byte	76
+  73 002d 19       		.byte	25
+  74 002e 01       		.byte	1
+  75 002f 40       		.byte	64
+  76 0030 66       		.byte	102
+  77 0031 1A       		.byte	26
+  78 0032 01       		.byte	1
+  79 0033 40       		.byte	64
+  80 0034 4E       		.byte	78
+  81 0035 1B       		.byte	27
+  82 0036 01       		.byte	1
+  83 0037 40       		.byte	64
+  84 0038 04       		.byte	4
+  85 0039 40       		.byte	64
+  86 003a 01       		.byte	1
+  87 003b 40       		.byte	64
+  88 003c 06       		.byte	6
+  89 003d 41       		.byte	65
+  90 003e 01       		.byte	1
+  91 003f 40       		.byte	64
+  92 0040 03       		.byte	3
+  93 0041 42       		.byte	66
+  94 0042 01       		.byte	1
+  95 0043 40       		.byte	64
+  96 0044 04       		.byte	4
+  97 0045 43       		.byte	67
+  98 0046 01       		.byte	1
+  99 0047 40       		.byte	64
+ 100 0048 02       		.byte	2
+ 101 0049 47       		.byte	71
+ 102 004a 01       		.byte	1
+ 103 004b 40       		.byte	64
+ 104 004c 03       		.byte	3
+ 105 004d 48       		.byte	72
+ 106 004e 01       		.byte	1
+ 107 004f 40       		.byte	64
+ 108 0050 01       		.byte	1
+ 109 0051 4C       		.byte	76
+ 110 0052 01       		.byte	1
+ 111 0053 40       		.byte	64
+ 112 0054 07       		.byte	7
+ 113 0055 4D       		.byte	77
+ 114 0056 01       		.byte	1
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccnW07XW.s 			page 3
+
+
+ 115 0057 40       		.byte	64
+ 116 0058 04       		.byte	4
+ 117 0059 50       		.byte	80
+ 118 005a 01       		.byte	1
+ 119 005b 40       		.byte	64
+ 120 005c 01       		.byte	1
+ 121 005d 51       		.byte	81
+ 122 005e 01       		.byte	1
+ 123 005f 40       		.byte	64
+ 124 0060 88       		.byte	-120
+ 125 0061 38       		.byte	56
+ 126 0062 0B       		.byte	11
+ 127 0063 18       		.byte	24
+ 128 0064 1B       		.byte	27
+ 129 0065 18       		.byte	24
+ 130 0066 2B       		.byte	43
+ 131 0067 14       		.byte	20
+ 132 0068 3B       		.byte	59
+ 133 0069 0C       		.byte	12
+ 134 006a 88       		.byte	-120
+ 135 006b 76       		.byte	118
+ 136 006c 8A       		.byte	-118
+ 137 006d 0F       		.byte	15
+ 138 006e E6       		.byte	-26
+ 139 006f 42       		.byte	66
+ 140 0070 E6       		.byte	-26
+ 141 0071 02       		.byte	2
+ 142 0072 E6       		.byte	-26
+ 143 0073 02       		.byte	2
+ 144 0074 84       		.byte	-124
+ 145 0075 40       		.byte	64
+ 146 0076 86       		.byte	-122
+ 147 0077 30       		.byte	48
+ 148 0078 8C       		.byte	-116
+ 149 0079 24       		.byte	36
+ 150 007a 8E       		.byte	-114
+ 151 007b 40       		.byte	64
+ 152 007c 90       		.byte	-112
+ 153 007d 30       		.byte	48
+ 154 007e 92       		.byte	-110
+ 155 007f 44       		.byte	68
+ 156 0080 96       		.byte	-106
+ 157 0081 01       		.byte	1
+ 158 0082 98       		.byte	-104
+ 159 0083 02       		.byte	2
+ 160 0084 9A       		.byte	-102
+ 161 0085 0C       		.byte	12
+ 162 0086 9C       		.byte	-100
+ 163 0087 40       		.byte	64
+ 164 0088 A2       		.byte	-94
+ 165 0089 01       		.byte	1
+ 166 008a A4       		.byte	-92
+ 167 008b 50       		.byte	80
+ 168 008c A8       		.byte	-88
+ 169 008d 70       		.byte	112
+ 170 008e AA       		.byte	-86
+ 171 008f 08       		.byte	8
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccnW07XW.s 			page 4
+
+
+ 172 0090 B0       		.byte	-80
+ 173 0091 01       		.byte	1
+ 174 0092 B2       		.byte	-78
+ 175 0093 02       		.byte	2
+ 176 0094 B4       		.byte	-76
+ 177 0095 7C       		.byte	124
+ 178 0096 BE       		.byte	-66
+ 179 0097 05       		.byte	5
+ 180 0098 D8       		.byte	-40
+ 181 0099 04       		.byte	4
+ 182 009a DC       		.byte	-36
+ 183 009b 01       		.byte	1
+ 184 009c DF       		.byte	-33
+ 185 009d 01       		.byte	1
+ 186 009e 00       		.byte	0
+ 187 009f 80       		.byte	-128
+ 188 00a0 03       		.byte	3
+ 189 00a1 20       		.byte	32
+ 190 00a2 04       		.byte	4
+ 191 00a3 80       		.byte	-128
+ 192 00a4 05       		.byte	5
+ 193 00a5 14       		.byte	20
+ 194 00a6 09       		.byte	9
+ 195 00a7 04       		.byte	4
+ 196 00a8 0A       		.byte	10
+ 197 00a9 44       		.byte	68
+ 198 00aa 0B       		.byte	11
+ 199 00ab 02       		.byte	2
+ 200 00ac 0D       		.byte	13
+ 201 00ad 08       		.byte	8
+ 202 00ae 0E       		.byte	14
+ 203 00af 02       		.byte	2
+ 204 00b0 0F       		.byte	15
+ 205 00b1 08       		.byte	8
+ 206 00b2 10       		.byte	16
+ 207 00b3 A0       		.byte	-96
+ 208 00b4 12       		.byte	18
+ 209 00b5 08       		.byte	8
+ 210 00b6 14       		.byte	20
+ 211 00b7 08       		.byte	8
+ 212 00b8 15       		.byte	21
+ 213 00b9 41       		.byte	65
+ 214 00ba 17       		.byte	23
+ 215 00bb 18       		.byte	24
+ 216 00bc 19       		.byte	25
+ 217 00bd 09       		.byte	9
+ 218 00be 1A       		.byte	26
+ 219 00bf 04       		.byte	4
+ 220 00c0 1C       		.byte	28
+ 221 00c1 08       		.byte	8
+ 222 00c2 1D       		.byte	29
+ 223 00c3 14       		.byte	20
+ 224 00c4 1E       		.byte	30
+ 225 00c5 02       		.byte	2
+ 226 00c6 1F       		.byte	31
+ 227 00c7 44       		.byte	68
+ 228 00c8 24       		.byte	36
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccnW07XW.s 			page 5
+
+
+ 229 00c9 04       		.byte	4
+ 230 00ca 27       		.byte	39
+ 231 00cb 52       		.byte	82
+ 232 00cc 2C       		.byte	44
+ 233 00cd 42       		.byte	66
+ 234 00ce 2F       		.byte	47
+ 235 00cf 08       		.byte	8
+ 236 00d0 36       		.byte	54
+ 237 00d1 02       		.byte	2
+ 238 00d2 37       		.byte	55
+ 239 00d3 24       		.byte	36
+ 240 00d4 3C       		.byte	60
+ 241 00d5 04       		.byte	4
+ 242 00d6 3D       		.byte	61
+ 243 00d7 20       		.byte	32
+ 244 00d8 3F       		.byte	63
+ 245 00d9 81       		.byte	-127
+ 246 00da 40       		.byte	64
+ 247 00db 40       		.byte	64
+ 248 00dc 43       		.byte	67
+ 249 00dd 01       		.byte	1
+ 250 00de 44       		.byte	68
+ 251 00df 40       		.byte	64
+ 252 00e0 45       		.byte	69
+ 253 00e1 04       		.byte	4
+ 254 00e2 46       		.byte	70
+ 255 00e3 04       		.byte	4
+ 256 00e4 47       		.byte	71
+ 257 00e5 61       		.byte	97
+ 258 00e6 4C       		.byte	76
+ 259 00e7 80       		.byte	-128
+ 260 00e8 4E       		.byte	78
+ 261 00e9 01       		.byte	1
+ 262 00ea 57       		.byte	87
+ 263 00eb 40       		.byte	64
+ 264 00ec 58       		.byte	88
+ 265 00ed 02       		.byte	2
+ 266 00ee 59       		.byte	89
+ 267 00ef 01       		.byte	1
+ 268 00f0 5F       		.byte	95
+ 269 00f1 02       		.byte	2
+ 270 00f2 60       		.byte	96
+ 271 00f3 80       		.byte	-128
+ 272 00f4 62       		.byte	98
+ 273 00f5 01       		.byte	1
+ 274 00f6 64       		.byte	100
+ 275 00f7 0A       		.byte	10
+ 276 00f8 67       		.byte	103
+ 277 00f9 40       		.byte	64
+ 278 00fa 6D       		.byte	109
+ 279 00fb 40       		.byte	64
+ 280 00fc 6E       		.byte	110
+ 281 00fd 01       		.byte	1
+ 282 00fe 76       		.byte	118
+ 283 00ff 01       		.byte	1
+ 284 0100 77       		.byte	119
+ 285 0101 08       		.byte	8
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccnW07XW.s 			page 6
+
+
+ 286 0102 87       		.byte	-121
+ 287 0103 40       		.byte	64
+ 288 0104 8D       		.byte	-115
+ 289 0105 08       		.byte	8
+ 290 0106 92       		.byte	-110
+ 291 0107 C0       		.byte	-64
+ 292 0108 94       		.byte	-108
+ 293 0109 20       		.byte	32
+ 294 010a 95       		.byte	-107
+ 295 010b 44       		.byte	68
+ 296 010c 96       		.byte	-106
+ 297 010d 01       		.byte	1
+ 298 010e 97       		.byte	-105
+ 299 010f 02       		.byte	2
+ 300 0110 99       		.byte	-103
+ 301 0111 40       		.byte	64
+ 302 0112 9C       		.byte	-100
+ 303 0113 A0       		.byte	-96
+ 304 0114 9D       		.byte	-99
+ 305 0115 14       		.byte	20
+ 306 0116 9E       		.byte	-98
+ 307 0117 40       		.byte	64
+ 308 0118 A0       		.byte	-96
+ 309 0119 40       		.byte	64
+ 310 011a A1       		.byte	-95
+ 311 011b 22       		.byte	34
+ 312 011c A2       		.byte	-94
+ 313 011d 08       		.byte	8
+ 314 011e A3       		.byte	-93
+ 315 011f 20       		.byte	32
+ 316 0120 A4       		.byte	-92
+ 317 0121 08       		.byte	8
+ 318 0122 A5       		.byte	-91
+ 319 0123 08       		.byte	8
+ 320 0124 A7       		.byte	-89
+ 321 0125 01       		.byte	1
+ 322 0126 A9       		.byte	-87
+ 323 0127 08       		.byte	8
+ 324 0128 AB       		.byte	-85
+ 325 0129 80       		.byte	-128
+ 326 012a B0       		.byte	-80
+ 327 012b 01       		.byte	1
+ 328 012c B2       		.byte	-78
+ 329 012d 10       		.byte	16
+ 330 012e C0       		.byte	-64
+ 331 012f E5       		.byte	-27
+ 332 0130 C2       		.byte	-62
+ 333 0131 EF       		.byte	-17
+ 334 0132 C4       		.byte	-60
+ 335 0133 BE       		.byte	-66
+ 336 0134 CA       		.byte	-54
+ 337 0135 B0       		.byte	-80
+ 338 0136 CC       		.byte	-52
+ 339 0137 E0       		.byte	-32
+ 340 0138 CE       		.byte	-50
+ 341 0139 F0       		.byte	-16
+ 342 013a D0       		.byte	-48
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccnW07XW.s 			page 7
+
+
+ 343 013b F0       		.byte	-16
+ 344 013c D2       		.byte	-46
+ 345 013d 10       		.byte	16
+ 346 013e D6       		.byte	-42
+ 347 013f 80       		.byte	-128
+ 348 0140 D8       		.byte	-40
+ 349 0141 B0       		.byte	-80
+ 350 0142 03       		.byte	3
+ 351 0143 0C       		.byte	12
+ 352 0144 04       		.byte	4
+ 353 0145 33       		.byte	51
+ 354 0146 05       		.byte	5
+ 355 0147 51       		.byte	81
+ 356 0148 06       		.byte	6
+ 357 0149 4C       		.byte	76
+ 358 014a 07       		.byte	7
+ 359 014b 06       		.byte	6
+ 360 014c 08       		.byte	8
+ 361 014d AA       		.byte	-86
+ 362 014e 0A       		.byte	10
+ 363 014f 44       		.byte	68
+ 364 0150 0B       		.byte	11
+ 365 0151 40       		.byte	64
+ 366 0152 0C       		.byte	12
+ 367 0153 33       		.byte	51
+ 368 0154 0D       		.byte	13
+ 369 0155 51       		.byte	81
+ 370 0156 0E       		.byte	14
+ 371 0157 C4       		.byte	-60
+ 372 0158 0F       		.byte	15
+ 373 0159 0E       		.byte	14
+ 374 015a 15       		.byte	21
+ 375 015b 20       		.byte	32
+ 376 015c 17       		.byte	23
+ 377 015d 43       		.byte	67
+ 378 015e 1E       		.byte	30
+ 379 015f 80       		.byte	-128
+ 380 0160 23       		.byte	35
+ 381 0161 08       		.byte	8
+ 382 0162 24       		.byte	36
+ 383 0163 03       		.byte	3
+ 384 0164 26       		.byte	38
+ 385 0165 04       		.byte	4
+ 386 0166 29       		.byte	41
+ 387 0167 0C       		.byte	12
+ 388 0168 2A       		.byte	42
+ 389 0169 55       		.byte	85
+ 390 016a 2B       		.byte	43
+ 391 016b 53       		.byte	83
+ 392 016c 2E       		.byte	46
+ 393 016d 88       		.byte	-120
+ 394 016e 30       		.byte	48
+ 395 016f C8       		.byte	-56
+ 396 0170 31       		.byte	49
+ 397 0171 30       		.byte	48
+ 398 0172 33       		.byte	51
+ 399 0173 0F       		.byte	15
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccnW07XW.s 			page 8
+
+
+ 400 0174 34       		.byte	52
+ 401 0175 0F       		.byte	15
+ 402 0176 36       		.byte	54
+ 403 0177 30       		.byte	48
+ 404 0178 37       		.byte	55
+ 405 0179 40       		.byte	64
+ 406 017a 38       		.byte	56
+ 407 017b 80       		.byte	-128
+ 408 017c 39       		.byte	57
+ 409 017d 02       		.byte	2
+ 410 017e 3A       		.byte	58
+ 411 017f 22       		.byte	34
+ 412 0180 3B       		.byte	59
+ 413 0181 08       		.byte	8
+ 414 0182 3E       		.byte	62
+ 415 0183 40       		.byte	64
+ 416 0184 3F       		.byte	63
+ 417 0185 40       		.byte	64
+ 418 0186 58       		.byte	88
+ 419 0187 04       		.byte	4
+ 420 0188 59       		.byte	89
+ 421 0189 04       		.byte	4
+ 422 018a 5C       		.byte	92
+ 423 018b 11       		.byte	17
+ 424 018c 5F       		.byte	95
+ 425 018d 01       		.byte	1
+ 426 018e 81       		.byte	-127
+ 427 018f 02       		.byte	2
+ 428 0190 84       		.byte	-124
+ 429 0191 C3       		.byte	-61
+ 430 0192 85       		.byte	-123
+ 431 0193 02       		.byte	2
+ 432 0194 86       		.byte	-122
+ 433 0195 38       		.byte	56
+ 434 0196 88       		.byte	-120
+ 435 0197 08       		.byte	8
+ 436 0198 89       		.byte	-119
+ 437 0199 02       		.byte	2
+ 438 019a 8A       		.byte	-118
+ 439 019b E6       		.byte	-26
+ 440 019c 8F       		.byte	-113
+ 441 019d 05       		.byte	5
+ 442 019e 92       		.byte	-110
+ 443 019f 10       		.byte	16
+ 444 01a0 94       		.byte	-108
+ 445 01a1 01       		.byte	1
+ 446 01a2 97       		.byte	-105
+ 447 01a3 04       		.byte	4
+ 448 01a4 98       		.byte	-104
+ 449 01a5 04       		.byte	4
+ 450 01a6 9B       		.byte	-101
+ 451 01a7 01       		.byte	1
+ 452 01a8 9C       		.byte	-100
+ 453 01a9 40       		.byte	64
+ 454 01aa 9F       		.byte	-97
+ 455 01ab 01       		.byte	1
+ 456 01ac A0       		.byte	-96
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccnW07XW.s 			page 9
+
+
+ 457 01ad 40       		.byte	64
+ 458 01ae A2       		.byte	-94
+ 459 01af 80       		.byte	-128
+ 460 01b0 A3       		.byte	-93
+ 461 01b1 04       		.byte	4
+ 462 01b2 A4       		.byte	-92
+ 463 01b3 80       		.byte	-128
+ 464 01b4 AB       		.byte	-85
+ 465 01b5 02       		.byte	2
+ 466 01b6 AD       		.byte	-83
+ 467 01b7 02       		.byte	2
+ 468 01b8 AE       		.byte	-82
+ 469 01b9 01       		.byte	1
+ 470 01ba B0       		.byte	-80
+ 471 01bb 18       		.byte	24
+ 472 01bc B2       		.byte	-78
+ 473 01bd C8       		.byte	-56
+ 474 01be B3       		.byte	-77
+ 475 01bf 04       		.byte	4
+ 476 01c0 B4       		.byte	-76
+ 477 01c1 07       		.byte	7
+ 478 01c2 B5       		.byte	-75
+ 479 01c3 01       		.byte	1
+ 480 01c4 B6       		.byte	-74
+ 481 01c5 20       		.byte	32
+ 482 01c6 B7       		.byte	-73
+ 483 01c7 02       		.byte	2
+ 484 01c8 B8       		.byte	-72
+ 485 01c9 20       		.byte	32
+ 486 01ca BF       		.byte	-65
+ 487 01cb 54       		.byte	84
+ 488 01cc D8       		.byte	-40
+ 489 01cd 04       		.byte	4
+ 490 01ce D9       		.byte	-39
+ 491 01cf 04       		.byte	4
+ 492 01d0 DB       		.byte	-37
+ 493 01d1 04       		.byte	4
+ 494 01d2 DF       		.byte	-33
+ 495 01d3 01       		.byte	1
+ 496 01d4 00       		.byte	0
+ 497 01d5 64       		.byte	100
+ 498 01d6 01       		.byte	1
+ 499 01d7 20       		.byte	32
+ 500 01d8 05       		.byte	5
+ 501 01d9 14       		.byte	20
+ 502 01da 08       		.byte	8
+ 503 01db 40       		.byte	64
+ 504 01dc 0B       		.byte	11
+ 505 01dd 02       		.byte	2
+ 506 01de 0C       		.byte	12
+ 507 01df 04       		.byte	4
+ 508 01e0 0D       		.byte	13
+ 509 01e1 2A       		.byte	42
+ 510 01e2 0F       		.byte	15
+ 511 01e3 02       		.byte	2
+ 512 01e4 10       		.byte	16
+ 513 01e5 08       		.byte	8
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccnW07XW.s 			page 10
+
+
+ 514 01e6 12       		.byte	18
+ 515 01e7 12       		.byte	18
+ 516 01e8 15       		.byte	21
+ 517 01e9 44       		.byte	68
+ 518 01ea 16       		.byte	22
+ 519 01eb 41       		.byte	65
+ 520 01ec 18       		.byte	24
+ 521 01ed 44       		.byte	68
+ 522 01ee 19       		.byte	25
+ 523 01ef 40       		.byte	64
+ 524 01f0 1A       		.byte	26
+ 525 01f1 40       		.byte	64
+ 526 01f2 1B       		.byte	27
+ 527 01f3 20       		.byte	32
+ 528 01f4 1C       		.byte	28
+ 529 01f5 02       		.byte	2
+ 530 01f6 1D       		.byte	29
+ 531 01f7 22       		.byte	34
+ 532 01f8 1F       		.byte	31
+ 533 01f9 08       		.byte	8
+ 534 01fa 20       		.byte	32
+ 535 01fb A0       		.byte	-96
+ 536 01fc 21       		.byte	33
+ 537 01fd 01       		.byte	1
+ 538 01fe 22       		.byte	34
+ 539 01ff 4A       		.byte	74
+ 540 0200 25       		.byte	37
+ 541 0201 04       		.byte	4
+ 542 0202 26       		.byte	38
+ 543 0203 20       		.byte	32
+ 544 0204 27       		.byte	39
+ 545 0205 02       		.byte	2
+ 546 0206 28       		.byte	40
+ 547 0207 40       		.byte	64
+ 548 0208 29       		.byte	41
+ 549 0209 20       		.byte	32
+ 550 020a 2E       		.byte	46
+ 551 020b 01       		.byte	1
+ 552 020c 2F       		.byte	47
+ 553 020d 0A       		.byte	10
+ 554 020e 30       		.byte	48
+ 555 020f 08       		.byte	8
+ 556 0210 34       		.byte	52
+ 557 0211 94       		.byte	-108
+ 558 0212 36       		.byte	54
+ 559 0213 10       		.byte	16
+ 560 0214 38       		.byte	56
+ 561 0215 64       		.byte	100
+ 562 0216 39       		.byte	57
+ 563 0217 02       		.byte	2
+ 564 0218 3A       		.byte	58
+ 565 0219 10       		.byte	16
+ 566 021a 3D       		.byte	61
+ 567 021b 42       		.byte	66
+ 568 021c 3E       		.byte	62
+ 569 021d 14       		.byte	20
+ 570 021e 5C       		.byte	92
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccnW07XW.s 			page 11
+
+
+ 571 021f 20       		.byte	32
+ 572 0220 5F       		.byte	95
+ 573 0221 80       		.byte	-128
+ 574 0222 64       		.byte	100
+ 575 0223 10       		.byte	16
+ 576 0224 66       		.byte	102
+ 577 0225 01       		.byte	1
+ 578 0226 6D       		.byte	109
+ 579 0227 02       		.byte	2
+ 580 0228 6E       		.byte	110
+ 581 0229 14       		.byte	20
+ 582 022a 6F       		.byte	111
+ 583 022b 02       		.byte	2
+ 584 022c 87       		.byte	-121
+ 585 022d 02       		.byte	2
+ 586 022e A5       		.byte	-91
+ 587 022f 04       		.byte	4
+ 588 0230 A6       		.byte	-90
+ 589 0231 20       		.byte	32
+ 590 0232 C0       		.byte	-64
+ 591 0233 67       		.byte	103
+ 592 0234 C2       		.byte	-62
+ 593 0235 F1       		.byte	-15
+ 594 0236 C4       		.byte	-60
+ 595 0237 B7       		.byte	-73
+ 596 0238 CA       		.byte	-54
+ 597 0239 B5       		.byte	-75
+ 598 023a CC       		.byte	-52
+ 599 023b 72       		.byte	114
+ 600 023c CE       		.byte	-50
+ 601 023d FF       		.byte	-1
+ 602 023e D6       		.byte	-42
+ 603 023f 30       		.byte	48
+ 604 0240 D8       		.byte	-40
+ 605 0241 C0       		.byte	-64
+ 606 0242 86       		.byte	-122
+ 607 0243 20       		.byte	32
+ 608 0244 8D       		.byte	-115
+ 609 0245 04       		.byte	4
+ 610 0246 E6       		.byte	-26
+ 611 0247 40       		.byte	64
+ 612 0248 01       		.byte	1
+ 613 0249 80       		.byte	-128
+ 614 024a 02       		.byte	2
+ 615 024b 0C       		.byte	12
+ 616 024c 04       		.byte	4
+ 617 024d 1C       		.byte	28
+ 618 024e 05       		.byte	5
+ 619 024f 10       		.byte	16
+ 620 0250 06       		.byte	6
+ 621 0251 23       		.byte	35
+ 622 0252 08       		.byte	8
+ 623 0253 3F       		.byte	63
+ 624 0254 09       		.byte	9
+ 625 0255 08       		.byte	8
+ 626 0256 0C       		.byte	12
+ 627 0257 33       		.byte	51
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccnW07XW.s 			page 12
+
+
+ 628 0258 0E       		.byte	14
+ 629 0259 0C       		.byte	12
+ 630 025a 0F       		.byte	15
+ 631 025b 23       		.byte	35
+ 632 025c 11       		.byte	17
+ 633 025d 5C       		.byte	92
+ 634 025e 12       		.byte	18
+ 635 025f 23       		.byte	35
+ 636 0260 13       		.byte	19
+ 637 0261 21       		.byte	33
+ 638 0262 14       		.byte	20
+ 639 0263 02       		.byte	2
+ 640 0264 15       		.byte	21
+ 641 0265 7C       		.byte	124
+ 642 0266 17       		.byte	23
+ 643 0267 02       		.byte	2
+ 644 0268 1B       		.byte	27
+ 645 0269 04       		.byte	4
+ 646 026a 1C       		.byte	28
+ 647 026b 1F       		.byte	31
+ 648 026c 1D       		.byte	29
+ 649 026d 80       		.byte	-128
+ 650 026e 1E       		.byte	30
+ 651 026f 20       		.byte	32
+ 652 0270 1F       		.byte	31
+ 653 0271 18       		.byte	24
+ 654 0272 20       		.byte	32
+ 655 0273 03       		.byte	3
+ 656 0274 21       		.byte	33
+ 657 0275 67       		.byte	103
+ 658 0276 23       		.byte	35
+ 659 0277 18       		.byte	24
+ 660 0278 24       		.byte	36
+ 661 0279 08       		.byte	8
+ 662 027a 25       		.byte	37
+ 663 027b 7F       		.byte	127
+ 664 027c 28       		.byte	40
+ 665 027d 04       		.byte	4
+ 666 027e 2C       		.byte	44
+ 667 027f 01       		.byte	1
+ 668 0280 2D       		.byte	45
+ 669 0281 04       		.byte	4
+ 670 0282 30       		.byte	48
+ 671 0283 0F       		.byte	15
+ 672 0284 32       		.byte	50
+ 673 0285 10       		.byte	16
+ 674 0286 33       		.byte	51
+ 675 0287 38       		.byte	56
+ 676 0288 35       		.byte	53
+ 677 0289 1F       		.byte	31
+ 678 028a 36       		.byte	54
+ 679 028b 2C       		.byte	44
+ 680 028c 37       		.byte	55
+ 681 028d C0       		.byte	-64
+ 682 028e 39       		.byte	57
+ 683 028f 80       		.byte	-128
+ 684 0290 3A       		.byte	58
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccnW07XW.s 			page 13
+
+
+ 685 0291 A2       		.byte	-94
+ 686 0292 3B       		.byte	59
+ 687 0293 20       		.byte	32
+ 688 0294 3E       		.byte	62
+ 689 0295 04       		.byte	4
+ 690 0296 40       		.byte	64
+ 691 0297 64       		.byte	100
+ 692 0298 45       		.byte	69
+ 693 0299 0E       		.byte	14
+ 694 029a 46       		.byte	70
+ 695 029b 0B       		.byte	11
+ 696 029c 47       		.byte	71
+ 697 029d 0C       		.byte	12
+ 698 029e 48       		.byte	72
+ 699 029f 15       		.byte	21
+ 700 02a0 49       		.byte	73
+ 701 02a1 FF       		.byte	-1
+ 702 02a2 4A       		.byte	74
+ 703 02a3 FF       		.byte	-1
+ 704 02a4 4B       		.byte	75
+ 705 02a5 FF       		.byte	-1
+ 706 02a6 56       		.byte	86
+ 707 02a7 02       		.byte	2
+ 708 02a8 57       		.byte	87
+ 709 02a9 11       		.byte	17
+ 710 02aa 58       		.byte	88
+ 711 02ab 04       		.byte	4
+ 712 02ac 59       		.byte	89
+ 713 02ad 04       		.byte	4
+ 714 02ae 5A       		.byte	90
+ 715 02af 04       		.byte	4
+ 716 02b0 5B       		.byte	91
+ 717 02b1 04       		.byte	4
+ 718 02b2 5C       		.byte	92
+ 719 02b3 11       		.byte	17
+ 720 02b4 5D       		.byte	93
+ 721 02b5 10       		.byte	16
+ 722 02b6 5F       		.byte	95
+ 723 02b7 01       		.byte	1
+ 724 02b8 62       		.byte	98
+ 725 02b9 C0       		.byte	-64
+ 726 02ba 64       		.byte	100
+ 727 02bb 40       		.byte	64
+ 728 02bc 65       		.byte	101
+ 729 02bd 01       		.byte	1
+ 730 02be 86       		.byte	-122
+ 731 02bf 0F       		.byte	15
+ 732 02c0 8C       		.byte	-116
+ 733 02c1 02       		.byte	2
+ 734 02c2 90       		.byte	-112
+ 735 02c3 01       		.byte	1
+ 736 02c4 94       		.byte	-108
+ 737 02c5 04       		.byte	4
+ 738 02c6 98       		.byte	-104
+ 739 02c7 07       		.byte	7
+ 740 02c8 9A       		.byte	-102
+ 741 02c9 08       		.byte	8
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccnW07XW.s 			page 14
+
+
+ 742 02ca A2       		.byte	-94
+ 743 02cb 07       		.byte	7
+ 744 02cc AA       		.byte	-86
+ 745 02cd 08       		.byte	8
+ 746 02ce B4       		.byte	-76
+ 747 02cf 0F       		.byte	15
+ 748 02d0 C0       		.byte	-64
+ 749 02d1 05       		.byte	5
+ 750 02d2 C7       		.byte	-57
+ 751 02d3 40       		.byte	64
+ 752 02d4 C9       		.byte	-55
+ 753 02d5 FF       		.byte	-1
+ 754 02d6 CA       		.byte	-54
+ 755 02d7 0F       		.byte	15
+ 756 02d8 CB       		.byte	-53
+ 757 02d9 FF       		.byte	-1
+ 758 02da CC       		.byte	-52
+ 759 02db 40       		.byte	64
+ 760 02dc CD       		.byte	-51
+ 761 02dd 20       		.byte	32
+ 762 02de CE       		.byte	-50
+ 763 02df F0       		.byte	-16
+ 764 02e0 CF       		.byte	-49
+ 765 02e1 05       		.byte	5
+ 766 02e2 D0       		.byte	-48
+ 767 02e3 08       		.byte	8
+ 768 02e4 D8       		.byte	-40
+ 769 02e5 04       		.byte	4
+ 770 02e6 DA       		.byte	-38
+ 771 02e7 04       		.byte	4
+ 772 02e8 DD       		.byte	-35
+ 773 02e9 01       		.byte	1
+ 774 02ea DF       		.byte	-33
+ 775 02eb 01       		.byte	1
+ 776 02ec E0       		.byte	-32
+ 777 02ed 40       		.byte	64
+ 778 02ee E1       		.byte	-31
+ 779 02ef A8       		.byte	-88
+ 780 02f0 E2       		.byte	-30
+ 781 02f1 40       		.byte	64
+ 782 02f2 E3       		.byte	-29
+ 783 02f3 20       		.byte	32
+ 784 02f4 00       		.byte	0
+ 785 02f5 08       		.byte	8
+ 786 02f6 03       		.byte	3
+ 787 02f7 02       		.byte	2
+ 788 02f8 04       		.byte	4
+ 789 02f9 46       		.byte	70
+ 790 02fa 05       		.byte	5
+ 791 02fb 10       		.byte	16
+ 792 02fc 06       		.byte	6
+ 793 02fd 06       		.byte	6
+ 794 02fe 0A       		.byte	10
+ 795 02ff 10       		.byte	16
+ 796 0300 0B       		.byte	11
+ 797 0301 88       		.byte	-120
+ 798 0302 0D       		.byte	13
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccnW07XW.s 			page 15
+
+
+ 799 0303 04       		.byte	4
+ 800 0304 0E       		.byte	14
+ 801 0305 02       		.byte	2
+ 802 0306 0F       		.byte	15
+ 803 0307 41       		.byte	65
+ 804 0308 11       		.byte	17
+ 805 0309 01       		.byte	1
+ 806 030a 12       		.byte	18
+ 807 030b 08       		.byte	8
+ 808 030c 15       		.byte	21
+ 809 030d 02       		.byte	2
+ 810 030e 16       		.byte	22
+ 811 030f 01       		.byte	1
+ 812 0310 17       		.byte	23
+ 813 0311 18       		.byte	24
+ 814 0312 1A       		.byte	26
+ 815 0313 08       		.byte	8
+ 816 0314 1C       		.byte	28
+ 817 0315 40       		.byte	64
+ 818 0316 1D       		.byte	29
+ 819 0317 10       		.byte	16
+ 820 0318 1E       		.byte	30
+ 821 0319 22       		.byte	34
+ 822 031a 1F       		.byte	31
+ 823 031b 10       		.byte	16
+ 824 031c 24       		.byte	36
+ 825 031d 06       		.byte	6
+ 826 031e 25       		.byte	37
+ 827 031f 04       		.byte	4
+ 828 0320 26       		.byte	38
+ 829 0321 80       		.byte	-128
+ 830 0322 27       		.byte	39
+ 831 0323 04       		.byte	4
+ 832 0324 2C       		.byte	44
+ 833 0325 02       		.byte	2
+ 834 0326 2E       		.byte	46
+ 835 0327 02       		.byte	2
+ 836 0328 2F       		.byte	47
+ 837 0329 10       		.byte	16
+ 838 032a 36       		.byte	54
+ 839 032b A1       		.byte	-95
+ 840 032c 37       		.byte	55
+ 841 032d 04       		.byte	4
+ 842 032e 3C       		.byte	60
+ 843 032f 02       		.byte	2
+ 844 0330 3E       		.byte	62
+ 845 0331 28       		.byte	40
+ 846 0332 3F       		.byte	63
+ 847 0333 40       		.byte	64
+ 848 0334 45       		.byte	69
+ 849 0335 02       		.byte	2
+ 850 0336 49       		.byte	73
+ 851 0337 40       		.byte	64
+ 852 0338 4E       		.byte	78
+ 853 0339 1C       		.byte	28
+ 854 033a 50       		.byte	80
+ 855 033b 08       		.byte	8
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccnW07XW.s 			page 16
+
+
+ 856 033c 53       		.byte	83
+ 857 033d 01       		.byte	1
+ 858 033e 55       		.byte	85
+ 859 033f 08       		.byte	8
+ 860 0340 56       		.byte	86
+ 861 0341 40       		.byte	64
+ 862 0342 58       		.byte	88
+ 863 0343 20       		.byte	32
+ 864 0344 5A       		.byte	90
+ 865 0345 20       		.byte	32
+ 866 0346 5E       		.byte	94
+ 867 0347 20       		.byte	32
+ 868 0348 6D       		.byte	109
+ 869 0349 90       		.byte	-112
+ 870 034a 6E       		.byte	110
+ 871 034b 09       		.byte	9
+ 872 034c 6F       		.byte	111
+ 873 034d 01       		.byte	1
+ 874 034e 74       		.byte	116
+ 875 034f 01       		.byte	1
+ 876 0350 76       		.byte	118
+ 877 0351 28       		.byte	40
+ 878 0352 77       		.byte	119
+ 879 0353 18       		.byte	24
+ 880 0354 92       		.byte	-110
+ 881 0355 C0       		.byte	-64
+ 882 0356 93       		.byte	-109
+ 883 0357 88       		.byte	-120
+ 884 0358 94       		.byte	-108
+ 885 0359 E0       		.byte	-32
+ 886 035a 95       		.byte	-107
+ 887 035b 05       		.byte	5
+ 888 035c 96       		.byte	-106
+ 889 035d 02       		.byte	2
+ 890 035e 97       		.byte	-105
+ 891 035f 03       		.byte	3
+ 892 0360 99       		.byte	-103
+ 893 0361 40       		.byte	64
+ 894 0362 9C       		.byte	-100
+ 895 0363 20       		.byte	32
+ 896 0364 9E       		.byte	-98
+ 897 0365 44       		.byte	68
+ 898 0366 9F       		.byte	-97
+ 899 0367 04       		.byte	4
+ 900 0368 A0       		.byte	-96
+ 901 0369 04       		.byte	4
+ 902 036a A1       		.byte	-95
+ 903 036b 22       		.byte	34
+ 904 036c A3       		.byte	-93
+ 905 036d 20       		.byte	32
+ 906 036e A4       		.byte	-92
+ 907 036f 2A       		.byte	42
+ 908 0370 A5       		.byte	-91
+ 909 0371 1C       		.byte	28
+ 910 0372 A6       		.byte	-90
+ 911 0373 02       		.byte	2
+ 912 0374 A7       		.byte	-89
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccnW07XW.s 			page 17
+
+
+ 913 0375 05       		.byte	5
+ 914 0376 B2       		.byte	-78
+ 915 0377 01       		.byte	1
+ 916 0378 B3       		.byte	-77
+ 917 0379 08       		.byte	8
+ 918 037a C0       		.byte	-64
+ 919 037b F5       		.byte	-11
+ 920 037c C2       		.byte	-62
+ 921 037d BE       		.byte	-66
+ 922 037e C4       		.byte	-60
+ 923 037f FA       		.byte	-6
+ 924 0380 CA       		.byte	-54
+ 925 0381 D0       		.byte	-48
+ 926 0382 CC       		.byte	-52
+ 927 0383 F0       		.byte	-16
+ 928 0384 CE       		.byte	-50
+ 929 0385 F0       		.byte	-16
+ 930 0386 D0       		.byte	-48
+ 931 0387 80       		.byte	-128
+ 932 0388 D2       		.byte	-46
+ 933 0389 28       		.byte	40
+ 934 038a D6       		.byte	-42
+ 935 038b 20       		.byte	32
+ 936 038c 04       		.byte	4
+ 937 038d 0A       		.byte	10
+ 938 038e 06       		.byte	6
+ 939 038f 05       		.byte	5
+ 940 0390 09       		.byte	9
+ 941 0391 02       		.byte	2
+ 942 0392 0B       		.byte	11
+ 943 0393 04       		.byte	4
+ 944 0394 0E       		.byte	14
+ 945 0395 02       		.byte	2
+ 946 0396 11       		.byte	17
+ 947 0397 02       		.byte	2
+ 948 0398 13       		.byte	19
+ 949 0399 04       		.byte	4
+ 950 039a 15       		.byte	21
+ 951 039b 01       		.byte	1
+ 952 039c 16       		.byte	22
+ 953 039d 09       		.byte	9
+ 954 039e 18       		.byte	24
+ 955 039f 05       		.byte	5
+ 956 03a0 19       		.byte	25
+ 957 03a1 02       		.byte	2
+ 958 03a2 1B       		.byte	27
+ 959 03a3 04       		.byte	4
+ 960 03a4 1D       		.byte	29
+ 961 03a5 02       		.byte	2
+ 962 03a6 1F       		.byte	31
+ 963 03a7 04       		.byte	4
+ 964 03a8 21       		.byte	33
+ 965 03a9 06       		.byte	6
+ 966 03aa 22       		.byte	34
+ 967 03ab 05       		.byte	5
+ 968 03ac 2F       		.byte	47
+ 969 03ad 08       		.byte	8
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccnW07XW.s 			page 18
+
+
+ 970 03ae 30       		.byte	48
+ 971 03af 03       		.byte	3
+ 972 03b0 31       		.byte	49
+ 973 03b1 06       		.byte	6
+ 974 03b2 32       		.byte	50
+ 975 03b3 0C       		.byte	12
+ 976 03b4 33       		.byte	51
+ 977 03b5 01       		.byte	1
+ 978 03b6 35       		.byte	53
+ 979 03b7 08       		.byte	8
+ 980 03b8 3A       		.byte	58
+ 981 03b9 0A       		.byte	10
+ 982 03ba 3F       		.byte	63
+ 983 03bb 04       		.byte	4
+ 984 03bc 40       		.byte	64
+ 985 03bd 26       		.byte	38
+ 986 03be 41       		.byte	65
+ 987 03bf 04       		.byte	4
+ 988 03c0 45       		.byte	69
+ 989 03c1 0B       		.byte	11
+ 990 03c2 46       		.byte	70
+ 991 03c3 C0       		.byte	-64
+ 992 03c4 47       		.byte	71
+ 993 03c5 0E       		.byte	14
+ 994 03c6 48       		.byte	72
+ 995 03c7 19       		.byte	25
+ 996 03c8 49       		.byte	73
+ 997 03c9 FF       		.byte	-1
+ 998 03ca 4A       		.byte	74
+ 999 03cb FF       		.byte	-1
+ 1000 03cc 4B       		.byte	75
+ 1001 03cd FF       		.byte	-1
+ 1002 03ce 4E       		.byte	78
+ 1003 03cf F0       		.byte	-16
+ 1004 03d0 4F       		.byte	79
+ 1005 03d1 44       		.byte	68
+ 1006 03d2 50       		.byte	80
+ 1007 03d3 0C       		.byte	12
+ 1008 03d4 54       		.byte	84
+ 1009 03d5 01       		.byte	1
+ 1010 03d6 58       		.byte	88
+ 1011 03d7 04       		.byte	4
+ 1012 03d8 59       		.byte	89
+ 1013 03d9 04       		.byte	4
+ 1014 03da 5A       		.byte	90
+ 1015 03db 04       		.byte	4
+ 1016 03dc 5B       		.byte	91
+ 1017 03dd 04       		.byte	4
+ 1018 03de 5C       		.byte	92
+ 1019 03df 10       		.byte	16
+ 1020 03e0 5D       		.byte	93
+ 1021 03e1 11       		.byte	17
+ 1022 03e2 5F       		.byte	95
+ 1023 03e3 01       		.byte	1
+ 1024 03e4 66       		.byte	102
+ 1025 03e5 C0       		.byte	-64
+ 1026 03e6 6A       		.byte	106
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccnW07XW.s 			page 19
+
+
+ 1027 03e7 40       		.byte	64
+ 1028 03e8 6B       		.byte	107
+ 1029 03e9 02       		.byte	2
+ 1030 03ea 80       		.byte	-128
+ 1031 03eb 03       		.byte	3
+ 1032 03ec 81       		.byte	-127
+ 1033 03ed 3D       		.byte	61
+ 1034 03ee 82       		.byte	-126
+ 1035 03ef FC       		.byte	-4
+ 1036 03f0 83       		.byte	-125
+ 1037 03f1 C0       		.byte	-64
+ 1038 03f2 89       		.byte	-119
+ 1039 03f3 CD       		.byte	-51
+ 1040 03f4 8B       		.byte	-117
+ 1041 03f5 30       		.byte	48
+ 1042 03f6 8C       		.byte	-116
+ 1043 03f7 48       		.byte	72
+ 1044 03f8 8D       		.byte	-115
+ 1045 03f9 C0       		.byte	-64
+ 1046 03fa 8E       		.byte	-114
+ 1047 03fb 25       		.byte	37
+ 1048 03fc 8F       		.byte	-113
+ 1049 03fd 30       		.byte	48
+ 1050 03fe 90       		.byte	-112
+ 1051 03ff 25       		.byte	37
+ 1052 0400 92       		.byte	-110
+ 1053 0401 DA       		.byte	-38
+ 1054 0402 93       		.byte	-109
+ 1055 0403 01       		.byte	1
+ 1056 0404 95       		.byte	-107
+ 1057 0405 CD       		.byte	-51
+ 1058 0406 97       		.byte	-105
+ 1059 0407 30       		.byte	48
+ 1060 0408 98       		.byte	-104
+ 1061 0409 E3       		.byte	-29
+ 1062 040a 99       		.byte	-103
+ 1063 040b A8       		.byte	-88
+ 1064 040c 9A       		.byte	-102
+ 1065 040d 1C       		.byte	28
+ 1066 040e 9B       		.byte	-101
+ 1067 040f 54       		.byte	84
+ 1068 0410 9C       		.byte	-100
+ 1069 0411 1F       		.byte	31
+ 1070 0412 9D       		.byte	-99
+ 1071 0413 0D       		.byte	13
+ 1072 0414 9E       		.byte	-98
+ 1073 0415 E0       		.byte	-32
+ 1074 0416 9F       		.byte	-97
+ 1075 0417 F0       		.byte	-16
+ 1076 0418 A0       		.byte	-96
+ 1077 0419 E0       		.byte	-32
+ 1078 041a A2       		.byte	-94
+ 1079 041b 1C       		.byte	28
+ 1080 041c A3       		.byte	-93
+ 1081 041d 02       		.byte	2
+ 1082 041e A4       		.byte	-92
+ 1083 041f 92       		.byte	-110
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccnW07XW.s 			page 20
+
+
+ 1084 0420 A6       		.byte	-90
+ 1085 0421 25       		.byte	37
+ 1086 0422 A8       		.byte	-88
+ 1087 0423 E3       		.byte	-29
+ 1088 0424 AA       		.byte	-86
+ 1089 0425 1C       		.byte	28
+ 1090 0426 AD       		.byte	-83
+ 1091 0427 55       		.byte	85
+ 1092 0428 AF       		.byte	-81
+ 1093 0429 A8       		.byte	-88
+ 1094 042a B1       		.byte	-79
+ 1095 042b 03       		.byte	3
+ 1096 042c B5       		.byte	-75
+ 1097 042d FC       		.byte	-4
+ 1098 042e B6       		.byte	-74
+ 1099 042f FF       		.byte	-1
+ 1100 0430 BE       		.byte	-66
+ 1101 0431 40       		.byte	64
+ 1102 0432 C0       		.byte	-64
+ 1103 0433 26       		.byte	38
+ 1104 0434 C5       		.byte	-59
+ 1105 0435 25       		.byte	37
+ 1106 0436 C6       		.byte	-58
+ 1107 0437 20       		.byte	32
+ 1108 0438 C7       		.byte	-57
+ 1109 0439 10       		.byte	16
+ 1110 043a C8       		.byte	-56
+ 1111 043b 2B       		.byte	43
+ 1112 043c C9       		.byte	-55
+ 1113 043d FF       		.byte	-1
+ 1114 043e CA       		.byte	-54
+ 1115 043f FF       		.byte	-1
+ 1116 0440 CB       		.byte	-53
+ 1117 0441 FF       		.byte	-1
+ 1118 0442 CD       		.byte	-51
+ 1119 0443 A0       		.byte	-96
+ 1120 0444 D8       		.byte	-40
+ 1121 0445 04       		.byte	4
+ 1122 0446 D9       		.byte	-39
+ 1123 0447 04       		.byte	4
+ 1124 0448 DA       		.byte	-38
+ 1125 0449 04       		.byte	4
+ 1126 044a DC       		.byte	-36
+ 1127 044b 10       		.byte	16
+ 1128 044c DF       		.byte	-33
+ 1129 044d 01       		.byte	1
+ 1130 044e E0       		.byte	-32
+ 1131 044f 40       		.byte	64
+ 1132 0450 E1       		.byte	-31
+ 1133 0451 40       		.byte	64
+ 1134 0452 E2       		.byte	-30
+ 1135 0453 C0       		.byte	-64
+ 1136 0454 E4       		.byte	-28
+ 1137 0455 C0       		.byte	-64
+ 1138 0456 E6       		.byte	-26
+ 1139 0457 C0       		.byte	-64
+ 1140 0458 00       		.byte	0
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccnW07XW.s 			page 21
+
+
+ 1141 0459 08       		.byte	8
+ 1142 045a 03       		.byte	3
+ 1143 045b 02       		.byte	2
+ 1144 045c 04       		.byte	4
+ 1145 045d 22       		.byte	34
+ 1146 045e 05       		.byte	5
+ 1147 045f 10       		.byte	16
+ 1148 0460 06       		.byte	6
+ 1149 0461 01       		.byte	1
+ 1150 0462 07       		.byte	7
+ 1151 0463 40       		.byte	64
+ 1152 0464 0A       		.byte	10
+ 1153 0465 10       		.byte	16
+ 1154 0466 0B       		.byte	11
+ 1155 0467 08       		.byte	8
+ 1156 0468 0C       		.byte	12
+ 1157 0469 50       		.byte	80
+ 1158 046a 0D       		.byte	13
+ 1159 046b 03       		.byte	3
+ 1160 046c 0E       		.byte	14
+ 1161 046d 09       		.byte	9
+ 1162 046e 11       		.byte	17
+ 1163 046f 01       		.byte	1
+ 1164 0470 15       		.byte	21
+ 1165 0471 18       		.byte	24
+ 1166 0472 17       		.byte	23
+ 1167 0473 09       		.byte	9
+ 1168 0474 18       		.byte	24
+ 1169 0475 80       		.byte	-128
+ 1170 0476 1A       		.byte	26
+ 1171 0477 10       		.byte	16
+ 1172 0478 1B       		.byte	27
+ 1173 0479 06       		.byte	6
+ 1174 047a 1F       		.byte	31
+ 1175 047b 80       		.byte	-128
+ 1176 047c 22       		.byte	34
+ 1177 047d 25       		.byte	37
+ 1178 047e 23       		.byte	35
+ 1179 047f 40       		.byte	64
+ 1180 0480 25       		.byte	37
+ 1181 0481 12       		.byte	18
+ 1182 0482 26       		.byte	38
+ 1183 0483 12       		.byte	18
+ 1184 0484 27       		.byte	39
+ 1185 0485 08       		.byte	8
+ 1186 0486 28       		.byte	40
+ 1187 0487 40       		.byte	64
+ 1188 0488 29       		.byte	41
+ 1189 0489 80       		.byte	-128
+ 1190 048a 2D       		.byte	45
+ 1191 048b 80       		.byte	-128
+ 1192 048c 2F       		.byte	47
+ 1193 048d 80       		.byte	-128
+ 1194 048e 30       		.byte	48
+ 1195 048f 10       		.byte	16
+ 1196 0490 33       		.byte	51
+ 1197 0491 49       		.byte	73
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccnW07XW.s 			page 22
+
+
+ 1198 0492 36       		.byte	54
+ 1199 0493 16       		.byte	22
+ 1200 0494 37       		.byte	55
+ 1201 0495 40       		.byte	64
+ 1202 0496 39       		.byte	57
+ 1203 0497 10       		.byte	16
+ 1204 0498 3D       		.byte	61
+ 1205 0499 90       		.byte	-112
+ 1206 049a 3E       		.byte	62
+ 1207 049b 01       		.byte	1
+ 1208 049c 42       		.byte	66
+ 1209 049d 40       		.byte	64
+ 1210 049e 43       		.byte	67
+ 1211 049f 20       		.byte	32
+ 1212 04a0 45       		.byte	69
+ 1213 04a1 20       		.byte	32
+ 1214 04a2 48       		.byte	72
+ 1215 04a3 28       		.byte	40
+ 1216 04a4 4D       		.byte	77
+ 1217 04a5 05       		.byte	5
+ 1218 04a6 4F       		.byte	79
+ 1219 04a7 20       		.byte	32
+ 1220 04a8 50       		.byte	80
+ 1221 04a9 10       		.byte	16
+ 1222 04aa 53       		.byte	83
+ 1223 04ab 08       		.byte	8
+ 1224 04ac 57       		.byte	87
+ 1225 04ad 11       		.byte	17
+ 1226 04ae 58       		.byte	88
+ 1227 04af 02       		.byte	2
+ 1228 04b0 59       		.byte	89
+ 1229 04b1 10       		.byte	16
+ 1230 04b2 5A       		.byte	90
+ 1231 04b3 88       		.byte	-120
+ 1232 04b4 80       		.byte	-128
+ 1233 04b5 02       		.byte	2
+ 1234 04b6 83       		.byte	-125
+ 1235 04b7 08       		.byte	8
+ 1236 04b8 8C       		.byte	-116
+ 1237 04b9 02       		.byte	2
+ 1238 04ba 8D       		.byte	-115
+ 1239 04bb 80       		.byte	-128
+ 1240 04bc 8E       		.byte	-114
+ 1241 04bd 01       		.byte	1
+ 1242 04be 90       		.byte	-112
+ 1243 04bf 02       		.byte	2
+ 1244 04c0 91       		.byte	-111
+ 1245 04c1 10       		.byte	16
+ 1246 04c2 92       		.byte	-110
+ 1247 04c3 C1       		.byte	-63
+ 1248 04c4 93       		.byte	-109
+ 1249 04c5 08       		.byte	8
+ 1250 04c6 94       		.byte	-108
+ 1251 04c7 A0       		.byte	-96
+ 1252 04c8 95       		.byte	-107
+ 1253 04c9 0F       		.byte	15
+ 1254 04ca 96       		.byte	-106
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccnW07XW.s 			page 23
+
+
+ 1255 04cb 12       		.byte	18
+ 1256 04cc 97       		.byte	-105
+ 1257 04cd 40       		.byte	64
+ 1258 04ce 9B       		.byte	-101
+ 1259 04cf 01       		.byte	1
+ 1260 04d0 9E       		.byte	-98
+ 1261 04d1 01       		.byte	1
+ 1262 04d2 A0       		.byte	-96
+ 1263 04d3 0C       		.byte	12
+ 1264 04d4 A1       		.byte	-95
+ 1265 04d5 60       		.byte	96
+ 1266 04d6 A2       		.byte	-94
+ 1267 04d7 04       		.byte	4
+ 1268 04d8 A3       		.byte	-93
+ 1269 04d9 20       		.byte	32
+ 1270 04da A4       		.byte	-92
+ 1271 04db 22       		.byte	34
+ 1272 04dc A5       		.byte	-91
+ 1273 04dd 10       		.byte	16
+ 1274 04de A6       		.byte	-90
+ 1275 04df 22       		.byte	34
+ 1276 04e0 A7       		.byte	-89
+ 1277 04e1 07       		.byte	7
+ 1278 04e2 C0       		.byte	-64
+ 1279 04e3 95       		.byte	-107
+ 1280 04e4 C2       		.byte	-62
+ 1281 04e5 D6       		.byte	-42
+ 1282 04e6 C4       		.byte	-60
+ 1283 04e7 78       		.byte	120
+ 1284 04e8 CA       		.byte	-54
+ 1285 04e9 99       		.byte	-103
+ 1286 04ea CC       		.byte	-52
+ 1287 04eb FF       		.byte	-1
+ 1288 04ec CE       		.byte	-50
+ 1289 04ed B4       		.byte	-76
+ 1290 04ee D0       		.byte	-48
+ 1291 04ef 25       		.byte	37
+ 1292 04f0 D2       		.byte	-46
+ 1293 04f1 24       		.byte	36
+ 1294 04f2 D6       		.byte	-42
+ 1295 04f3 0F       		.byte	15
+ 1296 04f4 30       		.byte	48
+ 1297 04f5 10       		.byte	16
+ 1298 04f6 33       		.byte	51
+ 1299 04f7 08       		.byte	8
+ 1300 04f8 35       		.byte	53
+ 1301 04f9 80       		.byte	-128
+ 1302 04fa CC       		.byte	-52
+ 1303 04fb 70       		.byte	112
+ 1304 04fc 84       		.byte	-124
+ 1305 04fd 10       		.byte	16
+ 1306 04fe 8D       		.byte	-115
+ 1307 04ff 80       		.byte	-128
+ 1308 0500 9C       		.byte	-100
+ 1309 0501 10       		.byte	16
+ 1310 0502 9D       		.byte	-99
+ 1311 0503 80       		.byte	-128
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccnW07XW.s 			page 24
+
+
+ 1312 0504 A7       		.byte	-89
+ 1313 0505 08       		.byte	8
+ 1314 0506 E6       		.byte	-26
+ 1315 0507 40       		.byte	64
+ 1316 0508 87       		.byte	-121
+ 1317 0509 10       		.byte	16
+ 1318 050a A7       		.byte	-89
+ 1319 050b 08       		.byte	8
+ 1320 050c E6       		.byte	-26
+ 1321 050d 40       		.byte	64
+ 1322 050e 87       		.byte	-121
+ 1323 050f 08       		.byte	8
+ 1324 0510 93       		.byte	-109
+ 1325 0511 20       		.byte	32
+ 1326 0512 A7       		.byte	-89
+ 1327 0513 08       		.byte	8
+ 1328 0514 E6       		.byte	-26
+ 1329 0515 40       		.byte	64
+ 1330 0516 8D       		.byte	-115
+ 1331 0517 02       		.byte	2
+ 1332 0518 E0       		.byte	-32
+ 1333 0519 02       		.byte	2
+ 1334 051a 53       		.byte	83
+ 1335 051b 10       		.byte	16
+ 1336 051c 93       		.byte	-109
+ 1337 051d 20       		.byte	32
+ 1338 051e D4       		.byte	-44
+ 1339 051f 20       		.byte	32
+ 1340 0520 99       		.byte	-103
+ 1341 0521 02       		.byte	2
+ 1342 0522 10       		.byte	16
+ 1343 0523 80       		.byte	-128
+ 1344 0524 75       		.byte	117
+ 1345 0525 02       		.byte	2
+ 1346 0526 8C       		.byte	-116
+ 1347 0527 80       		.byte	-128
+ 1348 0528 99       		.byte	-103
+ 1349 0529 02       		.byte	2
+ 1350 052a C4       		.byte	-60
+ 1351 052b 08       		.byte	8
+ 1352 052c DE       		.byte	-34
+ 1353 052d 04       		.byte	4
+ 1354 052e E6       		.byte	-26
+ 1355 052f 02       		.byte	2
+ 1356 0530 00       		.byte	0
+ 1357 0531 03       		.byte	3
+ 1358 0532 0C       		.byte	12
+ 1359 0533 03       		.byte	3
+ 1360 0534 10       		.byte	16
+ 1361 0535 03       		.byte	3
+ 1362 0536 1C       		.byte	28
+ 1363 0537 03       		.byte	3
+ 1364 0538 00       		.byte	0
+ 1365 0539 3F       		.byte	63
+ 1366 053a 00       		.byte	0
+ 1367 053b 00       		.byte	0
+ 1368 053c 80       		.byte	-128
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccnW07XW.s 			page 25
+
+
+ 1369 053d 80       		.byte	-128
+ 1370 053e 00       		.byte	0
+ 1371 053f 00       		.byte	0
+ 1372 0540 40       		.byte	64
+ 1373 0541 00       		.byte	0
+ 1374 0542 00       		.byte	0
+ 1375 0543 00       		.byte	0
+ 1376 0544 00       		.byte	0
+ 1377 0545 00       		.byte	0
+ 1378 0546 00       		.byte	0
+ 1379 0547 07       		.byte	7
+ 1380 0548 6D       		.byte	109
+ 1381 0549 00       		.byte	0
+ 1382 054a 12       		.byte	18
+ 1383 054b 08       		.byte	8
+ 1384 054c A4       		.byte	-92
+ 1385 054d 02       		.byte	2
+ 1386 054e 5A       		.byte	90
+ 1387 054f 20       		.byte	32
+ 1388 0550 00       		.byte	0
+ 1389 0551 00       		.byte	0
+ 1390 0552 49       		.byte	73
+ 1391 0553 08       		.byte	8
+ 1392 0554 00       		.byte	0
+ 1393 0555 03       		.byte	3
+ 1394 0556 00       		.byte	0
+ 1395 0557 10       		.byte	16
+ 1396 0558 21       		.byte	33
+ 1397 0559 00       		.byte	0
+ 1398 055a 00       		.byte	0
+ 1399 055b 07       		.byte	7
+ 1400 055c 00       		.byte	0
+ 1401 055d 07       		.byte	7
+ 1402 055e 49       		.byte	73
+ 1403 055f 00       		.byte	0
+ 1404 0560 00       		.byte	0
+ 1405 0561 00       		.byte	0
+ 1406 0562 89       		.byte	-119
+ 1407 0563 00       		.byte	0
+ 1408 0564 00       		.byte	0
+ 1409 0565 07       		.byte	7
+ 1410 0566 49       		.byte	73
+ 1411 0567 00       		.byte	0
+ 1412 0568 10       		.byte	16
+ 1413 0569 00       		.byte	0
+ 1414 056a 02       		.byte	2
+ 1415 056b 00       		.byte	0
+ 1416 056c 00       		.byte	0
+ 1417 056d 00       		.byte	0
+ 1418 056e 00       		.byte	0
+ 1419 056f 03       		.byte	3
+ 1420 0570 00       		.byte	0
+ 1421 0571 01       		.byte	1
+ 1422 0572 21       		.byte	33
+ 1423 0573 20       		.byte	32
+ 1424 0574 00       		.byte	0
+ 1425 0575 30       		.byte	48
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccnW07XW.s 			page 26
+
+
+ 1426 0576 38       		.byte	56
+ 1427 0577 08       		.byte	8
+ 1428 0578 07       		.byte	7
+ 1429 0579 04       		.byte	4
+ 1430 057a C0       		.byte	-64
+ 1431 057b 03       		.byte	3
+ 1432 057c 20       		.byte	32
+ 1433 057d 20       		.byte	32
+ 1434 057e 80       		.byte	-128
+ 1435 057f 00       		.byte	0
+ 1436 0580 00       		.byte	0
+ 1437 0581 00       		.byte	0
+ 1438 0582 00       		.byte	0
+ 1439 0583 05       		.byte	5
+ 1440 0584 45       		.byte	69
+ 1441 0585 02       		.byte	2
+ 1442 0586 03       		.byte	3
+ 1443 0587 00       		.byte	0
+ 1444 0588 01       		.byte	1
+ 1445 0589 C0       		.byte	-64
+ 1446 058a 0E       		.byte	14
+ 1447 058b 00       		.byte	0
+ 1448 058c 06       		.byte	6
+ 1449 058d FF       		.byte	-1
+ 1450 058e FF       		.byte	-1
+ 1451 058f FF       		.byte	-1
+ 1452 0590 62       		.byte	98
+ 1453 0591 A0       		.byte	-96
+ 1454 0592 F0       		.byte	-16
+ 1455 0593 41       		.byte	65
+ 1456 0594 0C       		.byte	12
+ 1457 0595 00       		.byte	0
+ 1458 0596 00       		.byte	0
+ 1459 0597 00       		.byte	0
+ 1460 0598 18       		.byte	24
+ 1461 0599 00       		.byte	0
+ 1462 059a 04       		.byte	4
+ 1463 059b 00       		.byte	0
+ 1464 059c 04       		.byte	4
+ 1465 059d 04       		.byte	4
+ 1466 059e 04       		.byte	4
+ 1467 059f 04       		.byte	4
+ 1468 05a0 10       		.byte	16
+ 1469 05a1 11       		.byte	17
+ 1470 05a2 00       		.byte	0
+ 1471 05a3 01       		.byte	1
+ 1472 05a4 00       		.byte	0
+ 1473 05a5 00       		.byte	0
+ 1474 05a6 00       		.byte	0
+ 1475 05a7 00       		.byte	0
+ 1476 05a8 00       		.byte	0
+ 1477 05a9 00       		.byte	0
+ 1478 05aa 40       		.byte	64
+ 1479 05ab 02       		.byte	2
+ 1480 05ac 00       		.byte	0
+ 1481 05ad 10       		.byte	16
+ 1482 05ae 30       		.byte	48
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccnW07XW.s 			page 27
+
+
+ 1483 05af 10       		.byte	16
+ 1484 05b0 00       		.byte	0
+ 1485 05b1 10       		.byte	16
+ 1486 05b2 10       		.byte	16
+ 1487 05b3 12       		.byte	18
+ 1488 05b4 00       		.byte	0
+ 1489 05b5 00       		.byte	0
+ 1490 05b6 00       		.byte	0
+ 1491 05b7 00       		.byte	0
+ 1492 05b8 00       		.byte	0
+ 1493 05b9 00       		.byte	0
+ 1494 05ba 00       		.byte	0
+ 1495 05bb 00       		.byte	0
+ 1496 05bc 00       		.byte	0
+ 1497 05bd 00       		.byte	0
+ 1498 05be 00       		.byte	0
+ 1499 05bf 00       		.byte	0
+ 1500 05c0 00       		.byte	0
+ 1501 05c1 00       		.byte	0
+ 1502 05c2 00       		.byte	0
+ 1503 05c3 00       		.byte	0
+ 1504 05c4 80       		.byte	-128
+ 1505 05c5 00       		.byte	0
+ 1506 05c6 40       		.byte	64
+ 1507 05c7 80       		.byte	-128
+ 1508 05c8 80       		.byte	-128
+ 1509 05c9 00       		.byte	0
+ 1510 05ca 80       		.byte	-128
+ 1511 05cb 00       		.byte	0
+ 1512 05cc 00       		.byte	0
+ 1513 05cd 00       		.byte	0
+ 1514 05ce 00       		.byte	0
+ 1515 05cf 00       		.byte	0
+ 1516 05d0 00       		.byte	0
+ 1517 05d1 01       		.byte	1
+ 1518 05d2 01       		.byte	1
+ 1519 05d3 00       		.byte	0
+ 1520 05d4 01       		.byte	1
+ 1521 05d5 00       		.byte	0
+ 1522 05d6 00       		.byte	0
+ 1523 05d7 00       		.byte	0
+ 1524 05d8 00       		.byte	0
+ 1525 05d9 0B       		.byte	11
+ 1526 05da 0B       		.byte	11
+ 1527 05db 00       		.byte	0
+ 1528 05dc 00       		.byte	0
+ 1529 05dd 00       		.byte	0
+ 1530 05de 00       		.byte	0
+ 1531 05df 00       		.byte	0
+ 1532 05e0 04       		.byte	4
+ 1533 05e1 00       		.byte	0
+ 1534 05e2 00       		.byte	0
+ 1535 05e3 06       		.byte	6
+ 1536 05e4 02       		.byte	2
+ 1537 05e5 00       		.byte	0
+ 1538 05e6 00       		.byte	0
+ 1539 05e7 00       		.byte	0
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccnW07XW.s 			page 28
+
+
+ 1540 05e8 00       		.byte	0
+ 1541 05e9 00       		.byte	0
+ 1542 05ea 00       		.byte	0
+ 1543 05eb 00       		.byte	0
+ 1544              		.section	.cywolatch,"a",%progbits
+ 1545              		.type	cy_meta_wonvl, %object
+ 1546              		.size	cy_meta_wonvl, 4
+ 1547              	cy_meta_wonvl:
+ 1548 0000 BC       		.byte	-68
+ 1549 0001 90       		.byte	-112
+ 1550 0002 AC       		.byte	-84
+ 1551 0003 AF       		.byte	-81
+ 1552              		.section	.cycustnvl,"a",%progbits
+ 1553              		.type	cy_meta_custnvl, %object
+ 1554              		.size	cy_meta_custnvl, 4
+ 1555              	cy_meta_custnvl:
+ 1556 0000 00       		.byte	0
+ 1557 0001 00       		.byte	0
+ 1558 0002 40       		.byte	64
+ 1559 0003 05       		.byte	5
+ 1560              		.section	.cymeta,"a",%progbits
+ 1561              		.type	cy_metadata, %object
+ 1562              		.size	cy_metadata, 12
+ 1563              	cy_metadata:
+ 1564 0000 00       		.byte	0
+ 1565 0001 01       		.byte	1
+ 1566 0002 2E       		.byte	46
+ 1567 0003 16       		.byte	22
+ 1568 0004 10       		.byte	16
+ 1569 0005 69       		.byte	105
+ 1570 0006 00       		.byte	0
+ 1571 0007 01       		.byte	1
+ 1572 0008 00       		.byte	0
+ 1573 0009 00       		.byte	0
+ 1574 000a 00       		.byte	0
+ 1575 000b 00       		.byte	0
+ 1576              		.section	.cyflashprotect,"a",%progbits
+ 1577              		.type	cy_meta_flashprotect, %object
+ 1578              		.size	cy_meta_flashprotect, 256
+ 1579              	cy_meta_flashprotect:
+ 1580 0000 00000000 		.space	256
+ 1580      00000000 
+ 1580      00000000 
+ 1580      00000000 
+ 1580      00000000 
+ 1581              		.text
+ 1582              	.Letext0:
+ 1583              		.file 1 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 1584              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 1585              		.file 3 "Generated_Source\\PSoC5\\cymetadata.c"
+ 1586              		.section	.debug_info,"",%progbits
+ 1587              	.Ldebug_info0:
+ 1588 0000 33010000 		.4byte	0x133
+ 1589 0004 0400     		.2byte	0x4
+ 1590 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 1591 000a 04       		.byte	0x4
+ 1592 000b 01       		.uleb128 0x1
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccnW07XW.s 			page 29
+
+
+ 1593 000c E3000000 		.4byte	.LASF17
+ 1594 0010 0C       		.byte	0xc
+ 1595 0011 D2010000 		.4byte	.LASF18
+ 1596 0015 0A000000 		.4byte	.LASF19
+ 1597 0019 00000000 		.4byte	.Ldebug_line0
+ 1598 001d 02       		.uleb128 0x2
+ 1599 001e 01       		.byte	0x1
+ 1600 001f 06       		.byte	0x6
+ 1601 0020 C6010000 		.4byte	.LASF0
+ 1602 0024 03       		.uleb128 0x3
+ 1603 0025 00000000 		.4byte	.LASF9
+ 1604 0029 01       		.byte	0x1
+ 1605 002a 1D       		.byte	0x1d
+ 1606 002b 2F000000 		.4byte	0x2f
+ 1607 002f 02       		.uleb128 0x2
+ 1608 0030 01       		.byte	0x1
+ 1609 0031 08       		.byte	0x8
+ 1610 0032 81000000 		.4byte	.LASF1
+ 1611 0036 02       		.uleb128 0x2
+ 1612 0037 02       		.byte	0x2
+ 1613 0038 05       		.byte	0x5
+ 1614 0039 B3010000 		.4byte	.LASF2
+ 1615 003d 02       		.uleb128 0x2
+ 1616 003e 02       		.byte	0x2
+ 1617 003f 07       		.byte	0x7
+ 1618 0040 A1000000 		.4byte	.LASF3
+ 1619 0044 02       		.uleb128 0x2
+ 1620 0045 04       		.byte	0x4
+ 1621 0046 05       		.byte	0x5
+ 1622 0047 BD010000 		.4byte	.LASF4
+ 1623 004b 02       		.uleb128 0x2
+ 1624 004c 04       		.byte	0x4
+ 1625 004d 07       		.byte	0x7
+ 1626 004e 8F000000 		.4byte	.LASF5
+ 1627 0052 02       		.uleb128 0x2
+ 1628 0053 08       		.byte	0x8
+ 1629 0054 05       		.byte	0x5
+ 1630 0055 A5010000 		.4byte	.LASF6
+ 1631 0059 02       		.uleb128 0x2
+ 1632 005a 08       		.byte	0x8
+ 1633 005b 07       		.byte	0x7
+ 1634 005c 6A000000 		.4byte	.LASF7
+ 1635 0060 04       		.uleb128 0x4
+ 1636 0061 04       		.byte	0x4
+ 1637 0062 05       		.byte	0x5
+ 1638 0063 696E7400 		.ascii	"int\000"
+ 1639 0067 02       		.uleb128 0x2
+ 1640 0068 04       		.byte	0x4
+ 1641 0069 07       		.byte	0x7
+ 1642 006a D6000000 		.4byte	.LASF8
+ 1643 006e 03       		.uleb128 0x3
+ 1644 006f 71010000 		.4byte	.LASF10
+ 1645 0073 02       		.byte	0x2
+ 1646 0074 18       		.byte	0x18
+ 1647 0075 24000000 		.4byte	0x24
+ 1648 0079 05       		.uleb128 0x5
+ 1649 007a 91000000 		.4byte	0x91
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccnW07XW.s 			page 30
+
+
+ 1650 007e 8A000000 		.4byte	0x8a
+ 1651 0082 06       		.uleb128 0x6
+ 1652 0083 8A000000 		.4byte	0x8a
+ 1653 0087 EB05     		.2byte	0x5eb
+ 1654 0089 00       		.byte	0
+ 1655 008a 02       		.uleb128 0x2
+ 1656 008b 04       		.byte	0x4
+ 1657 008c 07       		.byte	0x7
+ 1658 008d 9C010000 		.4byte	.LASF11
+ 1659 0091 07       		.uleb128 0x7
+ 1660 0092 6E000000 		.4byte	0x6e
+ 1661 0096 08       		.uleb128 0x8
+ 1662 0097 C4000000 		.4byte	.LASF12
+ 1663 009b 03       		.byte	0x3
+ 1664 009c 1F       		.byte	0x1f
+ 1665 009d A7000000 		.4byte	0xa7
+ 1666 00a1 05       		.uleb128 0x5
+ 1667 00a2 03       		.byte	0x3
+ 1668 00a3 00000000 		.4byte	cy_meta_configecc
+ 1669 00a7 07       		.uleb128 0x7
+ 1670 00a8 79000000 		.4byte	0x79
+ 1671 00ac 05       		.uleb128 0x5
+ 1672 00ad 91000000 		.4byte	0x91
+ 1673 00b1 BC000000 		.4byte	0xbc
+ 1674 00b5 09       		.uleb128 0x9
+ 1675 00b6 8A000000 		.4byte	0x8a
+ 1676 00ba 03       		.byte	0x3
+ 1677 00bb 00       		.byte	0
+ 1678 00bc 08       		.uleb128 0x8
+ 1679 00bd B4000000 		.4byte	.LASF13
+ 1680 00c1 03       		.byte	0x3
+ 1681 00c2 EA       		.byte	0xea
+ 1682 00c3 CD000000 		.4byte	0xcd
+ 1683 00c7 05       		.uleb128 0x5
+ 1684 00c8 03       		.byte	0x3
+ 1685 00c9 00000000 		.4byte	cy_meta_custnvl
+ 1686 00cd 07       		.uleb128 0x7
+ 1687 00ce AC000000 		.4byte	0xac
+ 1688 00d2 08       		.uleb128 0x8
+ 1689 00d3 8E010000 		.4byte	.LASF14
+ 1690 00d7 03       		.byte	0x3
+ 1691 00d8 F8       		.byte	0xf8
+ 1692 00d9 E3000000 		.4byte	0xe3
+ 1693 00dd 05       		.uleb128 0x5
+ 1694 00de 03       		.byte	0x3
+ 1695 00df 00000000 		.4byte	cy_meta_wonvl
+ 1696 00e3 07       		.uleb128 0x7
+ 1697 00e4 AC000000 		.4byte	0xac
+ 1698 00e8 05       		.uleb128 0x5
+ 1699 00e9 91000000 		.4byte	0x91
+ 1700 00ed F8000000 		.4byte	0xf8
+ 1701 00f1 09       		.uleb128 0x9
+ 1702 00f2 8A000000 		.4byte	0x8a
+ 1703 00f6 FF       		.byte	0xff
+ 1704 00f7 00       		.byte	0
+ 1705 00f8 0A       		.uleb128 0xa
+ 1706 00f9 79010000 		.4byte	.LASF15
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccnW07XW.s 			page 31
+
+
+ 1707 00fd 03       		.byte	0x3
+ 1708 00fe 0601     		.2byte	0x106
+ 1709 0100 0A010000 		.4byte	0x10a
+ 1710 0104 05       		.uleb128 0x5
+ 1711 0105 03       		.byte	0x3
+ 1712 0106 00000000 		.4byte	cy_meta_flashprotect
+ 1713 010a 07       		.uleb128 0x7
+ 1714 010b E8000000 		.4byte	0xe8
+ 1715 010f 05       		.uleb128 0x5
+ 1716 0110 91000000 		.4byte	0x91
+ 1717 0114 1F010000 		.4byte	0x11f
+ 1718 0118 09       		.uleb128 0x9
+ 1719 0119 8A000000 		.4byte	0x8a
+ 1720 011d 0B       		.byte	0xb
+ 1721 011e 00       		.byte	0
+ 1722 011f 0A       		.uleb128 0xa
+ 1723 0120 5E000000 		.4byte	.LASF16
+ 1724 0124 03       		.byte	0x3
+ 1725 0125 3301     		.2byte	0x133
+ 1726 0127 31010000 		.4byte	0x131
+ 1727 012b 05       		.uleb128 0x5
+ 1728 012c 03       		.byte	0x3
+ 1729 012d 00000000 		.4byte	cy_metadata
+ 1730 0131 07       		.uleb128 0x7
+ 1731 0132 0F010000 		.4byte	0x10f
+ 1732 0136 00       		.byte	0
+ 1733              		.section	.debug_abbrev,"",%progbits
+ 1734              	.Ldebug_abbrev0:
+ 1735 0000 01       		.uleb128 0x1
+ 1736 0001 11       		.uleb128 0x11
+ 1737 0002 01       		.byte	0x1
+ 1738 0003 25       		.uleb128 0x25
+ 1739 0004 0E       		.uleb128 0xe
+ 1740 0005 13       		.uleb128 0x13
+ 1741 0006 0B       		.uleb128 0xb
+ 1742 0007 03       		.uleb128 0x3
+ 1743 0008 0E       		.uleb128 0xe
+ 1744 0009 1B       		.uleb128 0x1b
+ 1745 000a 0E       		.uleb128 0xe
+ 1746 000b 10       		.uleb128 0x10
+ 1747 000c 17       		.uleb128 0x17
+ 1748 000d 00       		.byte	0
+ 1749 000e 00       		.byte	0
+ 1750 000f 02       		.uleb128 0x2
+ 1751 0010 24       		.uleb128 0x24
+ 1752 0011 00       		.byte	0
+ 1753 0012 0B       		.uleb128 0xb
+ 1754 0013 0B       		.uleb128 0xb
+ 1755 0014 3E       		.uleb128 0x3e
+ 1756 0015 0B       		.uleb128 0xb
+ 1757 0016 03       		.uleb128 0x3
+ 1758 0017 0E       		.uleb128 0xe
+ 1759 0018 00       		.byte	0
+ 1760 0019 00       		.byte	0
+ 1761 001a 03       		.uleb128 0x3
+ 1762 001b 16       		.uleb128 0x16
+ 1763 001c 00       		.byte	0
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccnW07XW.s 			page 32
+
+
+ 1764 001d 03       		.uleb128 0x3
+ 1765 001e 0E       		.uleb128 0xe
+ 1766 001f 3A       		.uleb128 0x3a
+ 1767 0020 0B       		.uleb128 0xb
+ 1768 0021 3B       		.uleb128 0x3b
+ 1769 0022 0B       		.uleb128 0xb
+ 1770 0023 49       		.uleb128 0x49
+ 1771 0024 13       		.uleb128 0x13
+ 1772 0025 00       		.byte	0
+ 1773 0026 00       		.byte	0
+ 1774 0027 04       		.uleb128 0x4
+ 1775 0028 24       		.uleb128 0x24
+ 1776 0029 00       		.byte	0
+ 1777 002a 0B       		.uleb128 0xb
+ 1778 002b 0B       		.uleb128 0xb
+ 1779 002c 3E       		.uleb128 0x3e
+ 1780 002d 0B       		.uleb128 0xb
+ 1781 002e 03       		.uleb128 0x3
+ 1782 002f 08       		.uleb128 0x8
+ 1783 0030 00       		.byte	0
+ 1784 0031 00       		.byte	0
+ 1785 0032 05       		.uleb128 0x5
+ 1786 0033 01       		.uleb128 0x1
+ 1787 0034 01       		.byte	0x1
+ 1788 0035 49       		.uleb128 0x49
+ 1789 0036 13       		.uleb128 0x13
+ 1790 0037 01       		.uleb128 0x1
+ 1791 0038 13       		.uleb128 0x13
+ 1792 0039 00       		.byte	0
+ 1793 003a 00       		.byte	0
+ 1794 003b 06       		.uleb128 0x6
+ 1795 003c 21       		.uleb128 0x21
+ 1796 003d 00       		.byte	0
+ 1797 003e 49       		.uleb128 0x49
+ 1798 003f 13       		.uleb128 0x13
+ 1799 0040 2F       		.uleb128 0x2f
+ 1800 0041 05       		.uleb128 0x5
+ 1801 0042 00       		.byte	0
+ 1802 0043 00       		.byte	0
+ 1803 0044 07       		.uleb128 0x7
+ 1804 0045 26       		.uleb128 0x26
+ 1805 0046 00       		.byte	0
+ 1806 0047 49       		.uleb128 0x49
+ 1807 0048 13       		.uleb128 0x13
+ 1808 0049 00       		.byte	0
+ 1809 004a 00       		.byte	0
+ 1810 004b 08       		.uleb128 0x8
+ 1811 004c 34       		.uleb128 0x34
+ 1812 004d 00       		.byte	0
+ 1813 004e 03       		.uleb128 0x3
+ 1814 004f 0E       		.uleb128 0xe
+ 1815 0050 3A       		.uleb128 0x3a
+ 1816 0051 0B       		.uleb128 0xb
+ 1817 0052 3B       		.uleb128 0x3b
+ 1818 0053 0B       		.uleb128 0xb
+ 1819 0054 49       		.uleb128 0x49
+ 1820 0055 13       		.uleb128 0x13
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccnW07XW.s 			page 33
+
+
+ 1821 0056 3F       		.uleb128 0x3f
+ 1822 0057 19       		.uleb128 0x19
+ 1823 0058 02       		.uleb128 0x2
+ 1824 0059 18       		.uleb128 0x18
+ 1825 005a 00       		.byte	0
+ 1826 005b 00       		.byte	0
+ 1827 005c 09       		.uleb128 0x9
+ 1828 005d 21       		.uleb128 0x21
+ 1829 005e 00       		.byte	0
+ 1830 005f 49       		.uleb128 0x49
+ 1831 0060 13       		.uleb128 0x13
+ 1832 0061 2F       		.uleb128 0x2f
+ 1833 0062 0B       		.uleb128 0xb
+ 1834 0063 00       		.byte	0
+ 1835 0064 00       		.byte	0
+ 1836 0065 0A       		.uleb128 0xa
+ 1837 0066 34       		.uleb128 0x34
+ 1838 0067 00       		.byte	0
+ 1839 0068 03       		.uleb128 0x3
+ 1840 0069 0E       		.uleb128 0xe
+ 1841 006a 3A       		.uleb128 0x3a
+ 1842 006b 0B       		.uleb128 0xb
+ 1843 006c 3B       		.uleb128 0x3b
+ 1844 006d 05       		.uleb128 0x5
+ 1845 006e 49       		.uleb128 0x49
+ 1846 006f 13       		.uleb128 0x13
+ 1847 0070 3F       		.uleb128 0x3f
+ 1848 0071 19       		.uleb128 0x19
+ 1849 0072 02       		.uleb128 0x2
+ 1850 0073 18       		.uleb128 0x18
+ 1851 0074 00       		.byte	0
+ 1852 0075 00       		.byte	0
+ 1853 0076 00       		.byte	0
+ 1854              		.section	.debug_aranges,"",%progbits
+ 1855 0000 14000000 		.4byte	0x14
+ 1856 0004 0200     		.2byte	0x2
+ 1857 0006 00000000 		.4byte	.Ldebug_info0
+ 1858 000a 04       		.byte	0x4
+ 1859 000b 00       		.byte	0
+ 1860 000c 0000     		.2byte	0
+ 1861 000e 0000     		.2byte	0
+ 1862 0010 00000000 		.4byte	0
+ 1863 0014 00000000 		.4byte	0
+ 1864              		.section	.debug_line,"",%progbits
+ 1865              	.Ldebug_line0:
+ 1866 0000 3D010000 		.section	.debug_str,"MS",%progbits,1
+ 1866      02003701 
+ 1866      00000201 
+ 1866      FB0E0D00 
+ 1866      01010101 
+ 1867              	.LASF9:
+ 1868 0000 5F5F7569 		.ascii	"__uint8_t\000"
+ 1868      6E74385F 
+ 1868      7400
+ 1869              	.LASF19:
+ 1870 000a 433A5C55 		.ascii	"C:\\Users\\matij\\source\\Workspaces\\Embedded\\PSo"
+ 1870      73657273 
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccnW07XW.s 			page 34
+
+
+ 1870      5C6D6174 
+ 1870      696A5C73 
+ 1870      6F757263 
+ 1871 0037 435C4C69 		.ascii	"C\\Libraries\\Ontwikkeling\\BCom0.3.cydsn\000"
+ 1871      62726172 
+ 1871      6965735C 
+ 1871      4F6E7477 
+ 1871      696B6B65 
+ 1872              	.LASF16:
+ 1873 005e 63795F6D 		.ascii	"cy_metadata\000"
+ 1873      65746164 
+ 1873      61746100 
+ 1874              	.LASF7:
+ 1875 006a 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1875      206C6F6E 
+ 1875      6720756E 
+ 1875      7369676E 
+ 1875      65642069 
+ 1876              	.LASF1:
+ 1877 0081 756E7369 		.ascii	"unsigned char\000"
+ 1877      676E6564 
+ 1877      20636861 
+ 1877      7200
+ 1878              	.LASF5:
+ 1879 008f 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1879      20756E73 
+ 1879      69676E65 
+ 1879      6420696E 
+ 1879      7400
+ 1880              	.LASF3:
+ 1881 00a1 73686F72 		.ascii	"short unsigned int\000"
+ 1881      7420756E 
+ 1881      7369676E 
+ 1881      65642069 
+ 1881      6E7400
+ 1882              	.LASF13:
+ 1883 00b4 63795F6D 		.ascii	"cy_meta_custnvl\000"
+ 1883      6574615F 
+ 1883      63757374 
+ 1883      6E766C00 
+ 1884              	.LASF12:
+ 1885 00c4 63795F6D 		.ascii	"cy_meta_configecc\000"
+ 1885      6574615F 
+ 1885      636F6E66 
+ 1885      69676563 
+ 1885      6300
+ 1886              	.LASF8:
+ 1887 00d6 756E7369 		.ascii	"unsigned int\000"
+ 1887      676E6564 
+ 1887      20696E74 
+ 1887      00
+ 1888              	.LASF17:
+ 1889 00e3 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1889      43313120 
+ 1889      352E342E 
+ 1889      31203230 
+ 1889      31363036 
+ARM GAS  C:\Users\matij\AppData\Local\Temp\ccnW07XW.s 			page 35
+
+
+ 1890 0116 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 1890      20726576 
+ 1890      6973696F 
+ 1890      6E203233 
+ 1890      37373135 
+ 1891 0149 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 1891      66756E63 
+ 1891      74696F6E 
+ 1891      2D736563 
+ 1891      74696F6E 
+ 1892              	.LASF10:
+ 1893 0171 75696E74 		.ascii	"uint8_t\000"
+ 1893      385F7400 
+ 1894              	.LASF15:
+ 1895 0179 63795F6D 		.ascii	"cy_meta_flashprotect\000"
+ 1895      6574615F 
+ 1895      666C6173 
+ 1895      6870726F 
+ 1895      74656374 
+ 1896              	.LASF14:
+ 1897 018e 63795F6D 		.ascii	"cy_meta_wonvl\000"
+ 1897      6574615F 
+ 1897      776F6E76 
+ 1897      6C00
+ 1898              	.LASF11:
+ 1899 019c 73697A65 		.ascii	"sizetype\000"
+ 1899      74797065 
+ 1899      00
+ 1900              	.LASF6:
+ 1901 01a5 6C6F6E67 		.ascii	"long long int\000"
+ 1901      206C6F6E 
+ 1901      6720696E 
+ 1901      7400
+ 1902              	.LASF2:
+ 1903 01b3 73686F72 		.ascii	"short int\000"
+ 1903      7420696E 
+ 1903      7400
+ 1904              	.LASF4:
+ 1905 01bd 6C6F6E67 		.ascii	"long int\000"
+ 1905      20696E74 
+ 1905      00
+ 1906              	.LASF0:
+ 1907 01c6 7369676E 		.ascii	"signed char\000"
+ 1907      65642063 
+ 1907      68617200 
+ 1908              	.LASF18:
+ 1909 01d2 47656E65 		.ascii	"Generated_Source\\PSoC5\\cymetadata.c\000"
+ 1909      72617465 
+ 1909      645F536F 
+ 1909      75726365 
+ 1909      5C50536F 
+ 1910              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
