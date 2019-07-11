@@ -29,4 +29,5 @@ User interface -> Mqtt Broker
 	  
 	  
 	  
-	  
+Added a PSoC component. 
+Not nearly ready. 
