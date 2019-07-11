@@ -8,6 +8,7 @@ using System.Web.Script.Serialization;
 using Toolkits;
 using Toolkits.Networking.M2Mqtt;
 using Toolkits.Networking.M2Mqtt.Messages;
+using Toolkits.IO;
 
 namespace BCom2Mqtt
 {
@@ -57,9 +58,9 @@ namespace BCom2Mqtt
                     Bcs.TransmitAsync(bcf.Import(e.Message).Rebuild());
                 }
             }
-            catch (Exception)
+            catch (Exception ex )
             {
-                ConsoleEx.Error("Check JSon string. Import failed.");
+                ConsoleEx.Error("Check JSon string. Import failed." + ex.ToString());
             }
             
         }
@@ -70,7 +71,7 @@ namespace BCom2Mqtt
 
             BCom bcom = new BCom();
             Bcs = new BComNetworkLayer(bcom);
-            bcom.Setup(Properties.Settings.Default.CommPort, 115200);
+            bcom.Connect(Properties.Settings.Default.CommPort, 115200);
             bcom.OnDataReceived += OnBComDataReceived;
 
             string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();

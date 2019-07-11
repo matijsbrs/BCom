@@ -3,10 +3,10 @@
   <Profiles />
   <Settings>
     <Setting Name="BrokerAddres" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">192.168.0.140</Value>
+      <Value Profile="(Default)">192.168.178.52</Value>
     </Setting>
     <Setting Name="CommPort" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">COM13</Value>
+      <Value Profile="(Default)">COM30</Value>
     </Setting>
   </Settings>
 </SettingsFile>

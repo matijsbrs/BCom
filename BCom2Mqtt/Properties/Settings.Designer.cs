@@ -25,7 +25,7 @@ namespace BCom2Mqtt.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("192.168.0.140")]
+        [global::System.Configuration.DefaultSettingValueAttribute("192.168.178.52")]
         public string BrokerAddres {
             get {
                 return ((string)(this["BrokerAddres"]));
@@ -34,7 +34,7 @@ namespace BCom2Mqtt.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("COM13")]
+        [global::System.Configuration.DefaultSettingValueAttribute("COM30")]
         public string CommPort {
             get {
                 return ((string)(this["CommPort"]));
