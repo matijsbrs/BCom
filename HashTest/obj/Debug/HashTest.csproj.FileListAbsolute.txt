@@ -1,0 +1,15 @@
+C:\Users\matij\source\Workspaces\Utilities\Code\Libraries\HashTest\bin\Debug\HashTest.exe.config
+C:\Users\matij\source\Workspaces\Utilities\Code\Libraries\HashTest\bin\Debug\HashTest.exe
+C:\Users\matij\source\Workspaces\Utilities\Code\Libraries\HashTest\bin\Debug\HashTest.pdb
+C:\Users\matij\source\Workspaces\Utilities\Code\Libraries\HashTest\bin\Debug\Toolkits.dll
+C:\Users\matij\source\Workspaces\Utilities\Code\Libraries\HashTest\bin\Debug\Toolkits.pdb
+C:\Users\matij\source\Workspaces\Utilities\Code\Libraries\HashTest\obj\Debug\HashTest.csprojAssemblyReference.cache
+C:\Users\matij\source\Workspaces\Utilities\Code\Libraries\HashTest\obj\Debug\HashTest.csproj.CoreCompileInputs.cache
+C:\Users\matij\source\Workspaces\Utilities\Code\Libraries\HashTest\obj\Debug\HashTest.csproj.CopyComplete
+C:\Users\matij\source\Workspaces\Utilities\Code\Libraries\HashTest\obj\Debug\HashTest.exe
+C:\Users\matij\source\Workspaces\Utilities\Code\Libraries\HashTest\obj\Debug\HashTest.pdb
+C:\Users\matij\source\Workspaces\Utilities\Code\Libraries\HashTest\obj\Debug\HashTest.Properties.Resources.resources
+C:\Users\matij\source\Workspaces\Utilities\Code\Libraries\HashTest\obj\Debug\HashTest.csproj.GenerateResource.cache
+C:\Users\matij\source\Workspaces\Utilities\Code\Libraries\HashTest\bin\Debug\BCMsgCommander.exe
+C:\Users\matij\source\Workspaces\Utilities\Code\Libraries\HashTest\bin\Debug\BCMsgCommander.pdb
+C:\Users\matij\source\Workspaces\Utilities\Code\Libraries\HashTest\bin\Debug\BCMsgCommander.exe.config
