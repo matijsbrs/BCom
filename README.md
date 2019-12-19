@@ -15,17 +15,17 @@ for now this is just a project for educational perposes.
 
 The layout is simple:
 
-Microcontroller -> RS232/RS485 -> Tranciever -> USB -> RaspberryPi -> Mqtt Broker 
-^------+------^                                        ^-----------+------------^
-       | 											               |
-	   +- PSoC creator project							           +- BCom2Mqtt C# project
-		  PSoC 5 Devkit C project
+```Microcontroller -> RS232/RS485 -> Tranciever -> USB -> RaspberryPi -> Mqtt Broker 
+```^------+------^                                        ^-----------+------------^
+```       | 							      |
+```	   +- PSoC creator project			              +- BCom2Mqtt C# project
+```		  PSoC 5 Devkit C project
 		  
 		  
-User interface -> Mqtt Broker
-^-----+------^
-      |
-	  +-> C# project`
+```User interface -> Mqtt Broker
+```^-----+------^
+```      |
+````     +-> C# project`
 	  
 	  
 	  
